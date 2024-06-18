@@ -14,11 +14,19 @@ struct Configuration {
     port: u16,
 }
 
+impl Configuration {
+    pub fn new_from_env() -> Result<Configuration> {
+        let result = from_env::<Configuration>()?;
+        trace!("Read environment configuration: {:?}", result);
+        Ok(result)
+    }
+}
+
 #[actix_web::main]
 async fn main() -> Result<()> {
     let _ = dotenv();
     initialize_logger();
-    let configuration = read_configuration()?;
+    let configuration = Configuration::new_from_env()?;
 
     HttpServer::new(|| App::new().wrap(Logger::default()).service(health_check))
         .bind((configuration.host, configuration.port))?
@@ -40,10 +48,4 @@ fn initialize_logger() {
         .init();
 
     info!("Initialized logger.");
-}
-
-fn read_configuration() -> Result<Configuration> {
-    let result = from_env::<Configuration>()?;
-    trace!("Read environment configuration: {:?}", result);
-    Ok(result)
 }

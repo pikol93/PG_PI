@@ -16,7 +16,8 @@ struct Configuration {
 
 #[actix_web::main]
 async fn main() -> Result<()> {
-    initialize_logger()?;
+    let _ = dotenv();
+    initialize_logger();
     let configuration = read_configuration()?;
 
     HttpServer::new(|| App::new().wrap(Logger::default()).service(health_check))
@@ -33,21 +34,15 @@ async fn health_check() -> impl Responder {
 }
 
 #[instrument]
-fn initialize_logger() -> Result<()> {
-    dotenv()?;
-
+fn initialize_logger() {
     tracing_subscriber::fmt()
         .with_env_filter(EnvFilter::from_default_env())
         .init();
 
     info!("Initialized logger.");
-
-    Ok(())
 }
 
 fn read_configuration() -> Result<Configuration> {
-    dotenv()?;
-
     let result = from_env::<Configuration>()?;
     trace!("Read environment configuration: {:?}", result);
     Ok(result)

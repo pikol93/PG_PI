@@ -1,0 +1,17 @@
+services:
+  
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+  
+  backend:
+    image: pi_backend
+    build: ./backend
+    restart: always
+    environment:
+      RUST_LOG: trace,actix_server=info,actix_web=info,mio=info,actix_http=info
+      HOST: 0.0.0.0
+      PORT: 1234

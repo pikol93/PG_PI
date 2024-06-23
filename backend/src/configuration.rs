@@ -6,6 +6,7 @@ use serde::Deserialize;
 pub struct Configuration {
     pub host: String,
     pub port: u16,
+    pub mongo_db_url: String,
 }
 
 impl Configuration {

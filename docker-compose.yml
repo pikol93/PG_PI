@@ -15,3 +15,4 @@ services:
       RUST_LOG: trace,actix_server=info,actix_web=info,mio=info,actix_http=info
       HOST: 0.0.0.0
       PORT: 1234
+      MONGO_DB_URL: mongodb://root:root@mongo:27017/ 

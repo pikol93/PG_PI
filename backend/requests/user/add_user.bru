@@ -1,0 +1,25 @@
+meta {
+  name: add_user
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://{{HOST}}/add_user
+  body: formUrlEncoded
+  auth: none
+}
+
+body:form-urlencoded {
+  first_name: first_name_value
+  last_name: last_name_value
+  username: username_value
+  email: email_value
+}
+
+body:multipart-form {
+  first_name: first_name_value
+  last_name: last_name_value
+  username: username_value
+  email: email_value
+}

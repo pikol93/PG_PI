@@ -20,6 +20,15 @@ pub trait UserRepository {
     ///
     /// * `id`: ID representing a single user.
     async fn get_user_by_id(&self, id: &ObjectId) -> Result<Option<User>>;
+
+    /// Asynchronously gets the user identified by their name. If the request fails, then the
+    /// returned `Result` contains an `Err`. If the request succeeds but no user by the given name
+    /// could be found, then the returned `Option` is `None`.
+    ///
+    /// # Arguments
+    ///
+    /// * `name`: Username to find the user by.
+    async fn get_user_by_name(&self, name: &str) -> Result<Option<User>>;
 }
 
 pub struct UserRepositoryImpl {
@@ -43,6 +52,15 @@ impl UserRepository for UserRepositoryImpl {
         let user = self
             .get_collection()
             .find_one(doc! { "_id": id }, None)
+            .await?;
+
+        Ok(user)
+    }
+
+    async fn get_user_by_name(&self, name: &str) -> Result<Option<User>> {
+        let user = self
+            .get_collection()
+            .find_one(doc! { User::FIELD_USERNAME: name }, None)
             .await?;
 
         Ok(user)

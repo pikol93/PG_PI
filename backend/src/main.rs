@@ -1,5 +1,6 @@
 mod configuration;
 mod exercise;
+pub mod serializer;
 mod user;
 pub mod utility;
 

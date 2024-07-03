@@ -1,10 +1,12 @@
 use crate::user::model::User;
+use async_trait::async_trait;
 use color_eyre::Result;
 use futures::TryStreamExt;
 use mongodb::bson::doc;
 use mongodb::bson::oid::ObjectId;
 use mongodb::{Client, Collection};
 
+#[async_trait]
 pub trait UserRepository {
     /// Gets all existing users asynchronously. If the request fails, then the returned `Result` contains an `Err`
     /// value.
@@ -24,6 +26,7 @@ pub struct UserRepositoryImpl {
     pub client: Client,
 }
 
+#[async_trait]
 impl UserRepository for UserRepositoryImpl {
     async fn get_users(&self) -> Result<Vec<User>> {
         let users = self

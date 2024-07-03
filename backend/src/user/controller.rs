@@ -1,5 +1,5 @@
 use crate::application_state::ApplicationState;
-use crate::user::models::User;
+use crate::user::model::User;
 use actix_web::web::{Data, Form, Path};
 use actix_web::{get, post, HttpResponse, Responder};
 use color_eyre::Result;

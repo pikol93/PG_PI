@@ -43,14 +43,7 @@ pub async fn add_user(state: Data<ApplicationState>, form: Form<User>) -> impl R
 
 #[get("/get_user/{username}")]
 pub async fn get_user(state: Data<ApplicationState>, username: Path<String>) -> HttpResponse {
-    let username = username.into_inner();
-    let collection: Collection<User> = state
-        .client
-        .database(DATABASE_NAME)
-        .collection(COLLECTION_NAME);
-    let result = collection
-        .find_one(doc! { User::FIELD_USERNAME: &username }, None)
-        .await;
+    let result = state.user_repository.get_user_by_name(&username).await;
 
     match result {
         Ok(Some(user)) => HttpResponse::Ok().json(user),

@@ -4,11 +4,12 @@ use color_eyre::Result;
 use futures::TryStreamExt;
 use mongodb::bson::doc;
 use mongodb::bson::oid::ObjectId;
-use mongodb::{Client, Collection};
+use mongodb::options::IndexOptions;
+use mongodb::{Client, Collection, IndexModel};
 
 #[async_trait]
 pub trait UserRepository {
-    /// Asynchronously gets all existing users. If the request fails, then the returned `Result` 
+    /// Asynchronously gets all existing users. If the request fails, then the returned `Result`
     /// contains an `Err` value.
     async fn get_users(&self) -> Result<Vec<User>>;
 
@@ -88,6 +89,21 @@ impl UserRepositoryImpl {
     // repositories.
     const DATABASE_NAME: &'static str = "dbname";
     const COLLECTION_NAME: &'static str = "users";
+
+    pub async fn create_indexes(&self) -> Result<()> {
+        let options = IndexOptions::builder().unique(true).build();
+
+        let model = IndexModel::builder()
+            .keys(doc! { User::FIELD_USERNAME: 1 })
+            .options(options)
+            .build();
+
+        self.get_collection::<User>()
+            .create_index(model, None)
+            .await?;
+
+        Ok(())
+    }
 
     fn get_collection<T>(&self) -> Collection<T> {
         self.client

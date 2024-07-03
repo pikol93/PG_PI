@@ -2,30 +2,6 @@ use crate::application_state::ApplicationState;
 use crate::user::model::User;
 use actix_web::web::{Data, Form, Path};
 use actix_web::{get, post, HttpResponse, Responder};
-use color_eyre::Result;
-use mongodb::bson::doc;
-use mongodb::options::IndexOptions;
-use mongodb::{Client, IndexModel};
-
-const DATABASE_NAME: &str = "dbname";
-const COLLECTION_NAME: &str = "coll_name";
-
-pub async fn create_username_index(client: &Client) -> Result<()> {
-    // TODO: Move this function elsewhere
-    let options = IndexOptions::builder().unique(true).build();
-    let model = IndexModel::builder()
-        .keys(doc! { User::FIELD_USERNAME: 1 })
-        .options(options)
-        .build();
-
-    client
-        .database(DATABASE_NAME)
-        .collection::<User>(COLLECTION_NAME)
-        .create_index(model, None)
-        .await?;
-
-    Ok(())
-}
 
 #[post("/add_user")]
 pub async fn add_user(state: Data<ApplicationState>, form: Form<User>) -> impl Responder {

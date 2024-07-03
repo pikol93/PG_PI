@@ -1,11 +1,12 @@
-use crate::user::model::User;
-use crate::user::repository::UserRepository;
 use actix_web::web::{Data, Form, Path};
 use actix_web::{get, post, HttpResponse, Responder};
 
+use crate::user::model::User;
+use crate::user::repository::UserRepository;
+
 #[post("/add_user")]
 pub async fn add_user(
-    user_repository: Data<Box<dyn UserRepository>>,
+    user_repository: Data<dyn UserRepository>,
     form: Form<User>,
 ) -> impl Responder {
     let user = form.into_inner();
@@ -19,7 +20,7 @@ pub async fn add_user(
 
 #[get("/get_user/{username}")]
 pub async fn get_user(
-    user_repository: Data<Box<dyn UserRepository>>,
+    user_repository: Data<dyn UserRepository>,
     username: Path<String>,
 ) -> HttpResponse {
     let result = user_repository.get_user_by_name(&username).await;

@@ -7,7 +7,7 @@ use crate::exercise::repository::ExerciseRepository;
 
 #[post("/add_exercise")]
 pub async fn add_exercise(
-    exercise_repository: Data<Box<dyn ExerciseRepository>>,
+    exercise_repository: Data<dyn ExerciseRepository>,
     form: Form<Exercise>,
 ) -> impl Responder {
     let exercise = form.into_inner();
@@ -21,7 +21,7 @@ pub async fn add_exercise(
 
 #[get("/get_exercise/{id}")]
 pub async fn get_exercise(
-    exercise_repository: Data<Box<dyn ExerciseRepository>>,
+    exercise_repository: Data<dyn ExerciseRepository>,
     id: Path<ObjectId>,
 ) -> HttpResponse {
     let result = exercise_repository.get_exercise_by_id(&id).await;

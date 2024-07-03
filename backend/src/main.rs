@@ -14,6 +14,7 @@ use actix_web::{get, App, HttpResponse, HttpServer, Responder};
 use color_eyre::Result;
 use dotenvy::dotenv;
 use mongodb::Client;
+use std::sync::Arc;
 use tracing::{debug, info};
 use tracing_subscriber::filter::EnvFilter;
 
@@ -34,10 +35,12 @@ async fn main() -> Result<()> {
 
     HttpServer::new(move || {
         App::new()
-            .app_data::<Data<Box<dyn UserRepository>>>(Data::new(Box::new(user_repository.clone())))
-            .app_data::<Data<Box<dyn ExerciseRepository>>>(Data::new(Box::new(
-                exercise_repository.clone(),
-            )))
+            .app_data(Data::from(
+                Arc::new(user_repository.clone()) as Arc<dyn UserRepository>
+            ))
+            .app_data(Data::from(
+                Arc::new(exercise_repository.clone()) as Arc<dyn ExerciseRepository>
+            ))
             .wrap(Logger::default())
             .service(health_check)
             .service(add_user)

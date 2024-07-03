@@ -8,11 +8,11 @@ use mongodb::{Client, Collection};
 
 #[async_trait]
 pub trait UserRepository {
-    /// Gets all existing users asynchronously. If the request fails, then the returned `Result` contains an `Err`
-    /// value.
+    /// Asynchronously gets all existing users. If the request fails, then the returned `Result` 
+    /// contains an `Err` value.
     async fn get_users(&self) -> Result<Vec<User>>;
 
-    /// Gets the user identified by the given ID asynchronously. If the request fails, then the
+    /// Asynchronously gets the user identified by the given ID. If the request fails, then the
     /// returned `Result` contains an `Err`. If the request succeeds but no user by the given ID
     /// could be found, then the returned `Option` is `None`.
     ///

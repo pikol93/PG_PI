@@ -6,12 +6,14 @@ pub mod utility;
 use crate::application_state::ApplicationState;
 use crate::configuration::Configuration;
 use crate::user::controller::{add_user, create_username_index, get_user};
+use crate::user::repository::UserRepositoryImpl;
 use actix_web::middleware::Logger;
 use actix_web::web::Data;
 use actix_web::{get, App, HttpResponse, HttpServer, Responder};
 use color_eyre::Result;
 use dotenvy::dotenv;
 use mongodb::Client;
+use std::sync::Arc;
 use tracing::debug;
 use tracing_subscriber::filter::EnvFilter;
 
@@ -29,7 +31,12 @@ async fn main() -> Result<()> {
     let client = Client::with_uri_str(&configuration.mongo_db_url).await?;
     create_username_index(&client).await?;
 
-    let application_state = ApplicationState { client };
+    let application_state = ApplicationState {
+        client: client.clone(),
+        user_repository: Arc::new(UserRepositoryImpl {
+            client: client.clone(),
+        }),
+    };
     let state_cloned = application_state.clone();
 
     HttpServer::new(move || {

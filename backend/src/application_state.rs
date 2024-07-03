@@ -1,3 +1,4 @@
+use crate::exercise::repository::{ExerciseRepository, ExerciseRepositoryImpl};
 use crate::user::repository::{UserRepository, UserRepositoryImpl};
 use color_eyre::Result;
 use mongodb::Client;
@@ -7,6 +8,7 @@ use std::sync::Arc;
 pub struct ApplicationState {
     pub client: Client,
     pub user_repository: Arc<dyn UserRepository>,
+    pub exercise_repository: Arc<dyn ExerciseRepository>,
 }
 
 unsafe impl Send for ApplicationState {}
@@ -18,9 +20,15 @@ impl ApplicationState {
         };
         user_repository.create_indexes().await?;
 
+        let exercise_repository = ExerciseRepositoryImpl {
+            client: client.clone(),
+        };
+        exercise_repository.create_indexes().await?;
+
         let this = Self {
             client,
             user_repository: Arc::new(user_repository),
+            exercise_repository: Arc::new(exercise_repository),
         };
 
         Ok(this)

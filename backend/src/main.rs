@@ -1,10 +1,12 @@
 mod application_state;
 mod configuration;
+mod exercise;
 mod user;
 pub mod utility;
 
 use crate::application_state::ApplicationState;
 use crate::configuration::Configuration;
+use crate::exercise::controller::{add_exercise, get_exercise};
 use crate::user::controller::{add_user, get_user};
 use actix_web::middleware::Logger;
 use actix_web::web::Data;
@@ -37,6 +39,8 @@ async fn main() -> Result<()> {
             .service(health_check)
             .service(add_user)
             .service(get_user)
+            .service(add_exercise)
+            .service(get_exercise)
     })
     .bind((configuration.host, configuration.port))?
     .run()

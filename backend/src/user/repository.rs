@@ -19,6 +19,7 @@ pub trait UserRepository {
     /// # Arguments
     ///
     /// * `id`: ID representing a single user.
+    ///
     async fn get_user_by_id(&self, id: &ObjectId) -> Result<Option<User>>;
 
     /// Asynchronously gets the user identified by their name. If the request fails, then the
@@ -28,7 +29,16 @@ pub trait UserRepository {
     /// # Arguments
     ///
     /// * `name`: Username to find the user by.
+    ///
     async fn get_user_by_name(&self, name: &str) -> Result<Option<User>>;
+
+    /// Asynchronously adds a user to the repository.
+    ///
+    /// # Arguments
+    ///
+    /// * 'user': User to be inserted into the repository.
+    ///
+    async fn add_user(&self, user: &User) -> Result<()>;
 }
 
 pub struct UserRepositoryImpl {
@@ -64,6 +74,12 @@ impl UserRepository for UserRepositoryImpl {
             .await?;
 
         Ok(user)
+    }
+
+    async fn add_user(&self, user: &User) -> Result<()> {
+        self.get_collection::<User>().insert_one(user, None).await?;
+
+        Ok(())
     }
 }
 

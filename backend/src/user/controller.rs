@@ -5,7 +5,7 @@ use actix_web::{get, post, HttpResponse, Responder};
 use color_eyre::Result;
 use mongodb::bson::doc;
 use mongodb::options::IndexOptions;
-use mongodb::{Client, Collection, IndexModel};
+use mongodb::{Client, IndexModel};
 
 const DATABASE_NAME: &str = "dbname";
 const COLLECTION_NAME: &str = "coll_name";
@@ -29,11 +29,8 @@ pub async fn create_username_index(client: &Client) -> Result<()> {
 
 #[post("/add_user")]
 pub async fn add_user(state: Data<ApplicationState>, form: Form<User>) -> impl Responder {
-    let collection = state
-        .client
-        .database(DATABASE_NAME)
-        .collection(COLLECTION_NAME);
-    let result = collection.insert_one(form.into_inner(), None).await;
+    let user = form.into_inner();
+    let result = state.user_repository.add_user(&user).await;
 
     match result {
         Ok(_) => HttpResponse::Ok().finish(),

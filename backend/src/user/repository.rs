@@ -6,6 +6,7 @@ use mongodb::bson::doc;
 use mongodb::bson::oid::ObjectId;
 use mongodb::options::IndexOptions;
 use mongodb::{Client, Collection, IndexModel};
+use tracing::{debug, instrument};
 
 #[async_trait]
 pub trait UserRepository {
@@ -42,8 +43,9 @@ pub trait UserRepository {
     async fn add_user(&self, user: &User) -> Result<()>;
 }
 
+#[derive(Clone, Debug)]
 pub struct UserRepositoryImpl {
-    pub client: Client,
+    client: Client,
 }
 
 #[async_trait]
@@ -90,7 +92,15 @@ impl UserRepositoryImpl {
     const DATABASE_NAME: &'static str = "dbname";
     const COLLECTION_NAME: &'static str = "users";
 
-    pub async fn create_indexes(&self) -> Result<()> {
+    pub async fn create_and_initialize(client: Client) -> Result<Self> {
+        let this = Self { client };
+        this.create_username_index().await?;
+
+        Ok(this)
+    }
+
+    async fn create_username_index(&self) -> Result<()> {
+        debug!("Begin creating username index");
         let options = IndexOptions::builder().unique(true).build();
 
         let model = IndexModel::builder()

@@ -19,7 +19,7 @@ pub trait UserRepository {
     /// # Arguments
     ///
     /// * `id`: ID representing a single user.
-    async fn get_user(&self, id: &ObjectId) -> Result<Option<User>>;
+    async fn get_user_by_id(&self, id: &ObjectId) -> Result<Option<User>>;
 }
 
 pub struct UserRepositoryImpl {
@@ -39,7 +39,7 @@ impl UserRepository for UserRepositoryImpl {
         Ok(users)
     }
 
-    async fn get_user(&self, id: &ObjectId) -> Result<Option<User>> {
+    async fn get_user_by_id(&self, id: &ObjectId) -> Result<Option<User>> {
         let user = self
             .get_collection()
             .find_one(doc! { "_id": id }, None)

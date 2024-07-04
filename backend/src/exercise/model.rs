@@ -1,3 +1,4 @@
+use crate::serializer::serialize_object_id;
 use mongodb::bson::oid::ObjectId;
 use serde::{Deserialize, Serialize};
 
@@ -5,6 +6,20 @@ use serde::{Deserialize, Serialize};
 pub struct Exercise {
     pub user: ObjectId,
     pub name: String,
+}
+
+#[derive(Clone, Debug, PartialEq, Eq, Deserialize, Serialize)]
+pub struct GetExerciseModel {
+    #[serde(rename = "_id", serialize_with = "serialize_object_id")]
+    pub id: ObjectId,
+    #[serde(flatten)]
+    pub exercise: Exercise,
+}
+
+#[derive(Clone, Debug, PartialEq, Eq, Deserialize, Serialize)]
+pub struct AddExerciseModel {
+    #[serde(flatten)]
+    pub exercise: Exercise,
 }
 
 impl Exercise {

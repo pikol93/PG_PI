@@ -2,13 +2,13 @@ use actix_web::web::{Data, Form, Path};
 use actix_web::{get, post, HttpResponse, Responder};
 use mongodb::bson::oid::ObjectId;
 
-use crate::exercise::model::Exercise;
+use crate::exercise::model::AddExerciseModel;
 use crate::exercise::repository::ExerciseRepository;
 
 #[post("/add_exercise")]
 pub async fn add_exercise(
     exercise_repository: Data<dyn ExerciseRepository>,
-    form: Form<Exercise>,
+    form: Form<AddExerciseModel>,
 ) -> impl Responder {
     let exercise = form.into_inner();
     let result = exercise_repository.add_exercise(&exercise).await;

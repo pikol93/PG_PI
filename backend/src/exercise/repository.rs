@@ -1,4 +1,4 @@
-use crate::exercise::model::Exercise;
+use crate::exercise::model::{AddExerciseModel, Exercise, GetExerciseModel};
 use async_trait::async_trait;
 use color_eyre::Result;
 use futures::TryStreamExt;
@@ -6,13 +6,13 @@ use mongodb::bson::doc;
 use mongodb::bson::oid::ObjectId;
 use mongodb::options::IndexOptions;
 use mongodb::{Client, Collection, IndexModel};
-use tracing::{debug, instrument};
+use tracing::debug;
 
 #[async_trait]
 pub trait ExerciseRepository {
     /// Asynchronously gets all existing exercises. If the request fails, then the returned `Result`
     /// contains an `Err` value.
-    async fn get_exercises(&self) -> Result<Vec<Exercise>>;
+    async fn get_exercises(&self) -> Result<Vec<GetExerciseModel>>;
 
     /// Asynchronously gets the exercise identified by the given ID. If the request fails, then the
     /// returned `Result` contains an `Err`. If the request succeeds but no user by the given ID
@@ -22,7 +22,7 @@ pub trait ExerciseRepository {
     ///
     /// * `id`: ID representing a single exercise.
     ///
-    async fn get_exercise_by_id(&self, id: &ObjectId) -> Result<Option<Exercise>>;
+    async fn get_exercise_by_id(&self, id: &ObjectId) -> Result<Option<GetExerciseModel>>;
 
     /// Gets all exercises related to a user identified by the given ID.
     ///
@@ -30,7 +30,7 @@ pub trait ExerciseRepository {
     ///
     /// * `id`: ID of the user to get related exercises by.
     ///
-    async fn get_exercises_by_user_id(&self, id: &ObjectId) -> Result<Vec<Exercise>>;
+    async fn get_exercises_by_user_id(&self, id: &ObjectId) -> Result<Vec<GetExerciseModel>>;
 
     /// Asynchronously adds an exercise to the repository.
     ///
@@ -38,7 +38,7 @@ pub trait ExerciseRepository {
     ///
     /// * 'user': Exercise to be inserted into the repository.
     ///
-    async fn add_exercise(&self, exercise: &Exercise) -> Result<()>;
+    async fn add_exercise(&self, exercise: &AddExerciseModel) -> Result<()>;
 }
 
 #[derive(Debug, Clone)]
@@ -48,7 +48,7 @@ pub struct ExerciseRepositoryImpl {
 
 #[async_trait]
 impl ExerciseRepository for ExerciseRepositoryImpl {
-    async fn get_exercises(&self) -> Result<Vec<Exercise>> {
+    async fn get_exercises(&self) -> Result<Vec<GetExerciseModel>> {
         let exercises = self
             .get_collection()
             .find(None, None)
@@ -59,7 +59,7 @@ impl ExerciseRepository for ExerciseRepositoryImpl {
         Ok(exercises)
     }
 
-    async fn get_exercise_by_id(&self, id: &ObjectId) -> Result<Option<Exercise>> {
+    async fn get_exercise_by_id(&self, id: &ObjectId) -> Result<Option<GetExerciseModel>> {
         let exercise = self
             .get_collection()
             .find_one(doc! { "_id": id }, None)
@@ -68,7 +68,7 @@ impl ExerciseRepository for ExerciseRepositoryImpl {
         Ok(exercise)
     }
 
-    async fn get_exercises_by_user_id(&self, id: &ObjectId) -> Result<Vec<Exercise>> {
+    async fn get_exercises_by_user_id(&self, id: &ObjectId) -> Result<Vec<GetExerciseModel>> {
         let exercises = self
             .get_collection()
             .find(
@@ -84,8 +84,8 @@ impl ExerciseRepository for ExerciseRepositoryImpl {
         Ok(exercises)
     }
 
-    async fn add_exercise(&self, exercise: &Exercise) -> Result<()> {
-        self.get_collection::<Exercise>()
+    async fn add_exercise(&self, exercise: &AddExerciseModel) -> Result<()> {
+        self.get_collection::<AddExerciseModel>()
             .insert_one(exercise, None)
             .await?;
 

@@ -32,8 +32,12 @@ pub async fn get_exercises(exercise_repository: Data<dyn ExerciseRepository>) ->
 #[get("/get_exercise/{id}")]
 pub async fn get_exercise(
     exercise_repository: Data<dyn ExerciseRepository>,
-    id: Path<ObjectId>,
+    id: Path<String>,
 ) -> HttpResponse {
+    let Ok(id) = ObjectId::parse_str(id.as_ref()) else {
+        return HttpResponse::BadRequest().finish();
+    };
+
     let result = exercise_repository.get_exercise_by_id(&id).await;
 
     match result {

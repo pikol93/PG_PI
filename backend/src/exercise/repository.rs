@@ -106,11 +106,8 @@ impl ExerciseRepositoryImpl {
 
     async fn create_user_index(&self) -> Result<()> {
         debug!("Begin creating user index");
-        let options = IndexOptions::builder().unique(true).build();
-
         let model = IndexModel::builder()
             .keys(doc! { Exercise::FIELD_USER: 1 })
-            .options(options)
             .build();
 
         self.get_collection::<Exercise>()

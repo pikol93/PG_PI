@@ -1,4 +1,4 @@
-use crate::user::model::User;
+use crate::user::model::{AddUserModel, GetUserModel, User};
 use async_trait::async_trait;
 use color_eyre::Result;
 use futures::TryStreamExt;
@@ -6,13 +6,13 @@ use mongodb::bson::doc;
 use mongodb::bson::oid::ObjectId;
 use mongodb::options::IndexOptions;
 use mongodb::{Client, Collection, IndexModel};
-use tracing::{debug, instrument};
+use tracing::debug;
 
 #[async_trait]
 pub trait UserRepository {
     /// Asynchronously gets all existing users. If the request fails, then the returned `Result`
     /// contains an `Err` value.
-    async fn get_users(&self) -> Result<Vec<User>>;
+    async fn get_users(&self) -> Result<Vec<GetUserModel>>;
 
     /// Asynchronously gets the user identified by the given ID. If the request fails, then the
     /// returned `Result` contains an `Err`. If the request succeeds but no user by the given ID
@@ -22,7 +22,7 @@ pub trait UserRepository {
     ///
     /// * `id`: ID representing a single user.
     ///
-    async fn get_user_by_id(&self, id: &ObjectId) -> Result<Option<User>>;
+    async fn get_user_by_id(&self, id: &ObjectId) -> Result<Option<GetUserModel>>;
 
     /// Asynchronously gets the user identified by their name. If the request fails, then the
     /// returned `Result` contains an `Err`. If the request succeeds but no user by the given name
@@ -32,7 +32,7 @@ pub trait UserRepository {
     ///
     /// * `name`: Username to find the user by.
     ///
-    async fn get_user_by_name(&self, name: &str) -> Result<Option<User>>;
+    async fn get_user_by_name(&self, name: &str) -> Result<Option<GetUserModel>>;
 
     /// Asynchronously adds a user to the repository.
     ///
@@ -40,7 +40,7 @@ pub trait UserRepository {
     ///
     /// * 'user': User to be inserted into the repository.
     ///
-    async fn add_user(&self, user: &User) -> Result<()>;
+    async fn add_user(&self, user: &AddUserModel) -> Result<()>;
 }
 
 #[derive(Clone, Debug)]
@@ -50,7 +50,7 @@ pub struct UserRepositoryImpl {
 
 #[async_trait]
 impl UserRepository for UserRepositoryImpl {
-    async fn get_users(&self) -> Result<Vec<User>> {
+    async fn get_users(&self) -> Result<Vec<GetUserModel>> {
         let users = self
             .get_collection()
             .find(None, None)
@@ -61,7 +61,7 @@ impl UserRepository for UserRepositoryImpl {
         Ok(users)
     }
 
-    async fn get_user_by_id(&self, id: &ObjectId) -> Result<Option<User>> {
+    async fn get_user_by_id(&self, id: &ObjectId) -> Result<Option<GetUserModel>> {
         let user = self
             .get_collection()
             .find_one(doc! { "_id": id }, None)
@@ -70,7 +70,7 @@ impl UserRepository for UserRepositoryImpl {
         Ok(user)
     }
 
-    async fn get_user_by_name(&self, name: &str) -> Result<Option<User>> {
+    async fn get_user_by_name(&self, name: &str) -> Result<Option<GetUserModel>> {
         let user = self
             .get_collection()
             .find_one(doc! { User::FIELD_USERNAME: name }, None)
@@ -79,8 +79,10 @@ impl UserRepository for UserRepositoryImpl {
         Ok(user)
     }
 
-    async fn add_user(&self, user: &User) -> Result<()> {
-        self.get_collection::<User>().insert_one(user, None).await?;
+    async fn add_user(&self, user: &AddUserModel) -> Result<()> {
+        self.get_collection::<AddUserModel>()
+            .insert_one(user, None)
+            .await?;
 
         Ok(())
     }

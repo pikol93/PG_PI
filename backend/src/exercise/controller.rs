@@ -19,6 +19,16 @@ pub async fn add_exercise(
     }
 }
 
+#[get("/get_exercises")]
+pub async fn get_exercises(exercise_repository: Data<dyn ExerciseRepository>) -> impl Responder {
+    let result = exercise_repository.get_exercises().await;
+
+    match result {
+        Ok(exercises) => HttpResponse::Ok().json(exercises),
+        Err(err) => HttpResponse::InternalServerError().body(err.to_string()),
+    }
+}
+
 #[get("/get_exercise/{id}")]
 pub async fn get_exercise(
     exercise_repository: Data<dyn ExerciseRepository>,

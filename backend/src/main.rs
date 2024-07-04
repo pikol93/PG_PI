@@ -5,7 +5,7 @@ mod user;
 pub mod utility;
 
 use crate::configuration::Configuration;
-use crate::exercise::controller::{add_exercise, get_exercise, get_exercises};
+use crate::exercise::controller::{add_exercise, get_exercise, get_exercises, get_exercises_by_user};
 use crate::exercise::repository::{ExerciseRepository, ExerciseRepositoryImpl};
 use crate::user::controller::{add_user, get_user, get_users};
 use crate::user::repository::{UserRepository, UserRepositoryImpl};
@@ -50,6 +50,7 @@ async fn main() -> Result<()> {
             .service(add_exercise)
             .service(get_exercise)
             .service(get_exercises)
+            .service(get_exercises_by_user)
     })
     .bind((configuration.host, configuration.port))?
     .run()

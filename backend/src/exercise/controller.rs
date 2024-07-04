@@ -46,3 +46,21 @@ pub async fn get_exercise(
         Err(err) => HttpResponse::InternalServerError().body(err.to_string()),
     }
 }
+
+#[get("/get_exercises_by_user/{id}")]
+pub async fn get_exercises_by_user(
+    exercise_repository: Data<dyn ExerciseRepository>,
+    id: Path<String>,
+) -> impl Responder {
+    let Ok(id) = ObjectId::parse_str(id.as_ref()) else {
+        return HttpResponse::BadRequest().finish();
+    };
+
+    // TODO: The received ID is to be verified. The user might not exist.
+    let result = exercise_repository.get_exercises_by_user_id(&id).await;
+
+    match result {
+        Ok(exercises) => HttpResponse::Ok().json(exercises),
+        Err(err) => HttpResponse::InternalServerError().body(err.to_string()),
+    }
+}

@@ -18,6 +18,16 @@ pub async fn add_user(
     }
 }
 
+#[get("/get_users")]
+pub async fn get_users(user_repository: Data<dyn UserRepository>) -> impl Responder {
+    let result = user_repository.get_users().await;
+
+    match result {
+        Ok(users) => HttpResponse::Ok().json(users),
+        Err(err) => HttpResponse::InternalServerError().body(err.to_string()),
+    }
+}
+
 #[get("/get_user/{username}")]
 pub async fn get_user(
     user_repository: Data<dyn UserRepository>,

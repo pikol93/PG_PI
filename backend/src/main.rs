@@ -7,7 +7,7 @@ pub mod utility;
 use crate::configuration::Configuration;
 use crate::exercise::controller::{add_exercise, get_exercise};
 use crate::exercise::repository::{ExerciseRepository, ExerciseRepositoryImpl};
-use crate::user::controller::{add_user, get_user};
+use crate::user::controller::{add_user, get_user, get_users};
 use crate::user::repository::{UserRepository, UserRepositoryImpl};
 use actix_web::middleware::Logger;
 use actix_web::web::Data;
@@ -46,6 +46,7 @@ async fn main() -> Result<()> {
             .service(health_check)
             .service(add_user)
             .service(get_user)
+            .service(get_users)
             .service(add_exercise)
             .service(get_exercise)
     })

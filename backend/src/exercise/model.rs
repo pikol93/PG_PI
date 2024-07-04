@@ -4,6 +4,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Eq, Deserialize, Serialize)]
 pub struct Exercise {
+    #[serde(serialize_with = "serialize_object_id")]
     pub user: ObjectId,
     pub name: String,
 }

@@ -1,18 +1,22 @@
-mod application_state;
 mod configuration;
+mod exercise;
+pub mod serializer;
 mod user;
 pub mod utility;
 
-use crate::application_state::ApplicationState;
 use crate::configuration::Configuration;
-use crate::user::controller::{add_user, create_username_index, get_user};
+use crate::exercise::controller::{add_exercise, get_exercise, get_exercises, get_exercises_by_user};
+use crate::exercise::repository::{ExerciseRepository, ExerciseRepositoryImpl};
+use crate::user::controller::{add_user, get_user, get_users};
+use crate::user::repository::{UserRepository, UserRepositoryImpl};
 use actix_web::middleware::Logger;
 use actix_web::web::Data;
 use actix_web::{get, App, HttpResponse, HttpServer, Responder};
 use color_eyre::Result;
 use dotenvy::dotenv;
 use mongodb::Client;
-use tracing::debug;
+use std::sync::Arc;
+use tracing::{debug, info};
 use tracing_subscriber::filter::EnvFilter;
 
 #[actix_web::main]
@@ -27,24 +31,34 @@ async fn main() -> Result<()> {
     debug!("Read environment configuration: {:?}", configuration);
 
     let client = Client::with_uri_str(&configuration.mongo_db_url).await?;
-    create_username_index(&client).await?;
-
-    let application_state = ApplicationState { client };
-    let state_cloned = application_state.clone();
+    let user_repository = UserRepositoryImpl::create_and_initialize(client.clone()).await?;
+    let exercise_repository = ExerciseRepositoryImpl::create_and_initialize(client.clone()).await?;
 
     HttpServer::new(move || {
         App::new()
-            .app_data(Data::new(state_cloned.clone()))
+            .app_data(Data::from(
+                Arc::new(user_repository.clone()) as Arc<dyn UserRepository>
+            ))
+            .app_data(Data::from(
+                Arc::new(exercise_repository.clone()) as Arc<dyn ExerciseRepository>
+            ))
             .wrap(Logger::default())
             .service(health_check)
             .service(add_user)
             .service(get_user)
+            .service(get_users)
+            .service(add_exercise)
+            .service(get_exercise)
+            .service(get_exercises)
+            .service(get_exercises_by_user)
     })
     .bind((configuration.host, configuration.port))?
     .run()
     .await?;
 
-    application_state.client.shutdown().await;
+    debug!("Shutting down MongoDB client");
+    client.shutdown().await;
+    info!("Shut down MongoDB client");
     Ok(())
 }
 

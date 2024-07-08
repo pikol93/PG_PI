@@ -1,0 +1,16 @@
+meta {
+  name: add_exercise
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://{{HOST}}/add_exercise
+  body: formUrlEncoded
+  auth: none
+}
+
+body:form-urlencoded {
+  user: 6685c2f53ea8c0fb7a82fd9f
+  name: exercise_name
+}

@@ -1,39 +1,16 @@
-use crate::application_state::ApplicationState;
-use crate::user::models::User;
 use actix_web::web::{Data, Form, Path};
 use actix_web::{get, post, HttpResponse, Responder};
-use color_eyre::Result;
-use mongodb::bson::doc;
-use mongodb::options::IndexOptions;
-use mongodb::{Client, Collection, IndexModel};
 
-const DATABASE_NAME: &str = "dbname";
-const COLLECTION_NAME: &str = "coll_name";
-
-pub async fn create_username_index(client: &Client) -> Result<()> {
-    // TODO: Move this function elsewhere
-    let options = IndexOptions::builder().unique(true).build();
-    let model = IndexModel::builder()
-        .keys(doc! { User::FIELD_USERNAME: 1 })
-        .options(options)
-        .build();
-
-    client
-        .database(DATABASE_NAME)
-        .collection::<User>(COLLECTION_NAME)
-        .create_index(model, None)
-        .await?;
-
-    Ok(())
-}
+use crate::user::model::AddUserModel;
+use crate::user::repository::UserRepository;
 
 #[post("/add_user")]
-pub async fn add_user(state: Data<ApplicationState>, form: Form<User>) -> impl Responder {
-    let collection = state
-        .client
-        .database(DATABASE_NAME)
-        .collection(COLLECTION_NAME);
-    let result = collection.insert_one(form.into_inner(), None).await;
+pub async fn add_user(
+    user_repository: Data<dyn UserRepository>,
+    form: Form<AddUserModel>,
+) -> impl Responder {
+    let user = form.into_inner();
+    let result = user_repository.add_user(&user).await;
 
     match result {
         Ok(_) => HttpResponse::Ok().finish(),
@@ -41,16 +18,22 @@ pub async fn add_user(state: Data<ApplicationState>, form: Form<User>) -> impl R
     }
 }
 
+#[get("/get_users")]
+pub async fn get_users(user_repository: Data<dyn UserRepository>) -> impl Responder {
+    let result = user_repository.get_users().await;
+
+    match result {
+        Ok(users) => HttpResponse::Ok().json(users),
+        Err(err) => HttpResponse::InternalServerError().body(err.to_string()),
+    }
+}
+
 #[get("/get_user/{username}")]
-pub async fn get_user(state: Data<ApplicationState>, username: Path<String>) -> HttpResponse {
-    let username = username.into_inner();
-    let collection: Collection<User> = state
-        .client
-        .database(DATABASE_NAME)
-        .collection(COLLECTION_NAME);
-    let result = collection
-        .find_one(doc! { User::FIELD_USERNAME: &username }, None)
-        .await;
+pub async fn get_user(
+    user_repository: Data<dyn UserRepository>,
+    username: Path<String>,
+) -> HttpResponse {
+    let result = user_repository.get_user_by_name(&username).await;
 
     match result {
         Ok(Some(user)) => HttpResponse::Ok().json(user),

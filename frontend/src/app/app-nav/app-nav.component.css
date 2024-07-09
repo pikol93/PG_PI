@@ -1,0 +1,20 @@
+.navbar__menu-list {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    font-weight: 600;
+}
+
+.navbar__menu-item {
+    color: #007bff;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+}
+  
+.navbar__menu-item:hover {
+    color: #0056b3;
+}
+  
+.logo {
+    cursor: pointer;
+}

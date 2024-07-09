@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { UserService } from './user.service';
+import { AppNavComponent } from './app-nav/app-nav.component';
+import { AppMainComponent } from './app-main/app-main.component';
+import { AppFooterComponent } from './app-footer/app-footer.component';
 
 export interface User {
   first_name: string;
@@ -13,7 +16,7 @@ export interface User {
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, AppNavComponent, AppMainComponent, AppFooterComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

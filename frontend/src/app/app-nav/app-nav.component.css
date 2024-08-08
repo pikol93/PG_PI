@@ -1,20 +1,36 @@
-.navbar__menu-list {
+.navbar__menu {
     display: flex;
+    justify-content: space-around;
+    background-color: #f8f9fa; /* Kolor tła dla całej nawigacji */
+  }
+  
+  .navbar__menu-list {
+    display: flex;
+    width: 100%;
+    list-style: none;
+    padding: 0;
+    margin: 0;
     align-items: center;
-    gap: 2rem;
-    font-weight: 600;
-}
-
-.navbar__menu-item {
-    color: #007bff;
+    background-color: #BB0A21;
+  }
+  
+  .navbar__menu-item {
+    flex: 1;
+    text-align: center;
+  }
+  
+  .navbar__menu-link {
+    display: block;
+    padding: 0;
+    color: #000;
     text-decoration: none;
-    padding: 0.5rem 1rem;
-}
+    background-color: #e9ecef; /* Kolor tła dla elementów */
+  }
   
-.navbar__menu-item:hover {
-    color: #0056b3;
-}
+  .navbar__menu-link:hover {
+    background-color: #4B88A2; /* Kolor tła na hover */
+  }
   
-.logo {
+  .navbar__menu img {
     cursor: pointer;
-}
+  }

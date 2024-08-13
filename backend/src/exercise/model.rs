@@ -25,7 +25,6 @@ pub struct AddExerciseModel {
 
 impl Exercise {
     pub const FIELD_USER: &'static str = "user";
-    pub const FIELD_NAME: &'static str = "name";
 }
 
 #[cfg(test)]
@@ -36,10 +35,5 @@ mod tests {
     #[test]
     fn should_contain_user_field() {
         assert_contains_field::<Exercise>(Exercise::FIELD_USER);
-    }
-
-    #[test]
-    fn should_contain_name_field() {
-        assert_contains_field::<Exercise>(Exercise::FIELD_NAME);
     }
 }

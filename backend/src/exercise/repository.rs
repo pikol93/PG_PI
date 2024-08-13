@@ -4,7 +4,6 @@ use color_eyre::Result;
 use futures::TryStreamExt;
 use mongodb::bson::doc;
 use mongodb::bson::oid::ObjectId;
-use mongodb::options::IndexOptions;
 use mongodb::{Client, Collection, IndexModel};
 use tracing::debug;
 

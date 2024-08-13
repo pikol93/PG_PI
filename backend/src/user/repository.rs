@@ -3,7 +3,6 @@ use async_trait::async_trait;
 use color_eyre::Result;
 use futures::TryStreamExt;
 use mongodb::bson::doc;
-use mongodb::bson::oid::ObjectId;
 use mongodb::options::IndexOptions;
 use mongodb::{Client, Collection, IndexModel};
 use tracing::debug;
@@ -13,16 +12,6 @@ pub trait UserRepository {
     /// Asynchronously gets all existing users. If the request fails, then the returned `Result`
     /// contains an `Err` value.
     async fn get_users(&self) -> Result<Vec<GetUserModel>>;
-
-    /// Asynchronously gets the user identified by the given ID. If the request fails, then the
-    /// returned `Result` contains an `Err`. If the request succeeds but no user by the given ID
-    /// could be found, then the returned `Option` is `None`.
-    ///
-    /// # Arguments
-    ///
-    /// * `id`: ID representing a single user.
-    ///
-    async fn get_user_by_id(&self, id: &ObjectId) -> Result<Option<GetUserModel>>;
 
     /// Asynchronously gets the user identified by their name. If the request fails, then the
     /// returned `Result` contains an `Err`. If the request succeeds but no user by the given name
@@ -59,15 +48,6 @@ impl UserRepository for UserRepositoryImpl {
             .await?;
 
         Ok(users)
-    }
-
-    async fn get_user_by_id(&self, id: &ObjectId) -> Result<Option<GetUserModel>> {
-        let user = self
-            .get_collection()
-            .find_one(doc! { "_id": id }, None)
-            .await?;
-
-        Ok(user)
     }
 
     async fn get_user_by_name(&self, name: &str) -> Result<Option<GetUserModel>> {

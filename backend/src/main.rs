@@ -5,10 +5,10 @@ mod user;
 pub mod utility;
 
 use crate::configuration::Configuration;
-use crate::exercise::controller::{add_exercise, get_exercise, get_exercises, get_exercises_by_user};
 use crate::exercise::repository::{ExerciseRepository, ExerciseRepositoryImpl};
-use crate::user::controller::{add_user, get_user, get_users};
+use crate::exercise::routes::{add_exercise, get_exercise, get_exercises, get_exercises_by_user};
 use crate::user::repository::{UserRepository, UserRepositoryImpl};
+use crate::user::routes::{add_user, get_user, get_users};
 use actix_web::middleware::Logger;
 use actix_web::web::Data;
 use actix_web::{get, App, HttpResponse, HttpServer, Responder};

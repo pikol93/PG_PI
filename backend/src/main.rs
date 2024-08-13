@@ -10,6 +10,9 @@ use crate::exercise::repository::{ExerciseRepository, ExerciseRepositoryImpl};
 use crate::exercise::routes::{add_exercise, get_exercise, get_exercises, get_exercises_by_user};
 use crate::user::repository::{UserRepository, UserRepositoryImpl};
 use crate::user::routes::{add_user, get_user, get_users};
+use actix_session::storage::RedisSessionStore;
+use actix_session::SessionMiddleware;
+use actix_web::cookie::Key;
 use actix_web::middleware::Logger;
 use actix_web::web::Data;
 use actix_web::{get, App, HttpResponse, HttpServer, Responder};
@@ -36,8 +39,14 @@ async fn main() -> Result<()> {
     let user_repository = UserRepositoryImpl::create_and_initialize(client.clone()).await?;
     let exercise_repository = ExerciseRepositoryImpl::create_and_initialize(client.clone()).await?;
 
+    let store = RedisSessionStore::new(&configuration.redis_url)
+        .await
+        .unwrap();
+    let key = Key::try_from(configuration.session_secret_key.as_bytes())?;
+
     HttpServer::new(move || {
         App::new()
+            .wrap(SessionMiddleware::new(store.clone(), key.clone()))
             .app_data(Data::from(
                 Arc::new(user_repository.clone()) as Arc<dyn UserRepository>
             ))

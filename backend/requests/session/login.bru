@@ -1,0 +1,15 @@
+meta {
+  name: login
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://{{HOST}}/login
+  body: formUrlEncoded
+  auth: none
+}
+
+body:form-urlencoded {
+  name: my_username
+}

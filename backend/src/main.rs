@@ -19,7 +19,7 @@ use actix_web::{get, App, HttpResponse, HttpServer, Responder};
 use color_eyre::Result;
 use dotenvy::dotenv;
 use mongodb::Client;
-use session::routes::{login, register};
+use session::routes::{login, logout, register};
 use tracing::{debug, info};
 use tracing_subscriber::filter::EnvFilter;
 
@@ -62,8 +62,9 @@ async fn main() -> Result<()> {
             .service(get_exercise)
             .service(get_exercises)
             .service(get_exercises_by_user)
-            .service(login)
             .service(register)
+            .service(login)
+            .service(logout)
     })
     .bind((configuration.host, configuration.port))?
     .run()

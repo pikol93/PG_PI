@@ -6,9 +6,9 @@ mod user;
 pub mod utility;
 
 use crate::configuration::Configuration;
-use crate::exercise::repository::{ExerciseRepository, ExerciseRepositoryImpl};
+use crate::exercise::repository::ExerciseRepositoryImpl;
 use crate::exercise::routes::{add_exercise, get_exercise, get_exercises, get_exercises_by_user};
-use crate::user::repository::{UserRepository, UserRepositoryImpl};
+use crate::user::repository::UserRepositoryImpl;
 use crate::user::routes::{add_user, get_user, get_users};
 use actix_session::storage::RedisSessionStore;
 use actix_session::SessionMiddleware;
@@ -20,7 +20,6 @@ use color_eyre::Result;
 use dotenvy::dotenv;
 use mongodb::Client;
 use session::routes::{login, register};
-use std::sync::Arc;
 use tracing::{debug, info};
 use tracing_subscriber::filter::EnvFilter;
 
@@ -46,13 +45,14 @@ async fn main() -> Result<()> {
 
     HttpServer::new(move || {
         App::new()
-            .wrap(SessionMiddleware::new(store.clone(), key.clone()))
-            .app_data(Data::from(
-                Arc::new(user_repository.clone()) as Arc<dyn UserRepository>
-            ))
-            .app_data(Data::from(
-                Arc::new(exercise_repository.clone()) as Arc<dyn ExerciseRepository>
-            ))
+            .wrap(
+                SessionMiddleware::builder(store.clone(), key.clone())
+                    // TODO: This is temporary. This line has to be removed before the application gets to production.
+                    .cookie_secure(false)
+                    .build(),
+            )
+            .app_data(Data::new(user_repository.clone()))
+            .app_data(Data::new(exercise_repository.clone()))
             .wrap(Logger::default())
             .service(health_check)
             .service(add_user)

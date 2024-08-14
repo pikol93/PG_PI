@@ -18,3 +18,4 @@ serde-aux = "4.5"
 futures = "0.3"
 async-trait = "0.1"
 actix-session = { version = "0.10.0", features = ["redis-session"] }
+itertools = "0.13.0"

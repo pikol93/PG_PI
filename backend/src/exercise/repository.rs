@@ -1,10 +1,12 @@
-use crate::exercise::model::{Exercise, GetExerciseModel};
+use color_eyre::eyre::OptionExt;
 use color_eyre::Result;
 use futures::TryStreamExt;
 use mongodb::bson::doc;
 use mongodb::bson::oid::ObjectId;
 use mongodb::{Client, Collection, IndexModel};
 use tracing::debug;
+
+use crate::exercise::model::Exercise;
 
 #[derive(Debug, Clone)]
 pub struct ExerciseRepository {
@@ -22,20 +24,37 @@ impl ExerciseRepository {
         Ok(this)
     }
 
-    pub async fn get_exercises_by_user_id(&self, id: &ObjectId) -> Result<Vec<GetExerciseModel>> {
+    pub async fn get_exercises_by_user_id(&self, id: &ObjectId) -> Result<Vec<Exercise>> {
+        let filter = doc! {
+            Exercise::FIELD_USER: id,
+        };
+
         let exercises = self
             .get_collection()
-            .find(
-                doc! {
-                    Exercise::FIELD_USER: id,
-                },
-                None,
-            )
+            .find(filter, None)
             .await?
             .try_collect()
             .await?;
 
         Ok(exercises)
+    }
+
+    pub async fn add_exercise(&self, name: String, user_id: ObjectId) -> Result<ObjectId> {
+        let exercise = Exercise {
+            id: None,
+            user_id,
+            name,
+        };
+
+        let exercise_id = self
+            .get_collection::<Exercise>()
+            .insert_one(exercise, None)
+            .await?
+            .inserted_id
+            .as_object_id()
+            .ok_or_eyre("Could not convert inserted exercise ID to object ID.")?;
+
+        Ok(exercise_id)
     }
 
     async fn create_user_index(&self) -> Result<()> {

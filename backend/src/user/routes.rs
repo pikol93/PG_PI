@@ -52,6 +52,14 @@ pub async fn login(
         }
     };
 
+    let Some(user_id) = user_id else {
+        error!(
+            "Could not get user ID since no object ID is tied to the user {}.",
+            form.name
+        );
+        return HttpResponse::InternalServerError().finish();
+    };
+
     if let Err(_) = set_user_id(&session, &user_id) {
         return HttpResponse::InternalServerError().body("Could not insert user ID.");
     };

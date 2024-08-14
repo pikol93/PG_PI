@@ -1,4 +1,4 @@
-use crate::user::model::{AddUserModel, GetUserModel, User};
+use crate::user::model::User;
 use color_eyre::eyre::OptionExt;
 use color_eyre::Result;
 use mongodb::bson::doc;
@@ -25,7 +25,7 @@ impl UserRepository {
         Ok(this)
     }
 
-    pub async fn get_user_by_name(&self, name: &str) -> Result<Option<GetUserModel>> {
+    pub async fn get_user_by_name(&self, name: &str) -> Result<Option<User>> {
         let user = self
             .get_collection()
             .find_one(doc! { User::FIELD_USERNAME: name }, None)
@@ -35,15 +35,14 @@ impl UserRepository {
     }
 
     pub async fn add_user(&self, username: String) -> Result<ObjectId> {
-        let user = AddUserModel {
-            user: User {
-                username,
-                first_name: None,
-                last_name: None,
-            },
+        let user = User {
+            id: None,
+            username,
+            first_name: None,
+            last_name: None,
         };
         let result = self
-            .get_collection::<AddUserModel>()
+            .get_collection::<User>()
             .insert_one(user, None)
             .await?
             .inserted_id

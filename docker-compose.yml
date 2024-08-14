@@ -18,3 +18,13 @@ services:
       MONGO_DB_URL: mongodb://root:root@mongo:27017/
     ports:
       - 1234:1234
+
+  frontend:
+    image: pi_frontend
+    build: ./frontend
+    restart: always
+    environment:
+      HOST: 0.0.0.0
+      BACKEND_URL: http://backend:1234
+    ports:
+      - 4201:4200

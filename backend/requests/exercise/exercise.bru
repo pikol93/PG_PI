@@ -1,0 +1,15 @@
+meta {
+  name: exercise
+  type: http
+  seq: 2
+}
+
+put {
+  url: http://{{HOST}}/exercise
+  body: formUrlEncoded
+  auth: none
+}
+
+body:form-urlencoded {
+  name: my_exercise_name
+}

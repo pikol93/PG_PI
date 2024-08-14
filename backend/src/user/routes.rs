@@ -9,8 +9,9 @@ pub async fn add_user(
     user_repository: Data<dyn UserRepository>,
     form: Form<AddUserModel>,
 ) -> impl Responder {
+    // TODO: Fix this
     let user = form.into_inner();
-    let result = user_repository.add_user(&user).await;
+    let result = user_repository.add_user(user.user.username).await;
 
     match result {
         Ok(_) => HttpResponse::Ok().finish(),

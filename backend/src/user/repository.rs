@@ -1,8 +1,10 @@
 use crate::user::model::{AddUserModel, GetUserModel, User};
 use async_trait::async_trait;
+use color_eyre::eyre::OptionExt;
 use color_eyre::Result;
 use futures::TryStreamExt;
 use mongodb::bson::doc;
+use mongodb::bson::oid::ObjectId;
 use mongodb::options::IndexOptions;
 use mongodb::{Client, Collection, IndexModel};
 use tracing::debug;
@@ -29,7 +31,7 @@ pub trait UserRepository {
     ///
     /// * 'user': User to be inserted into the repository.
     ///
-    async fn add_user(&self, user: &AddUserModel) -> Result<()>;
+    async fn add_user(&self, username: String) -> Result<ObjectId>;
 }
 
 #[derive(Clone, Debug)]
@@ -59,12 +61,23 @@ impl UserRepository for UserRepositoryImpl {
         Ok(user)
     }
 
-    async fn add_user(&self, user: &AddUserModel) -> Result<()> {
-        self.get_collection::<AddUserModel>()
+    async fn add_user(&self, username: String) -> Result<ObjectId> {
+        let user = AddUserModel {
+            user: User {
+                username,
+                first_name: None,
+                last_name: None,
+            },
+        };
+        let result = self
+            .get_collection::<AddUserModel>()
             .insert_one(user, None)
-            .await?;
+            .await?
+            .inserted_id
+            .as_object_id()
+            .ok_or_eyre("Insert did not result in ObjectID.")?;
 
-        Ok(())
+        Ok(result)
     }
 }
 

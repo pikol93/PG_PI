@@ -1,7 +1,6 @@
 use crate::user::model::{AddUserModel, GetUserModel, User};
 use color_eyre::eyre::OptionExt;
 use color_eyre::Result;
-use futures::TryStreamExt;
 use mongodb::bson::doc;
 use mongodb::bson::oid::ObjectId;
 use mongodb::options::IndexOptions;
@@ -24,17 +23,6 @@ impl UserRepository {
         this.create_username_index().await?;
 
         Ok(this)
-    }
-
-    pub async fn get_users(&self) -> Result<Vec<GetUserModel>> {
-        let users = self
-            .get_collection()
-            .find(None, None)
-            .await?
-            .try_collect()
-            .await?;
-
-        Ok(users)
     }
 
     pub async fn get_user_by_name(&self, name: &str) -> Result<Option<GetUserModel>> {

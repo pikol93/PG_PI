@@ -8,7 +8,6 @@ pub mod utility;
 use crate::configuration::Configuration;
 use crate::exercise::repository::ExerciseRepository;
 use crate::user::repository::UserRepository;
-use crate::user::routes::{add_user, get_user, get_users};
 use actix_session::storage::RedisSessionStore;
 use actix_session::SessionMiddleware;
 use actix_web::cookie::Key;
@@ -55,9 +54,6 @@ async fn main() -> Result<()> {
             .app_data(Data::new(exercise_repository.clone()))
             .wrap(Logger::default())
             .service(health_check)
-            .service(add_user)
-            .service(get_user)
-            .service(get_users)
             .service(route_exercises)
             .service(route_put_exercise)
             .service(register)

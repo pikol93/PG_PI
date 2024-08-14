@@ -7,7 +7,6 @@ pub mod utility;
 
 use crate::configuration::Configuration;
 use crate::exercise::repository::ExerciseRepository;
-use crate::exercise::routes::{add_exercise, get_exercise, get_exercises, get_exercises_by_user};
 use crate::user::repository::UserRepositoryImpl;
 use crate::user::routes::{add_user, get_user, get_users};
 use actix_session::storage::RedisSessionStore;
@@ -59,10 +58,6 @@ async fn main() -> Result<()> {
             .service(add_user)
             .service(get_user)
             .service(get_users)
-            .service(add_exercise)
-            .service(get_exercise)
-            .service(get_exercises)
-            .service(get_exercises_by_user)
             .service(route_exercises)
             .service(register)
             .service(login)

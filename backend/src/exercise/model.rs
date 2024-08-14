@@ -17,12 +17,6 @@ pub struct GetExerciseModel {
     pub exercise: Exercise,
 }
 
-#[derive(Clone, Debug, PartialEq, Eq, Deserialize, Serialize)]
-pub struct AddExerciseModel {
-    #[serde(flatten)]
-    pub exercise: Exercise,
-}
-
 impl Exercise {
     pub const FIELD_USER: &'static str = "user";
 }

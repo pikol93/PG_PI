@@ -1,4 +1,4 @@
-use crate::exercise::model::{AddExerciseModel, Exercise, GetExerciseModel};
+use crate::exercise::model::{Exercise, GetExerciseModel};
 use color_eyre::Result;
 use futures::TryStreamExt;
 use mongodb::bson::doc;
@@ -22,26 +22,6 @@ impl ExerciseRepository {
         Ok(this)
     }
 
-    pub async fn get_exercises(&self) -> Result<Vec<GetExerciseModel>> {
-        let exercises = self
-            .get_collection()
-            .find(None, None)
-            .await?
-            .try_collect()
-            .await?;
-
-        Ok(exercises)
-    }
-
-    pub async fn get_exercise_by_id(&self, id: &ObjectId) -> Result<Option<GetExerciseModel>> {
-        let exercise = self
-            .get_collection()
-            .find_one(doc! { "_id": id }, None)
-            .await?;
-
-        Ok(exercise)
-    }
-
     pub async fn get_exercises_by_user_id(&self, id: &ObjectId) -> Result<Vec<GetExerciseModel>> {
         let exercises = self
             .get_collection()
@@ -56,14 +36,6 @@ impl ExerciseRepository {
             .await?;
 
         Ok(exercises)
-    }
-
-    pub async fn add_exercise(&self, exercise: &AddExerciseModel) -> Result<()> {
-        self.get_collection::<AddExerciseModel>()
-            .insert_one(exercise, None)
-            .await?;
-
-        Ok(())
     }
 
     async fn create_user_index(&self) -> Result<()> {

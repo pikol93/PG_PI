@@ -7,9 +7,9 @@ import { UserService } from './user.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideZoneChangeDetection({ eventCoalescing: true }), 
+    provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideHttpClient(),
-    UserService
-    ]
+    UserService,
+  ],
 };

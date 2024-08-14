@@ -14,7 +14,7 @@ export interface User {
   standalone: true,
   imports: [RouterModule],
   templateUrl: './app-login.component.html',
-  styleUrl: './app-login.component.css'
+  styleUrl: './app-login.component.css',
 })
 export class AppLoginComponent {
   user: User = {
@@ -24,13 +24,11 @@ export class AppLoginComponent {
     email: '',
   };
 
-  constructor(private userService: UserService) {
-  }
+  constructor(private userService: UserService) {}
 
   ngOnInit(): void {
-    this.userService.getUser('username_value').subscribe(user => {
+    this.userService.getUser('username_value').subscribe((user) => {
       this.user = user;
     });
   }
 }
-

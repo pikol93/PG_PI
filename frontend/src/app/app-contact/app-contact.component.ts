@@ -6,8 +6,6 @@ import { RouterModule } from '@angular/router';
   standalone: true,
   imports: [RouterModule],
   templateUrl: './app-contact.component.html',
-  styleUrl: './app-contact.component.css'
+  styleUrl: './app-contact.component.css',
 })
-export class AppContactComponent {
-
-}
+export class AppContactComponent {}

@@ -12,13 +12,17 @@ export interface User {
   email: string;
 }
 
-
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, AppNavComponent, AppMainComponent, AppFooterComponent],
+  imports: [
+    RouterOutlet,
+    AppNavComponent,
+    AppMainComponent,
+    AppFooterComponent,
+  ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {
   title = 'frontend';
@@ -30,11 +34,10 @@ export class AppComponent implements OnInit {
     email: '',
   };
 
-  constructor(private userService: UserService) {
-  }
+  constructor(private userService: UserService) {}
 
   ngOnInit(): void {
-    this.userService.getUser('username_value').subscribe(user => {
+    this.userService.getUser('username_value').subscribe((user) => {
       this.user = user;
     });
   }

@@ -6,8 +6,6 @@ import { RouterModule } from '@angular/router';
   standalone: true,
   imports: [RouterModule],
   templateUrl: './app-calendar.component.html',
-  styleUrl: './app-calendar.component.css'
+  styleUrl: './app-calendar.component.css',
 })
-export class AppCalendarComponent {
-
-}
+export class AppCalendarComponent {}

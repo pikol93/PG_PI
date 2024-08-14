@@ -6,8 +6,6 @@ import { RouterModule } from '@angular/router';
   standalone: true,
   imports: [RouterModule],
   templateUrl: './app-footer.component.html',
-  styleUrl: './app-footer.component.css'
+  styleUrl: './app-footer.component.css',
 })
-export class AppFooterComponent {
-
-}
+export class AppFooterComponent {}

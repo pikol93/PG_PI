@@ -1,5 +1,4 @@
 use crate::exercise::model::{AddExerciseModel, Exercise, GetExerciseModel};
-use async_trait::async_trait;
 use color_eyre::Result;
 use futures::TryStreamExt;
 use mongodb::bson::doc;
@@ -7,47 +6,23 @@ use mongodb::bson::oid::ObjectId;
 use mongodb::{Client, Collection, IndexModel};
 use tracing::debug;
 
-#[async_trait]
-pub trait ExerciseRepository {
-    /// Asynchronously gets all existing exercises. If the request fails, then the returned `Result`
-    /// contains an `Err` value.
-    async fn get_exercises(&self) -> Result<Vec<GetExerciseModel>>;
-
-    /// Asynchronously gets the exercise identified by the given ID. If the request fails, then the
-    /// returned `Result` contains an `Err`. If the request succeeds but no user by the given ID
-    /// could be found, then the returned `Option` is `None`.
-    ///
-    /// # Arguments
-    ///
-    /// * `id`: ID representing a single exercise.
-    ///
-    async fn get_exercise_by_id(&self, id: &ObjectId) -> Result<Option<GetExerciseModel>>;
-
-    /// Gets all exercises related to a user identified by the given ID.
-    ///
-    /// # Arguments:
-    ///
-    /// * `id`: ID of the user to get related exercises by.
-    ///
-    async fn get_exercises_by_user_id(&self, id: &ObjectId) -> Result<Vec<GetExerciseModel>>;
-
-    /// Asynchronously adds an exercise to the repository.
-    ///
-    /// # Arguments
-    ///
-    /// * 'user': Exercise to be inserted into the repository.
-    ///
-    async fn add_exercise(&self, exercise: &AddExerciseModel) -> Result<()>;
-}
-
 #[derive(Debug, Clone)]
-pub struct ExerciseRepositoryImpl {
+pub struct ExerciseRepository {
     client: Client,
 }
 
-#[async_trait]
-impl ExerciseRepository for ExerciseRepositoryImpl {
-    async fn get_exercises(&self) -> Result<Vec<GetExerciseModel>> {
+impl ExerciseRepository {
+    const DATABASE_NAME: &'static str = "dbname";
+    const COLLECTION_NAME: &'static str = "exercises";
+
+    pub async fn create_and_initialize(client: Client) -> Result<Self> {
+        let this = Self { client };
+        this.create_user_index().await?;
+
+        Ok(this)
+    }
+
+    pub async fn get_exercises(&self) -> Result<Vec<GetExerciseModel>> {
         let exercises = self
             .get_collection()
             .find(None, None)
@@ -58,7 +33,7 @@ impl ExerciseRepository for ExerciseRepositoryImpl {
         Ok(exercises)
     }
 
-    async fn get_exercise_by_id(&self, id: &ObjectId) -> Result<Option<GetExerciseModel>> {
+    pub async fn get_exercise_by_id(&self, id: &ObjectId) -> Result<Option<GetExerciseModel>> {
         let exercise = self
             .get_collection()
             .find_one(doc! { "_id": id }, None)
@@ -67,7 +42,7 @@ impl ExerciseRepository for ExerciseRepositoryImpl {
         Ok(exercise)
     }
 
-    async fn get_exercises_by_user_id(&self, id: &ObjectId) -> Result<Vec<GetExerciseModel>> {
+    pub async fn get_exercises_by_user_id(&self, id: &ObjectId) -> Result<Vec<GetExerciseModel>> {
         let exercises = self
             .get_collection()
             .find(
@@ -83,24 +58,12 @@ impl ExerciseRepository for ExerciseRepositoryImpl {
         Ok(exercises)
     }
 
-    async fn add_exercise(&self, exercise: &AddExerciseModel) -> Result<()> {
+    pub async fn add_exercise(&self, exercise: &AddExerciseModel) -> Result<()> {
         self.get_collection::<AddExerciseModel>()
             .insert_one(exercise, None)
             .await?;
 
         Ok(())
-    }
-}
-
-impl ExerciseRepositoryImpl {
-    const DATABASE_NAME: &'static str = "dbname";
-    const COLLECTION_NAME: &'static str = "exercises";
-
-    pub async fn create_and_initialize(client: Client) -> Result<Self> {
-        let this = Self { client };
-        this.create_user_index().await?;
-
-        Ok(this)
     }
 
     async fn create_user_index(&self) -> Result<()> {

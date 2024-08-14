@@ -7,7 +7,7 @@ use crate::exercise::repository::ExerciseRepository;
 
 #[post("/add_exercise")]
 pub async fn add_exercise(
-    exercise_repository: Data<dyn ExerciseRepository>,
+    exercise_repository: Data<ExerciseRepository>,
     form: Form<AddExerciseModel>,
 ) -> impl Responder {
     let exercise = form.into_inner();
@@ -20,7 +20,7 @@ pub async fn add_exercise(
 }
 
 #[get("/get_exercises")]
-pub async fn get_exercises(exercise_repository: Data<dyn ExerciseRepository>) -> impl Responder {
+pub async fn get_exercises(exercise_repository: Data<ExerciseRepository>) -> impl Responder {
     let result = exercise_repository.get_exercises().await;
 
     match result {
@@ -31,7 +31,7 @@ pub async fn get_exercises(exercise_repository: Data<dyn ExerciseRepository>) ->
 
 #[get("/get_exercise/{id}")]
 pub async fn get_exercise(
-    exercise_repository: Data<dyn ExerciseRepository>,
+    exercise_repository: Data<ExerciseRepository>,
     id: Path<String>,
 ) -> HttpResponse {
     let Ok(id) = ObjectId::parse_str(id.as_ref()) else {
@@ -49,7 +49,7 @@ pub async fn get_exercise(
 
 #[get("/get_exercises_by_user/{id}")]
 pub async fn get_exercises_by_user(
-    exercise_repository: Data<dyn ExerciseRepository>,
+    exercise_repository: Data<ExerciseRepository>,
     id: Path<String>,
 ) -> impl Responder {
     let Ok(id) = ObjectId::parse_str(id.as_ref()) else {

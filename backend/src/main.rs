@@ -6,7 +6,7 @@ mod user;
 pub mod utility;
 
 use crate::configuration::Configuration;
-use crate::exercise::repository::ExerciseRepositoryImpl;
+use crate::exercise::repository::ExerciseRepository;
 use crate::exercise::routes::{add_exercise, get_exercise, get_exercises, get_exercises_by_user};
 use crate::user::repository::UserRepositoryImpl;
 use crate::user::routes::{add_user, get_user, get_users};
@@ -36,7 +36,7 @@ async fn main() -> Result<()> {
 
     let client = Client::with_uri_str(&configuration.mongo_db_url).await?;
     let user_repository = UserRepositoryImpl::create_and_initialize(client.clone()).await?;
-    let exercise_repository = ExerciseRepositoryImpl::create_and_initialize(client.clone()).await?;
+    let exercise_repository = ExerciseRepository::create_and_initialize(client.clone()).await?;
 
     let store = RedisSessionStore::new(&configuration.redis_url)
         .await

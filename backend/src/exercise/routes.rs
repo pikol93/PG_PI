@@ -6,7 +6,7 @@ use tracing::error;
 use crate::exercise::model::request::AddExerciseRequest;
 use crate::exercise::model::response::MultipleExercisesResponse;
 use crate::exercise::repository::ExerciseRepository;
-use crate::session::utility::validate_and_renew_session;
+use crate::user::utility::validate_and_renew_session;
 
 #[get("/exercises")]
 pub async fn route_exercises(

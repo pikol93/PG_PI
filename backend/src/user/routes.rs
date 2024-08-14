@@ -7,11 +7,11 @@ use actix_web::{
 use tracing::{error, info};
 
 use crate::{
-    session::{
+    user::repository::UserRepository,
+    user::{
         model::request::{LoginRequest, RegisterRequest},
         utility::set_user_id,
     },
-    user::repository::UserRepository,
 };
 
 #[post("/register")]

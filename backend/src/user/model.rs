@@ -2,6 +2,8 @@ use crate::serializer::serialize_object_id;
 use mongodb::bson::oid::ObjectId;
 use serde::{Deserialize, Serialize};
 
+pub mod request;
+
 #[derive(Clone, Debug, PartialEq, Eq, Deserialize, Serialize)]
 pub struct User {
     pub username: String,

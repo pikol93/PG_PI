@@ -1,7 +1,6 @@
 mod configuration;
 mod exercise;
 pub mod serializer;
-mod session;
 mod user;
 pub mod utility;
 
@@ -18,9 +17,9 @@ use color_eyre::Result;
 use dotenvy::dotenv;
 use exercise::routes::{route_exercises, route_put_exercise};
 use mongodb::Client;
-use session::routes::{login, logout, register};
 use tracing::{debug, info};
 use tracing_subscriber::filter::EnvFilter;
+use user::routes::{login, logout, register};
 
 #[actix_web::main]
 async fn main() -> Result<()> {

@@ -1,9 +1,12 @@
+use actix_session::Session;
 use actix_web::web::{Data, Form, Path};
 use actix_web::{get, post, HttpResponse, Responder};
 use mongodb::bson::oid::ObjectId;
+use tracing::error;
 
 use crate::exercise::model::AddExerciseModel;
 use crate::exercise::repository::ExerciseRepository;
+use crate::session::utility::validate_and_renew_session;
 
 #[post("/add_exercise")]
 pub async fn add_exercise(
@@ -63,4 +66,28 @@ pub async fn get_exercises_by_user(
         Ok(exercises) => HttpResponse::Ok().json(exercises),
         Err(err) => HttpResponse::InternalServerError().body(err.to_string()),
     }
+}
+
+#[get("/exercises")]
+pub async fn route_exercises(
+    session: Session,
+    exercise_repository: Data<ExerciseRepository>,
+) -> impl Responder {
+    let Ok(user_id) = validate_and_renew_session(&session) else {
+        return HttpResponse::Unauthorized().finish();
+    };
+
+    let get_exercises_result = exercise_repository.get_exercises_by_user_id(&user_id).await;
+    let exercises = match get_exercises_result {
+        Ok(exercises) => exercises,
+        Err(err) => {
+            error!(
+                "Could not get exercises for user: {}. Reason = {}",
+                user_id, err
+            );
+            return HttpResponse::InternalServerError().finish();
+        }
+    };
+
+    HttpResponse::Ok().json(exercises)
 }

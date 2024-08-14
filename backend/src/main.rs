@@ -7,7 +7,7 @@ pub mod utility;
 
 use crate::configuration::Configuration;
 use crate::exercise::repository::ExerciseRepository;
-use crate::user::repository::UserRepositoryImpl;
+use crate::user::repository::UserRepository;
 use crate::user::routes::{add_user, get_user, get_users};
 use actix_session::storage::RedisSessionStore;
 use actix_session::SessionMiddleware;
@@ -35,7 +35,7 @@ async fn main() -> Result<()> {
     debug!("Read environment configuration: {:?}", configuration);
 
     let client = Client::with_uri_str(&configuration.mongo_db_url).await?;
-    let user_repository = UserRepositoryImpl::create_and_initialize(client.clone()).await?;
+    let user_repository = UserRepository::create_and_initialize(client.clone()).await?;
     let exercise_repository = ExerciseRepository::create_and_initialize(client.clone()).await?;
 
     let store = RedisSessionStore::new(&configuration.redis_url)

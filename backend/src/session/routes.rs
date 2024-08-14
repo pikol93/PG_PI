@@ -11,12 +11,12 @@ use crate::{
         model::request::{LoginRequest, RegisterRequest},
         utility::set_user_id,
     },
-    user::repository::{UserRepository, UserRepositoryImpl},
+    user::repository::UserRepository,
 };
 
 #[post("/register")]
 pub async fn register(
-    user_repository: Data<UserRepositoryImpl>,
+    user_repository: Data<UserRepository>,
     form: Form<RegisterRequest>,
     session: Session,
 ) -> impl Responder {
@@ -36,7 +36,7 @@ pub async fn register(
 
 #[post("/login")]
 pub async fn login(
-    user_repository: Data<UserRepositoryImpl>,
+    user_repository: Data<UserRepository>,
     form: Form<LoginRequest>,
     session: Session,
 ) -> impl Responder {

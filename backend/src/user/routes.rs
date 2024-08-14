@@ -6,7 +6,7 @@ use crate::user::repository::UserRepository;
 
 #[post("/add_user")]
 pub async fn add_user(
-    user_repository: Data<dyn UserRepository>,
+    user_repository: Data<UserRepository>,
     form: Form<AddUserModel>,
 ) -> impl Responder {
     // TODO: Fix this
@@ -20,7 +20,7 @@ pub async fn add_user(
 }
 
 #[get("/get_users")]
-pub async fn get_users(user_repository: Data<dyn UserRepository>) -> impl Responder {
+pub async fn get_users(user_repository: Data<UserRepository>) -> impl Responder {
     let result = user_repository.get_users().await;
 
     match result {
@@ -31,7 +31,7 @@ pub async fn get_users(user_repository: Data<dyn UserRepository>) -> impl Respon
 
 #[get("/get_user/{username}")]
 pub async fn get_user(
-    user_repository: Data<dyn UserRepository>,
+    user_repository: Data<UserRepository>,
     username: Path<String>,
 ) -> HttpResponse {
     let result = user_repository.get_user_by_name(&username).await;

@@ -1,0 +1,21 @@
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
+  background-color: #252627;
+  color: #bb0a21;
+}
+
+.logo {
+  max-width: 200px;
+  margin-bottom: 20px;
+}
+
+.motivational-text {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0;
+}

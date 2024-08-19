@@ -1,3 +1,4 @@
-pub mod controller;
 mod model;
 pub mod repository;
+pub mod routes;
+pub mod utility;

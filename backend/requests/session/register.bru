@@ -1,0 +1,15 @@
+meta {
+  name: register
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://{{HOST}}/register
+  body: formUrlEncoded
+  auth: none
+}
+
+body:form-urlencoded {
+  name: my_username
+}

@@ -1,4 +1,4 @@
-enum ScreenView {
+enum AppRoute {
   home,
   navigation,
   workout,

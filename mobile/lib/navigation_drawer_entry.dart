@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:pi_mobile/screen_view.dart';
+import 'package:pi_mobile/app_route.dart';
 
 class NavigationDrawerEntry extends StatelessWidget {
-  final ScreenView screenView;
+  final AppRoute appRoute;
   final IconData icon;
   final String text;
-  final Function(ScreenView view) onTap;
+  final Function(AppRoute route) onTap;
 
   const NavigationDrawerEntry({
     super.key,
-    required this.screenView,
+    required this.appRoute,
     required this.icon,
     required this.text,
     required this.onTap,
@@ -25,6 +25,6 @@ class NavigationDrawerEntry extends StatelessWidget {
   }
 
   void _onTap() {
-    onTap(screenView);
+    onTap(appRoute);
   }
 }

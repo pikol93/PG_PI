@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pi_mobile/navigation_drawer_entry.dart';
-import 'package:pi_mobile/screen_view.dart';
+import 'package:pi_mobile/app_route.dart';
 
 class AppNavigationDrawer extends StatelessWidget {
   const AppNavigationDrawer({
@@ -30,25 +30,25 @@ class AppNavigationDrawer extends StatelessWidget {
             ),
           ),
           NavigationDrawerEntry(
-            screenView: ScreenView.home,
+            appRoute: AppRoute.home,
             icon: Icons.home,
             text: "Strona główna",
             onTap: _onEntrySelected,
           ),
           NavigationDrawerEntry(
-            screenView: ScreenView.navigation,
+            appRoute: AppRoute.navigation,
             icon: Icons.navigation,
             text: "Trasy",
             onTap: _onEntrySelected,
           ),
           NavigationDrawerEntry(
-            screenView: ScreenView.workout,
+            appRoute: AppRoute.workout,
             icon: Icons.fitness_center,
             text: "Ćwiczenia",
             onTap: _onEntrySelected,
           ),
           NavigationDrawerEntry(
-            screenView: ScreenView.settings,
+            appRoute: AppRoute.settings,
             icon: Icons.settings,
             text: "Ustawienia",
             onTap: _onEntrySelected,
@@ -58,7 +58,7 @@ class AppNavigationDrawer extends StatelessWidget {
     );
   }
 
-  void _onEntrySelected(ScreenView view) {
-    print(view);
+  void _onEntrySelected(AppRoute route) {
+    print(route);
   }
 }

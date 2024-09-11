@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pi_mobile/home_page.dart';
+import 'package:pi_mobile/routes/logged_off/welcome_route.dart';
 
 void main() {
   runApp(
@@ -9,7 +9,7 @@ void main() {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const HomePage(title: 'Flutter Demo Home Page'),
+      home: const WelcomeRoute(),
     ),
   );
 }

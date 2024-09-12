@@ -1,18 +1,20 @@
 import 'package:awesome_flutter_extensions/awesome_flutter_extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:pi_mobile/app_navigation_drawer.dart';
 
-class RegisterRoute extends StatelessWidget {
-  const RegisterRoute({super.key});
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: const AppNavigationDrawer(),
       appBar: AppBar(
         backgroundColor: context.colors.scaffoldBackground,
-        title: const Text("Register"),
+        title: const Text("Home"),
       ),
       body: const Center(
-        child: Text("register route"),
+        child: Text("home route"),
       ),
     );
   }

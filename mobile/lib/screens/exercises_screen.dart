@@ -2,8 +2,8 @@ import 'package:awesome_flutter_extensions/awesome_flutter_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:pi_mobile/app_navigation_drawer.dart';
 
-class HomeRoute extends StatelessWidget {
-  const HomeRoute({super.key});
+class ExercisesScreen extends StatelessWidget {
+  const ExercisesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -11,10 +11,10 @@ class HomeRoute extends StatelessWidget {
       drawer: const AppNavigationDrawer(),
       appBar: AppBar(
         backgroundColor: context.colors.scaffoldBackground,
-        title: const Text("Home"),
+        title: const Text("Exercises"),
       ),
       body: const Center(
-        child: Text("home route"),
+        child: Text("exercises route"),
       ),
     );
   }

@@ -1,10 +1,10 @@
 import 'package:awesome_flutter_extensions/awesome_flutter_extensions.dart';
 import 'package:flutter/material.dart';
-import 'package:pi_mobile/routes/logged_off/login_route.dart';
-import 'package:pi_mobile/routes/logged_off/register_route.dart';
+import 'package:pi_mobile/screens/login_screen.dart';
+import 'package:pi_mobile/screens/register_screen.dart';
 
-class WelcomeRoute extends StatelessWidget {
-  const WelcomeRoute({super.key});
+class WelcomeScreen extends StatelessWidget {
+  const WelcomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -37,13 +37,13 @@ class WelcomeRoute extends StatelessWidget {
 
   void _onLoginPressed(BuildContext context) {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const LoginRoute()));
+        context, MaterialPageRoute(builder: (context) => const LoginScreen()));
     print("login");
   }
 
   void _onRegisterPressed(BuildContext context) {
     Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const RegisterRoute()));
+        MaterialPageRoute(builder: (context) => const RegisterScreen()));
     print("register");
   }
 }

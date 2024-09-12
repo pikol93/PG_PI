@@ -9,13 +9,13 @@ extension AppRouteExtension on AppRoute {
   String getName() {
     switch (this) {
       case AppRoute.home:
-        return "home";
+        return "/";
       case AppRoute.navigation:
-        return "navigation";
+        return "/navigation";
       case AppRoute.workout:
-        return "workout";
+        return "/workout";
       case AppRoute.settings:
-        return "settings";
+        return "/settings";
     }
   }
 }

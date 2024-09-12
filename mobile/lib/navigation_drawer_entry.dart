@@ -1,16 +1,13 @@
-import 'package:awesome_flutter_extensions/awesome_flutter_extensions.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:pi_mobile/routes/logged_in/logged_in_app_route.dart';
 
 class NavigationDrawerEntry extends StatelessWidget {
-  final LoggedInAppRoute appRoute;
+  final Function(BuildContext) goMethod;
   final IconData icon;
   final String text;
 
   const NavigationDrawerEntry({
     super.key,
-    required this.appRoute,
+    required this.goMethod,
     required this.icon,
     required this.text,
   });
@@ -25,6 +22,6 @@ class NavigationDrawerEntry extends StatelessWidget {
   }
 
   void _onTap(BuildContext context) {
-    context.go(appRoute.getName());
+    goMethod(context);
   }
 }

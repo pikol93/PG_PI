@@ -1,5 +1,6 @@
 import 'package:awesome_flutter_extensions/awesome_flutter_extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:pi_mobile/routes.dart';
 import 'package:pi_mobile/screens/login_screen.dart';
 import 'package:pi_mobile/screens/register_screen.dart';
 
@@ -36,14 +37,12 @@ class WelcomeScreen extends StatelessWidget {
   }
 
   void _onLoginPressed(BuildContext context) {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const LoginScreen()));
+    const LoginRoute().go(context);
     print("login");
   }
 
   void _onRegisterPressed(BuildContext context) {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const RegisterScreen()));
+    const RegisterRoute().go(context);
     print("register");
   }
 }

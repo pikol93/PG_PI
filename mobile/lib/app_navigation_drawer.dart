@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pi_mobile/navigation_drawer_entry.dart';
-import 'package:pi_mobile/logged_in_app_route.dart';
+import 'package:pi_mobile/routes/logged_in/logged_in_app_route.dart';
 
 class AppNavigationDrawer extends StatelessWidget {
   const AppNavigationDrawer({

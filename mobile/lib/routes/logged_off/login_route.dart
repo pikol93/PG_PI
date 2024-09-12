@@ -12,7 +12,12 @@ class LoginRoute extends StatelessWidget {
         title: const Text("Login"),
       ),
       body: const Center(
-        child: Text("login route"),
+        child: Column(
+          children: [
+            Text("login route"),
+            TextField(),
+          ],
+        ),
       ),
     );
   }

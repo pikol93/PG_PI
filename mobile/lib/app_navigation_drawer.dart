@@ -29,36 +29,28 @@ class AppNavigationDrawer extends StatelessWidget {
               ),
             ),
           ),
-          NavigationDrawerEntry(
+          const NavigationDrawerEntry(
             appRoute: AppRoute.home,
             icon: Icons.home,
             text: "Strona główna",
-            onTap: _onEntrySelected,
           ),
-          NavigationDrawerEntry(
+          const NavigationDrawerEntry(
             appRoute: AppRoute.navigation,
             icon: Icons.navigation,
             text: "Trasy",
-            onTap: _onEntrySelected,
           ),
-          NavigationDrawerEntry(
+          const NavigationDrawerEntry(
             appRoute: AppRoute.workout,
             icon: Icons.fitness_center,
             text: "Ćwiczenia",
-            onTap: _onEntrySelected,
           ),
-          NavigationDrawerEntry(
+          const NavigationDrawerEntry(
             appRoute: AppRoute.settings,
             icon: Icons.settings,
             text: "Ustawienia",
-            onTap: _onEntrySelected,
           ),
         ],
       ),
     );
-  }
-
-  void _onEntrySelected(AppRoute route) {
-    print(route);
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:pi_mobile/app_route.dart';
+import 'package:pi_mobile/logged_in_app_route.dart';
 import 'package:pi_mobile/routes/exercises_route.dart';
 import 'package:pi_mobile/routes/home_route.dart';
 import 'package:pi_mobile/routes/tracks_route.dart';
@@ -9,19 +9,19 @@ void main() {
   final router = GoRouter(
     routes: [
       GoRoute(
-        path: AppRoute.home.getName(),
+        path: LoggedInAppRoute.home.getName(),
         builder: (context, state) => const HomeRoute(),
       ),
       GoRoute(
-        path: AppRoute.navigation.getName(),
+        path: LoggedInAppRoute.navigation.getName(),
         builder: (context, state) => const TracksRoute(),
       ),
       GoRoute(
-        path: AppRoute.workout.getName(),
+        path: LoggedInAppRoute.workout.getName(),
         builder: (context, state) => const ExercisesRoute(),
       ),
       GoRoute(
-        path: AppRoute.settings.getName(),
+        path: LoggedInAppRoute.settings.getName(),
         builder: (context, state) => const HomeRoute(),
       ),
     ],

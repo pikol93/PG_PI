@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pi_mobile/navigation_drawer_entry.dart';
-import 'package:pi_mobile/app_route.dart';
+import 'package:pi_mobile/logged_in_app_route.dart';
 
 class AppNavigationDrawer extends StatelessWidget {
   const AppNavigationDrawer({
@@ -30,22 +30,22 @@ class AppNavigationDrawer extends StatelessWidget {
             ),
           ),
           const NavigationDrawerEntry(
-            appRoute: AppRoute.home,
+            appRoute: LoggedInAppRoute.home,
             icon: Icons.home,
             text: "Strona główna",
           ),
           const NavigationDrawerEntry(
-            appRoute: AppRoute.navigation,
+            appRoute: LoggedInAppRoute.navigation,
             icon: Icons.navigation,
             text: "Trasy",
           ),
           const NavigationDrawerEntry(
-            appRoute: AppRoute.workout,
+            appRoute: LoggedInAppRoute.workout,
             icon: Icons.fitness_center,
             text: "Ćwiczenia",
           ),
           const NavigationDrawerEntry(
-            appRoute: AppRoute.settings,
+            appRoute: LoggedInAppRoute.settings,
             icon: Icons.settings,
             text: "Ustawienia",
           ),

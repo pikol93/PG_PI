@@ -1,10 +1,10 @@
 import 'package:awesome_flutter_extensions/awesome_flutter_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:pi_mobile/app_route.dart';
+import 'package:pi_mobile/logged_in_app_route.dart';
 
 class NavigationDrawerEntry extends StatelessWidget {
-  final AppRoute appRoute;
+  final LoggedInAppRoute appRoute;
   final IconData icon;
   final String text;
 

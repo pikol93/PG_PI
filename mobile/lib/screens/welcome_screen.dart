@@ -1,8 +1,6 @@
 import 'package:awesome_flutter_extensions/awesome_flutter_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:pi_mobile/routes.dart';
-import 'package:pi_mobile/screens/login_screen.dart';
-import 'package:pi_mobile/screens/register_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});

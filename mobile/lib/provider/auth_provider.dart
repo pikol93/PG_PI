@@ -15,6 +15,15 @@ class Auth extends _$Auth {
     return await preferences.getFromJson(keyName, AuthState.fromJson);
   }
 
+  /// Logs in the user. This is to be redone in the future.
+  Future<void> logIn(String username) async {
+    print("Logging in as $username...");
+    final preferences = SharedPreferencesAsync();
+    await preferences.setToJson(keyName, AuthState(username: username));
+
+    ref.invalidateSelf();
+  }
+
   Future<void> logOff() async {
     print("Logging off...");
     final preferences = SharedPreferencesAsync();

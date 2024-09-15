@@ -6,6 +6,7 @@ import 'package:pi_mobile/screens/exercises_screen.dart';
 import 'package:pi_mobile/screens/home_screen.dart';
 import 'package:pi_mobile/screens/login_screen.dart';
 import 'package:pi_mobile/screens/register_screen.dart';
+import 'package:pi_mobile/screens/settings_screen.dart';
 import 'package:pi_mobile/screens/tracks_screen.dart';
 import 'package:pi_mobile/screens/welcome_screen.dart';
 
@@ -33,6 +34,17 @@ class HomeRoute extends GoRouteData {
   }
 }
 
+@TypedGoRoute<TracksRoute>(path: "/tracks")
+class TracksRoute extends GoRouteData {
+  const TracksRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    print("tracks route");
+    return const TracksScreen();
+  }
+}
+
 @TypedGoRoute<ExercisesRoute>(path: "/exercises")
 class ExercisesRoute extends GoRouteData {
   const ExercisesRoute();
@@ -44,14 +56,14 @@ class ExercisesRoute extends GoRouteData {
   }
 }
 
-@TypedGoRoute<TracksRoute>(path: "/tracks")
-class TracksRoute extends GoRouteData {
-  const TracksRoute();
+@TypedGoRoute<SettingsRoute>(path: "/settings")
+class SettingsRoute extends GoRouteData {
+  const SettingsRoute();
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    print("tracks route");
-    return const TracksScreen();
+    print("settings route");
+    return const SettingsScreen();
   }
 }
 

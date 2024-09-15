@@ -45,7 +45,7 @@ class AppNavigationDrawer extends StatelessWidget {
             text: "Ćwiczenia",
           ),
           NavigationDrawerEntry(
-            goMethod: const HomeRoute().go,
+            goMethod: const SettingsRoute().go,
             icon: Icons.settings,
             text: "Ustawienia",
           ),

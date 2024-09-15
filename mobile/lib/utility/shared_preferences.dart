@@ -7,7 +7,7 @@ extension SharedPreferencesAsyncExtension on SharedPreferencesAsync {
     String key,
     T? Function(Map<String, Object?>) constructor,
   ) async {
-    final jsonString = await this.getString(key);
+    final jsonString = await getString(key);
     if (jsonString == null) {
       print("No stored string value for key $key");
       return null;
@@ -21,5 +21,13 @@ extension SharedPreferencesAsyncExtension on SharedPreferencesAsync {
     }
 
     return constructed;
+  }
+
+  Future<void> setToJson<T>(
+    String key,
+    T obj,
+  ) async {
+    final json = jsonEncode(obj);
+    await setString(key, json);
   }
 }

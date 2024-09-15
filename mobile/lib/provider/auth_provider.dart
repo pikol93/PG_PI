@@ -7,9 +7,19 @@ part "auth_provider.g.dart";
 
 @riverpod
 class Auth extends _$Auth {
+  static const keyName = "auth";
+
   @override
   Future<AuthState?> build() async {
     final preferences = SharedPreferencesAsync();
-    return await preferences.getFromJson("auth", AuthState.fromJson);
+    return await preferences.getFromJson(keyName, AuthState.fromJson);
+  }
+
+  Future<void> logOff() async {
+    print("Logging off...");
+    final preferences = SharedPreferencesAsync();
+    await preferences.remove(keyName);
+
+    ref.invalidateSelf();
   }
 }

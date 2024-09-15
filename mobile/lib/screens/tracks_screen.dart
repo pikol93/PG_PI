@@ -1,6 +1,6 @@
 import 'package:awesome_flutter_extensions/awesome_flutter_extensions.dart';
 import 'package:flutter/material.dart';
-import 'package:pi_mobile/app_navigation_drawer.dart';
+import 'package:pi_mobile/widgets/app_navigation_drawer.dart';
 
 class TracksScreen extends StatelessWidget {
   const TracksScreen({super.key});

@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:pi_mobile/provider/auth_provider.dart';
 import 'package:pi_mobile/screens/exercises_screen.dart';
 import 'package:pi_mobile/screens/home_screen.dart';
 import 'package:pi_mobile/screens/login_screen.dart';
@@ -17,9 +19,16 @@ class RootRoute extends GoRouteData {
   const RootRoute();
 
   @override
-  FutureOr<String?> redirect(BuildContext context, GoRouterState state) {
+  FutureOr<String?> redirect(BuildContext context, GoRouterState state) async {
     print("root route");
-    return const HomeRoute().location;
+    final state =
+        await ProviderScope.containerOf(context).read(authProvider.future);
+
+    if (state == null) {
+      return const WelcomeRoute().location;
+    } else {
+      return const HomeRoute().location;
+    }
   }
 }
 

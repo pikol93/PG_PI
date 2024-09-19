@@ -12,6 +12,7 @@ import 'package:pi_mobile/screens/register_screen.dart';
 import 'package:pi_mobile/screens/settings_screen.dart';
 import 'package:pi_mobile/screens/tracks_screen.dart';
 import 'package:pi_mobile/screens/welcome_screen.dart';
+import 'package:pi_mobile/screens/welcome_settings_screen.dart';
 
 part 'routes.g.dart';
 
@@ -82,6 +83,7 @@ class SettingsRoute extends GoRouteData with Logger {
   routes: <TypedGoRoute<GoRouteData>>[
     TypedGoRoute<RegisterRoute>(path: "register"),
     TypedGoRoute<LoginRoute>(path: "login"),
+    TypedGoRoute<WelcomeSettingsRoute>(path: "settings"),
   ],
 )
 class WelcomeRoute extends GoRouteData with Logger {
@@ -111,5 +113,15 @@ class LoginRoute extends GoRouteData with Logger {
   Widget build(BuildContext context, GoRouterState state) {
     logger.debug("login route");
     return const LoginScreen();
+  }
+}
+
+class WelcomeSettingsRoute extends GoRouteData with Logger {
+  const WelcomeSettingsRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    logger.debug("welcome settings route");
+    return const WelcomeSettingsScreen();
   }
 }

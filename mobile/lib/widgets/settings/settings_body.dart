@@ -12,15 +12,15 @@ class SettingsBody extends StatelessWidget {
     return const SingleChildScrollView(
       child: Column(
         children: [
-          _LogOffButton(),
+          _LogOffSetting(),
         ],
       ),
     );
   }
 }
 
-class _LogOffButton extends ConsumerWidget {
-  const _LogOffButton();
+class _LogOffSetting extends ConsumerWidget {
+  const _LogOffSetting();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

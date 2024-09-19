@@ -9,28 +9,37 @@ class WelcomeScreen extends StatelessWidget with Logger {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(32.0),
-              child: Text(
-                "Welcome",
-                style: context.textStyles.headlineLarge,
-              ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => _onSettingsPressed(context),
+        child: const Icon(Icons.settings),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
+      body: Stack(
+        children: [
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(32.0),
+                  child: Text(
+                    "Welcome",
+                    style: context.textStyles.headlineLarge,
+                  ),
+                ),
+                TextButton(
+                  onPressed: () => _onLoginPressed(context),
+                  child: const Text("Login"),
+                ),
+                TextButton(
+                  onPressed: () => _onRegisterPressed(context),
+                  child: const Text("Register"),
+                ),
+              ],
             ),
-            TextButton(
-              onPressed: () => _onLoginPressed(context),
-              child: const Text("Login"),
-            ),
-            TextButton(
-              onPressed: () => _onRegisterPressed(context),
-              child: const Text("Register"),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -43,5 +52,10 @@ class WelcomeScreen extends StatelessWidget with Logger {
   void _onRegisterPressed(BuildContext context) {
     const RegisterRoute().go(context);
     logger.debug("register");
+  }
+
+  void _onSettingsPressed(BuildContext context) {
+    logger.debug("Welcome settings button pressed.");
+    const WelcomeSettingsRoute().go(context);
   }
 }

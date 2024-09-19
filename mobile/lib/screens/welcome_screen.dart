@@ -1,8 +1,9 @@
 import 'package:awesome_flutter_extensions/awesome_flutter_extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:pi_mobile/logger.dart';
 import 'package:pi_mobile/routes.dart';
 
-class WelcomeScreen extends StatelessWidget {
+class WelcomeScreen extends StatelessWidget with Logger {
   const WelcomeScreen({super.key});
 
   @override
@@ -36,11 +37,11 @@ class WelcomeScreen extends StatelessWidget {
 
   void _onLoginPressed(BuildContext context) {
     const LoginRoute().go(context);
-    print("login");
+    logger.debug("login");
   }
 
   void _onRegisterPressed(BuildContext context) {
     const RegisterRoute().go(context);
-    print("register");
+    logger.debug("register");
   }
 }

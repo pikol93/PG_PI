@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:pi_mobile/logger.dart';
 import 'package:pi_mobile/provider/auth_provider.dart';
 import 'package:pi_mobile/screens/exercises_screen.dart';
 import 'package:pi_mobile/screens/home_screen.dart';
@@ -15,12 +16,12 @@ import 'package:pi_mobile/screens/welcome_screen.dart';
 part 'routes.g.dart';
 
 @TypedGoRoute<RootRoute>(path: "/")
-class RootRoute extends GoRouteData {
+class RootRoute extends GoRouteData with Logger {
   const RootRoute();
 
   @override
   FutureOr<String?> redirect(BuildContext context, GoRouterState state) async {
-    print("root route");
+    logger.debug("root route");
     final state =
         await ProviderScope.containerOf(context).read(authProvider.future);
 
@@ -33,45 +34,45 @@ class RootRoute extends GoRouteData {
 }
 
 @TypedGoRoute<HomeRoute>(path: "/home")
-class HomeRoute extends GoRouteData {
+class HomeRoute extends GoRouteData with Logger {
   const HomeRoute();
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    print("home route");
+    logger.debug("home route");
     return const HomeScreen();
   }
 }
 
 @TypedGoRoute<TracksRoute>(path: "/tracks")
-class TracksRoute extends GoRouteData {
+class TracksRoute extends GoRouteData with Logger {
   const TracksRoute();
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    print("tracks route");
+    logger.debug("tracks route");
     return const TracksScreen();
   }
 }
 
 @TypedGoRoute<ExercisesRoute>(path: "/exercises")
-class ExercisesRoute extends GoRouteData {
+class ExercisesRoute extends GoRouteData with Logger {
   const ExercisesRoute();
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    print("exercises route");
+    logger.debug("exercises route");
     return const ExercisesScreen();
   }
 }
 
 @TypedGoRoute<SettingsRoute>(path: "/settings")
-class SettingsRoute extends GoRouteData {
+class SettingsRoute extends GoRouteData with Logger {
   const SettingsRoute();
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    print("settings route");
+    logger.debug("settings route");
     return const SettingsScreen();
   }
 }
@@ -83,32 +84,32 @@ class SettingsRoute extends GoRouteData {
     TypedGoRoute<LoginRoute>(path: "login"),
   ],
 )
-class WelcomeRoute extends GoRouteData {
+class WelcomeRoute extends GoRouteData with Logger {
   const WelcomeRoute();
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    print("welcome route");
+    logger.debug("welcome route");
     return const WelcomeScreen();
   }
 }
 
-class RegisterRoute extends GoRouteData {
+class RegisterRoute extends GoRouteData with Logger {
   const RegisterRoute();
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    print("register route");
+    logger.debug("register route");
     return const RegisterScreen();
   }
 }
 
-class LoginRoute extends GoRouteData {
+class LoginRoute extends GoRouteData with Logger {
   const LoginRoute();
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    print("login route");
+    logger.debug("login route");
     return const LoginScreen();
   }
 }

@@ -5,14 +5,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pi_mobile/logger.dart';
 import 'package:pi_mobile/provider/auth_provider.dart';
-import 'package:pi_mobile/screens/exercises_screen.dart';
-import 'package:pi_mobile/screens/home_screen.dart';
-import 'package:pi_mobile/screens/login_screen.dart';
-import 'package:pi_mobile/screens/register_screen.dart';
-import 'package:pi_mobile/screens/settings_screen.dart';
-import 'package:pi_mobile/screens/tracks_screen.dart';
-import 'package:pi_mobile/screens/welcome_screen.dart';
-import 'package:pi_mobile/screens/welcome_settings_screen.dart';
+import 'package:pi_mobile/widgets/exercises/exercises_screen.dart';
+import 'package:pi_mobile/widgets/home/home_screen.dart';
+import 'package:pi_mobile/widgets/login/login_screen.dart';
+import 'package:pi_mobile/widgets/register/register_screen.dart';
+import 'package:pi_mobile/widgets/settings/settings_screen.dart';
+import 'package:pi_mobile/widgets/settings/welcome_settings_screen.dart';
+import 'package:pi_mobile/widgets/tracks/tracks_screen.dart';
+import 'package:pi_mobile/widgets/welcome/welcome_screen.dart';
 
 part 'routes.g.dart';
 

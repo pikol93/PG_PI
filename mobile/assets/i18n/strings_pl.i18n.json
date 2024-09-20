@@ -1,3 +1,33 @@
 {
-  "welcome": "Witaj"
+  "general": {
+    "alert": {
+      "confirm": "Potwierdź",
+      "cancel": "Anuluj"
+    }
+  },
+  "welcome": {
+    "welcome": "Witaj",
+    "login": "Zaloguj",
+    "register": "Zarejestruj"
+  },
+  "home": {
+    "title": "Strona główna"
+  },
+  "tracks": {
+    "title": "Trasy"
+  },
+  "exercises": {
+    "title": "Ćwiczenia"
+  },
+  "settings": {
+    "title": "Ustawienia",
+    "serverAddress": {
+      "title": "Adres serwera",
+      "alertTitle": "Wprowadź nowy adres serwera"
+    },
+    "logOff": {
+      "title": "Wyloguj",
+      "alertTitle": "Czy na pewno chcesz się wylogować?"
+    }
+  }
 }

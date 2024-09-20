@@ -19,6 +19,8 @@ dependencies:
   json_annotation: ^4.9.0
   shared_preferences: ^2.3.2
   loggy: ^2.0.3
+  slang: ^3.31.2
+  slang_flutter: ^3.31.0
 
 dev_dependencies:
   flutter_test:
@@ -33,6 +35,7 @@ dev_dependencies:
   riverpod_lint: ^2.3.10
   freezed: ^2.5.2
   json_serializable: ^6.8.0
+  slang_build_runner: ^3.31.0
 
 flutter:
   uses-material-design: true

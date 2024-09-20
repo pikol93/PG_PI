@@ -1,5 +1,6 @@
 import 'package:awesome_flutter_extensions/awesome_flutter_extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:pi_mobile/i18n/strings.g.dart';
 import 'package:pi_mobile/logger.dart';
 import 'package:pi_mobile/routes.dart';
 
@@ -24,17 +25,17 @@ class WelcomeScreen extends StatelessWidget with Logger {
                 Padding(
                   padding: const EdgeInsets.all(32.0),
                   child: Text(
-                    "Welcome",
+                    context.t.welcome.welcome,
                     style: context.textStyles.headlineLarge,
                   ),
                 ),
                 TextButton(
                   onPressed: () => _onLoginPressed(context),
-                  child: const Text("Login"),
+                  child: Text(context.t.welcome.login),
                 ),
                 TextButton(
                   onPressed: () => _onRegisterPressed(context),
-                  child: const Text("Register"),
+                  child: Text(context.t.welcome.register),
                 ),
               ],
             ),

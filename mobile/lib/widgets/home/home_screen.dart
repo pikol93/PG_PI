@@ -1,6 +1,7 @@
 import 'package:awesome_flutter_extensions/awesome_flutter_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pi_mobile/i18n/strings.g.dart';
 import 'package:pi_mobile/provider/auth_provider.dart';
 import 'package:pi_mobile/widgets/common/app_navigation_drawer.dart';
 
@@ -13,7 +14,7 @@ class HomeScreen extends ConsumerWidget {
       drawer: const AppNavigationDrawer(),
       appBar: AppBar(
         backgroundColor: context.colors.scaffoldBackground,
-        title: const Text("Home"),
+        title: Text(context.t.home.title),
       ),
       body: Center(
         child: switch (ref.watch(authProvider)) {

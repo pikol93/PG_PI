@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pi_mobile/i18n/strings.g.dart';
 import 'package:pi_mobile/provider/auth_provider.dart';
 import 'package:pi_mobile/provider/connection_settings_provider.dart';
 import 'package:pi_mobile/routes.dart';
@@ -30,8 +31,8 @@ class _ChangeServerAddressSetting extends ConsumerWidget {
     return ref.watch(connectionSettingsProvider).when(
           data: (data) => SettingText(
             icon: Icons.computer,
-            title: "Server address",
-            alertTitle: "Enter new server address",
+            title: context.t.settings.serverAddress.title,
+            alertTitle: context.t.settings.serverAddress.alertTitle,
             currentValue: data.serverAddress,
             onConfirmed: (value) => _onConfirmed(ref, value),
           ),
@@ -52,9 +53,9 @@ class _LogOffSetting extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return SettingButton(
       icon: Icons.logout,
-      title: "Log off",
+      title: context.t.settings.logOff.title,
       requiresConfirmation: true,
-      alertTitle: "Are you sure you want to log off?",
+      alertTitle: context.t.settings.logOff.alertTitle,
       onConfirmed: () => _onLogOffPressed(context, ref),
     );
   }

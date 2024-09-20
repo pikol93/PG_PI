@@ -9,7 +9,6 @@ import 'package:loggy/loggy.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  // TODO: Allow changing the locale
   LocaleSettings.useDeviceLocale();
   Loggy.initLoggy(
     logPrinter: const LoggerPrinter(),

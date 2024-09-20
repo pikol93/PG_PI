@@ -1,8 +1,8 @@
 import 'package:awesome_flutter_extensions/awesome_flutter_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pi_mobile/widgets/app_navigation_drawer.dart';
 import 'package:pi_mobile/provider/auth_provider.dart';
+import 'package:pi_mobile/widgets/common/app_navigation_drawer.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});

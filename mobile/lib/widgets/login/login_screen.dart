@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pi_mobile/logger.dart';
 import 'package:pi_mobile/provider/auth_provider.dart';
-import 'package:pi_mobile/routes.dart';
+import 'package:pi_mobile/routing/routes.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});

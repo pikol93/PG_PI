@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:pi_mobile/i18n/strings.g.dart';
 import 'package:pi_mobile/logger.dart';
 import 'package:pi_mobile/provider/theme_provider.dart';
-import 'package:pi_mobile/routes.dart';
+import 'package:pi_mobile/routing/routes.dart';
 import 'package:loggy/loggy.dart';
 import 'package:pi_mobile/service/stored_locale_service.dart';
 

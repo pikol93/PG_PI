@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pi_mobile/data/app_theme.dart';
 import 'package:pi_mobile/i18n/strings.g.dart';
 import 'package:pi_mobile/logger.dart';
 import 'package:pi_mobile/provider/auth_provider.dart';
 import 'package:pi_mobile/provider/connection_settings_provider.dart';
 import 'package:pi_mobile/provider/stored_locale_provider.dart';
+import 'package:pi_mobile/provider/theme_provider.dart';
 import 'package:pi_mobile/routes.dart';
 import 'package:pi_mobile/service/stored_locale_service.dart';
 import 'package:pi_mobile/widgets/settings/setting_button.dart';
@@ -20,6 +22,7 @@ class SettingsBody extends StatelessWidget {
       child: Column(
         children: [
           _ChangeLanguageSetting(),
+          _ChangeThemeSetting(),
           _ChangeServerAddressSetting(),
           _LogOffSetting(),
         ],
@@ -103,6 +106,38 @@ class _ChangeLanguageSetting extends ConsumerWidget with Logger {
 
   String _mapToSetting(BuildContext context, LocaleSetting setting) {
     return context.t.settings.language.language(context: setting);
+  }
+}
+
+class _ChangeThemeSetting extends ConsumerWidget {
+  const _ChangeThemeSetting();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return ref.watch(themeProvider).when(
+          data: (theme) {
+            return SettingOption<AppTheme>(
+              icon: Icons.brush,
+              title: context.t.settings.theme.title,
+              alertTitle: context.t.settings.theme.alertTitle,
+              possibleValues: AppTheme.values,
+              currentValue: theme,
+              itemToDisplayMapper: (variant) => _mapToDisplay(context, variant),
+              onConfirmed: (variant) => _onConfirmed(ref, variant),
+            );
+          },
+          error: (obj, stack) => const Text("An unexpected error occurred."),
+          loading: () => const CircularProgressIndicator(),
+        );
+  }
+
+  String _mapToDisplay(BuildContext context, AppTheme theme) {
+    return context.t.settings.theme.theme(context: theme.toLocalization());
+  }
+
+  void _onConfirmed(WidgetRef ref, AppTheme? theme) async {
+    final actualTheme = theme ?? AppTheme.system;
+    await ref.read(themeProvider.notifier).updateTheme(actualTheme);
   }
 }
 

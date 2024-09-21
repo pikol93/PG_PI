@@ -21,6 +21,15 @@
   },
   "settings": {
     "title": "Ustawienia",
+    "language": {
+      "title": "Zmień język",
+      "alertTitle": "Wybierz język",
+      "language(context=LocaleSetting)": {
+        "none": "Użyj języka systemu",
+        "en": "english",
+        "pl": "polski"
+      }
+    },
     "serverAddress": {
       "title": "Adres serwera",
       "alertTitle": "Wprowadź nowy adres serwera"

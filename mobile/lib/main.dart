@@ -15,22 +15,42 @@ void main() async {
     logPrinter: const LoggerPrinter(),
   );
 
+  final router = GoRouter(routes: $appRoutes);
+
   runApp(
     ProviderScope(
       child: TranslationProvider(
-        child: MaterialApp.router(
-          title: 'PG PI',
-          routerConfig: GoRouter(routes: $appRoutes),
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-            useMaterial3: true,
-          ),
-          localizationsDelegates: const [
-            GlobalMaterialLocalizations.delegate,
-          ],
-          supportedLocales: AppLocaleUtils.supportedLocales,
+        child: App(
+          router: router,
         ),
       ),
     ),
   );
+}
+
+class App extends ConsumerWidget {
+  final GoRouter router;
+
+  const App({
+    super.key,
+    required this.router,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return MaterialApp.router(
+      title: 'PG PI',
+      routerConfig: router,
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.deepPurple,
+        ),
+        useMaterial3: true,
+      ),
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+      ],
+      supportedLocales: AppLocaleUtils.supportedLocales,
+    );
+  }
 }

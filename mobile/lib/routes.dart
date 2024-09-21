@@ -61,7 +61,7 @@ class ExercisesRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     print("exercises route");
-    return const ExercisesScreen();
+    return ExercisesScreen();
   }
 }
 

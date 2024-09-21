@@ -21,6 +21,15 @@
   },
   "settings": {
     "title": "Settings",
+    "language": {
+      "title": "Change language",
+      "alertTitle": "Select language",
+      "language(context=LocaleSetting)": {
+        "none": "Use system locale",
+        "en": "english",
+        "pl": "polski"
+      }
+    },
     "serverAddress": {
       "title": "Server address",
       "alertTitle": "Enter new server address"

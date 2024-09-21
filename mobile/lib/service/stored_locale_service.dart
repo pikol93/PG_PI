@@ -8,7 +8,7 @@ class StoredLocaleService {
   static const _keyName = "stored_locale";
 
   static Future<void> initialize() async {
-    _readAndUpdateLocale();
+    await _readAndUpdateLocale();
   }
 
   static Future<void> saveAndUpdateLocale(AppLocale locale) async {
@@ -18,6 +18,12 @@ class StoredLocaleService {
     final preferences = SharedPreferencesAsync();
     await preferences.setString(_keyName, locale.name);
 
+    await _readAndUpdateLocale();
+  }
+
+  static Future<void> resetSavedLocale(AppLocale locale) async {
+    final preferences = SharedPreferencesAsync();
+    await preferences.remove(_keyName);
     await _readAndUpdateLocale();
   }
 

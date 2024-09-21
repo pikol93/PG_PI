@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pi_mobile/i18n/strings.g.dart';
+import 'package:pi_mobile/logger.dart';
 import 'package:pi_mobile/provider/auth_provider.dart';
 import 'package:pi_mobile/provider/connection_settings_provider.dart';
+import 'package:pi_mobile/provider/stored_locale_provider.dart';
 import 'package:pi_mobile/routes.dart';
+import 'package:pi_mobile/service/stored_locale_service.dart';
 import 'package:pi_mobile/widgets/settings/setting_button.dart';
+import 'package:pi_mobile/widgets/settings/setting_option.dart';
 import 'package:pi_mobile/widgets/settings/setting_text.dart';
 
 class SettingsBody extends StatelessWidget {
@@ -15,11 +19,90 @@ class SettingsBody extends StatelessWidget {
     return const SingleChildScrollView(
       child: Column(
         children: [
+          _ChangeLanguageSetting(),
           _ChangeServerAddressSetting(),
           _LogOffSetting(),
         ],
       ),
     );
+  }
+}
+
+class _LocaleOption {
+  final AppLocale? locale;
+  final String display;
+
+  _LocaleOption({
+    required this.locale,
+    required this.display,
+  });
+}
+
+class _ChangeLanguageSetting extends ConsumerWidget with Logger {
+  const _ChangeLanguageSetting();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return ref.watch(storedLocaleProvider).when(
+          data: (currentRawLocale) {
+            final currentLocale = currentRawLocale == null
+                ? null
+                : AppLocaleUtils.parse(currentRawLocale);
+
+            final defaultLocale = _LocaleOption(
+              locale: null,
+              display: _mapToSetting(context, LocaleSetting.none),
+            );
+            final options = AppLocale.values
+                .map(
+                  (locale) => _LocaleOption(
+                    locale: locale,
+                    display: _mapAppLocaleToSetting(context, locale),
+                  ),
+                )
+                .toList(growable: true);
+            options.insert(0, defaultLocale);
+
+            final currentLocaleOption = options
+                    .where((option) => option.locale == currentLocale)
+                    .firstOrNull ??
+                defaultLocale;
+
+            return SettingOption<_LocaleOption>(
+              icon: Icons.language,
+              title: context.t.settings.language.title,
+              alertTitle: context.t.settings.language.alertTitle,
+              possibleValues: options,
+              currentValue: currentLocaleOption,
+              itemToDisplayMapper: (item) => item.display,
+              onConfirmed: (value) async {
+                var locale = value?.locale;
+                if (locale == null) {
+                  await StoredLocaleService.resetSavedLocale();
+                } else {
+                  await StoredLocaleService.saveAndUpdateLocale(locale);
+                }
+
+                ref.watch(storedLocaleProvider.notifier).forceRebuild();
+              },
+            );
+          },
+          error: (obj, stack) => const Text("An unexpected error occurred."),
+          loading: () => const CircularProgressIndicator(),
+        );
+  }
+
+  String _mapAppLocaleToSetting(BuildContext context, AppLocale locale) {
+    final setting = switch (locale) {
+      AppLocale.en => LocaleSetting.en,
+      AppLocale.pl => LocaleSetting.pl,
+    };
+
+    return _mapToSetting(context, setting);
+  }
+
+  String _mapToSetting(BuildContext context, LocaleSetting setting) {
+    return context.t.settings.language.language(context: setting);
   }
 }
 

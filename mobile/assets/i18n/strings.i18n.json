@@ -1,0 +1,33 @@
+{
+  "general": {
+    "alert": {
+      "confirm": "Confirm",
+      "cancel": "Cancel"
+    }
+  },
+  "welcome": {
+    "welcome": "Welcome",
+    "login": "Login",
+    "register": "Register"
+  },
+  "home": {
+    "title": "Home"
+  },
+  "tracks": {
+    "title": "Tracks"
+  },
+  "exercises": {
+    "title": "Exercises"
+  },
+  "settings": {
+    "title": "Settings",
+    "serverAddress": {
+      "title": "Server address",
+      "alertTitle": "Enter new server address"
+    },
+    "logOff": {
+      "title": "Log off",
+      "alertTitle": "Are you sure you want to log off?"
+    }
+  }
+}

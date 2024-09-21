@@ -1,5 +1,6 @@
 import 'package:awesome_flutter_extensions/awesome_flutter_extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:pi_mobile/i18n/strings.g.dart';
 import 'package:pi_mobile/widgets/settings/setting.dart';
 
 class SettingText extends StatefulWidget {
@@ -55,11 +56,11 @@ class _SettingTextState extends State<SettingText> {
       actions: [
         TextButton(
           onPressed: () => _onConfirmPressed(context),
-          child: const Text("Confirm"),
+          child: Text(context.t.general.alert.confirm),
         ),
         TextButton(
           onPressed: () => _onCancelPressed(context),
-          child: const Text("Cancel"),
+          child: Text(context.t.general.alert.cancel),
         ),
       ],
     );

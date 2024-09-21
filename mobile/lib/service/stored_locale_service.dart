@@ -29,7 +29,8 @@ class StoredLocaleService {
     if (rawLocale != null) {
       LocaleSettings.setLocaleRaw(rawLocale);
     } else {
-      LocaleSettings.useDeviceLocale();
+      final findDeviceLocale = AppLocaleUtils.findDeviceLocale();
+      LocaleSettings.setLocale(findDeviceLocale);
     }
   }
 }

@@ -30,6 +30,15 @@
         "pl": "polski"
       }
     },
+    "theme": {
+      "title": "Zmień motyw",
+      "alertTitle": "Wybierz motyw",
+      "theme(context=ThemeLocalization)": {
+        "system": "Systemowy",
+        "light": "Jasny",
+        "dark": "Ciemny"
+      }
+    },
     "serverAddress": {
       "title": "Adres serwera",
       "alertTitle": "Wprowadź nowy adres serwera"

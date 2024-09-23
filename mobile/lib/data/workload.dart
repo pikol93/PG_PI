@@ -1,12 +1,20 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:pi_mobile/data/set_of_exercise.dart';
 import 'package:pi_mobile/data/strength_exercise.dart';
 
-class Workload {
-  StrengthExercise exercise;
-  List<SetOfExercise> sets;
-  String description;
+part "workload.g.dart";
+part "workload.freezed.dart";
 
-  Workload(this.exercise, this.sets, this.description);
+@freezed
+class Workload with _$Workload {
+  const factory Workload({
+    required StrengthExercise exercise,
+    required List<SetOfExercise> sets,
+    required String description,
+  }) = _Workload;
+
+  factory Workload.fromJson(Map<String, Object?> json) =>
+      _$WorkloadFromJson(json);
 
   static double getAverageRPE(List<SetOfExercise> sets) {
     if (sets.isEmpty) {

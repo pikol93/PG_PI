@@ -37,10 +37,10 @@ class ChooseExerciseScreen extends StatelessWidget {
 }
 
 List<StrengthExercise> getAllExercises() {
-  return [
-    StrengthExercise("Wyciskanie na klatkę", "assets/benchpress.png"),
-    StrengthExercise('Przysiad z tyłu', "assets/backsquad.png"),
-    StrengthExercise('Uginanie bicepsów', "assets/biceps_curls.png"),
-    StrengthExercise('Podciąganie', "assets/pullups.png"),
+  return const [
+    StrengthExercise(name: "Wyciskanie na klatkę", imageLink: "assets/benchpress.png"),
+    StrengthExercise(name: 'Przysiad z tyłu', imageLink: "assets/backsquad.png"),
+    StrengthExercise(name: 'Uginanie bicepsów', imageLink: "assets/biceps_curls.png"),
+    StrengthExercise(name: 'Podciąganie', imageLink: "assets/pullups.png"),
   ];
 }

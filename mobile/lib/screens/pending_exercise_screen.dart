@@ -127,8 +127,8 @@ class _PendingExerciseScreenState extends State<PendingExerciseScreen> {
             ElevatedButton(
               onPressed: () {
                 workload.add(
-                    SetOfExercise(repetitions, weight, difficulty.toInt()));
-
+                  SetOfExercise(reps: repetitions, weight: weight, rpe: difficulty.toInt())
+                );
                 setState(() {
                   currentSeries++;
                 });
@@ -142,7 +142,7 @@ class _PendingExerciseScreenState extends State<PendingExerciseScreen> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => ExerciseSummaryScreen(
-                        workoutData: Workload(exercise, workload, "")),
+                        workoutData: Workload(exercise: exercise, sets: workload, description: "")),
                   ),
                 );
                 Navigator.pop(context, pendingResult);

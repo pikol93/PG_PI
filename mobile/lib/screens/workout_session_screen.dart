@@ -56,7 +56,7 @@ class _WorkoutSessionScreenState extends State<WorkoutSessionScreen> {
           ),
           ElevatedButton(
             onPressed: () {
-              Navigator.pop(context, Workout(DateTime.now(), exercises));
+              Navigator.pop(context, Workout(date: DateTime.now(), exercises: exercises));
             },
             style: ElevatedButton.styleFrom(
               foregroundColor: Colors.red,

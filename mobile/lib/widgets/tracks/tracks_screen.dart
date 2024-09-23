@@ -14,7 +14,8 @@ class TracksScreen extends StatelessWidget {
       drawer: const AppNavigationDrawer(),
       appBar: AppBar(
         backgroundColor: context.colors.scaffoldBackground,
-        title: Text(context.t.tracks.title),      ),
+        title: Text(context.t.tracks.title),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: GridView.count(

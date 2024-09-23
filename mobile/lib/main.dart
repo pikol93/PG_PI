@@ -40,34 +40,34 @@ class App extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return ref.watch(themeProvider).when(
-      data: (theme) => MaterialApp.router(
-        title: 'PG PI',
-        routerConfig: router,
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.deepPurple,
+          data: (theme) => MaterialApp.router(
+            title: 'PG PI',
+            routerConfig: router,
+            theme: ThemeData(
+              colorScheme: ColorScheme.fromSeed(
+                seedColor: Colors.deepPurple,
+              ),
+              useMaterial3: true,
+            ),
+            darkTheme: ThemeData(
+              colorScheme: ColorScheme.fromSeed(
+                seedColor: Colors.deepPurple,
+                brightness: Brightness.dark,
+              ),
+              useMaterial3: true,
+            ),
+            themeMode: theme.toThemeMode(),
+            localizationsDelegates: const [
+              GlobalMaterialLocalizations.delegate,
+            ],
+            supportedLocales: AppLocaleUtils.supportedLocales,
           ),
-          useMaterial3: true,
-        ),
-        darkTheme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.deepPurple,
-            brightness: Brightness.dark,
+          error: (error, stackTrace) => Center(
+            child: Text("An error has occurred. $error\n$stackTrace"),
           ),
-          useMaterial3: true,
-        ),
-        themeMode: theme.toThemeMode(),
-        localizationsDelegates: const [
-          GlobalMaterialLocalizations.delegate,
-        ],
-        supportedLocales: AppLocaleUtils.supportedLocales,
-      ),
-      error: (error, stackTrace) => Center(
-        child: Text("An error has occurred. $error\n$stackTrace"),
-      ),
-      loading: () => const Center(
-        child: CircularProgressIndicator(),
-      ),
-    );
+          loading: () => const Center(
+            child: CircularProgressIndicator(),
+          ),
+        );
   }
 }

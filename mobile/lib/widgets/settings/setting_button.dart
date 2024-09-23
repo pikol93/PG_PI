@@ -42,9 +42,9 @@ class SettingButton extends StatelessWidget {
       content: alertContent == null
           ? null
           : Text(
-        alertContent!,
-        style: context.textStyles.bodySmall,
-      ),
+              alertContent!,
+              style: context.textStyles.bodySmall,
+            ),
       actions: [
         TextButton(
           onPressed: () => _onConfirmPressed(context),

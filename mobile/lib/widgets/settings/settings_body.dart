@@ -47,52 +47,52 @@ class _ChangeLanguageSetting extends ConsumerWidget with Logger {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return ref.watch(storedLocaleProvider).when(
-      data: (currentRawLocale) {
-        final currentLocale = currentRawLocale == null
-            ? null
-            : AppLocaleUtils.parse(currentRawLocale);
+          data: (currentRawLocale) {
+            final currentLocale = currentRawLocale == null
+                ? null
+                : AppLocaleUtils.parse(currentRawLocale);
 
-        final defaultLocale = _LocaleOption(
-          locale: null,
-          display: _mapToSetting(context, LocaleSetting.none),
-        );
-        final options = AppLocale.values
-            .map(
-              (locale) => _LocaleOption(
-            locale: locale,
-            display: _mapAppLocaleToSetting(context, locale),
-          ),
-        )
-            .toList(growable: true);
-        options.insert(0, defaultLocale);
+            final defaultLocale = _LocaleOption(
+              locale: null,
+              display: _mapToSetting(context, LocaleSetting.none),
+            );
+            final options = AppLocale.values
+                .map(
+                  (locale) => _LocaleOption(
+                    locale: locale,
+                    display: _mapAppLocaleToSetting(context, locale),
+                  ),
+                )
+                .toList(growable: true);
+            options.insert(0, defaultLocale);
 
-        final currentLocaleOption = options
-            .where((option) => option.locale == currentLocale)
-            .firstOrNull ??
-            defaultLocale;
+            final currentLocaleOption = options
+                    .where((option) => option.locale == currentLocale)
+                    .firstOrNull ??
+                defaultLocale;
 
-        return SettingOption<_LocaleOption>(
-          icon: Icons.language,
-          title: context.t.settings.language.title,
-          alertTitle: context.t.settings.language.alertTitle,
-          possibleValues: options,
-          currentValue: currentLocaleOption,
-          itemToDisplayMapper: (item) => item.display,
-          onConfirmed: (value) async {
-            var locale = value?.locale;
-            if (locale == null) {
-              await StoredLocaleService.resetSavedLocale();
-            } else {
-              await StoredLocaleService.saveAndUpdateLocale(locale);
-            }
+            return SettingOption<_LocaleOption>(
+              icon: Icons.language,
+              title: context.t.settings.language.title,
+              alertTitle: context.t.settings.language.alertTitle,
+              possibleValues: options,
+              currentValue: currentLocaleOption,
+              itemToDisplayMapper: (item) => item.display,
+              onConfirmed: (value) async {
+                var locale = value?.locale;
+                if (locale == null) {
+                  await StoredLocaleService.resetSavedLocale();
+                } else {
+                  await StoredLocaleService.saveAndUpdateLocale(locale);
+                }
 
-            ref.watch(storedLocaleProvider.notifier).forceRebuild();
+                ref.watch(storedLocaleProvider.notifier).forceRebuild();
+              },
+            );
           },
+          error: (obj, stack) => const Text("An unexpected error occurred."),
+          loading: () => const CircularProgressIndicator(),
         );
-      },
-      error: (obj, stack) => const Text("An unexpected error occurred."),
-      loading: () => const CircularProgressIndicator(),
-    );
   }
 
   String _mapAppLocaleToSetting(BuildContext context, AppLocale locale) {
@@ -115,20 +115,20 @@ class _ChangeThemeSetting extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return ref.watch(themeProvider).when(
-      data: (theme) {
-        return SettingOption<AppTheme>(
-          icon: Icons.brush,
-          title: context.t.settings.theme.title,
-          alertTitle: context.t.settings.theme.alertTitle,
-          possibleValues: AppTheme.values,
-          currentValue: theme,
-          itemToDisplayMapper: (variant) => _mapToDisplay(context, variant),
-          onConfirmed: (variant) => _onConfirmed(ref, variant),
+          data: (theme) {
+            return SettingOption<AppTheme>(
+              icon: Icons.brush,
+              title: context.t.settings.theme.title,
+              alertTitle: context.t.settings.theme.alertTitle,
+              possibleValues: AppTheme.values,
+              currentValue: theme,
+              itemToDisplayMapper: (variant) => _mapToDisplay(context, variant),
+              onConfirmed: (variant) => _onConfirmed(ref, variant),
+            );
+          },
+          error: (obj, stack) => const Text("An unexpected error occurred."),
+          loading: () => const CircularProgressIndicator(),
         );
-      },
-      error: (obj, stack) => const Text("An unexpected error occurred."),
-      loading: () => const CircularProgressIndicator(),
-    );
   }
 
   String _mapToDisplay(BuildContext context, AppTheme theme) {
@@ -147,16 +147,16 @@ class _ChangeServerAddressSetting extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return ref.watch(connectionSettingsProvider).when(
-      data: (data) => SettingText(
-        icon: Icons.computer,
-        title: context.t.settings.serverAddress.title,
-        alertTitle: context.t.settings.serverAddress.alertTitle,
-        currentValue: data.serverAddress,
-        onConfirmed: (value) => _onConfirmed(ref, value),
-      ),
-      error: (obj, stack) => const Text("An unexpected error occurred."),
-      loading: () => const CircularProgressIndicator(),
-    );
+          data: (data) => SettingText(
+            icon: Icons.computer,
+            title: context.t.settings.serverAddress.title,
+            alertTitle: context.t.settings.serverAddress.alertTitle,
+            currentValue: data.serverAddress,
+            onConfirmed: (value) => _onConfirmed(ref, value),
+          ),
+          error: (obj, stack) => const Text("An unexpected error occurred."),
+          loading: () => const CircularProgressIndicator(),
+        );
   }
 
   void _onConfirmed(WidgetRef ref, String newValue) {

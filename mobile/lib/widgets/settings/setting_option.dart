@@ -39,12 +39,12 @@ class SettingOption<T> extends StatelessWidget {
       children: possibleValues
           .map(
             (value) => RadioListTile<T>(
-          value: value,
-          groupValue: currentValue,
-          title: Text(itemToDisplayMapper.call(value)),
-          onChanged: (value) => _onConfirmPressed(context, value),
-        ),
-      )
+              value: value,
+              groupValue: currentValue,
+              title: Text(itemToDisplayMapper.call(value)),
+              onChanged: (value) => _onConfirmPressed(context, value),
+            ),
+          )
           .toList(),
     );
   }

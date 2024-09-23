@@ -24,7 +24,7 @@ class RootRoute extends GoRouteData with Logger {
   FutureOr<String?> redirect(BuildContext context, GoRouterState state) async {
     logger.debug("root route");
     final state =
-    await ProviderScope.containerOf(context).read(authProvider.future);
+        await ProviderScope.containerOf(context).read(authProvider.future);
 
     if (state == null) {
       return const WelcomeRoute().location;

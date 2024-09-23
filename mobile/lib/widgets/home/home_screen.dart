@@ -19,12 +19,12 @@ class HomeScreen extends ConsumerWidget {
       body: Center(
         child: switch (ref.watch(authProvider)) {
           AsyncData(:final value) => () {
-            if (value == null) {
-              return const Text("Invalid state. Could not read auth data.");
-            } else {
-              return Text("Hello ${value.username}");
-            }
-          }(),
+              if (value == null) {
+                return const Text("Invalid state. Could not read auth data.");
+              } else {
+                return Text("Hello ${value.username}");
+              }
+            }(),
           AsyncError() => const Text("Error while loading state."),
           _ => const CircularProgressIndicator(),
         },

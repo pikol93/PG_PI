@@ -14,7 +14,7 @@ class ConnectionSettings extends _$ConnectionSettings with Logger {
   Future<ConnectionSettingsState> build() async {
     final preferences = SharedPreferencesAsync();
     return await preferences.getFromJson(
-        keyName, ConnectionSettingsState.fromJson) ??
+            keyName, ConnectionSettingsState.fromJson) ??
         const ConnectionSettingsState(serverAddress: "server.xyz");
   }
 

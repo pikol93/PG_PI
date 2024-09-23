@@ -5,9 +5,9 @@ import 'package:loggy/loggy.dart';
 
 extension SharedPreferencesAsyncExtension on SharedPreferencesAsync {
   Future<T?> getFromJson<T>(
-      String key,
-      T? Function(Map<String, Object?>) constructor,
-      ) async {
+    String key,
+    T? Function(Map<String, Object?>) constructor,
+  ) async {
     final jsonString = await getString(key);
     if (jsonString == null) {
       logDebug("No stored string value for key $key");
@@ -25,9 +25,9 @@ extension SharedPreferencesAsyncExtension on SharedPreferencesAsync {
   }
 
   Future<void> setToJson<T>(
-      String key,
-      T obj,
-      ) async {
+    String key,
+    T obj,
+  ) async {
     final json = jsonEncode(obj);
     await setString(key, json);
   }

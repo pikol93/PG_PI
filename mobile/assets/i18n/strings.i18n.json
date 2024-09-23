@@ -1,0 +1,51 @@
+{
+  "general": {
+    "alert": {
+      "confirm": "Confirm",
+      "cancel": "Cancel"
+    }
+  },
+  "welcome": {
+    "welcome": "Welcome",
+    "login": "Login",
+    "register": "Register"
+  },
+  "home": {
+    "title": "Home"
+  },
+  "tracks": {
+    "title": "Tracks"
+  },
+  "exercises": {
+    "title": "Exercises"
+  },
+  "settings": {
+    "title": "Settings",
+    "language": {
+      "title": "Change language",
+      "alertTitle": "Select language",
+      "language(context=LocaleSetting)": {
+        "none": "Use system locale",
+        "en": "english",
+        "pl": "polski"
+      }
+    },
+    "theme": {
+      "title": "Change theme",
+      "alertTitle": "Select theme",
+      "theme(context=ThemeLocalization)": {
+        "system": "System",
+        "light": "Light",
+        "dark": "Dark"
+      }
+    },
+    "serverAddress": {
+      "title": "Server address",
+      "alertTitle": "Enter new server address"
+    },
+    "logOff": {
+      "title": "Log off",
+      "alertTitle": "Are you sure you want to log off?"
+    }
+  }
+}

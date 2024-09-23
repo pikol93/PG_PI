@@ -1,0 +1,51 @@
+{
+  "general": {
+    "alert": {
+      "confirm": "Potwierdź",
+      "cancel": "Anuluj"
+    }
+  },
+  "welcome": {
+    "welcome": "Witaj",
+    "login": "Zaloguj",
+    "register": "Zarejestruj"
+  },
+  "home": {
+    "title": "Strona główna"
+  },
+  "tracks": {
+    "title": "Trasy"
+  },
+  "exercises": {
+    "title": "Ćwiczenia"
+  },
+  "settings": {
+    "title": "Ustawienia",
+    "language": {
+      "title": "Zmień język",
+      "alertTitle": "Wybierz język",
+      "language(context=LocaleSetting)": {
+        "none": "Użyj języka systemu",
+        "en": "english",
+        "pl": "polski"
+      }
+    },
+    "theme": {
+      "title": "Zmień motyw",
+      "alertTitle": "Wybierz motyw",
+      "theme(context=ThemeLocalization)": {
+        "system": "Systemowy",
+        "light": "Jasny",
+        "dark": "Ciemny"
+      }
+    },
+    "serverAddress": {
+      "title": "Adres serwera",
+      "alertTitle": "Wprowadź nowy adres serwera"
+    },
+    "logOff": {
+      "title": "Wyloguj",
+      "alertTitle": "Czy na pewno chcesz się wylogować?"
+    }
+  }
+}

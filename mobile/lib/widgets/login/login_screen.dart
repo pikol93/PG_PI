@@ -1,6 +1,7 @@
 import 'package:awesome_flutter_extensions/awesome_flutter_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pi_mobile/logger.dart';
 import 'package:pi_mobile/provider/auth_provider.dart';
 import 'package:pi_mobile/routes.dart';
 
@@ -11,7 +12,7 @@ class LoginScreen extends ConsumerStatefulWidget {
   ConsumerState<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends ConsumerState<LoginScreen> {
+class _LoginScreenState extends ConsumerState<LoginScreen> with Logger {
   final textController = TextEditingController();
 
   @override
@@ -47,11 +48,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   void _onLoginButtonPressed() async {
     final username = textController.text;
     if (username.isEmpty) {
-      print("Cannot log in with empty username.");
+      logger.debug("Cannot log in with empty username.");
       return;
     }
 
-    print("Login button pressed. Username = $username");
+    logger.debug("Login button pressed. Username = $username");
     await ref.read(authProvider.notifier).logIn(username);
 
     // TODO: As of now, every attempt to login is successful. Handle cases where logging in fails.

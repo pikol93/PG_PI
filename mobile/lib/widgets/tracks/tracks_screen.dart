@@ -1,8 +1,9 @@
 import 'package:awesome_flutter_extensions/awesome_flutter_extensions.dart';
 import 'package:flutter/material.dart';
-import 'package:pi_mobile/screens/running_form_screen.dart';
-import 'package:pi_mobile/widgets/activity_tile.dart';
-import 'package:pi_mobile/widgets/app_navigation_drawer.dart';
+import 'package:pi_mobile/i18n/strings.g.dart';
+import 'package:pi_mobile/widgets/common/activity_tile.dart';
+import 'package:pi_mobile/widgets/common/app_navigation_drawer.dart';
+import 'package:pi_mobile/widgets/exercises/session/running_form_screen.dart';
 
 class TracksScreen extends StatelessWidget {
   const TracksScreen({super.key});
@@ -13,8 +14,7 @@ class TracksScreen extends StatelessWidget {
       drawer: const AppNavigationDrawer(),
       appBar: AppBar(
         backgroundColor: context.colors.scaffoldBackground,
-        title: const Text("Tracks"),
-      ),
+        title: Text(context.t.tracks.title),      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: GridView.count(

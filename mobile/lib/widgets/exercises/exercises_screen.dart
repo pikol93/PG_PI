@@ -1,10 +1,9 @@
 import 'package:awesome_flutter_extensions/awesome_flutter_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:pi_mobile/data/workout.dart';
-import 'package:pi_mobile/screens/workout_session_screen.dart';
-import 'package:pi_mobile/widgets/app_navigation_drawer.dart';
-
-import 'history_screen.dart';
+import 'package:pi_mobile/widgets/exercises/session/workout_session_screen.dart';
+import 'package:pi_mobile/widgets/common/app_navigation_drawer.dart';
+import 'session/history_screen.dart';
 
 class ExercisesScreen extends StatefulWidget {
   const ExercisesScreen({super.key});

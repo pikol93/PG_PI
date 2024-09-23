@@ -1,4 +1,5 @@
 import 'package:pi_mobile/data/auth_state.dart';
+import 'package:pi_mobile/logger.dart';
 import 'package:pi_mobile/utility/shared_preferences.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -6,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 part "auth_provider.g.dart";
 
 @riverpod
-class Auth extends _$Auth {
+class Auth extends _$Auth with Logger {
   static const keyName = "auth";
 
   @override
@@ -17,7 +18,7 @@ class Auth extends _$Auth {
 
   /// Logs in the user. This is to be redone in the future.
   Future<void> logIn(String username) async {
-    print("Logging in as $username...");
+    logger.debug("Logging in as $username...");
     final preferences = SharedPreferencesAsync();
     await preferences.setToJson(keyName, AuthState(username: username));
 
@@ -25,7 +26,7 @@ class Auth extends _$Auth {
   }
 
   Future<void> logOff() async {
-    print("Logging off...");
+    logger.debug("Logging off...");
     final preferences = SharedPreferencesAsync();
     await preferences.remove(keyName);
 

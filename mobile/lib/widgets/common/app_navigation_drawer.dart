@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pi_mobile/i18n/strings.g.dart';
 import 'package:pi_mobile/routes.dart';
 import 'package:pi_mobile/widgets/common/navigation_drawer_entry.dart';
 
@@ -32,22 +33,22 @@ class AppNavigationDrawer extends StatelessWidget {
           NavigationDrawerEntry(
             goMethod: const HomeRoute().go,
             icon: Icons.home,
-            text: "Strona główna",
+            text: context.t.home.title,
           ),
           NavigationDrawerEntry(
             goMethod: const TracksRoute().go,
             icon: Icons.navigation,
-            text: "Trasy",
+            text: context.t.tracks.title,
           ),
           NavigationDrawerEntry(
             goMethod: const ExercisesRoute().go,
             icon: Icons.fitness_center,
-            text: "Ćwiczenia",
+            text: context.t.exercises.title,
           ),
           NavigationDrawerEntry(
             goMethod: const SettingsRoute().go,
             icon: Icons.settings,
-            text: "Ustawienia",
+            text: context.t.settings.title,
           ),
         ],
       ),

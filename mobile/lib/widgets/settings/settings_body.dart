@@ -7,7 +7,6 @@ import 'package:pi_mobile/provider/auth_provider.dart';
 import 'package:pi_mobile/provider/connection_settings_provider.dart';
 import 'package:pi_mobile/provider/stored_locale_provider.dart';
 import 'package:pi_mobile/provider/theme_provider.dart';
-import 'package:pi_mobile/routing/routes.dart';
 import 'package:pi_mobile/service/stored_locale_service.dart';
 import 'package:pi_mobile/widgets/settings/setting_button.dart';
 import 'package:pi_mobile/widgets/settings/setting_option.dart';
@@ -164,7 +163,7 @@ class _ChangeServerAddressSetting extends ConsumerWidget {
   }
 }
 
-class _LogOffSetting extends ConsumerWidget {
+class _LogOffSetting extends ConsumerWidget with Logger {
   const _LogOffSetting();
 
   @override
@@ -178,11 +177,8 @@ class _LogOffSetting extends ConsumerWidget {
     );
   }
 
-  void _onLogOffPressed(BuildContext context, WidgetRef ref) async {
-    await ref.read(authProvider.notifier).logOff();
-
-    if (context.mounted) {
-      const RootRoute().go(context);
-    }
+  void _onLogOffPressed(BuildContext context, WidgetRef ref) {
+    logger.debug("Log off button pressed");
+    ref.read(authProvider.notifier).logOff();
   }
 }

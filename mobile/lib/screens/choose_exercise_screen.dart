@@ -1,7 +1,8 @@
 import 'package:awesome_flutter_extensions/awesome_flutter_extensions.dart';
 import 'package:flutter/material.dart';
-import 'package:pi_mobile/classes/strength_exercise.dart';
+import 'package:pi_mobile/data/strength_exercise.dart';
 import 'package:pi_mobile/screens/pending_exercise_screen.dart';
+import 'package:pi_mobile/widgets/activity_tile.dart';
 import 'package:pi_mobile/widgets/app_navigation_drawer.dart';
 
 class ChooseExerciseScreen extends StatelessWidget {
@@ -24,48 +25,22 @@ class ChooseExerciseScreen extends StatelessWidget {
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,
           children: exercises
-              .map((exercise) => buildTile(context, exercise))
+              .map((exercise) => ActivityTile(
+                  headline: exercise.name,
+                  imagePath: exercise.imageLink,
+                  screen: PendingExerciseScreen(exercise)))
               .toList(),
         ),
       ),
     );
   }
-
-
-  Widget buildTile(BuildContext context, StrengthExercise exercise) {
-    return GestureDetector(
-      onTap: () async {
-        final pendingResult = await Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => PendingExerciseScreen(exercise)),
-        );
-        Navigator.pop(context, pendingResult);
-      },
-      child: Card(
-        elevation: 5,
-        child: Column(
-          children: [
-            Expanded(
-              child: Image.asset(
-                exercise.imageLink,
-                fit: BoxFit.cover,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(exercise.name),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
 }
-List<StrengthExercise> getAllExercises(){
+
+List<StrengthExercise> getAllExercises() {
   return [
     StrengthExercise("Wyciskanie na klatkę", "assets/benchpress.png"),
-    StrengthExercise('Przysiad z tyłu',"assets/backsquad.png"),
-    StrengthExercise('Uginanie bicepsów',"assets/biceps_curls.png"),
-    StrengthExercise('Podciąganie',"assets/pullups.png"),
+    StrengthExercise('Przysiad z tyłu', "assets/backsquad.png"),
+    StrengthExercise('Uginanie bicepsów', "assets/biceps_curls.png"),
+    StrengthExercise('Podciąganie', "assets/pullups.png"),
   ];
 }

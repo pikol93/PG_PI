@@ -1,6 +1,7 @@
 import 'package:awesome_flutter_extensions/awesome_flutter_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:pi_mobile/screens/running_form_screen.dart';
+import 'package:pi_mobile/widgets/activity_tile.dart';
 import 'package:pi_mobile/widgets/app_navigation_drawer.dart';
 
 class TracksScreen extends StatelessWidget {
@@ -20,10 +21,19 @@ class TracksScreen extends StatelessWidget {
           crossAxisCount: 2,
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,
-          children: [
-            buildTile(context, 'Bieg',"assets/running.png"),
-            buildTile(context, 'Chód/Spacer',"assets/walking.png"),
-            buildTile(context, 'Jazda na rowerze',"assets/cycling.png"),
+          children: const [
+            ActivityTile(
+                headline: 'Bieg',
+                imagePath: "assets/running.png",
+                screen: RunningFormScreen()),
+            ActivityTile(
+                headline: 'Chód/Spacer',
+                imagePath: "assets/walking.png",
+                screen: RunningFormScreen()),
+            ActivityTile(
+                headline: 'Jazda na rowerze',
+                imagePath: "assets/cycling.png",
+                screen: RunningFormScreen()),
           ],
         ),
       ),
@@ -43,9 +53,7 @@ class TracksScreen extends StatelessWidget {
         child: Column(
           children: [
             Expanded(
-              child: Image.asset(
-                imagePath
-              ),
+              child: Image.asset(imagePath),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),

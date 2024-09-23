@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:pi_mobile/classes/strength_exercise.dart';
-import 'package:pi_mobile/classes/workload.dart';
+import 'package:pi_mobile/data/strength_exercise.dart';
+import 'package:pi_mobile/data/workload.dart';
 
-import '../classes/set_of_exercise.dart';
+import 'package:pi_mobile/data/set_of_exercise.dart';
 import 'exercise_summary_screen.dart';
 
 class PendingExerciseScreen extends StatefulWidget {
   final StrengthExercise exercise;
 
-  const PendingExerciseScreen(this.exercise, {Key? key}) : super(key: key);
+  const PendingExerciseScreen(this.exercise, {super.key});
 
   @override
   _PendingExerciseScreenState createState() => _PendingExerciseScreenState();
@@ -52,7 +52,8 @@ class _PendingExerciseScreenState extends State<PendingExerciseScreen> {
                       labelText: 'Ilość powtórzeń',
                     ),
                     textAlign: TextAlign.center,
-                    controller: TextEditingController(text: repetitions.toString()),
+                    controller:
+                        TextEditingController(text: repetitions.toString()),
                     onChanged: (value) {
                       setState(() {
                         repetitions = int.tryParse(value) ?? repetitions;
@@ -125,7 +126,8 @@ class _PendingExerciseScreenState extends State<PendingExerciseScreen> {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                workload.add(SetOfExercise(repetitions, weight, difficulty.toInt()));
+                workload.add(
+                    SetOfExercise(repetitions, weight, difficulty.toInt()));
 
                 setState(() {
                   currentSeries++;
@@ -139,7 +141,8 @@ class _PendingExerciseScreenState extends State<PendingExerciseScreen> {
                 final pendingResult = await Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ExerciseSummaryScreen(workoutData: Workload(exercise, workload, "")),
+                    builder: (context) => ExerciseSummaryScreen(
+                        workoutData: Workload(exercise, workload, "")),
                   ),
                 );
                 Navigator.pop(context, pendingResult);

@@ -1,4 +1,4 @@
-import 'package:pi_mobile/classes/workload.dart';
+import 'package:pi_mobile/data/workload.dart';
 
 class Workout {
   DateTime date;

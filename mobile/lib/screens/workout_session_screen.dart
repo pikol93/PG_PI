@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 
-import '../classes/workload.dart';
-import '../classes/workout.dart';
+import 'package:pi_mobile/data/workload.dart';
+import 'package:pi_mobile/data/workout.dart';
 import 'choose_exercise_screen.dart';
 
 class WorkoutSessionScreen extends StatefulWidget {
+  const WorkoutSessionScreen({super.key});
+
   @override
   _WorkoutSessionScreenState createState() => _WorkoutSessionScreenState();
 }
 
 class _WorkoutSessionScreenState extends State<WorkoutSessionScreen> {
-  List<Workload> exercises = [];
+  final List<Workload> exercises = [];
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +41,8 @@ class _WorkoutSessionScreenState extends State<WorkoutSessionScreen> {
               onPressed: () async {
                 final result = await Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ChooseExerciseScreen()),
+                  MaterialPageRoute(
+                      builder: (context) => const ChooseExerciseScreen()),
                 );
 
                 if (result != null) {
@@ -51,15 +54,15 @@ class _WorkoutSessionScreenState extends State<WorkoutSessionScreen> {
               child: const Text('Dodaj ćwiczenie'),
             ),
           ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pop(context, Workout(DateTime.now(), exercises));
-              },
-              style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.red,
-              ),
-              child: const Text('Zakończ sesję'),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context, Workout(DateTime.now(), exercises));
+            },
+            style: ElevatedButton.styleFrom(
+              foregroundColor: Colors.red,
             ),
+            child: const Text('Zakończ sesję'),
+          ),
         ],
       ),
     );

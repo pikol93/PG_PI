@@ -1,12 +1,19 @@
 import 'package:awesome_flutter_extensions/awesome_flutter_extensions.dart';
 import 'package:flutter/material.dart';
-import 'package:pi_mobile/classes/workout.dart';
+import 'package:pi_mobile/data/workout.dart';
 import 'package:pi_mobile/screens/workout_session_screen.dart';
 import 'package:pi_mobile/widgets/app_navigation_drawer.dart';
 
-class ExercisesScreen extends StatelessWidget {
-  ExercisesScreen({super.key});
+import 'history_screen.dart';
 
+class ExercisesScreen extends StatefulWidget {
+  const ExercisesScreen({super.key});
+
+  @override
+  State<ExercisesScreen> createState() => _ExercisesScreenState();
+}
+
+class _ExercisesScreenState extends State<ExercisesScreen> {
   List<Workout> sessionHistory = [];
 
   @override
@@ -25,7 +32,8 @@ class ExercisesScreen extends StatelessWidget {
               onPressed: () async {
                 final result = await Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => WorkoutSessionScreen()),
+                  MaterialPageRoute(
+                      builder: (context) => const WorkoutSessionScreen()),
                 );
 
                 if (result != null) {
@@ -39,7 +47,8 @@ class ExercisesScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => HistoryScreen(sessionHistory: sessionHistory),
+                    builder: (context) =>
+                        HistoryScreen(sessionHistory: sessionHistory),
                   ),
                 );
               },
@@ -47,30 +56,6 @@ class ExercisesScreen extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class HistoryScreen extends StatelessWidget {
-  final List<Workout> sessionHistory;
-
-  HistoryScreen({required this.sessionHistory});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Historia treningów'),
-      ),
-      body: ListView.builder(
-        itemCount: sessionHistory.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(sessionHistory[index].date.toString()),
-            subtitle: Text("Wykonanych ćwiczeń: ${sessionHistory[index].exercises.length}"),
-          );
-        },
       ),
     );
   }

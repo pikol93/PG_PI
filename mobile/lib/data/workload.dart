@@ -1,5 +1,5 @@
-import 'package:pi_mobile/classes/set_of_exercise.dart';
-import 'package:pi_mobile/classes/strength_exercise.dart';
+import 'package:pi_mobile/data/set_of_exercise.dart';
+import 'package:pi_mobile/data/strength_exercise.dart';
 
 class Workload {
   StrengthExercise exercise;
@@ -8,15 +8,15 @@ class Workload {
 
   Workload(this.exercise, this.sets, this.description);
 
-  static double getAverageRPE(List<SetOfExercise> sets){
+  static double getAverageRPE(List<SetOfExercise> sets) {
     if (sets.isEmpty) {
       return 0;
     }
     int totalRPE = 0;
 
-    sets.forEach((set) {
+    for (var set in sets) {
       totalRPE += set.rpe;
-    });
+    }
 
     return totalRPE / sets.length;
   }

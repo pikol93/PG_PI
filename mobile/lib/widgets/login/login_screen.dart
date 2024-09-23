@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pi_mobile/logger.dart';
 import 'package:pi_mobile/provider/auth_provider.dart';
-import 'package:pi_mobile/routing/routes.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -45,7 +44,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> with Logger {
     );
   }
 
-  void _onLoginButtonPressed() async {
+  void _onLoginButtonPressed() {
     final username = textController.text;
     if (username.isEmpty) {
       logger.debug("Cannot log in with empty username.");
@@ -53,11 +52,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> with Logger {
     }
 
     logger.debug("Login button pressed. Username = $username");
-    await ref.read(authProvider.notifier).logIn(username);
-
-    // TODO: As of now, every attempt to login is successful. Handle cases where logging in fails.
-    if (mounted) {
-      const RootRoute().go(context);
-    }
+    ref.read(authProvider.notifier).logIn(username);
   }
 }

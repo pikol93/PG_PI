@@ -1,57 +1,41 @@
 import 'package:awesome_flutter_extensions/awesome_flutter_extensions.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pi_mobile/logger.dart';
-import 'package:pi_mobile/provider/auth_provider.dart';
+import 'package:pi_mobile/routing/routes.dart';
+import 'package:pi_mobile/widgets/login/login_form.dart';
 
-class LoginScreen extends ConsumerStatefulWidget {
+class LoginScreen extends StatelessWidget with Logger {
   const LoginScreen({super.key});
-
-  @override
-  ConsumerState<LoginScreen> createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends ConsumerState<LoginScreen> with Logger {
-  final textController = TextEditingController();
-
-  @override
-  void dispose() {
-    super.dispose();
-    textController.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: context.colors.scaffoldBackground,
-        title: const Text("Login"),
-      ),
-      body: Center(
-        child: Column(
-          children: [
-            const Text("login route"),
-            TextField(
-              controller: textController,
+      resizeToAvoidBottomInset: false,
+      body: Column(
+        children: [
+          const Expanded(
+            child: Padding(
+              padding: EdgeInsets.all(32.0),
+              child: LoginForm(),
             ),
-            ElevatedButton(
-              onPressed: _onLoginButtonPressed,
-              child: const Text("Log in"),
-            )
-          ],
-        ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: GestureDetector(
+              onTap: () => _onSignUpTapped(context),
+              child: Text(
+                "Don't have an account? Sign up.",
+                style: context.textStyles.bodyMedium,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
 
-  void _onLoginButtonPressed() {
-    final username = textController.text;
-    if (username.isEmpty) {
-      logger.debug("Cannot log in with empty username.");
-      return;
-    }
-
-    logger.debug("Login button pressed. Username = $username");
-    ref.read(authProvider.notifier).logIn(username);
+  void _onSignUpTapped(BuildContext context) {
+    logger.debug("Sign up tapped.");
+    const RegisterRoute().push(context);
   }
 }

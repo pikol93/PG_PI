@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pi_mobile/logger.dart';
 import 'package:pi_mobile/widgets/exercises/exercises_screen.dart';
+import 'package:pi_mobile/widgets/forgot_password/forgot_password_screen.dart';
 import 'package:pi_mobile/widgets/home/home_screen.dart';
 import 'package:pi_mobile/widgets/login/login_screen.dart';
 import 'package:pi_mobile/widgets/register/register_screen.dart';
@@ -137,5 +138,15 @@ class WelcomeSettingsRoute extends GoRouteData with Logger {
   Widget build(BuildContext context, GoRouterState state) {
     logger.debug("welcome settings route");
     return const WelcomeSettingsScreen();
+  }
+}
+
+@TypedGoRoute<ForgotPasswordRoute>(path: "/forgot_password")
+class ForgotPasswordRoute extends GoRouteData with Logger {
+  const ForgotPasswordRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const ForgotPasswordScreen();
   }
 }

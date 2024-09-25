@@ -2,11 +2,16 @@ import 'package:awesome_flutter_extensions/awesome_flutter_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pi_mobile/logger.dart';
-import 'package:pi_mobile/provider/auth_provider.dart';
 import 'package:pi_mobile/routing/routes.dart';
+import 'package:pi_mobile/service/auth_service.dart';
 
 class LoginForm extends ConsumerStatefulWidget {
-  const LoginForm({super.key});
+  final Function(LoginError) onLoginFailed;
+
+  const LoginForm({
+    super.key,
+    required this.onLoginFailed,
+  });
 
   @override
   ConsumerState<LoginForm> createState() => _LoginFormState();
@@ -96,7 +101,7 @@ class _LoginFormState extends ConsumerState<LoginForm> with Logger {
     return null;
   }
 
-  void _onLoginButtonPressed() {
+  Future<void> _onLoginButtonPressed() async {
     final currentState = formKey.currentState;
     if (currentState == null) {
       logger.warning("Current state is null.");
@@ -116,7 +121,15 @@ class _LoginFormState extends ConsumerState<LoginForm> with Logger {
     }
 
     logger.debug("Login button pressed. Username = $username");
-    ref.read(authProvider.notifier).logIn(username);
+    final loginError = await ref.read(authServiceProvider).logIn(username);
+    if (loginError == null) {
+      logger.debug("No error resulting from logging in.");
+      return;
+    }
+
+    if (mounted) {
+      widget.onLoginFailed(loginError);
+    }
   }
 
   void _onForgotPasswordTapped() {

@@ -2,6 +2,7 @@ import 'package:awesome_flutter_extensions/awesome_flutter_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:pi_mobile/logger.dart';
 import 'package:pi_mobile/routing/routes.dart';
+import 'package:pi_mobile/service/auth_service.dart';
 import 'package:pi_mobile/widgets/login/login_form.dart';
 
 class LoginScreen extends StatelessWidget with Logger {
@@ -18,10 +19,12 @@ class LoginScreen extends StatelessWidget with Logger {
       resizeToAvoidBottomInset: false,
       body: Column(
         children: [
-          const Expanded(
+          Expanded(
             child: Padding(
-              padding: EdgeInsets.all(32.0),
-              child: LoginForm(),
+              padding: const EdgeInsets.all(32.0),
+              child: LoginForm(
+                onLoginFailed: (error) => _onLoginFailed(context, error),
+              ),
             ),
           ),
           Padding(
@@ -47,5 +50,14 @@ class LoginScreen extends StatelessWidget with Logger {
   void _onSettingsPressed(BuildContext context) {
     logger.debug("Welcome settings button pressed.");
     const WelcomeSettingsRoute().push(context);
+  }
+
+  void _onLoginFailed(BuildContext context, LoginError error) {
+    logger.debug("Failed logging in. Error: $error");
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(error.name),
+      ),
+    );
   }
 }

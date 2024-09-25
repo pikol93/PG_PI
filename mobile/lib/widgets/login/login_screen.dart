@@ -10,6 +10,11 @@ class LoginScreen extends StatelessWidget with Logger {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => _onSettingsPressed(context),
+        child: const Icon(Icons.settings),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
       resizeToAvoidBottomInset: false,
       body: Column(
         children: [
@@ -37,5 +42,10 @@ class LoginScreen extends StatelessWidget with Logger {
   void _onSignUpTapped(BuildContext context) {
     logger.debug("Sign up tapped.");
     const RegisterRoute().push(context);
+  }
+
+  void _onSettingsPressed(BuildContext context) {
+    logger.debug("Welcome settings button pressed.");
+    const WelcomeSettingsRoute().push(context);
   }
 }

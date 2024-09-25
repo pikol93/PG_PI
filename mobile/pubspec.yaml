@@ -23,6 +23,7 @@ dependencies:
   loggy: ^2.0.3
   slang: ^3.31.2
   slang_flutter: ^3.31.0
+  dio: ^5.7.0
 
 dev_dependencies:
   flutter_test:

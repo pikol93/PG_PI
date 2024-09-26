@@ -1,36 +1,66 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pi_mobile/logger.dart';
-import 'package:pi_mobile/provider/auth_provider.dart';
 import 'package:pi_mobile/widgets/exercises/exercises_screen.dart';
+import 'package:pi_mobile/widgets/forgot_password/forgot_password_screen.dart';
 import 'package:pi_mobile/widgets/home/home_screen.dart';
 import 'package:pi_mobile/widgets/login/login_screen.dart';
 import 'package:pi_mobile/widgets/register/register_screen.dart';
 import 'package:pi_mobile/widgets/settings/settings_screen.dart';
 import 'package:pi_mobile/widgets/settings/welcome_settings_screen.dart';
+import 'package:pi_mobile/widgets/splash/splash_screen.dart';
 import 'package:pi_mobile/widgets/tracks/tracks_screen.dart';
-import 'package:pi_mobile/widgets/welcome/welcome_screen.dart';
 
 part 'routes.g.dart';
 
-@TypedGoRoute<RootRoute>(path: "/")
-class RootRoute extends GoRouteData with Logger {
-  const RootRoute();
+final _routesNotRequiringAuthentication = [
+  const LoginRoute().location,
+  const RegisterRoute().location,
+  const WelcomeSettingsRoute().location,
+];
+
+final _routesRequiringAuthentication = [
+  const HomeRoute().location,
+  const TracksRoute().location,
+  const ExercisesRoute().location,
+  const SettingsRoute().location,
+];
+
+final _routesRedirections = [
+  const SplashRoute().location,
+];
+
+enum RouteAuthorizationType {
+  noAuthorization,
+  requiresAuthorization,
+  redirect,
+}
+
+RouteAuthorizationType? getAuthorizationTypeFromPath(String uri) {
+  if (_routesRequiringAuthentication.contains(uri)) {
+    return RouteAuthorizationType.requiresAuthorization;
+  }
+
+  if (_routesNotRequiringAuthentication.contains(uri)) {
+    return RouteAuthorizationType.noAuthorization;
+  }
+
+  if (_routesRedirections.contains(uri)) {
+    return RouteAuthorizationType.redirect;
+  }
+
+  return null;
+}
+
+@TypedGoRoute<SplashRoute>(path: "/")
+class SplashRoute extends GoRouteData {
+  const SplashRoute();
 
   @override
-  FutureOr<String?> redirect(BuildContext context, GoRouterState state) async {
-    logger.debug("root route");
-    final state =
-        await ProviderScope.containerOf(context).read(authProvider.future);
-
-    if (state == null) {
-      return const WelcomeRoute().location;
-    } else {
-      return const HomeRoute().location;
-    }
+  Widget build(BuildContext context, GoRouterState state) {
+    return const SplashScreen();
   }
 }
 
@@ -78,24 +108,7 @@ class SettingsRoute extends GoRouteData with Logger {
   }
 }
 
-@TypedGoRoute<WelcomeRoute>(
-  path: "/welcome",
-  routes: <TypedGoRoute<GoRouteData>>[
-    TypedGoRoute<RegisterRoute>(path: "register"),
-    TypedGoRoute<LoginRoute>(path: "login"),
-    TypedGoRoute<WelcomeSettingsRoute>(path: "settings"),
-  ],
-)
-class WelcomeRoute extends GoRouteData with Logger {
-  const WelcomeRoute();
-
-  @override
-  Widget build(BuildContext context, GoRouterState state) {
-    logger.debug("welcome route");
-    return const WelcomeScreen();
-  }
-}
-
+@TypedGoRoute<RegisterRoute>(path: "/register")
 class RegisterRoute extends GoRouteData with Logger {
   const RegisterRoute();
 
@@ -106,6 +119,7 @@ class RegisterRoute extends GoRouteData with Logger {
   }
 }
 
+@TypedGoRoute<LoginRoute>(path: "/login")
 class LoginRoute extends GoRouteData with Logger {
   const LoginRoute();
 
@@ -116,6 +130,7 @@ class LoginRoute extends GoRouteData with Logger {
   }
 }
 
+@TypedGoRoute<WelcomeSettingsRoute>(path: "/welcome_settings")
 class WelcomeSettingsRoute extends GoRouteData with Logger {
   const WelcomeSettingsRoute();
 
@@ -123,5 +138,15 @@ class WelcomeSettingsRoute extends GoRouteData with Logger {
   Widget build(BuildContext context, GoRouterState state) {
     logger.debug("welcome settings route");
     return const WelcomeSettingsScreen();
+  }
+}
+
+@TypedGoRoute<ForgotPasswordRoute>(path: "/forgot_password")
+class ForgotPasswordRoute extends GoRouteData with Logger {
+  const ForgotPasswordRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const ForgotPasswordScreen();
   }
 }

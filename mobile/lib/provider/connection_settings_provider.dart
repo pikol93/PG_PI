@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 part "connection_settings_provider.g.dart";
 
-@riverpod
+@Riverpod(keepAlive: true)
 class ConnectionSettings extends _$ConnectionSettings with Logger {
   static const keyName = "connection_settings";
 

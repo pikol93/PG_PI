@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:pi_mobile/logger.dart';
 
-class RunningFormScreen extends StatelessWidget {
+class RunningFormScreen extends StatelessWidget with Logger {
   const RunningFormScreen({super.key});
 
   @override
@@ -20,7 +21,7 @@ class RunningFormScreen extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                print("XD");
+                logger.debug("Running form elevated button pressed.");
               },
               child: const Text('Submit'),
             ),

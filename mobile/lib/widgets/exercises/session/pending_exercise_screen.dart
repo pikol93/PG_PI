@@ -11,7 +11,7 @@ class PendingExerciseScreen extends StatefulWidget {
   const PendingExerciseScreen(this.exercise, {super.key});
 
   @override
-  _PendingExerciseScreenState createState() => _PendingExerciseScreenState();
+  State<PendingExerciseScreen> createState() => _PendingExerciseScreenState();
 }
 
 class _PendingExerciseScreenState extends State<PendingExerciseScreen> {

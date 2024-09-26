@@ -8,7 +8,7 @@ class WorkoutSessionScreen extends StatefulWidget {
   const WorkoutSessionScreen({super.key});
 
   @override
-  _WorkoutSessionScreenState createState() => _WorkoutSessionScreenState();
+  State<WorkoutSessionScreen> createState() => _WorkoutSessionScreenState();
 }
 
 class _WorkoutSessionScreenState extends State<WorkoutSessionScreen> {

@@ -20,7 +20,10 @@ class ActivityTile extends StatelessWidget {
           context,
           MaterialPageRoute(builder: (context) => screen),
         );
-        Navigator.pop(context, pendingResult);
+
+        if (context.mounted) {
+          Navigator.pop(context, pendingResult);
+        }
       },
       child: Card(
         elevation: 5,

@@ -149,7 +149,10 @@ class _PendingExerciseScreenState extends State<PendingExerciseScreen> {
                             description: "")),
                   ),
                 );
-                Navigator.pop(context, pendingResult);
+
+                if (context.mounted) {
+                  Navigator.pop(context, pendingResult);
+                }
               },
               style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.white,

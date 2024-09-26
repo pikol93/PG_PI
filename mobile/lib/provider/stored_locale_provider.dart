@@ -6,7 +6,7 @@ part "stored_locale_provider.g.dart";
 
 // Please note that this provider does not update the locale of this
 // application. Instead the purpose of this class is to update relevant widgets.
-@riverpod
+@Riverpod(keepAlive: true)
 class StoredLocale extends _$StoredLocale {
   static const _keyName = StoredLocaleService.keyName;
 

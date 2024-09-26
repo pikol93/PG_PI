@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 part "theme_provider.g.dart";
 
-@riverpod
+@Riverpod(keepAlive: true)
 class Theme extends _$Theme {
   static const _keyName = "theme";
 

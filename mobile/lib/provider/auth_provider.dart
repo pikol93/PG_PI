@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 part "auth_provider.g.dart";
 
-@riverpod
+@Riverpod(keepAlive: true)
 class Auth extends _$Auth with Logger {
   static const keyName = "auth";
 

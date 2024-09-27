@@ -1,19 +1,19 @@
-import 'dart:async';
+import "dart:async";
 
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:pi_mobile/logger.dart';
-import 'package:pi_mobile/widgets/exercises/exercises_screen.dart';
-import 'package:pi_mobile/widgets/forgot_password/forgot_password_screen.dart';
-import 'package:pi_mobile/widgets/home/home_screen.dart';
-import 'package:pi_mobile/widgets/login/login_screen.dart';
-import 'package:pi_mobile/widgets/register/register_screen.dart';
-import 'package:pi_mobile/widgets/settings/settings_screen.dart';
-import 'package:pi_mobile/widgets/settings/welcome_settings_screen.dart';
-import 'package:pi_mobile/widgets/splash/splash_screen.dart';
-import 'package:pi_mobile/widgets/tracks/tracks_screen.dart';
+import "package:flutter/material.dart";
+import "package:go_router/go_router.dart";
+import "package:pi_mobile/logger.dart";
+import "package:pi_mobile/widgets/exercises/exercises_screen.dart";
+import "package:pi_mobile/widgets/forgot_password/forgot_password_screen.dart";
+import "package:pi_mobile/widgets/home/home_screen.dart";
+import "package:pi_mobile/widgets/login/login_screen.dart";
+import "package:pi_mobile/widgets/register/register_screen.dart";
+import "package:pi_mobile/widgets/settings/settings_screen.dart";
+import "package:pi_mobile/widgets/settings/welcome_settings_screen.dart";
+import "package:pi_mobile/widgets/splash/splash_screen.dart";
+import "package:pi_mobile/widgets/tracks/tracks_screen.dart";
 
-part 'routes.g.dart';
+part "routes.g.dart";
 
 final _routesNotRequiringAuthentication = [
   const LoginRoute().location,
@@ -59,9 +59,8 @@ class SplashRoute extends GoRouteData {
   const SplashRoute();
 
   @override
-  Widget build(BuildContext context, GoRouterState state) {
-    return const SplashScreen();
-  }
+  Widget build(BuildContext context, GoRouterState state) =>
+      const SplashScreen();
 }
 
 @TypedGoRoute<HomeRoute>(path: "/home")
@@ -146,7 +145,6 @@ class ForgotPasswordRoute extends GoRouteData with Logger {
   const ForgotPasswordRoute();
 
   @override
-  Widget build(BuildContext context, GoRouterState state) {
-    return const ForgotPasswordScreen();
-  }
+  Widget build(BuildContext context, GoRouterState state) =>
+      const ForgotPasswordScreen();
 }

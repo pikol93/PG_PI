@@ -1,7 +1,7 @@
-import 'package:awesome_flutter_extensions/awesome_flutter_extensions.dart';
-import 'package:flutter/material.dart';
-import 'package:pi_mobile/i18n/strings.g.dart';
-import 'package:pi_mobile/widgets/settings/setting.dart';
+import "package:awesome_flutter_extensions/awesome_flutter_extensions.dart";
+import "package:flutter/material.dart";
+import "package:pi_mobile/i18n/strings.g.dart";
+import "package:pi_mobile/widgets/settings/setting.dart";
 
 class SettingButton extends StatelessWidget {
   final IconData? icon;
@@ -24,39 +24,35 @@ class SettingButton extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    return Setting(
-      icon: icon,
-      title: title,
-      subtitle: subtitle,
-      onTap: () => _onSettingTapped(context),
-    );
-  }
+  Widget build(BuildContext context) => Setting(
+        icon: icon,
+        title: title,
+        subtitle: subtitle,
+        onTap: () => _onSettingTapped(context),
+      );
 
-  Widget _builder(BuildContext context) {
-    return AlertDialog(
-      title: Text(
-        alertTitle,
-        style: context.textStyles.bodyLarge,
-      ),
-      content: alertContent == null
-          ? null
-          : Text(
-              alertContent!,
-              style: context.textStyles.bodySmall,
-            ),
-      actions: [
-        TextButton(
-          onPressed: () => _onConfirmPressed(context),
-          child: Text(context.t.general.alert.confirm),
+  Widget _builder(BuildContext context) => AlertDialog(
+        title: Text(
+          alertTitle,
+          style: context.textStyles.bodyLarge,
         ),
-        TextButton(
-          onPressed: () => _onCancelPressed(context),
-          child: Text(context.t.general.alert.cancel),
-        ),
-      ],
-    );
-  }
+        content: alertContent == null
+            ? null
+            : Text(
+                alertContent!,
+                style: context.textStyles.bodySmall,
+              ),
+        actions: [
+          TextButton(
+            onPressed: () => _onConfirmPressed(context),
+            child: Text(context.t.general.alert.confirm),
+          ),
+          TextButton(
+            onPressed: () => _onCancelPressed(context),
+            child: Text(context.t.general.alert.cancel),
+          ),
+        ],
+      );
 
   void _onSettingTapped(BuildContext context) {
     if (requiresConfirmation) {

@@ -1,6 +1,6 @@
-import 'package:pi_mobile/service/stored_locale_service.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import "package:pi_mobile/service/stored_locale_service.dart";
+import "package:riverpod_annotation/riverpod_annotation.dart";
+import "package:shared_preferences/shared_preferences.dart";
 
 part "stored_locale_provider.g.dart";
 

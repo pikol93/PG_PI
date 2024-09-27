@@ -1,5 +1,5 @@
-import 'package:awesome_flutter_extensions/awesome_flutter_extensions.dart';
-import 'package:flutter/material.dart';
+import "package:awesome_flutter_extensions/awesome_flutter_extensions.dart";
+import "package:flutter/material.dart";
 
 class Setting extends StatelessWidget {
   final IconData? icon;
@@ -55,7 +55,7 @@ class Setting extends StatelessWidget {
         style: context.textStyles.bodyLarge.copyWith(
           fontWeight: FontWeight.w600,
         ),
-      )
+      ),
     ];
 
     if (subtitle != null) {

@@ -1,8 +1,8 @@
-import 'package:pi_mobile/data/auth_state.dart';
-import 'package:pi_mobile/logger.dart';
-import 'package:pi_mobile/utility/shared_preferences.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import "package:pi_mobile/data/auth_state.dart";
+import "package:pi_mobile/logger.dart";
+import "package:pi_mobile/utility/shared_preferences.dart";
+import "package:riverpod_annotation/riverpod_annotation.dart";
+import "package:shared_preferences/shared_preferences.dart";
 
 part "auth_provider.g.dart";
 
@@ -13,7 +13,7 @@ class Auth extends _$Auth with Logger {
   @override
   Future<AuthState?> build() async {
     final preferences = SharedPreferencesAsync();
-    return await preferences.getFromJson(keyName, AuthState.fromJson);
+    return preferences.getFromJson(keyName, AuthState.fromJson);
   }
 
   /// Logs in the user. This is to be redone in the future.

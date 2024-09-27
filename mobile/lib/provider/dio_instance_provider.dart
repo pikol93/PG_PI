@@ -1,8 +1,8 @@
-import 'package:dio/dio.dart';
-import 'package:pi_mobile/logger.dart';
-import 'package:pi_mobile/provider/connection_settings_provider.dart';
-import 'package:pi_mobile/provider/cookie_manager_instance.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
+import "package:dio/dio.dart";
+import "package:pi_mobile/logger.dart";
+import "package:pi_mobile/provider/connection_settings_provider.dart";
+import "package:pi_mobile/provider/cookie_manager_instance.dart";
+import "package:riverpod_annotation/riverpod_annotation.dart";
 
 part "dio_instance_provider.g.dart";
 

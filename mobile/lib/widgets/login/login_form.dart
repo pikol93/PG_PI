@@ -1,9 +1,9 @@
-import 'package:awesome_flutter_extensions/awesome_flutter_extensions.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pi_mobile/logger.dart';
-import 'package:pi_mobile/routing/routes.dart';
-import 'package:pi_mobile/service/auth_service.dart';
+import "package:awesome_flutter_extensions/awesome_flutter_extensions.dart";
+import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:pi_mobile/logger.dart";
+import "package:pi_mobile/routing/routes.dart";
+import "package:pi_mobile/service/auth_service.dart";
 
 class LoginForm extends ConsumerStatefulWidget {
   final Function(LoginError) onLoginFailed;
@@ -30,60 +30,58 @@ class _LoginFormState extends ConsumerState<LoginForm> with Logger {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Form(
-      key: formKey,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text(
-            "Login",
-            style: context.textStyles.headlineLarge.copyWith(
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          const SizedBox(height: 32.0),
-          TextFormField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(32.0),
+  Widget build(BuildContext context) => Form(
+        key: formKey,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              "Login",
+              style: context.textStyles.headlineLarge.copyWith(
+                fontWeight: FontWeight.w600,
               ),
-              hintText: "Enter username",
             ),
-            controller: userTextController,
-            validator: _validateLoginField,
-          ),
-          const SizedBox(height: 16.0),
-          TextFormField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(32.0),
+            const SizedBox(height: 32.0),
+            TextFormField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(32.0),
+                ),
+                hintText: "Enter username",
               ),
-              hintText: "Enter password",
+              controller: userTextController,
+              validator: _validateLoginField,
             ),
-            controller: passwordTextController,
-            validator: _validatePasswordField,
-          ),
-          const SizedBox(height: 8.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              GestureDetector(
-                onTap: _onForgotPasswordTapped,
-                child: const Text("Forgot password?"),
+            const SizedBox(height: 16.0),
+            TextFormField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(32.0),
+                ),
+                hintText: "Enter password",
               ),
-            ],
-          ),
-          const SizedBox(height: 32.0),
-          ElevatedButton(
-            onPressed: _onLoginButtonPressed,
-            child: const Text("Log in"),
-          )
-        ],
-      ),
-    );
-  }
+              controller: passwordTextController,
+              validator: _validatePasswordField,
+            ),
+            const SizedBox(height: 8.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                GestureDetector(
+                  onTap: _onForgotPasswordTapped,
+                  child: const Text("Forgot password?"),
+                ),
+              ],
+            ),
+            const SizedBox(height: 32.0),
+            ElevatedButton(
+              onPressed: _onLoginButtonPressed,
+              child: const Text("Log in"),
+            ),
+          ],
+        ),
+      );
 
   String? _validateLoginField(String? value) {
     if (value == null || value.isEmpty) {

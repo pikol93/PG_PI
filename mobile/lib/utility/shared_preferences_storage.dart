@@ -1,13 +1,12 @@
-import 'package:cookie_jar/cookie_jar.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import "package:cookie_jar/cookie_jar.dart";
+import "package:shared_preferences/shared_preferences.dart";
 
 class SharedPreferencesStorage extends Storage {
   const SharedPreferencesStorage();
 
   @override
-  Future<void> init(bool persistSession, bool ignoreExpires) {
-    return Future.value(null);
-  }
+  Future<void> init(bool persistSession, bool ignoreExpires) =>
+      Future.value(null);
 
   @override
   Future<String?> read(String key) async {
@@ -30,7 +29,7 @@ class SharedPreferencesStorage extends Storage {
   @override
   Future<void> deleteAll(List<String> keys) async {
     final sharedPreferences = SharedPreferencesAsync();
-    final futures = keys.map((key) => sharedPreferences.remove(key));
+    final futures = keys.map(sharedPreferences.remove);
 
     await Future.wait(futures);
   }

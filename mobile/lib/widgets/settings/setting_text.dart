@@ -1,7 +1,7 @@
-import 'package:awesome_flutter_extensions/awesome_flutter_extensions.dart';
-import 'package:flutter/material.dart';
-import 'package:pi_mobile/i18n/strings.g.dart';
-import 'package:pi_mobile/widgets/settings/setting.dart';
+import "package:awesome_flutter_extensions/awesome_flutter_extensions.dart";
+import "package:flutter/material.dart";
+import "package:pi_mobile/i18n/strings.g.dart";
+import "package:pi_mobile/widgets/settings/setting.dart";
 
 class SettingText extends StatefulWidget {
   final IconData? icon;
@@ -35,36 +35,32 @@ class _SettingTextState extends State<SettingText> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Setting(
-      icon: widget.icon,
-      title: widget.title,
-      subtitle: widget.currentValue,
-      onTap: () => _onSettingTapped(context),
-    );
-  }
+  Widget build(BuildContext context) => Setting(
+        icon: widget.icon,
+        title: widget.title,
+        subtitle: widget.currentValue,
+        onTap: () => _onSettingTapped(context),
+      );
 
-  Widget _builder(BuildContext context) {
-    return AlertDialog(
-      title: Text(
-        widget.alertTitle,
-        style: context.textStyles.bodyLarge,
-      ),
-      content: TextField(
-        controller: controller,
-      ),
-      actions: [
-        TextButton(
-          onPressed: () => _onConfirmPressed(context),
-          child: Text(context.t.general.alert.confirm),
+  Widget _builder(BuildContext context) => AlertDialog(
+        title: Text(
+          widget.alertTitle,
+          style: context.textStyles.bodyLarge,
         ),
-        TextButton(
-          onPressed: () => _onCancelPressed(context),
-          child: Text(context.t.general.alert.cancel),
+        content: TextField(
+          controller: controller,
         ),
-      ],
-    );
-  }
+        actions: [
+          TextButton(
+            onPressed: () => _onConfirmPressed(context),
+            child: Text(context.t.general.alert.confirm),
+          ),
+          TextButton(
+            onPressed: () => _onCancelPressed(context),
+            child: Text(context.t.general.alert.cancel),
+          ),
+        ],
+      );
 
   void _onSettingTapped(BuildContext context) {
     showDialog(

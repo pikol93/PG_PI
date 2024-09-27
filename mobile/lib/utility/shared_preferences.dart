@@ -1,7 +1,7 @@
-import 'dart:convert';
+import "dart:convert";
 
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:loggy/loggy.dart';
+import "package:loggy/loggy.dart";
+import "package:shared_preferences/shared_preferences.dart";
 
 extension SharedPreferencesAsyncExtension on SharedPreferencesAsync {
   Future<T?> getFromJson<T>(
@@ -18,7 +18,8 @@ extension SharedPreferencesAsyncExtension on SharedPreferencesAsync {
     final constructed = constructor(map);
     if (map == null) {
       logDebug(
-          "Could not construct object of type $T from key $key and string $json");
+        "Could not construct object of type $T from key $key and string $json",
+      );
     }
 
     return constructed;

@@ -1,6 +1,7 @@
 import "package:awesome_flutter_extensions/awesome_flutter_extensions.dart";
 import "package:flutter/material.dart";
 import "package:pi_mobile/data/workout.dart";
+import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/widgets/common/app_navigation_drawer.dart";
 import "package:pi_mobile/widgets/exercises/session/workout_session_screen.dart";
 
@@ -21,7 +22,7 @@ class _ExercisesScreenState extends State<ExercisesScreen> {
         drawer: const AppNavigationDrawer(),
         appBar: AppBar(
           backgroundColor: context.colors.scaffoldBackground,
-          title: const Text("Ćwiczenia"),
+          title: Text(context.t.exercises.title),
         ),
         body: Center(
           child: Column(

@@ -76,7 +76,7 @@ class _ChangeLanguageSetting extends ConsumerWidget with Logger {
                 currentValue: currentLocaleOption,
                 itemToDisplayMapper: (item) => item.display,
                 onConfirmed: (value) async {
-                  var locale = value?.locale;
+                  final locale = value?.locale;
                   if (locale == null) {
                     await StoredLocaleService.resetSavedLocale();
                   } else {

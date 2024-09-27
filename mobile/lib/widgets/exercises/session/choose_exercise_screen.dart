@@ -10,7 +10,7 @@ class ChooseExerciseScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var exercises = getAllExercises();
+    final exercises = getAllExercises();
 
     return Scaffold(
       drawer: const AppNavigationDrawer(),

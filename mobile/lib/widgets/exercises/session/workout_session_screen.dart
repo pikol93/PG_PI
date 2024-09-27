@@ -25,7 +25,7 @@ class _WorkoutSessionScreenState extends State<WorkoutSessionScreen> {
               child: ListView.builder(
                 itemCount: exercises.length,
                 itemBuilder: (context, index) {
-                  var workload = exercises[index];
+                  final workload = exercises[index];
                   return ListTile(
                     title: Text(workload.exercise.name),
                     subtitle: Text(

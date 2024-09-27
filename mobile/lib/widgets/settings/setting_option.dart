@@ -1,6 +1,6 @@
-import 'package:awesome_flutter_extensions/awesome_flutter_extensions.dart';
-import 'package:flutter/material.dart';
-import 'package:pi_mobile/widgets/settings/setting.dart';
+import "package:awesome_flutter_extensions/awesome_flutter_extensions.dart";
+import "package:flutter/material.dart";
+import "package:pi_mobile/widgets/settings/setting.dart";
 
 class SettingOption<T> extends StatelessWidget {
   final IconData? icon;
@@ -33,21 +33,19 @@ class SettingOption<T> extends StatelessWidget {
     );
   }
 
-  Widget _builder(BuildContext context) {
-    return SimpleDialog(
-      title: Text(alertTitle),
-      children: possibleValues
-          .map(
-            (value) => RadioListTile<T>(
-              value: value,
-              groupValue: currentValue,
-              title: Text(itemToDisplayMapper.call(value)),
-              onChanged: (value) => _onConfirmPressed(context, value),
-            ),
-          )
-          .toList(),
-    );
-  }
+  Widget _builder(BuildContext context) => SimpleDialog(
+        title: Text(alertTitle),
+        children: possibleValues
+            .map(
+              (value) => RadioListTile<T>(
+                value: value,
+                groupValue: currentValue,
+                title: Text(itemToDisplayMapper.call(value)),
+                onChanged: (value) => _onConfirmPressed(context, value),
+              ),
+            )
+            .toList(),
+      );
 
   void _onSettingTapped(BuildContext context) {
     showDialog(

@@ -1,9 +1,9 @@
-import 'dart:io';
-import 'package:dio/dio.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pi_mobile/logger.dart';
-import 'package:pi_mobile/provider/auth_provider.dart';
-import 'package:pi_mobile/provider/dio_instance_provider.dart';
+import "dart:io";
+import "package:dio/dio.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:pi_mobile/logger.dart";
+import "package:pi_mobile/provider/auth_provider.dart";
+import "package:pi_mobile/provider/dio_instance_provider.dart";
 
 final authServiceProvider = Provider((ref) => AuthService(ref: ref));
 
@@ -51,7 +51,7 @@ class AuthService with Logger {
       return LoginError.unknownError;
     }
 
-    ref.read(authProvider.notifier).logIn(username);
+    await ref.read(authProvider.notifier).logIn(username);
     return null;
   }
 

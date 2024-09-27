@@ -1,9 +1,9 @@
-import 'package:loggy/loggy.dart';
-import 'package:pi_mobile/i18n/strings.g.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import "package:loggy/loggy.dart";
+import "package:pi_mobile/i18n/strings.g.dart";
+import "package:shared_preferences/shared_preferences.dart";
 
-// TODO: This class serves as a workaround for riverpod not playing nicely with slang. If possible,
-// rework this class in the future.
+// TODO: This class serves as a workaround for riverpod not playing nicely with
+//  slang. If possible, rework this class in the future.
 class StoredLocaleService {
   static const keyName = "stored_locale";
 

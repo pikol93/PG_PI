@@ -1,7 +1,7 @@
-import 'package:loggy/loggy.dart';
-import 'package:pi_mobile/data/app_theme.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import "package:loggy/loggy.dart";
+import "package:pi_mobile/data/app_theme.dart";
+import "package:riverpod_annotation/riverpod_annotation.dart";
+import "package:shared_preferences/shared_preferences.dart";
 
 part "theme_provider.g.dart";
 

@@ -28,7 +28,9 @@ class ExerciseSummaryScreen extends StatelessWidget {
                     return ListTile(
                       title: Text("Seria ${index + 1}"),
                       subtitle: Text(
-                        "Powtórzenia: ${data.reps}, Kilogramy: ${data.weight}, Trudność: ${data.rpe}",
+                        "Powtórzenia: ${data.reps}, "
+                        "Kilogramy: ${data.weight}, "
+                        "Trudność: ${data.rpe}",
                       ),
                     );
                   },

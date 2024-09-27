@@ -29,7 +29,8 @@ class _WorkoutSessionScreenState extends State<WorkoutSessionScreen> {
                   return ListTile(
                     title: Text(workload.exercise.name),
                     subtitle: Text(
-                      "Średnie RPE: ${Workload.getAverageRPE(workload.sets)}, Notatka: ${workload.description}",
+                      "Średnie RPE: ${Workload.getAverageRPE(workload.sets)},"
+                      " Notatka: ${workload.description}",
                     ),
                   );
                 },

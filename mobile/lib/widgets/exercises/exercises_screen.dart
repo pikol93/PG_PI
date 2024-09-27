@@ -1,10 +1,21 @@
 import "package:awesome_flutter_extensions/awesome_flutter_extensions.dart";
 import "package:flutter/material.dart";
+import "package:pi_mobile/data/workout.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/widgets/common/app_navigation_drawer.dart";
+import "package:pi_mobile/widgets/exercises/session/workout_session_screen.dart";
 
-class ExercisesScreen extends StatelessWidget {
+import "session/history_screen.dart";
+
+class ExercisesScreen extends StatefulWidget {
   const ExercisesScreen({super.key});
+
+  @override
+  State<ExercisesScreen> createState() => _ExercisesScreenState();
+}
+
+class _ExercisesScreenState extends State<ExercisesScreen> {
+  final sessionHistory = <Workout>[];
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -13,8 +24,39 @@ class ExercisesScreen extends StatelessWidget {
           backgroundColor: context.colors.scaffoldBackground,
           title: Text(context.t.exercises.title),
         ),
-        body: const Center(
-          child: Text("exercises route"),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                onPressed: () async {
+                  final result = await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const WorkoutSessionScreen(),
+                    ),
+                  );
+
+                  if (result != null) {
+                    sessionHistory.add(result);
+                  }
+                },
+                child: const Text("Rozpocznij nowy trening"),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          HistoryScreen(sessionHistory: sessionHistory),
+                    ),
+                  );
+                },
+                child: const Text("Zobacz historię treningów"),
+              ),
+            ],
+          ),
         ),
       );
 }

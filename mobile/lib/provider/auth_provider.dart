@@ -13,7 +13,7 @@ class Auth extends _$Auth with Logger {
   @override
   Future<AuthState?> build() async {
     final preferences = SharedPreferencesAsync();
-    return await preferences.getFromJson(keyName, AuthState.fromJson);
+    return preferences.getFromJson(keyName, AuthState.fromJson);
   }
 
   /// Logs in the user. This is to be redone in the future.

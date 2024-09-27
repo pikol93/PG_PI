@@ -51,7 +51,7 @@ class AuthService with Logger {
       return LoginError.unknownError;
     }
 
-    ref.read(authProvider.notifier).logIn(username);
+    await ref.read(authProvider.notifier).logIn(username);
     return null;
   }
 

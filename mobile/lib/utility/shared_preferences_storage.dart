@@ -11,7 +11,7 @@ class SharedPreferencesStorage extends Storage {
   @override
   Future<String?> read(String key) async {
     final sharedPreferences = SharedPreferencesAsync();
-    return await sharedPreferences.getString(key);
+    return sharedPreferences.getString(key);
   }
 
   @override

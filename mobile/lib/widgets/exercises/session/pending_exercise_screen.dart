@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:pi_mobile/data/strength_exercise.dart';
-import 'package:pi_mobile/data/workload.dart';
+import "package:flutter/material.dart";
+import "package:pi_mobile/data/set_of_exercise.dart";
+import "package:pi_mobile/data/strength_exercise.dart";
+import "package:pi_mobile/data/workload.dart";
 
-import 'package:pi_mobile/data/set_of_exercise.dart';
-import 'exercise_summary_screen.dart';
+import "exercise_summary_screen.dart";
 
 class PendingExerciseScreen extends StatefulWidget {
   final StrengthExercise exercise;
@@ -24,11 +24,11 @@ class _PendingExerciseScreenState extends State<PendingExerciseScreen> {
 
   @override
   Widget build(BuildContext context) {
-    StrengthExercise exercise = widget.exercise;
+    var exercise = widget.exercise;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Seria $currentSeries'),
+        title: Text("Seria $currentSeries"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -49,7 +49,7 @@ class _PendingExerciseScreenState extends State<PendingExerciseScreen> {
                   child: TextField(
                     keyboardType: TextInputType.number,
                     decoration: const InputDecoration(
-                      labelText: 'Ilość powtórzeń',
+                      labelText: "Ilość powtórzeń",
                     ),
                     textAlign: TextAlign.center,
                     controller:
@@ -87,7 +87,7 @@ class _PendingExerciseScreenState extends State<PendingExerciseScreen> {
                   child: TextField(
                     keyboardType: TextInputType.number,
                     decoration: const InputDecoration(
-                      labelText: 'Ilość kilogramów',
+                      labelText: "Ilość kilogramów",
                     ),
                     textAlign: TextAlign.center,
                     controller: TextEditingController(text: weight.toString()),
@@ -109,14 +109,14 @@ class _PendingExerciseScreenState extends State<PendingExerciseScreen> {
               ],
             ),
             const SizedBox(height: 20),
-            Text('RPE: ${difficulty.toInt()}'),
+            Text("RPE: ${difficulty.toInt()}"),
             Slider(
               value: difficulty,
               min: 1,
               max: 10,
               divisions: 9,
               label: difficulty.round().toString(),
-              onChanged: (double value) {
+              onChanged: (value) {
                 setState(() {
                   difficulty = value;
                 });
@@ -126,15 +126,18 @@ class _PendingExerciseScreenState extends State<PendingExerciseScreen> {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                workload.add(SetOfExercise(
+                workload.add(
+                  SetOfExercise(
                     reps: repetitions,
                     weight: weight,
-                    rpe: difficulty.toInt()));
+                    rpe: difficulty.toInt(),
+                  ),
+                );
                 setState(() {
                   currentSeries++;
                 });
               },
-              child: const Text('Kolejna seria'),
+              child: const Text("Kolejna seria"),
             ),
             const SizedBox(height: 10),
             ElevatedButton(
@@ -143,10 +146,12 @@ class _PendingExerciseScreenState extends State<PendingExerciseScreen> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => ExerciseSummaryScreen(
-                        workoutData: Workload(
-                            exercise: exercise,
-                            sets: workload,
-                            description: "")),
+                      workoutData: Workload(
+                        exercise: exercise,
+                        sets: workload,
+                        description: "",
+                      ),
+                    ),
                   ),
                 );
 
@@ -158,7 +163,7 @@ class _PendingExerciseScreenState extends State<PendingExerciseScreen> {
                 foregroundColor: Colors.white,
                 backgroundColor: Colors.red,
               ),
-              child: const Text('Zakończ ćwiczenie'),
+              child: const Text("Zakończ ćwiczenie"),
             ),
           ],
         ),

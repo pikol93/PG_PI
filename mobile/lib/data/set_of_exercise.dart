@@ -1,4 +1,4 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import "package:freezed_annotation/freezed_annotation.dart";
 
 part "set_of_exercise.g.dart";
 part "set_of_exercise.freezed.dart";

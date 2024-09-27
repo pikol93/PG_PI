@@ -1,5 +1,5 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:pi_mobile/data/workload.dart';
+import "package:freezed_annotation/freezed_annotation.dart";
+import "package:pi_mobile/data/workload.dart";
 
 part "workout.g.dart";
 part "workout.freezed.dart";

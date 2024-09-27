@@ -1,16 +1,16 @@
-import 'package:awesome_flutter_extensions/awesome_flutter_extensions.dart';
-import 'package:flutter/material.dart';
-import 'package:pi_mobile/data/strength_exercise.dart';
-import 'package:pi_mobile/widgets/exercises/session/pending_exercise_screen.dart';
-import 'package:pi_mobile/widgets/common/activity_tile.dart';
-import 'package:pi_mobile/widgets/common/app_navigation_drawer.dart';
+import "package:awesome_flutter_extensions/awesome_flutter_extensions.dart";
+import "package:flutter/material.dart";
+import "package:pi_mobile/data/strength_exercise.dart";
+import "package:pi_mobile/widgets/common/activity_tile.dart";
+import "package:pi_mobile/widgets/common/app_navigation_drawer.dart";
+import "package:pi_mobile/widgets/exercises/session/pending_exercise_screen.dart";
 
 class ChooseExerciseScreen extends StatelessWidget {
   const ChooseExerciseScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    List<StrengthExercise> exercises = getAllExercises();
+    var exercises = getAllExercises();
 
     return Scaffold(
       drawer: const AppNavigationDrawer(),
@@ -25,10 +25,13 @@ class ChooseExerciseScreen extends StatelessWidget {
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,
           children: exercises
-              .map((exercise) => ActivityTile(
+              .map(
+                (exercise) => ActivityTile(
                   headline: exercise.name,
                   imagePath: exercise.imageLink,
-                  screen: PendingExerciseScreen(exercise)))
+                  screen: PendingExerciseScreen(exercise),
+                ),
+              )
               .toList(),
         ),
       ),
@@ -36,14 +39,18 @@ class ChooseExerciseScreen extends StatelessWidget {
   }
 }
 
-List<StrengthExercise> getAllExercises() {
-  return const [
-    StrengthExercise(
-        name: "Wyciskanie na klatkę", imageLink: "assets/benchpress.png"),
-    StrengthExercise(
-        name: 'Przysiad z tyłu', imageLink: "assets/backsquad.png"),
-    StrengthExercise(
-        name: 'Uginanie bicepsów', imageLink: "assets/biceps_curls.png"),
-    StrengthExercise(name: 'Podciąganie', imageLink: "assets/pullups.png"),
-  ];
-}
+List<StrengthExercise> getAllExercises() => const [
+      StrengthExercise(
+        name: "Wyciskanie na klatkę",
+        imageLink: "assets/benchpress.png",
+      ),
+      StrengthExercise(
+        name: "Przysiad z tyłu",
+        imageLink: "assets/backsquad.png",
+      ),
+      StrengthExercise(
+        name: "Uginanie bicepsów",
+        imageLink: "assets/biceps_curls.png",
+      ),
+      StrengthExercise(name: "Podciąganie", imageLink: "assets/pullups.png"),
+    ];

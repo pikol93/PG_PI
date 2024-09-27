@@ -1,6 +1,6 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:pi_mobile/data/set_of_exercise.dart';
-import 'package:pi_mobile/data/strength_exercise.dart';
+import "package:freezed_annotation/freezed_annotation.dart";
+import "package:pi_mobile/data/set_of_exercise.dart";
+import "package:pi_mobile/data/strength_exercise.dart";
 
 part "workload.g.dart";
 part "workload.freezed.dart";
@@ -20,7 +20,7 @@ class Workload with _$Workload {
     if (sets.isEmpty) {
       return 0;
     }
-    int totalRPE = 0;
+    var totalRPE = 0;
 
     for (var set in sets) {
       totalRPE += set.rpe;

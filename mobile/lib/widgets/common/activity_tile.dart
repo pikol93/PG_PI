@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 class ActivityTile extends StatelessWidget {
   final String headline;
@@ -13,35 +13,33 @@ class ActivityTile extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () async {
-        final pendingResult = await Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => screen),
-        );
+  Widget build(BuildContext context) => GestureDetector(
+        onTap: () async {
+          final pendingResult = await Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => screen),
+          );
 
-        if (context.mounted) {
-          Navigator.pop(context, pendingResult);
-        }
-      },
-      child: Card(
-        elevation: 5,
-        child: Column(
-          children: [
-            Expanded(
-              child: Image.asset(
-                imagePath,
-                fit: BoxFit.cover,
+          if (context.mounted) {
+            Navigator.pop(context, pendingResult);
+          }
+        },
+        child: Card(
+          elevation: 5,
+          child: Column(
+            children: [
+              Expanded(
+                child: Image.asset(
+                  imagePath,
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(headline),
-            ),
-          ],
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(headline),
+              ),
+            ],
+          ),
         ),
-      ),
-    );
-  }
+      );
 }

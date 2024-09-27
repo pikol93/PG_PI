@@ -92,9 +92,7 @@ class _PendingExerciseScreenState extends State<PendingExerciseScreen> {
                     textAlign: TextAlign.center,
                     controller: TextEditingController(text: weight.toString()),
                     onChanged: (value) {
-                      setState(() {
-                        weight = weight;
-                      });
+                      setState(() {});
                     },
                   ),
                 ),

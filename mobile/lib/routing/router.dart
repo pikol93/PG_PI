@@ -51,14 +51,16 @@ GoRouter router(RouterRef ref) {
         case RouteAuthorizationType.noAuthorization:
           if (isAuthorized) {
             logDebug(
-              "Redirecting. Is authorized and current route does not require authorization.",
+              "Redirecting. Is authorized and current route "
+              "does not require authorization.",
             );
             return const HomeRoute().location;
           }
         case RouteAuthorizationType.requiresAuthorization:
           if (!isAuthorized) {
             logDebug(
-              "Redirecting. Is not authorized and current route requires authorization.",
+              "Redirecting. Is not authorized and current route "
+              "requires authorization.",
             );
             return const LoginRoute().location;
           }

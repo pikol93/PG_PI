@@ -21,7 +21,8 @@ class ConnectionSettings extends _$ConnectionSettings with Logger {
   }
 
   Future<void> updateServerAddress(String serverAddress) async {
-    // TODO: This operation probably does not require us to write and read from shared preferences.
+    // TODO: This operation probably does not require us
+    //  to write and read from shared preferences.
     logger.debug("Setting server address as $serverAddress...");
     final preferences = SharedPreferencesAsync();
     await preferences.setToJson(

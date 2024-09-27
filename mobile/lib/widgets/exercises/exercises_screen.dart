@@ -15,7 +15,7 @@ class ExercisesScreen extends StatefulWidget {
 }
 
 class _ExercisesScreenState extends State<ExercisesScreen> {
-  List<Workout> sessionHistory = [];
+  final sessionHistory = <Workout>[];
 
   @override
   Widget build(BuildContext context) => Scaffold(

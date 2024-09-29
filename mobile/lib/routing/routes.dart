@@ -11,6 +11,7 @@ import "package:pi_mobile/widgets/register/register_screen.dart";
 import "package:pi_mobile/widgets/settings/settings_screen.dart";
 import "package:pi_mobile/widgets/settings/welcome_settings_screen.dart";
 import "package:pi_mobile/widgets/splash/splash_screen.dart";
+import "package:pi_mobile/widgets/tracks/record_track_screen.dart";
 import "package:pi_mobile/widgets/tracks/tracks_screen.dart";
 
 part "routes.g.dart";
@@ -74,7 +75,12 @@ class HomeRoute extends GoRouteData with Logger {
   }
 }
 
-@TypedGoRoute<TracksRoute>(path: "/tracks")
+@TypedGoRoute<TracksRoute>(
+  path: "/tracks",
+  routes: <TypedGoRoute<GoRouteData>>[
+    TypedGoRoute<RecordTrackRoute>(path: "record"),
+  ],
+)
 class TracksRoute extends GoRouteData with Logger {
   const TracksRoute();
 
@@ -83,6 +89,17 @@ class TracksRoute extends GoRouteData with Logger {
     logger.debug("tracks route");
     return const TracksScreen();
   }
+}
+
+class RecordTrackRoute extends GoRouteData {
+  const RecordTrackRoute();
+
+  @override
+  Widget build(
+    BuildContext context,
+    GoRouterState state,
+  ) =>
+      const RecordTrackScreen();
 }
 
 @TypedGoRoute<ExercisesRoute>(path: "/exercises")

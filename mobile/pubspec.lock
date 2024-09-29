@@ -321,6 +321,30 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.0"
+  fl_location:
+    dependency: "direct main"
+    description:
+      name: fl_location
+      sha256: c588ad7391ebce7c49d4a9eb2320385ff2723b654e22f60da1083ccb2ba5980c
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.1.0+1"
+  fl_location_platform_interface:
+    dependency: transitive
+    description:
+      name: fl_location_platform_interface
+      sha256: "1146e5d954394929ff8fc8e72de92241e9a8b9d6ccfd4d095eb90cac3d13747d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.0.0"
+  fl_location_web:
+    dependency: transitive
+    description:
+      name: fl_location_web
+      sha256: bb1ad1d47e8291bcdf11f78f977624ae775e1f98900fe061a19d8a64e6731f01
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.1.0"
   flutter:
     dependency: "direct main"
     description: flutter

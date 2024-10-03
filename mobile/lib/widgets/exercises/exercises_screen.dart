@@ -41,7 +41,7 @@ class _ExercisesScreenState extends State<ExercisesScreen> {
                     sessionHistory.add(result);
                   }
                 },
-                child: const Text("Rozpocznij nowy trening"),
+                child: Text(context.t.exercises.start),
               ),
               ElevatedButton(
                 onPressed: () {
@@ -53,7 +53,7 @@ class _ExercisesScreenState extends State<ExercisesScreen> {
                     ),
                   );
                 },
-                child: const Text("Zobacz historię treningów"),
+                child: Text(context.t.exercises.history),
               ),
             ],
           ),

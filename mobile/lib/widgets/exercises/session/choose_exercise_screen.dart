@@ -1,22 +1,24 @@
 import "package:awesome_flutter_extensions/awesome_flutter_extensions.dart";
 import "package:flutter/material.dart";
 import "package:pi_mobile/data/strength_exercise.dart";
+import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/widgets/common/activity_tile.dart";
 import "package:pi_mobile/widgets/common/app_navigation_drawer.dart";
 import "package:pi_mobile/widgets/exercises/session/pending_exercise_screen.dart";
+
 
 class ChooseExerciseScreen extends StatelessWidget {
   const ChooseExerciseScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final exercises = getAllExercises();
+    final exercises = getAllExercises(context);
 
     return Scaffold(
       drawer: const AppNavigationDrawer(),
       appBar: AppBar(
         backgroundColor: context.colors.scaffoldBackground,
-        title: const Text("Ćwiczenia"),
+        title: Text(context.t.exercises.title),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -39,18 +41,20 @@ class ChooseExerciseScreen extends StatelessWidget {
   }
 }
 
-List<StrengthExercise> getAllExercises() => const [
+List<StrengthExercise> getAllExercises(BuildContext context) => [
       StrengthExercise(
-        name: "Wyciskanie na klatkę",
+        name: context.t.exercises.exercises.benchPress,
         imageLink: "assets/benchpress.png",
       ),
       StrengthExercise(
-        name: "Przysiad z tyłu",
+        name: context.t.exercises.exercises.backSquat,
         imageLink: "assets/backsquad.png",
       ),
       StrengthExercise(
-        name: "Uginanie bicepsów",
+        name: context.t.exercises.exercises.barbellCurls,
         imageLink: "assets/biceps_curls.png",
       ),
-      StrengthExercise(name: "Podciąganie", imageLink: "assets/pullups.png"),
+      StrengthExercise(
+          name: context.t.exercises.exercises.pullUp,
+          imageLink: "assets/pullups.png"),
     ];

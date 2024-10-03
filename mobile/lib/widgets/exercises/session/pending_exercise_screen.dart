@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:pi_mobile/data/set_of_exercise.dart";
 import "package:pi_mobile/data/strength_exercise.dart";
 import "package:pi_mobile/data/workload.dart";
+import "package:pi_mobile/i18n/strings.g.dart";
 
 import "exercise_summary_screen.dart";
 
@@ -25,7 +26,7 @@ class _PendingExerciseScreenState extends State<PendingExerciseScreen> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: Text("Seria $currentSeries"),
+          title: Text("${context.t.exercises.dataInput.set} $currentSeries"),
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -45,8 +46,8 @@ class _PendingExerciseScreenState extends State<PendingExerciseScreen> {
                   Expanded(
                     child: TextField(
                       keyboardType: TextInputType.number,
-                      decoration: const InputDecoration(
-                        labelText: "Ilość powtórzeń",
+                      decoration: InputDecoration(
+                        labelText: context.t.exercises.dataInput.reps,
                       ),
                       textAlign: TextAlign.center,
                       controller:
@@ -83,8 +84,8 @@ class _PendingExerciseScreenState extends State<PendingExerciseScreen> {
                   Expanded(
                     child: TextField(
                       keyboardType: TextInputType.number,
-                      decoration: const InputDecoration(
-                        labelText: "Ilość kilogramów",
+                      decoration: InputDecoration(
+                        labelText: context.t.exercises.dataInput.weight,
                       ),
                       textAlign: TextAlign.center,
                       controller:
@@ -133,7 +134,7 @@ class _PendingExerciseScreenState extends State<PendingExerciseScreen> {
                     currentSeries++;
                   });
                 },
-                child: const Text("Kolejna seria"),
+                child: Text(context.t.exercises.dataInput.saveSet),
               ),
               const SizedBox(height: 10),
               ElevatedButton(
@@ -159,7 +160,7 @@ class _PendingExerciseScreenState extends State<PendingExerciseScreen> {
                   foregroundColor: Colors.white,
                   backgroundColor: Colors.red,
                 ),
-                child: const Text("Zakończ ćwiczenie"),
+                child: Text(context.t.exercises.dataInput.endExercise),
               ),
             ],
           ),

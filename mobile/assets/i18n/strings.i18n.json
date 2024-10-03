@@ -17,7 +17,34 @@
     "title": "Tracks"
   },
   "exercises": {
-    "title": "Exercises"
+    "title": "Exercises",
+    "start": "Start new workout",
+    "history": "Workout history",
+    "amountOfPerformedExercises": "Amount of performed exercises",
+    "trainingSession": "Training session",
+    "addExercise": "Add exercise",
+    "endWorkout": "End workout",
+    "exercises": {
+      "benchPress": "Bench press",
+      "backSquat": "Back squat",
+      "barbellCurls": "Barbell curls",
+      "pullUp": "Pull up"
+    },
+    "dataInput": {
+      "set": "Set",
+      "reps": "Reps",
+      "weight": "Kilograms",
+      "saveSet": "Save set",
+      "endExercise": "End exercise"
+    },
+    "exerciseSummary": {
+      "title": "Summary",
+      "reps": "Sets",
+      "weight": "Kilograms"
+    },
+    "back": "Return",
+    "averageRPE": "Average RPE",
+    "notes": "Notes"
   },
   "settings": {
     "title": "Settings",

@@ -1,8 +1,10 @@
 import "package:flutter/material.dart";
-
 import "package:pi_mobile/data/workload.dart";
 import "package:pi_mobile/data/workout.dart";
+import "package:pi_mobile/i18n/strings.g.dart";
+
 import "choose_exercise_screen.dart";
+
 
 class WorkoutSessionScreen extends StatefulWidget {
   const WorkoutSessionScreen({super.key});
@@ -17,7 +19,7 @@ class _WorkoutSessionScreenState extends State<WorkoutSessionScreen> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: const Text("Sesja Treningowa"),
+          title: Text(context.t.exercises.trainingSession),
         ),
         body: Column(
           children: [
@@ -29,8 +31,8 @@ class _WorkoutSessionScreenState extends State<WorkoutSessionScreen> {
                   return ListTile(
                     title: Text(workload.exercise.name),
                     subtitle: Text(
-                      "Średnie RPE: ${Workload.getAverageRPE(workload.sets)},"
-                      " Notatka: ${workload.description}",
+                      "${context.t.exercises.averageRPE}: ${Workload.getAverageRPE(workload.sets)},"
+                      " ${context.t.exercises.notes}: ${workload.description}",
                     ),
                   );
                 },
@@ -53,7 +55,7 @@ class _WorkoutSessionScreenState extends State<WorkoutSessionScreen> {
                     });
                   }
                 },
-                child: const Text("Dodaj ćwiczenie"),
+                child: Text(context.t.exercises.addExercise),
               ),
             ),
             ElevatedButton(
@@ -66,7 +68,7 @@ class _WorkoutSessionScreenState extends State<WorkoutSessionScreen> {
               style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.red,
               ),
-              child: const Text("Zakończ sesję"),
+              child: Text(context.t.exercises.endWorkout),
             ),
           ],
         ),

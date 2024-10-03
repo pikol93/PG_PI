@@ -1,5 +1,7 @@
 import "package:flutter/material.dart";
 import "package:pi_mobile/data/workload.dart";
+import "package:pi_mobile/i18n/strings.g.dart";
+
 
 class ExerciseSummaryScreen extends StatelessWidget {
   final Workload workoutData;
@@ -9,28 +11,22 @@ class ExerciseSummaryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: const Text("Podsumowanie"),
+          title: Text(context.t.exercises.exerciseSummary.title),
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-              const Text(
-                "Podsumowanie ćwiczenia:",
-                style: TextStyle(fontSize: 20),
-              ),
-              const SizedBox(height: 20),
               Expanded(
                 child: ListView.builder(
                   itemCount: workoutData.sets.length,
                   itemBuilder: (context, index) {
                     final data = workoutData.sets[index];
                     return ListTile(
-                      title: Text("Seria ${index + 1}"),
                       subtitle: Text(
-                        "Powtórzenia: ${data.reps}, "
-                        "Kilogramy: ${data.weight}, "
-                        "Trudność: ${data.rpe}",
+                        "${context.t.exercises.exerciseSummary.reps}: ${data.reps}, "
+                        "${context.t.exercises.exerciseSummary.weight}: ${data.weight}, "
+                        "RPE: ${data.rpe}",
                       ),
                     );
                   },
@@ -43,7 +39,7 @@ class ExerciseSummaryScreen extends StatelessWidget {
                     workoutData,
                   ); // Powrót do ekranu głównego
                 },
-                child: const Text("Wróć"),
+                child: Text(context.t.exercises.back),
               ),
             ],
           ),

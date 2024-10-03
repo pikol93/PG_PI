@@ -17,7 +17,34 @@
     "title": "Trasy"
   },
   "exercises": {
-    "title": "Ćwiczenia"
+    "title": "Ćwiczenia",
+    "start": "Rozpocznij nowy trening",
+    "history": "Historia treningów",
+    "amountOfPerformedExercises": "Ilość wykonanych ćwiczeń",
+    "trainingSession": "Sesja treningowa",
+    "addExercise": "Dodaj ćwiczenie",
+    "endWorkout": "Zakończ trening",
+    "exercises": {
+      "benchPress": "Wyciskanie na klatkę",
+      "backSquat": "Przysiad tylny",
+      "barbellCurls": "Uginanie ramion",
+      "pullUp": "Podciąganie na drążku"
+    },
+    "dataInput": {
+      "set": "Seria",
+      "reps": "Ilość powtórzeń",
+      "weight": "Ilość kilogramów",
+      "saveSet": "Zapisz serię",
+      "endExercise": "Zakończ ćwiczenie"
+    },
+    "exerciseSummary": {
+      "title": "Podsumowanie",
+      "reps": "Powtórzenia",
+      "weight": "Kilogramy"
+    },
+    "back": "Wróć",
+    "averageRPE": "Średnie RPE",
+    "notes": "Notatki"
   },
   "settings": {
     "title": "Ustawienia",

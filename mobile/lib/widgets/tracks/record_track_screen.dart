@@ -61,7 +61,10 @@ class _RecordTrackScreenState extends ConsumerState<RecordTrackScreen>
               itemBuilder: (context, index) {
                 final location = track.locations[index];
                 return Text(
-                    "${location.latitude} ${location.longitude} ${location.dateTime}");
+                  "${location.latitude}"
+                  " ${location.longitude}"
+                  " ${location.dateTime}",
+                );
               },
             ),
           ),

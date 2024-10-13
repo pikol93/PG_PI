@@ -11,6 +11,7 @@ import "package:pi_mobile/provider/processed_recorded_track_provider.dart";
 import "package:pi_mobile/provider/recorded_track_provider.dart";
 import "package:pi_mobile/provider/tracks_provider.dart";
 import "package:pi_mobile/routing/routes.dart";
+import "package:pi_mobile/widgets/tracks/record_track_bottom_sheet.dart";
 
 class RecordTrackScreen extends ConsumerStatefulWidget {
   const RecordTrackScreen({super.key});
@@ -53,6 +54,7 @@ class _RecordTrackScreenState extends ConsumerState<RecordTrackScreen>
         onPressed: () => _onStopRecordingPressed(context, track),
         child: const Icon(Icons.stop),
       ),
+      bottomSheet: const RecordTrackBottomSheet(),
       body: Column(
         children: [
           Text(track.uuid),

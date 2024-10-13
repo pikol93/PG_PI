@@ -12,7 +12,7 @@ class RecordedTrack extends _$RecordedTrack with Logger {
   MutableTrack? currentTrack;
 
   @override
-  Track? build() => currentTrack?.bake();
+  Track? build() => currentTrack?.bakeWithTruncatedLocations();
 
   void initialize() {
     if (currentTrack != null) {

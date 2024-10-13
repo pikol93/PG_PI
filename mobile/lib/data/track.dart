@@ -29,6 +29,18 @@ class Track with _$Track {
 
     return startTime.difference(lastLocation.dateTime);
   }
+
+  double getTotalLength() {
+    var result = 0.0;
+    for (var i = 0; i < locations.length - 1; i++) {
+      final locationA = locations[i];
+      final locationB = locations[i + 1];
+      final distance = Location.getMetersBetweenLocations(locationA, locationB);
+      result += distance;
+    }
+
+    return result;
+  }
 }
 
 class LocationsConverter implements JsonConverter<List<Location>, String> {

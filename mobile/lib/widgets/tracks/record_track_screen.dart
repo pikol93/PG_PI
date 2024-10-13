@@ -3,18 +3,21 @@ import "dart:async";
 import "package:awesome_flutter_extensions/awesome_flutter_extensions.dart";
 import "package:flutter/material.dart";
 import "package:flutter_foreground_task/flutter_foreground_task.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/main.dart";
+import "package:pi_mobile/provider/recorded_track_provider.dart";
 import "package:pi_mobile/routing/routes.dart";
 
-class RecordTrackScreen extends StatefulWidget {
+class RecordTrackScreen extends ConsumerStatefulWidget {
   const RecordTrackScreen({super.key});
 
   @override
-  State<RecordTrackScreen> createState() => _RecordTrackScreenState();
+  ConsumerState<RecordTrackScreen> createState() => _RecordTrackScreenState();
 }
 
-class _RecordTrackScreenState extends State<RecordTrackScreen> with Logger {
+class _RecordTrackScreenState extends ConsumerState<RecordTrackScreen>
+    with Logger {
   static const serviceId = 257;
 
   @override
@@ -23,24 +26,40 @@ class _RecordTrackScreenState extends State<RecordTrackScreen> with Logger {
 
     // TODO: Initialize and start the service properly. Handle cases where
     //  starting the service did not work.
+    ref.read(recordedTrackProvider.notifier).initialize();
     _initService();
     unawaited(_startService());
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          backgroundColor: context.colors.scaffoldBackground,
-          title: const Text("Record track"), // TODO: I18N
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () => _onStopRecordingPressed(context),
-          child: const Icon(Icons.stop),
-        ),
-        body: const Center(
-          child: Text("TODO"),
-        ),
-      );
+  Widget build(BuildContext context) {
+    final track = ref.watch(recordedTrackProvider)!;
+
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: context.colors.scaffoldBackground,
+        title: const Text("Record track"), // TODO: I18N
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => _onStopRecordingPressed(context),
+        child: const Icon(Icons.stop),
+      ),
+      body: Column(
+        children: [
+          Text(track.uuid),
+          Expanded(
+            child: ListView.builder(
+              itemCount: track.locations.length,
+              itemBuilder: (context, index) {
+                final location = track.locations[index];
+                return Text("${location.latitude} ${location.longitude}");
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 
   void _onStopRecordingPressed(BuildContext context) {
     logger.debug("Stopped recording pressed");

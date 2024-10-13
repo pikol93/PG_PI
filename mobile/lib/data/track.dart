@@ -10,6 +10,8 @@ part "track.freezed.dart";
 
 @freezed
 class Track with _$Track {
+  const Track._();
+
   const factory Track({
     required String uuid,
     required DateTime startTime,
@@ -17,6 +19,16 @@ class Track with _$Track {
   }) = _Track;
 
   factory Track.fromJson(Map<String, Object?> json) => _$TrackFromJson(json);
+
+  Duration getTotalTime() {
+    // Assumption: locations are sorted chronologically.
+    final lastLocation = locations.lastOrNull;
+    if (lastLocation == null) {
+      return Duration.zero;
+    }
+
+    return startTime.difference(lastLocation.dateTime);
+  }
 }
 
 class LocationsConverter implements JsonConverter<List<Location>, String> {

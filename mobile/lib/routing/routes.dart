@@ -4,6 +4,7 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:go_router/go_router.dart";
 import "package:pi_mobile/logger.dart";
+import "package:pi_mobile/provider/battery_permissions_provider.dart";
 import "package:pi_mobile/provider/location_permissions_provider.dart";
 import "package:pi_mobile/provider/notification_permissions_provider.dart";
 import "package:pi_mobile/provider/overlays_permissions_provider.dart";
@@ -18,6 +19,7 @@ import "package:pi_mobile/widgets/settings/settings_screen.dart";
 import "package:pi_mobile/widgets/settings/welcome_settings_screen.dart";
 import "package:pi_mobile/widgets/splash/splash_screen.dart";
 import "package:pi_mobile/widgets/tracks/record_track_screen.dart";
+import "package:pi_mobile/widgets/tracks/request_battery_permission_screen.dart";
 import "package:pi_mobile/widgets/tracks/request_location_permission_screen.dart";
 import "package:pi_mobile/widgets/tracks/request_notification_permission_screen.dart";
 import "package:pi_mobile/widgets/tracks/request_overlays_permission_screen.dart";
@@ -97,6 +99,9 @@ class HomeRoute extends GoRouteData with Logger {
     TypedGoRoute<RequestOverlaysPermissionRoute>(
       path: "request_permission_overlays",
     ),
+    TypedGoRoute<RequestBatteryPermissionRoute>(
+      path: "request_permission_battery",
+    ),
   ],
 )
 class TracksRoute extends GoRouteData with Logger {
@@ -132,6 +137,12 @@ class RecordTrackRoute extends GoRouteData {
         await providerContainer.read(overlaysPermissionsProvider.future);
     if (!overlaysPermission) {
       return const RequestOverlaysPermissionRoute().location;
+    }
+
+    final batteryPermission =
+        await providerContainer.read(batteryPermissionsProvider.future);
+    if (!batteryPermission) {
+      return const RequestBatteryPermissionRoute().location;
     }
 
     return null;
@@ -176,6 +187,17 @@ class RequestOverlaysPermissionRoute extends GoRouteData {
     GoRouterState state,
   ) =>
       const RequestOverlaysPermissionScreen();
+}
+
+class RequestBatteryPermissionRoute extends GoRouteData {
+  const RequestBatteryPermissionRoute();
+
+  @override
+  Widget build(
+    BuildContext context,
+    GoRouterState state,
+  ) =>
+      const RequestBatteryPermissionScreen();
 }
 
 @TypedGoRoute<ExercisesRoute>(path: "/exercises")

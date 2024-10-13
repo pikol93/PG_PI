@@ -1,5 +1,3 @@
-import "dart:io";
-
 import "package:flutter/material.dart";
 import "package:flutter_foreground_task/flutter_foreground_task.dart";
 import "package:flutter_localizations/flutter_localizations.dart";
@@ -19,10 +17,6 @@ void main() async {
   Loggy.initLoggy(
     logPrinter: const LoggerPrinter(),
   );
-
-  // TODO: Move this somewhere else.
-  // Request permissions and initialize the service.
-  await _requestPermissions();
 
   runApp(
     ProviderScope(
@@ -87,24 +81,6 @@ class _AppState extends ConsumerState<App> {
           child: CircularProgressIndicator(),
         ),
       );
-}
-
-Future<void> _requestPermissions() async {
-  if (Platform.isAndroid) {
-    // Android 12+, there are restrictions on starting a foreground service.
-    //
-    // To restart the service on device reboot or unexpected problem, you need
-    // to allow below permission.
-    if (!await FlutterForegroundTask.isIgnoringBatteryOptimizations) {
-      // This function requires
-      // `android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS` permission.
-      logDebug(
-        "Is not ignoring battery optimizations."
-        " Opening ignore battery optimizations settings.",
-      );
-      await FlutterForegroundTask.requestIgnoreBatteryOptimization();
-    }
-  }
 }
 
 // The callback function should always be a top-level function.

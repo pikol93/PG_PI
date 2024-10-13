@@ -23,6 +23,7 @@ import "package:pi_mobile/widgets/tracks/request_battery_permission_screen.dart"
 import "package:pi_mobile/widgets/tracks/request_location_permission_screen.dart";
 import "package:pi_mobile/widgets/tracks/request_notification_permission_screen.dart";
 import "package:pi_mobile/widgets/tracks/request_overlays_permission_screen.dart";
+import "package:pi_mobile/widgets/tracks/track_details_screen.dart";
 import "package:pi_mobile/widgets/tracks/tracks_screen.dart";
 
 part "routes.g.dart";
@@ -89,6 +90,7 @@ class HomeRoute extends GoRouteData with Logger {
 @TypedGoRoute<TracksRoute>(
   path: "/tracks",
   routes: <TypedGoRoute<GoRouteData>>[
+    TypedGoRoute<TrackDetailsRoute>(path: "details"),
     TypedGoRoute<RecordTrackRoute>(path: "record"),
     TypedGoRoute<RequestLocationPermissionRoute>(
       path: "request_permission_location",
@@ -112,6 +114,17 @@ class TracksRoute extends GoRouteData with Logger {
     logger.debug("tracks route");
     return const TracksScreen();
   }
+}
+
+class TrackDetailsRoute extends GoRouteData {
+  const TrackDetailsRoute();
+
+  @override
+  Widget build(
+    BuildContext context,
+    GoRouterState state,
+  ) =>
+      const TrackDetailsScreen();
 }
 
 class RecordTrackRoute extends GoRouteData {

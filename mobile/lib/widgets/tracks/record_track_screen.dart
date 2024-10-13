@@ -79,12 +79,16 @@ class _RecordTrackScreenState extends State<RecordTrackScreen> with Logger {
 
   Future<ServiceRequestResult> _startService() async {
     logger.debug("Starting foreground service.");
-    return FlutterForegroundTask.startService(
+    final serviceRequestResult = await FlutterForegroundTask.startService(
       serviceId: serviceId,
       notificationTitle: "Foreground Service is running",
       notificationText: "Tap to return to the app",
       callback: startCallback,
     );
+    logger.debug("Service request result:"
+        " ${serviceRequestResult.success}"
+        " ${serviceRequestResult.error}");
+    return serviceRequestResult;
   }
 
   Future<ServiceRequestResult> _stopService() =>

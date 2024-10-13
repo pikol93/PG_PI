@@ -7,12 +7,16 @@ class ProcessedTrack {
   final List<double> velocities;
   final double averageVelocity;
   final double averageMovingVelocity;
+  final Duration totalDuration;
+  final double totalLength;
 
   ProcessedTrack({
     required this.track,
     required this.velocities,
     required this.averageVelocity,
     required this.averageMovingVelocity,
+    required this.totalDuration,
+    required this.totalLength,
   });
 
   factory ProcessedTrack.calculateFrom(Track track) {
@@ -24,6 +28,8 @@ class ProcessedTrack {
       velocities: velocities,
       averageVelocity: averageVelocity,
       averageMovingVelocity: averageMovingVelocity,
+      totalDuration: track.getTotalTime(),
+      totalLength: track.getTotalLength(),
     );
   }
 

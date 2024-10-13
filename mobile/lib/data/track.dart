@@ -27,7 +27,7 @@ class Track with _$Track {
       return Duration.zero;
     }
 
-    return startTime.difference(lastLocation.dateTime);
+    return lastLocation.dateTime.difference(startTime);
   }
 
   double getTotalLength() {

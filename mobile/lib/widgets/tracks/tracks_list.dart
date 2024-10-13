@@ -4,7 +4,9 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:intl/intl.dart";
 import "package:pi_mobile/data/track.dart";
 import "package:pi_mobile/logger.dart";
+import "package:pi_mobile/provider/selected_track_provider.dart";
 import "package:pi_mobile/provider/time_sorted_tracks_provider.dart";
+import "package:pi_mobile/routing/routes.dart";
 import "package:pi_mobile/utility/duration.dart";
 
 class TracksList extends ConsumerWidget with Logger {
@@ -24,16 +26,22 @@ class TracksList extends ConsumerWidget with Logger {
                 tracks,
                 context,
                 index,
+                ref,
               ),
             ),
           );
 
-  Widget _itemBuilder(List<Track> tracks, BuildContext context, int index) {
+  Widget _itemBuilder(
+    List<Track> tracks,
+    BuildContext context,
+    int index,
+    WidgetRef ref,
+  ) {
     final track = tracks[index];
     final trackLength = track.getTotalLength();
     final trackDuration = track.getTotalTime();
     return InkWell(
-      onTap: () => _onTrackTapped(context, track),
+      onTap: () => _onTrackTapped(context, ref, track),
       child: Column(
         children: [
           Padding(
@@ -67,8 +75,9 @@ class TracksList extends ConsumerWidget with Logger {
     );
   }
 
-  void _onTrackTapped(BuildContext context, Track track) {
+  void _onTrackTapped(BuildContext context, WidgetRef ref, Track track) {
     logger.debug("Track tapped: ${track.uuid}");
-    // TODO: Route to track details page
+    ref.read(selectedTrackProvider.notifier).updateTrack(track);
+    const TrackDetailsRoute().go(context);
   }
 }

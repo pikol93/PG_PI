@@ -68,7 +68,7 @@ class _RecordTrackScreenState extends State<RecordTrackScreen> with Logger {
         playSound: false,
       ),
       foregroundTaskOptions: ForegroundTaskOptions(
-        eventAction: ForegroundTaskEventAction.nothing(),
+        eventAction: ForegroundTaskEventAction.repeat(5000),
         allowWakeLock: true,
         allowWifiLock: true,
         autoRunOnBoot: true,

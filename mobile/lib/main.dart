@@ -90,17 +90,6 @@ class _AppState extends ConsumerState<App> {
 }
 
 Future<void> _requestPermissions() async {
-  // Android 13+, you need to allow notification permission to display
-  // foreground service notification.
-  //
-  // iOS: If you need notification, ask for permission.
-  final notificationPermission =
-      await FlutterForegroundTask.checkNotificationPermission();
-  logDebug("Notification permission: $notificationPermission");
-  if (notificationPermission != NotificationPermission.granted) {
-    await FlutterForegroundTask.requestNotificationPermission();
-  }
-
   if (Platform.isAndroid) {
     // "android.permission.SYSTEM_ALERT_WINDOW" permission must be granted for
     // onNotificationPressed function to be called.

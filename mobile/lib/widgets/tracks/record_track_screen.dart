@@ -27,7 +27,7 @@ class _RecordTrackScreenState extends ConsumerState<RecordTrackScreen>
 
     // TODO: Initialize and start the service properly. Handle cases where
     //  starting the service did not work.
-    ref.read(recordedTrackProvider.notifier).initialize();
+    ref.read(recordedTrackProvider.notifier).initializeIfNotInitialized();
     _initService();
     unawaited(_startService());
   }

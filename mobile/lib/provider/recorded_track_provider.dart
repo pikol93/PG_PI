@@ -14,10 +14,10 @@ class RecordedTrack extends _$RecordedTrack with Logger {
   @override
   Track? build() => currentTrack?.bakeWithTruncatedLocations();
 
-  void initialize() {
+  void initializeIfNotInitialized() {
     if (currentTrack != null) {
-      // TODO: Handle this case.
-      throw StateError("Cannot initialize since track is already initialized.");
+      logger.debug("Already initialized. Skipping initialization.");
+      return;
     }
 
     final uuid = const Uuid().v4();

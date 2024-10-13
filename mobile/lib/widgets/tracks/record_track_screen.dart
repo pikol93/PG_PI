@@ -4,10 +4,12 @@ import "package:awesome_flutter_extensions/awesome_flutter_extensions.dart";
 import "package:flutter/material.dart";
 import "package:flutter_foreground_task/flutter_foreground_task.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:pi_mobile/data/track.dart";
 import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/main.dart";
 import "package:pi_mobile/provider/processed_recorded_track_provider.dart";
 import "package:pi_mobile/provider/recorded_track_provider.dart";
+import "package:pi_mobile/provider/tracks_provider.dart";
 import "package:pi_mobile/routing/routes.dart";
 
 class RecordTrackScreen extends ConsumerStatefulWidget {
@@ -48,7 +50,7 @@ class _RecordTrackScreenState extends ConsumerState<RecordTrackScreen>
         title: const Text("Record track"), // TODO: I18N
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => _onStopRecordingPressed(context),
+        onPressed: () => _onStopRecordingPressed(context, track),
         child: const Icon(Icons.stop),
       ),
       body: Column(
@@ -82,12 +84,20 @@ class _RecordTrackScreenState extends ConsumerState<RecordTrackScreen>
     );
   }
 
-  void _onStopRecordingPressed(BuildContext context) {
+  Future<void> _onStopRecordingPressed(
+    BuildContext context,
+    Track track,
+  ) async {
     logger.debug("Stopped recording pressed");
-    _stopService();
+    unawaited(_stopService());
 
-    // TODO: Navigate to track summary route instead
-    const TracksRoute().go(context);
+    ref.read(recordedTrackProvider.notifier).clear();
+    await ref.read(tracksProvider.notifier).addTrack(track);
+
+    if (context.mounted) {
+      // TODO: Navigate to track summary route instead
+      const TracksRoute().go(context);
+    }
   }
 
   void _initService() {

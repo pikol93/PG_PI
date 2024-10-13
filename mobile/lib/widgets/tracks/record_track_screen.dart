@@ -6,6 +6,7 @@ import "package:flutter_foreground_task/flutter_foreground_task.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/main.dart";
+import "package:pi_mobile/provider/processed_recorded_track_provider.dart";
 import "package:pi_mobile/provider/recorded_track_provider.dart";
 import "package:pi_mobile/routing/routes.dart";
 
@@ -33,7 +34,13 @@ class _RecordTrackScreenState extends ConsumerState<RecordTrackScreen>
 
   @override
   Widget build(BuildContext context) {
-    final track = ref.watch(recordedTrackProvider)!;
+    final processedTrack = ref.watch(processedRecordedTrackProvider);
+    if (processedTrack == null) {
+      logger.debug("No data.");
+      return const Text("no data.");
+    }
+    final track = processedTrack.track;
+    final velocities = processedTrack.velocities;
 
     return Scaffold(
       appBar: AppBar(
@@ -47,12 +54,23 @@ class _RecordTrackScreenState extends ConsumerState<RecordTrackScreen>
       body: Column(
         children: [
           Text(track.uuid),
+          Text("Average velocity: ${processedTrack.averageVelocity}"),
           Expanded(
             child: ListView.builder(
               itemCount: track.locations.length,
               itemBuilder: (context, index) {
                 final location = track.locations[index];
-                return Text("${location.latitude} ${location.longitude}");
+                return Text(
+                    "${location.latitude} ${location.longitude} ${location.dateTime}");
+              },
+            ),
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: velocities.length,
+              itemBuilder: (context, index) {
+                final velocity = velocities[index];
+                return Text("$velocity");
               },
             ),
           ),

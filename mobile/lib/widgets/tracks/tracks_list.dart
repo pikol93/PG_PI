@@ -5,6 +5,7 @@ import "package:intl/intl.dart";
 import "package:pi_mobile/data/track.dart";
 import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/provider/time_sorted_tracks_provider.dart";
+import "package:pi_mobile/utility/duration.dart";
 
 class TracksList extends ConsumerWidget with Logger {
   static final dateFormat = DateFormat();
@@ -29,6 +30,8 @@ class TracksList extends ConsumerWidget with Logger {
 
   Widget _itemBuilder(List<Track> tracks, BuildContext context, int index) {
     final track = tracks[index];
+    final trackLength = track.getTotalLength();
+    final trackDuration = track.getTotalTime();
     return InkWell(
       onTap: () => _onTrackTapped(context, track),
       child: Column(
@@ -49,7 +52,8 @@ class TracksList extends ConsumerWidget with Logger {
                       style: context.textStyles.bodyLarge,
                     ),
                     Text(
-                      "TODO: Show time and distance",
+                      "$trackLength m"
+                      " (${trackDuration.toHoursMinutesSeconds()})",
                       style: context.textStyles.bodySmall,
                     ),
                   ],

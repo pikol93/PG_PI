@@ -1,6 +1,5 @@
 import "dart:io";
 
-import "package:fl_location/fl_location.dart";
 import "package:flutter/material.dart";
 import "package:flutter_foreground_task/flutter_foreground_task.dart";
 import "package:flutter_localizations/flutter_localizations.dart";
@@ -131,15 +130,6 @@ Future<void> _requestPermissions() async {
       );
       await FlutterForegroundTask.requestIgnoreBatteryOptimization();
     }
-  }
-
-  final locationPermissions = await FlLocation.checkLocationPermission();
-  logDebug("location permissions: $locationPermissions");
-  if (locationPermissions == LocationPermission.denied ||
-      locationPermissions == LocationPermission.deniedForever) {
-    final locationPermissionsAfterRequesting =
-        await FlLocation.requestLocationPermission();
-    logDebug("permissions after request: $locationPermissionsAfterRequesting");
   }
 }
 

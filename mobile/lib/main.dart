@@ -91,21 +91,6 @@ class _AppState extends ConsumerState<App> {
 
 Future<void> _requestPermissions() async {
   if (Platform.isAndroid) {
-    // "android.permission.SYSTEM_ALERT_WINDOW" permission must be granted for
-    // onNotificationPressed function to be called.
-    //
-    // When the notification is pressed while permission is denied,
-    // the onNotificationPressed function is not called and the app opens.
-    //
-    // If you do not use the onNotificationPressed or launchApp function,
-    // you do not need to write this code.
-    if (!await FlutterForegroundTask.canDrawOverlays) {
-      // This function requires `android.permission.SYSTEM_ALERT_WINDOW`
-      // permission.
-      logDebug("Cannot draw overlays. Opening system alert window settings.");
-      await FlutterForegroundTask.openSystemAlertWindowSettings();
-    }
-
     // Android 12+, there are restrictions on starting a foreground service.
     //
     // To restart the service on device reboot or unexpected problem, you need

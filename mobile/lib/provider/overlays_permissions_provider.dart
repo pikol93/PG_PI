@@ -23,7 +23,8 @@ class OverlaysPermissions extends _$OverlaysPermissions with Logger {
   }
 
   Future<void> request() async {
-    final overlaysPermission = await FlutterForegroundTask.canDrawOverlays;
+    final overlaysPermission =
+        await FlutterForegroundTask.openSystemAlertWindowSettings();
     logger.debug(
       "Overlays permission after "
       "requesting: $overlaysPermission",

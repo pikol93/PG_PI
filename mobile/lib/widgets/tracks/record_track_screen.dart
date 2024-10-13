@@ -9,6 +9,7 @@ import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/main.dart";
 import "package:pi_mobile/provider/processed_recorded_track_provider.dart";
 import "package:pi_mobile/provider/recorded_track_provider.dart";
+import "package:pi_mobile/provider/selected_track_provider.dart";
 import "package:pi_mobile/provider/tracks_provider.dart";
 import "package:pi_mobile/routing/routes.dart";
 import "package:pi_mobile/widgets/tracks/record_track_bottom_sheet.dart";
@@ -95,10 +96,10 @@ class _RecordTrackScreenState extends ConsumerState<RecordTrackScreen>
 
     ref.read(recordedTrackProvider.notifier).clear();
     await ref.read(tracksProvider.notifier).addTrack(track);
+    ref.read(selectedTrackProvider.notifier).updateTrack(track);
 
     if (context.mounted) {
-      // TODO: Navigate to track summary route instead
-      const TracksRoute().go(context);
+      const TrackDetailsRoute().go(context);
     }
   }
 

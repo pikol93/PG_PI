@@ -1,8 +1,11 @@
 import "dart:async";
 
 import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:go_router/go_router.dart";
 import "package:pi_mobile/logger.dart";
+import "package:pi_mobile/provider/location_permissions_provider.dart";
+import "package:pi_mobile/utility/location_permission.dart";
 import "package:pi_mobile/widgets/exercises/exercises_screen.dart";
 import "package:pi_mobile/widgets/forgot_password/forgot_password_screen.dart";
 import "package:pi_mobile/widgets/home/home_screen.dart";
@@ -12,6 +15,7 @@ import "package:pi_mobile/widgets/settings/settings_screen.dart";
 import "package:pi_mobile/widgets/settings/welcome_settings_screen.dart";
 import "package:pi_mobile/widgets/splash/splash_screen.dart";
 import "package:pi_mobile/widgets/tracks/record_track_screen.dart";
+import "package:pi_mobile/widgets/tracks/request_location_permission_screen.dart";
 import "package:pi_mobile/widgets/tracks/tracks_screen.dart";
 
 part "routes.g.dart";
@@ -79,6 +83,9 @@ class HomeRoute extends GoRouteData with Logger {
   path: "/tracks",
   routes: <TypedGoRoute<GoRouteData>>[
     TypedGoRoute<RecordTrackRoute>(path: "record"),
+    TypedGoRoute<RequestLocationPermissionRoute>(
+      path: "request_permission_location",
+    ),
   ],
 )
 class TracksRoute extends GoRouteData with Logger {
@@ -95,11 +102,36 @@ class RecordTrackRoute extends GoRouteData {
   const RecordTrackRoute();
 
   @override
+  FutureOr<String?> redirect(BuildContext context, GoRouterState state) async {
+    final providerContainer = ProviderScope.containerOf(context);
+
+    final locationPermission =
+        await providerContainer.read(locationPermissionsProvider.future);
+
+    if (locationPermission.isFailure) {
+      return const RequestLocationPermissionRoute().location;
+    }
+
+    return null;
+  }
+
+  @override
   Widget build(
     BuildContext context,
     GoRouterState state,
   ) =>
       const RecordTrackScreen();
+}
+
+class RequestLocationPermissionRoute extends GoRouteData {
+  const RequestLocationPermissionRoute();
+
+  @override
+  Widget build(
+    BuildContext context,
+    GoRouterState state,
+  ) =>
+      const RequestLocationPermissionScreen();
 }
 
 @TypedGoRoute<ExercisesRoute>(path: "/exercises")

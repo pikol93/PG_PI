@@ -5,7 +5,9 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:go_router/go_router.dart";
 import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/provider/location_permissions_provider.dart";
+import "package:pi_mobile/provider/notification_permissions_provider.dart";
 import "package:pi_mobile/utility/location_permission.dart";
+import "package:pi_mobile/utility/notification_permission.dart";
 import "package:pi_mobile/widgets/exercises/exercises_screen.dart";
 import "package:pi_mobile/widgets/forgot_password/forgot_password_screen.dart";
 import "package:pi_mobile/widgets/home/home_screen.dart";
@@ -16,6 +18,7 @@ import "package:pi_mobile/widgets/settings/welcome_settings_screen.dart";
 import "package:pi_mobile/widgets/splash/splash_screen.dart";
 import "package:pi_mobile/widgets/tracks/record_track_screen.dart";
 import "package:pi_mobile/widgets/tracks/request_location_permission_screen.dart";
+import "package:pi_mobile/widgets/tracks/request_notification_permission_screen.dart";
 import "package:pi_mobile/widgets/tracks/tracks_screen.dart";
 
 part "routes.g.dart";
@@ -86,6 +89,9 @@ class HomeRoute extends GoRouteData with Logger {
     TypedGoRoute<RequestLocationPermissionRoute>(
       path: "request_permission_location",
     ),
+    TypedGoRoute<RequestNotificationPermissionRoute>(
+      path: "request_permission_notification",
+    ),
   ],
 )
 class TracksRoute extends GoRouteData with Logger {
@@ -107,9 +113,14 @@ class RecordTrackRoute extends GoRouteData {
 
     final locationPermission =
         await providerContainer.read(locationPermissionsProvider.future);
-
     if (locationPermission.isFailure) {
       return const RequestLocationPermissionRoute().location;
+    }
+
+    final notificationPermission =
+        await providerContainer.read(notificationPermissionsProvider.future);
+    if (notificationPermission.isFailure) {
+      return const RequestNotificationPermissionRoute().location;
     }
 
     return null;
@@ -132,6 +143,17 @@ class RequestLocationPermissionRoute extends GoRouteData {
     GoRouterState state,
   ) =>
       const RequestLocationPermissionScreen();
+}
+
+class RequestNotificationPermissionRoute extends GoRouteData {
+  const RequestNotificationPermissionRoute();
+
+  @override
+  Widget build(
+    BuildContext context,
+    GoRouterState state,
+  ) =>
+      const RequestNotificationPermissionScreen();
 }
 
 @TypedGoRoute<ExercisesRoute>(path: "/exercises")

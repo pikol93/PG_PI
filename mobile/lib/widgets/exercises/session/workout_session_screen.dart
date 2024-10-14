@@ -5,7 +5,6 @@ import "package:pi_mobile/i18n/strings.g.dart";
 
 import "choose_exercise_screen.dart";
 
-
 class WorkoutSessionScreen extends StatefulWidget {
   const WorkoutSessionScreen({super.key});
 
@@ -31,8 +30,10 @@ class _WorkoutSessionScreenState extends State<WorkoutSessionScreen> {
                   return ListTile(
                     title: Text(workload.exercise.name),
                     subtitle: Text(
-                      "${context.t.exercises.averageRPE}: ${Workload.getAverageRPE(workload.sets)},"
-                      " ${context.t.exercises.notes}: ${workload.description}",
+                      "${context.t.exercises.averageRPE}:"
+                      " ${Workload.getAverageRPE(workload.sets)},"
+                      " ${context.t.exercises.notes}:"
+                      " ${workload.description}",
                     ),
                   );
                 },

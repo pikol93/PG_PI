@@ -17,7 +17,8 @@ class HistoryScreen extends StatelessWidget {
           itemBuilder: (context, index) => ListTile(
             title: Text(sessionHistory[index].date.toString()),
             subtitle: Text(
-              "${context.t.exercises.amountOfPerformedExercises}: ${sessionHistory[index].exercises.length}",
+              "${context.t.exercises.amountOfPerformedExercises}:"
+              " ${sessionHistory[index].exercises.length}",
             ),
           ),
         ),

@@ -6,7 +6,6 @@ import "package:pi_mobile/widgets/common/activity_tile.dart";
 import "package:pi_mobile/widgets/common/app_navigation_drawer.dart";
 import "package:pi_mobile/widgets/exercises/session/pending_exercise_screen.dart";
 
-
 class ChooseExerciseScreen extends StatelessWidget {
   const ChooseExerciseScreen({super.key});
 
@@ -55,6 +54,7 @@ List<StrengthExercise> getAllExercises(BuildContext context) => [
         imageLink: "assets/biceps_curls.png",
       ),
       StrengthExercise(
-          name: context.t.exercises.exercises.pullUp,
-          imageLink: "assets/pullups.png"),
+        name: context.t.exercises.exercises.pullUp,
+        imageLink: "assets/pullups.png",
+      ),
     ];

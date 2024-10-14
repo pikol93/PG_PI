@@ -2,7 +2,6 @@ import "package:flutter/material.dart";
 import "package:pi_mobile/data/workload.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
 
-
 class ExerciseSummaryScreen extends StatelessWidget {
   final Workload workoutData;
 
@@ -24,8 +23,10 @@ class ExerciseSummaryScreen extends StatelessWidget {
                     final data = workoutData.sets[index];
                     return ListTile(
                       subtitle: Text(
-                        "${context.t.exercises.exerciseSummary.reps}: ${data.reps}, "
-                        "${context.t.exercises.exerciseSummary.weight}: ${data.weight}, "
+                        "${context.t.exercises.exerciseSummary.reps}:"
+                        " ${data.reps}, "
+                        "${context.t.exercises.exerciseSummary.weight}:"
+                        " ${data.weight}, "
                         "RPE: ${data.rpe}",
                       ),
                     );

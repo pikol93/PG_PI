@@ -30,6 +30,7 @@ class SettingsBody extends StatelessWidget {
             _ChangeServerAddressSetting(),
             _LogOffSetting(),
             _GenerateHeartRateDataSetting(),
+            _ClearHeartRateDataSetting(),
             _DisableDevelopmentModeSetting(),
             _AppInfoSetting(),
           ],
@@ -191,12 +192,31 @@ class _GenerateHeartRateDataSetting extends ConsumerWidget {
           title: "Generate heart rate data",
           requiresConfirmation: true,
           alertTitle: "Are you sure you want to generate heart rate data",
-          onConfirmed: () => _onLogOffPressed(context, ref),
+          onConfirmed: () => _onGeneratePressed(context, ref),
         ),
       );
 
-  void _onLogOffPressed(BuildContext context, WidgetRef ref) {
+  void _onGeneratePressed(BuildContext context, WidgetRef ref) {
     ref.read(heartRateListProvider.notifier).generateHeartRateData();
+  }
+}
+
+class _ClearHeartRateDataSetting extends ConsumerWidget {
+  const _ClearHeartRateDataSetting();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) => DevelopmentSetting(
+        child: SettingButton(
+          icon: Icons.monitor_heart_outlined,
+          title: "Clear heart rate data",
+          requiresConfirmation: true,
+          alertTitle: "Are you sure you want to clear heart rate data",
+          onConfirmed: () => _onClearPressed(context, ref),
+        ),
+      );
+
+  void _onClearPressed(BuildContext context, WidgetRef ref) {
+    ref.read(heartRateListProvider.notifier).clear();
   }
 }
 

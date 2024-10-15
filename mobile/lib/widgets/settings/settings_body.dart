@@ -12,6 +12,7 @@ import "package:pi_mobile/provider/package_info_provider.dart";
 import "package:pi_mobile/provider/stored_locale_provider.dart";
 import "package:pi_mobile/provider/theme_provider.dart";
 import "package:pi_mobile/service/stored_locale_service.dart";
+import "package:pi_mobile/widgets/settings/development_setting.dart";
 import "package:pi_mobile/widgets/settings/setting_button.dart";
 import "package:pi_mobile/widgets/settings/setting_option.dart";
 import "package:pi_mobile/widgets/settings/setting_text.dart";
@@ -27,6 +28,7 @@ class SettingsBody extends StatelessWidget {
             _ChangeThemeSetting(),
             _ChangeServerAddressSetting(),
             _LogOffSetting(),
+            _DisableDevelopmentModeSetting(),
             _AppInfoSetting(),
           ],
         ),
@@ -174,6 +176,27 @@ class _LogOffSetting extends ConsumerWidget with Logger {
   void _onLogOffPressed(BuildContext context, WidgetRef ref) {
     logger.debug("Log off button pressed");
     ref.read(authProvider.notifier).logOff();
+  }
+}
+
+class _DisableDevelopmentModeSetting extends ConsumerWidget {
+  const _DisableDevelopmentModeSetting();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) => DevelopmentSetting(
+        child: SettingButton(
+          icon: Icons.developer_board_off,
+          // TODO: I18N
+          title: "Turn off development mode",
+          requiresConfirmation: true,
+          // TODO: I18N
+          alertTitle: "Are you sure you want to turn off development mode?",
+          onConfirmed: () => _onLogOffPressed(context, ref),
+        ),
+      );
+
+  void _onLogOffPressed(BuildContext context, WidgetRef ref) {
+    ref.read(developmentModeProvider.notifier).setDevelopmentMode(false);
   }
 }
 

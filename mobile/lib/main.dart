@@ -6,6 +6,7 @@ import "package:loggy/loggy.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/provider/development_mode_provider.dart";
+import "package:pi_mobile/provider/package_info_provider.dart";
 import "package:pi_mobile/provider/theme_provider.dart";
 import "package:pi_mobile/routing/router.dart";
 import "package:pi_mobile/service/stored_locale_service.dart";
@@ -45,6 +46,7 @@ class _AppState extends ConsumerState<App> {
     FlutterForegroundTask.addTaskDataCallback(_onReceiveTaskData);
 
     ref.read(developmentModeProvider.notifier).init();
+    ref.read(packageInfoProvider.notifier).init();
   }
 
   @override

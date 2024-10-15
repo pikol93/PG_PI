@@ -11,6 +11,7 @@ class DevelopmentMode extends _$DevelopmentMode with Logger {
   static const _keyName = "dev_mode";
 
   bool isDevelopmentMode = false;
+  int counter = 10;
 
   @override
   bool build() {
@@ -20,6 +21,16 @@ class DevelopmentMode extends _$DevelopmentMode with Logger {
 
   void init() {
     unawaited(_readDevelopmentModeFromStorage());
+  }
+
+  Future<int> decrementDevelopmentModeCounter() async {
+    counter -= 1;
+    if (counter > 0) {
+      return counter;
+    }
+
+    await setDevelopmentMode(true);
+    return 0;
   }
 
   Future<void> setDevelopmentMode(bool value) =>

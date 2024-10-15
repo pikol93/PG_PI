@@ -1,3 +1,5 @@
+import "dart:async";
+
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pi_mobile/data/app_theme.dart";
@@ -5,6 +7,8 @@ import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/provider/auth_provider.dart";
 import "package:pi_mobile/provider/connection_settings_provider.dart";
+import "package:pi_mobile/provider/development_mode_provider.dart";
+import "package:pi_mobile/provider/package_info_provider.dart";
 import "package:pi_mobile/provider/stored_locale_provider.dart";
 import "package:pi_mobile/provider/theme_provider.dart";
 import "package:pi_mobile/service/stored_locale_service.dart";
@@ -23,6 +27,7 @@ class SettingsBody extends StatelessWidget {
             _ChangeThemeSetting(),
             _ChangeServerAddressSetting(),
             _LogOffSetting(),
+            _AppInfoSetting(),
           ],
         ),
       );
@@ -169,5 +174,25 @@ class _LogOffSetting extends ConsumerWidget with Logger {
   void _onLogOffPressed(BuildContext context, WidgetRef ref) {
     logger.debug("Log off button pressed");
     ref.read(authProvider.notifier).logOff();
+  }
+}
+
+class _AppInfoSetting extends ConsumerWidget with Logger {
+  const _AppInfoSetting();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) => SettingButton(
+        icon: Icons.info,
+        title: "App version",
+        subtitle: ref.watch(packageInfoProvider).version,
+        onConfirmed: () => _onAppInfoPressed(ref),
+      );
+
+  Future<void> _onAppInfoPressed(WidgetRef ref) async {
+    unawaited(
+      ref
+          .read(developmentModeProvider.notifier)
+          .decrementDevelopmentModeCounter(),
+    );
   }
 }

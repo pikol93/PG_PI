@@ -79,6 +79,11 @@ class HeartRateGraphPage extends ConsumerWidget with Logger {
           lineBarsData: [
             LineChartBarData(
               spots: spots,
+              color: Colors.red,
+              belowBarData: BarAreaData(
+                show: true,
+                color: Colors.redAccent.withAlpha(48),
+              ),
             ),
           ],
           minY: 0.0,

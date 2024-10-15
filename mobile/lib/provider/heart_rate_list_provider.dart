@@ -36,6 +36,13 @@ class HeartRateList extends _$HeartRateList with Logger {
     ref.invalidateSelf();
   }
 
+  Future<void> clear() async {
+    final preferences = SharedPreferencesAsync();
+    await preferences.remove(_keyName);
+
+    ref.invalidateSelf();
+  }
+
   Future<void> generateHeartRateData() async {
     final random = Random();
     const minHeartRate = 65;

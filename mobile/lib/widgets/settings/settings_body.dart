@@ -8,6 +8,7 @@ import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/provider/auth_provider.dart";
 import "package:pi_mobile/provider/connection_settings_provider.dart";
 import "package:pi_mobile/provider/development_mode_provider.dart";
+import "package:pi_mobile/provider/heart_rate_list_provider.dart";
 import "package:pi_mobile/provider/package_info_provider.dart";
 import "package:pi_mobile/provider/stored_locale_provider.dart";
 import "package:pi_mobile/provider/theme_provider.dart";
@@ -28,6 +29,7 @@ class SettingsBody extends StatelessWidget {
             _ChangeThemeSetting(),
             _ChangeServerAddressSetting(),
             _LogOffSetting(),
+            _GenerateHeartRateDataSetting(),
             _DisableDevelopmentModeSetting(),
             _AppInfoSetting(),
           ],
@@ -176,6 +178,25 @@ class _LogOffSetting extends ConsumerWidget with Logger {
   void _onLogOffPressed(BuildContext context, WidgetRef ref) {
     logger.debug("Log off button pressed");
     ref.read(authProvider.notifier).logOff();
+  }
+}
+
+class _GenerateHeartRateDataSetting extends ConsumerWidget {
+  const _GenerateHeartRateDataSetting();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) => DevelopmentSetting(
+        child: SettingButton(
+          icon: Icons.monitor_heart_outlined,
+          title: "Generate heart rate data",
+          requiresConfirmation: true,
+          alertTitle: "Are you sure you want to generate heart rate data",
+          onConfirmed: () => _onLogOffPressed(context, ref),
+        ),
+      );
+
+  void _onLogOffPressed(BuildContext context, WidgetRef ref) {
+    ref.read(heartRateListProvider.notifier).generateHeartRateData();
   }
 }
 

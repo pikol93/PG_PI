@@ -1,6 +1,7 @@
 import "package:awesome_flutter_extensions/awesome_flutter_extensions.dart";
 import "package:flutter/material.dart";
 import "package:pi_mobile/widgets/common/app_navigation_drawer.dart";
+import "package:pi_mobile/widgets/heart_rate/heart_rate_graph_page.dart";
 
 class HeartRateScreen extends StatefulWidget {
   const HeartRateScreen({super.key});
@@ -16,9 +17,7 @@ class _HeartRateScreenState extends State<HeartRateScreen>
       Tab(
         icon: Icon(Icons.auto_graph),
       ),
-      Center(
-        child: Text("auto graph"),
-      ),
+      HeartRateGraphPage(),
     ),
     (
       Tab(

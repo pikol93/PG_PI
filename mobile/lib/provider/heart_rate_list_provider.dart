@@ -58,8 +58,9 @@ class HeartRateList extends _$HeartRateList with Logger {
     while (currentTime.isBefore(endTime)) {
       final nextDuration = random.nextDuration(durationMin, durationMax);
       currentTime = currentTime.add(nextDuration);
+      final timeSinceStart = currentTime.difference(startTime);
       final progress =
-          nextDuration.inMilliseconds / processLength.inMilliseconds;
+          timeSinceStart.inMilliseconds / processLength.inMilliseconds;
       final trendIncrease = progress * trend;
       final baseHeartRate = random.nextRange(minHeartRate, maxHeartRate);
       final actualHeartRate = baseHeartRate + trendIncrease;

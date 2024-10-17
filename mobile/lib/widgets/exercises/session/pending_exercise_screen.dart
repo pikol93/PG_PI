@@ -1,21 +1,25 @@
 import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pi_mobile/data/set_of_exercise.dart";
 import "package:pi_mobile/data/strength_exercise.dart";
 import "package:pi_mobile/data/workload.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
+import "package:pi_mobile/provider/workouts_provider.dart";
 
 import "exercise_summary_screen.dart";
 
-class PendingExerciseScreen extends StatefulWidget {
+class PendingExerciseScreen extends ConsumerStatefulWidget {
   final StrengthExercise exercise;
+  final String workoutUuid;
 
-  const PendingExerciseScreen(this.exercise, {super.key});
+  const PendingExerciseScreen(this.exercise, this.workoutUuid, {super.key});
 
   @override
-  State<PendingExerciseScreen> createState() => _PendingExerciseScreenState();
+  ConsumerState<PendingExerciseScreen> createState() =>
+      _PendingExerciseScreenState();
 }
 
-class _PendingExerciseScreenState extends State<PendingExerciseScreen> {
+class _PendingExerciseScreenState extends ConsumerState<PendingExerciseScreen> {
   int currentSeries = 1;
   int repetitions = 10;
   double weight = 20;
@@ -146,13 +150,20 @@ class _PendingExerciseScreenState extends State<PendingExerciseScreen> {
                         workoutData: Workload(
                           exercise: widget.exercise,
                           sets: workload,
-                          description: "",
+                          description: widget.workoutUuid,
                         ),
                       ),
                     ),
                   );
 
                   if (context.mounted) {
+                    await ref.read(workoutsProvider.notifier).addWorkload(
+                        widget.workoutUuid,
+                        Workload(
+                          exercise: widget.exercise,
+                          sets: workload,
+                          description: "",
+                        ),);
                     Navigator.pop(context, pendingResult);
                   }
                 },

@@ -1,18 +1,21 @@
 import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pi_mobile/data/workload.dart";
-import "package:pi_mobile/data/workout.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
 
 import "choose_exercise_screen.dart";
 
-class WorkoutSessionScreen extends StatefulWidget {
-  const WorkoutSessionScreen({super.key});
+class WorkoutSessionScreen extends ConsumerStatefulWidget {
+  final String uuid;
+
+  const WorkoutSessionScreen({required this.uuid, super.key});
 
   @override
-  State<WorkoutSessionScreen> createState() => _WorkoutSessionScreenState();
+  ConsumerState<WorkoutSessionScreen> createState() =>
+      _WorkoutSessionScreenState();
 }
 
-class _WorkoutSessionScreenState extends State<WorkoutSessionScreen> {
+class _WorkoutSessionScreenState extends ConsumerState<WorkoutSessionScreen> {
   final List<Workload> exercises = [];
 
   @override
@@ -46,7 +49,8 @@ class _WorkoutSessionScreenState extends State<WorkoutSessionScreen> {
                   final result = await Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const ChooseExerciseScreen(),
+                      builder: (context) =>
+                          ChooseExerciseScreen(workoutUuid: widget.uuid),
                     ),
                   );
 
@@ -61,10 +65,7 @@ class _WorkoutSessionScreenState extends State<WorkoutSessionScreen> {
             ),
             ElevatedButton(
               onPressed: () {
-                Navigator.pop(
-                  context,
-                  Workout(date: DateTime.now(), exercises: exercises),
-                );
+                Navigator.pop(context);
               },
               style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.red,

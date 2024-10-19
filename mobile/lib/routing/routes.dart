@@ -223,8 +223,8 @@ class RequestBatteryPermissionRoute extends GoRouteData {
     TypedGoRoute<RoutinesRoute>(
         path: "routines",
         routes: <TypedGoRoute<GoRouteData>>[
-          TypedGoRoute<AddNewRoutineRoute>(path: "new_routine"),
-        ]),
+          TypedGoRoute<AddNewRoutineRoute>(path: ":routineUuid"),
+        ],),
   ],
 )
 class ExercisesRoute extends GoRouteData with Logger {
@@ -258,12 +258,14 @@ class RoutinesRoute extends GoRouteData with Logger {
 }
 
 class AddNewRoutineRoute extends GoRouteData with Logger {
-  const AddNewRoutineRoute();
+  const AddNewRoutineRoute({required this.routineUuid});
+
+  final String routineUuid;
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
     logger.debug("routines route");
-    return const NewRoutineSchemaScreen();
+    return NewRoutineSchemaScreen(routineUuid: routineUuid);
   }
 }
 

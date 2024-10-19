@@ -156,7 +156,6 @@ class _PendingExerciseScreenState extends ConsumerState<PendingExerciseScreen> {
                     ),
                   );
 
-                  if (context.mounted) {
                     await ref.read(workoutsProvider.notifier).addWorkload(
                           widget.workoutUuid,
                           Workload(
@@ -165,8 +164,9 @@ class _PendingExerciseScreenState extends ConsumerState<PendingExerciseScreen> {
                             description: "",
                           ),
                         );
-                    Navigator.pop(context, pendingResult);
-                  }
+                    if(context.mounted) {
+                      Navigator.pop(context, pendingResult);
+                    }
                 },
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white,

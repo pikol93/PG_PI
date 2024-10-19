@@ -49,12 +49,14 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
                   await ref
                       .read(workoutsProvider.notifier)
                       .addWorkout(emptyWorkout);
-                  await Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const WorkoutSessionScreen(),
-                    ),
-                  );
+                  if(context.mounted) {
+                    await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const WorkoutSessionScreen(),
+                      ),
+                    );
+                  }
                 },
                 child: Text(context.t.exercises.start),
               ),

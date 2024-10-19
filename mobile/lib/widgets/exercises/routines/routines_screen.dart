@@ -6,6 +6,7 @@ import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/provider/routines_provider.dart";
 import "package:pi_mobile/routing/routes.dart";
+import "package:uuid/uuid.dart";
 
 class RoutinesScreen extends ConsumerStatefulWidget with Logger {
   const RoutinesScreen({super.key});
@@ -44,8 +45,16 @@ class _RoutinesScreenState extends ConsumerState<RoutinesScreen> {
         ),
       );
 
-  void _onAddButtonPressed(BuildContext context) {
-    // logger.debug("Add routine button pressed");
-    const AddNewRoutineRoute().go(context);
+  Future<void> _onAddButtonPressed(BuildContext context) async {
+    final routineUuid = const Uuid().v4();
+
+    await ref.read(routinesProvider.notifier).addRoutine(
+          RoutineSchema(
+              uuid: routineUuid, name: "", description: "", workouts: [],),
+        );
+
+    if(context.mounted){
+      AddNewRoutineRoute(routineUuid: routineUuid).go(context);
+    }
   }
 }

@@ -1,9 +1,10 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:uuid/uuid.dart";
 
 class NewRoutineSchemaScreen extends ConsumerStatefulWidget {
-  const NewRoutineSchemaScreen({super.key});
+  final String routineUuid;
+
+  const NewRoutineSchemaScreen({super.key, required this.routineUuid});
 
   @override
   ConsumerState<NewRoutineSchemaScreen> createState() =>
@@ -12,8 +13,6 @@ class NewRoutineSchemaScreen extends ConsumerStatefulWidget {
 
 class _NewRoutineSchemaScreenState
     extends ConsumerState<NewRoutineSchemaScreen> {
-  final String routineUuid = const Uuid().v4();
-
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
@@ -33,7 +32,7 @@ class _NewRoutineSchemaScreenState
             //   ),
             // ),
 
-            const Text("Tutaj wskakują workouty"),
+            Text("Tutaj wskakują workouty + ${widget.routineUuid}"),
 
         //   ref.watch(routinesProvider.notifier).getWorkouts(routineUuid);
         //   error: (error, stack) => Text("Could not fetch workouts. $error"),

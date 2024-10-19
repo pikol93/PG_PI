@@ -5,7 +5,7 @@ import "package:pi_mobile/data/workload.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/provider/routines_provider.dart";
-import "package:pi_mobile/widgets/exercises/routines/new_routine_schema_screen.dart";
+import "package:pi_mobile/routing/routes.dart";
 
 class RoutinesScreen extends ConsumerStatefulWidget with Logger {
   const RoutinesScreen({super.key});
@@ -36,26 +36,16 @@ class _RoutinesScreenState extends ConsumerState<RoutinesScreen> {
               ),
             ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () async {
-            final result = await Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const NewRoutineSchemaScreen(),
-              ),
-            );
-            if (result != null) {
-              setState(() {
-                routineSchemas.add(result);
-              });
-            }
+          onPressed: () {
+            _onAddButtonPressed(context);
           },
           tooltip: "Dodaj nową rutynę",
           child: const Icon(Icons.add),
         ),
       );
 
-  // void _onAddButtonPressed(BuildContext context) {
-  //   // logger.debug("Add routine button pressed");
-  //   const AddRoutineRoute().go(context);
-  // }
+  void _onAddButtonPressed(BuildContext context) {
+    // logger.debug("Add routine button pressed");
+    const AddNewRoutineRoute().go(context);
+  }
 }

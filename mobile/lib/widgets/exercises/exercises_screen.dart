@@ -6,7 +6,6 @@ import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/routing/routes.dart";
 import "package:pi_mobile/widgets/common/app_navigation_drawer.dart";
-import "package:pi_mobile/widgets/exercises/routines/routines_screen.dart";
 import "package:pi_mobile/widgets/exercises/session/workout_session_screen.dart";
 import "package:uuid/uuid.dart";
 
@@ -35,12 +34,7 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
             children: [
               ElevatedButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const RoutinesScreen(),
-                    ),
-                  );
+                  _onRoutinesButtonPressed(context);
                 },
                 child: const Text("Routines"),
               ),
@@ -94,6 +88,11 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
   //   );
   //   const StartTrainingRoute().go(context);
   // }
+
+  void _onRoutinesButtonPressed(BuildContext context) {
+    // logger.debug("Routine screen button pressed");
+    const RoutinesRoute().go(context);
+  }
 
   void _onShowHistoryButtonPressed(BuildContext context) {
     // logger.debug("History screen button pressed");

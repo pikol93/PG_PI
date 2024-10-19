@@ -11,6 +11,8 @@ import "package:pi_mobile/provider/overlays_permissions_provider.dart";
 import "package:pi_mobile/utility/location_permission.dart";
 import "package:pi_mobile/utility/notification_permission.dart";
 import "package:pi_mobile/widgets/exercises/exercises_screen.dart";
+import "package:pi_mobile/widgets/exercises/routines/new_routine_schema_screen.dart";
+import "package:pi_mobile/widgets/exercises/routines/routines_screen.dart";
 import "package:pi_mobile/widgets/exercises/session/history_screen.dart";
 import "package:pi_mobile/widgets/forgot_password/forgot_password_screen.dart";
 import "package:pi_mobile/widgets/home/home_screen.dart";
@@ -214,21 +216,15 @@ class RequestBatteryPermissionRoute extends GoRouteData {
       const RequestBatteryPermissionScreen();
 }
 
-// class AddRoutineRoute extends GoRouteData {
-//   const AddRoutineRoute();
-//
-//   @override
-//   Widget build(
-//       BuildContext context,
-//       GoRouterState state,
-//       ) =>
-//       const NewRoutineSchemaScreen();
-// }
-
 @TypedGoRoute<ExercisesRoute>(
   path: "/exercises",
   routes: <TypedGoRoute<GoRouteData>>[
     TypedGoRoute<HistoryRoute>(path: "history"),
+    TypedGoRoute<RoutinesRoute>(
+        path: "routines",
+        routes: <TypedGoRoute<GoRouteData>>[
+          TypedGoRoute<AddNewRoutineRoute>(path: "new_routine"),
+        ]),
   ],
 )
 class ExercisesRoute extends GoRouteData with Logger {
@@ -248,6 +244,26 @@ class HistoryRoute extends GoRouteData with Logger {
   Widget build(BuildContext context, GoRouterState state) {
     logger.debug("history route");
     return const HistoryScreen();
+  }
+}
+
+class RoutinesRoute extends GoRouteData with Logger {
+  const RoutinesRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    logger.debug("routines route");
+    return const RoutinesScreen();
+  }
+}
+
+class AddNewRoutineRoute extends GoRouteData with Logger {
+  const AddNewRoutineRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    logger.debug("routines route");
+    return const NewRoutineSchemaScreen();
   }
 }
 

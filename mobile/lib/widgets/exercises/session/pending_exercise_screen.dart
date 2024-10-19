@@ -158,12 +158,13 @@ class _PendingExerciseScreenState extends ConsumerState<PendingExerciseScreen> {
 
                   if (context.mounted) {
                     await ref.read(workoutsProvider.notifier).addWorkload(
-                        widget.workoutUuid,
-                        Workload(
-                          exercise: widget.exercise,
-                          sets: workload,
-                          description: "",
-                        ),);
+                          widget.workoutUuid,
+                          Workload(
+                            exercise: widget.exercise,
+                            sets: workload,
+                            description: "",
+                          ),
+                        );
                     Navigator.pop(context, pendingResult);
                   }
                 },

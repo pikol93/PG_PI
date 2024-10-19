@@ -2,13 +2,12 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pi_mobile/data/workload.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
+import "package:uuid/uuid.dart";
 
 import "choose_exercise_screen.dart";
 
 class WorkoutSessionScreen extends ConsumerStatefulWidget {
-  final String uuid;
-
-  const WorkoutSessionScreen({required this.uuid, super.key});
+  const WorkoutSessionScreen({super.key});
 
   @override
   ConsumerState<WorkoutSessionScreen> createState() =>
@@ -17,6 +16,7 @@ class WorkoutSessionScreen extends ConsumerStatefulWidget {
 
 class _WorkoutSessionScreenState extends ConsumerState<WorkoutSessionScreen> {
   final List<Workload> exercises = [];
+  final String workoutUuid = const Uuid().v4();
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -50,7 +50,7 @@ class _WorkoutSessionScreenState extends ConsumerState<WorkoutSessionScreen> {
                     context,
                     MaterialPageRoute(
                       builder: (context) =>
-                          ChooseExerciseScreen(workoutUuid: widget.uuid),
+                          ChooseExerciseScreen(workoutUuid: workoutUuid),
                     ),
                   );
 

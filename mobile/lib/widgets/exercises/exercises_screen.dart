@@ -3,14 +3,16 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pi_mobile/data/workout.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
+import "package:pi_mobile/logger.dart";
+import "package:pi_mobile/routing/routes.dart";
 import "package:pi_mobile/widgets/common/app_navigation_drawer.dart";
+import "package:pi_mobile/widgets/exercises/routines/routines_screen.dart";
 import "package:pi_mobile/widgets/exercises/session/workout_session_screen.dart";
 import "package:uuid/uuid.dart";
 
 import "../../provider/workouts_provider.dart";
-import "session/history_screen.dart";
 
-class ExercisesScreen extends ConsumerStatefulWidget {
+class ExercisesScreen extends ConsumerStatefulWidget with Logger {
   const ExercisesScreen({super.key});
 
   @override
@@ -32,6 +34,17 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const RoutinesScreen(),
+                    ),
+                  );
+                },
+                child: const Text("Routines"),
+              ),
+              ElevatedButton(
                 onPressed: () async {
                   final uuid = const Uuid().v4();
                   final emptyWorkout = Workout(
@@ -45,7 +58,7 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
                   await Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => WorkoutSessionScreen(uuid: uuid),
+                      builder: (context) => const WorkoutSessionScreen(),
                     ),
                   );
                 },
@@ -53,12 +66,7 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const HistoryScreen(),
-                    ),
-                  );
+                  _onShowHistoryButtonPressed(context);
                 },
                 child: Text(context.t.exercises.history),
               ),
@@ -66,4 +74,29 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
           ),
         ),
       );
+
+  // void _onStartTrainingButtonPressed(BuildContext context) {
+  //   // logger.debug("Start training button presses");
+  //   final uuid = const Uuid().v4();
+  //   final emptyWorkout = Workout(
+  //     uuid: uuid,
+  //     date: DateTime.now(),
+  //     exercises: [],
+  //   );
+  //   await ref
+  //       .read(workoutsProvider.notifier)
+  //       .addWorkout(emptyWorkout);
+  //   await Navigator.push(
+  //     context,
+  //     MaterialPageRoute(
+  //       builder: (context) => WorkoutSessionScreen(uuid: uuid),
+  //     ),
+  //   );
+  //   const StartTrainingRoute().go(context);
+  // }
+
+  void _onShowHistoryButtonPressed(BuildContext context) {
+    // logger.debug("History screen button pressed");
+    const HistoryRoute().go(context);
+  }
 }

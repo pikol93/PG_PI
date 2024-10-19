@@ -12,22 +12,23 @@ class HistoryScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) => Scaffold(
-      appBar: AppBar(
-        title: Text(context.t.exercises.history),
-      ),
-      body: ref.watch(workoutsProvider).when(
-            error: (error, stack) => Text("Could not fetch workouts. $error"),
-            loading: () => const Center(child: CircularProgressIndicator()),
-            data: (workouts) => ListView.builder(
-              padding: const EdgeInsets.all(8),
-              itemCount: workouts.length,
-              itemBuilder: (context, index) => ListTile(
-                title: Text(workouts[index].date.toString()),
-                subtitle: Text(
-                  "${context.t.exercises.amountOfPerformedExercises}:"
-                  " ${workouts[index].exercises.length}",
+        appBar: AppBar(
+          title: Text(context.t.exercises.history),
+        ),
+        body: ref.watch(workoutsProvider).when(
+              error: (error, stack) => Text("Could not fetch workouts. $error"),
+              loading: () => const Center(child: CircularProgressIndicator()),
+              data: (workouts) => ListView.builder(
+                padding: const EdgeInsets.all(8),
+                itemCount: workouts.length,
+                itemBuilder: (context, index) => ListTile(
+                  title: Text(workouts[index].date.toString()),
+                  subtitle: Text(
+                    "${context.t.exercises.amountOfPerformedExercises}:"
+                    " ${workouts[index].exercises.length}",
+                  ),
                 ),
               ),
             ),
-          ),);
+      );
 }

@@ -29,6 +29,14 @@ class HeartRateList extends _$HeartRateList with Logger {
     ref.invalidateSelf();
   }
 
+  Future<void> replace(HeartRateEntry oldEntry, HeartRateEntry newEntry) async {
+    entries.remove(oldEntry);
+    entries.add(newEntry);
+    await _writeToStorage();
+
+    ref.invalidateSelf();
+  }
+
   Future<void> clear() async {
     final preferences = SharedPreferencesAsync();
     await preferences.remove(_keyName);

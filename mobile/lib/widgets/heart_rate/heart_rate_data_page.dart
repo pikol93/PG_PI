@@ -11,23 +11,18 @@ class HeartRateDataPage extends ConsumerWidget {
   const HeartRateDataPage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) =>
-      ref.watch(sortedHeartRateListProvider).when(
-            data: (entries) => ListView.builder(
-              padding: const EdgeInsets.all(8),
-              itemCount: entries.length,
-              itemBuilder: (context, index) => _itemBuilder(
-                entries[index],
-                context,
-              ),
-            ),
-            error: (a, b) => Center(
-              child: Text("Could not fetch heart rate data. $a"),
-            ),
-            loading: () => const Center(
-              child: CircularProgressIndicator(),
-            ),
-          );
+  Widget build(BuildContext context, WidgetRef ref) {
+    final sortedHeartRateList = ref.watch(sortedHeartRateListProvider);
+
+    return ListView.builder(
+      padding: const EdgeInsets.all(8),
+      itemCount: sortedHeartRateList.length,
+      itemBuilder: (context, index) => _itemBuilder(
+        sortedHeartRateList[index],
+        context,
+      ),
+    );
+  }
 
   Widget _itemBuilder(HeartRateEntry entry, BuildContext context) => InkWell(
         onTap: () => _onEntryTapped(context, entry),

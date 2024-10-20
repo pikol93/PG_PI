@@ -13,25 +13,18 @@ part "heart_rate_list_provider.g.dart";
 class HeartRateList extends _$HeartRateList with Logger {
   static const _keyName = "heart_rate";
 
-  @override
-  Future<List<HeartRateEntry>> build() async {
-    final preferences = SharedPreferencesAsync();
-    final jsonList = await preferences.getStringList(_keyName) ?? [];
-    final tracks = jsonList
-        .map((json) => HeartRateEntry.fromJson(jsonDecode(json)))
-        .toList();
+  List<HeartRateEntry> entries = [];
 
-    logger.debug("Read ${tracks.length} heart rate instances");
-    return tracks;
+  @override
+  List<HeartRateEntry> build() => entries;
+
+  Future<void> init() async {
+    await _readAndUpdateFromStorage();
   }
 
   Future<void> addEntry(HeartRateEntry entry) async {
-    final list = await ref.read(heartRateListProvider.future);
-    list.add(entry);
-
-    final preferences = SharedPreferencesAsync();
-    final jsonList = list.map(jsonEncode).toList();
-    await preferences.setStringList(_keyName, jsonList);
+    entries.add(entry);
+    await _writeToStorage();
 
     ref.invalidateSelf();
   }
@@ -69,7 +62,27 @@ class HeartRateList extends _$HeartRateList with Logger {
         beatsPerMinute: actualHeartRate,
       );
 
-      await addEntry(entry);
+      entries.add(entry);
     }
+
+    ref.invalidateSelf();
+  }
+
+  Future<void> _readAndUpdateFromStorage() async {
+    final preferences = SharedPreferencesAsync();
+    final jsonList = await preferences.getStringList(_keyName) ?? [];
+    final readTracks = jsonList
+        .map((json) => HeartRateEntry.fromJson(jsonDecode(json)))
+        .toList();
+
+    logger.debug("Read ${readTracks.length} heart rate instances");
+    entries = readTracks;
+    ref.invalidateSelf();
+  }
+
+  Future<void> _writeToStorage() async {
+    final preferences = SharedPreferencesAsync();
+    final jsonList = entries.map(jsonEncode).toList();
+    return preferences.setStringList(_keyName, jsonList);
   }
 }

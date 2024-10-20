@@ -13,44 +13,32 @@ class HeartRateGraphPage extends ConsumerWidget with Logger {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final defaultVisibleXSize = const Duration(days: 30).inMilliseconds;
-    final heartRate = ref.watch(heartRateChartDataProvider);
+    final data = ref.watch(heartRateChartDataProvider);
+    final minX = data.first.x;
+    final maxX = data.last.x;
+    final currentDataSize = (maxX - minX).toInt();
+    final visibleXSize = currentDataSize < defaultVisibleXSize
+        ? currentDataSize
+        : defaultVisibleXSize;
 
-    return heartRate.when(
-      data: (data) {
-        final minX = data.first.x;
-        final maxX = data.last.x;
-        final currentDataSize = (maxX - minX).toInt();
-        final visibleXSize = currentDataSize < defaultVisibleXSize
-            ? currentDataSize
-            : defaultVisibleXSize;
-
-        return Center(
-          child: Column(
-            children: [
-              Expanded(
-                // aspectRatio: 2,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
-                  child: XAxisScrollableChart(
-                    minX: data.first.x,
-                    maxX: data.last.x,
-                    visibleXSize: visibleXSize,
-                    // TODO: This should not be a constant value
-                    xScrollOffset: 0.001,
-                    itemBuilder: (minX, maxX) =>
-                        _chartBuilder(data, minX, maxX),
-                  ),
-                ),
+    return Center(
+      child: Column(
+        children: [
+          Expanded(
+            // aspectRatio: 2,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16.0),
+              child: XAxisScrollableChart(
+                minX: minX,
+                maxX: maxX,
+                visibleXSize: visibleXSize,
+                // TODO: This should not be a constant value
+                xScrollOffset: 0.001,
+                itemBuilder: (minX, maxX) => _chartBuilder(data, minX, maxX),
               ),
-            ],
+            ),
           ),
-        );
-      },
-      error: (a, b) => Center(
-        child: Text("Could not fetch heart rate data. $a"),
-      ),
-      loading: () => const Center(
-        child: CircularProgressIndicator(),
+        ],
       ),
     );
   }

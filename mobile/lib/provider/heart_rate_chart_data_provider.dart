@@ -7,8 +7,8 @@ part "heart_rate_chart_data_provider.g.dart";
 @Riverpod(keepAlive: true)
 class HeartRateChartData extends _$HeartRateChartData {
   @override
-  Future<List<FlSpot>> build() async {
-    final heartRateList = await ref.watch(heartRateListProvider.future);
+  List<FlSpot> build() {
+    final heartRateList = ref.watch(heartRateListProvider);
     return heartRateList
         .map(
           (entry) => FlSpot(

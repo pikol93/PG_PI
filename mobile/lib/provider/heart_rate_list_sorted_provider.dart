@@ -8,9 +8,9 @@ part "heart_rate_list_sorted_provider.g.dart";
 @Riverpod(keepAlive: true)
 class SortedHeartRateList extends _$SortedHeartRateList {
   @override
-  Future<List<HeartRateEntry>> build() async {
-    final entries = await ref.watch(heartRateListProvider.future);
-
-    return entries.sortedBy((entry) => entry.dateTime).reversed.toList();
-  }
+  List<HeartRateEntry> build() => ref
+      .watch(heartRateListProvider)
+      .sortedBy((entry) => entry.dateTime)
+      .reversed
+      .toList();
 }

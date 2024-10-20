@@ -156,17 +156,17 @@ class _PendingExerciseScreenState extends ConsumerState<PendingExerciseScreen> {
                     ),
                   );
 
-                    await ref.read(workoutsProvider.notifier).addWorkload(
-                          widget.workoutUuid,
-                          Workload(
-                            exercise: widget.exercise,
-                            sets: workload,
-                            description: "",
-                          ),
-                        );
-                    if(context.mounted) {
-                      Navigator.pop(context, pendingResult);
-                    }
+                  await ref.read(workoutsProvider.notifier).addWorkload(
+                        widget.workoutUuid,
+                        Workload(
+                          exercise: widget.exercise,
+                          sets: workload,
+                          description: "",
+                        ),
+                      );
+                  if (context.mounted) {
+                    Navigator.pop(context, pendingResult);
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white,

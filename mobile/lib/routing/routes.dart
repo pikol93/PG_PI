@@ -11,6 +11,7 @@ import "package:pi_mobile/provider/overlays_permissions_provider.dart";
 import "package:pi_mobile/utility/location_permission.dart";
 import "package:pi_mobile/utility/notification_permission.dart";
 import "package:pi_mobile/widgets/exercises/exercises_screen.dart";
+import "package:pi_mobile/widgets/exercises/routines/edit_workout_schema_screen.dart";
 import "package:pi_mobile/widgets/exercises/routines/new_routine_schema_screen.dart";
 import "package:pi_mobile/widgets/exercises/routines/routines_screen.dart";
 import "package:pi_mobile/widgets/exercises/session/history_screen.dart";
@@ -221,10 +222,16 @@ class RequestBatteryPermissionRoute extends GoRouteData {
   routes: <TypedGoRoute<GoRouteData>>[
     TypedGoRoute<HistoryRoute>(path: "history"),
     TypedGoRoute<RoutinesRoute>(
-        path: "routines",
-        routes: <TypedGoRoute<GoRouteData>>[
-          TypedGoRoute<AddNewRoutineRoute>(path: ":routineUuid"),
-        ],),
+      path: "routines",
+      routes: <TypedGoRoute<GoRouteData>>[
+        TypedGoRoute<AddNewRoutineRoute>(
+          path: ":routineUuid",
+          routes: <TypedGoRoute<GoRouteData>>[
+            TypedGoRoute<EditWorkoutSchemaRoute>(path: ":workoutUuid"),
+          ],
+        ),
+      ],
+    ),
   ],
 )
 class ExercisesRoute extends GoRouteData with Logger {
@@ -266,6 +273,25 @@ class AddNewRoutineRoute extends GoRouteData with Logger {
   Widget build(BuildContext context, GoRouterState state) {
     logger.debug("routines route");
     return NewRoutineSchemaScreen(routineUuid: routineUuid);
+  }
+}
+
+class EditWorkoutSchemaRoute extends GoRouteData with Logger {
+  const EditWorkoutSchemaRoute({
+    required this.routineUuid,
+    required this.workoutUuid,
+  });
+
+  final String routineUuid;
+  final String workoutUuid;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    logger.debug("routines route");
+    return EditWorkoutSchemaScreen(
+      routineUuid: routineUuid,
+      workoutUuid: workoutUuid,
+    );
   }
 }
 

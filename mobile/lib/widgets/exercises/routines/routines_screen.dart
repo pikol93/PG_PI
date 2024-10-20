@@ -50,10 +50,14 @@ class _RoutinesScreenState extends ConsumerState<RoutinesScreen> {
 
     await ref.read(routinesProvider.notifier).addRoutine(
           RoutineSchema(
-              uuid: routineUuid, name: "", description: "", workouts: [],),
+            uuid: routineUuid,
+            name: "",
+            description: "",
+            workouts: [],
+          ),
         );
 
-    if(context.mounted){
+    if (context.mounted) {
       AddNewRoutineRoute(routineUuid: routineUuid).go(context);
     }
   }

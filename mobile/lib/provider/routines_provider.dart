@@ -1,6 +1,7 @@
 import "dart:convert";
 
 import "package:pi_mobile/data/routine_schema.dart";
+import "package:pi_mobile/data/strength_exercise_schema.dart";
 import "package:pi_mobile/data/workout_schema.dart";
 import "package:pi_mobile/logger.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
@@ -47,6 +48,44 @@ class Routines extends _$Routines with Logger {
       if (routine.uuid == routineUuid) {
         final newListOfWorkouts = routine.workouts + [workout];
         return routine.copyWith(workouts: newListOfWorkouts);
+      }
+      return routine;
+    }).toList();
+
+    final preferences = SharedPreferencesAsync();
+    final jsonList = updatedRoutines.map(jsonEncode).toList();
+    await preferences.setStringList(_keyName, jsonList);
+
+    ref.invalidateSelf();
+  }
+
+  Future<List<StrengthExerciseSchema>> getExercises(
+    String routineUuid,
+    String workoutUuid,
+  ) async {
+    final routines = await ref.read(routinesProvider.future);
+    final routine = routines.firstWhere((r) => r.uuid == routineUuid);
+    final workout = routine.workouts.firstWhere((w) => w.uuid == workoutUuid);
+    return workout.exercisesSchemas;
+  }
+
+  Future<void> addExercise(
+    String routineUuid,
+    String workoutUuid,
+    StrengthExerciseSchema exercise,
+  ) async {
+    final routines = await ref.read(routinesProvider.future);
+
+    final updatedRoutines = routines.toList().map((routine) {
+      if (routine.uuid == routineUuid) {
+        final updatedWorkouts = routine.workouts.map((workout) {
+          if (workout.uuid == workoutUuid) {
+            final updatedExercises = workout.exercisesSchemas + [exercise];
+            return workout.copyWith(exercisesSchemas: updatedExercises);
+          }
+          return workout;
+        }).toList();
+        return routine.copyWith(workouts: updatedWorkouts);
       }
       return routine;
     }).toList();

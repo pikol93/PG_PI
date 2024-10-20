@@ -7,8 +7,9 @@ part "workout_schema.freezed.dart";
 @freezed
 class WorkoutSchema with _$WorkoutSchema {
   const factory WorkoutSchema({
+    required String uuid,
     required String name,
-    required List<StrengthExerciseSchema> exercises,
+    required List<StrengthExerciseSchema> exercisesSchemas,
   }) = _WorkoutSchema;
 
   factory WorkoutSchema.fromJson(Map<String, Object?> json) =>

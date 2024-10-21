@@ -5,6 +5,7 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:go_router/go_router.dart";
 import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/provider/battery_permissions_provider.dart";
+import "package:pi_mobile/provider/heart_rate_list_provider.dart";
 import "package:pi_mobile/provider/location_permissions_provider.dart";
 import "package:pi_mobile/provider/notification_permissions_provider.dart";
 import "package:pi_mobile/provider/overlays_permissions_provider.dart";
@@ -13,6 +14,7 @@ import "package:pi_mobile/utility/notification_permission.dart";
 import "package:pi_mobile/widgets/exercises/exercises_screen.dart";
 import "package:pi_mobile/widgets/forgot_password/forgot_password_screen.dart";
 import "package:pi_mobile/widgets/heart_rate/heart_rate_screen.dart";
+import "package:pi_mobile/widgets/heart_rate/modify_heart_rate_screen.dart";
 import "package:pi_mobile/widgets/home/home_screen.dart";
 import "package:pi_mobile/widgets/login/login_screen.dart";
 import "package:pi_mobile/widgets/register/register_screen.dart";
@@ -225,7 +227,13 @@ class ExercisesRoute extends GoRouteData with Logger {
   }
 }
 
-@TypedGoRoute<HeartRateRoute>(path: "/heart_rate")
+@TypedGoRoute<HeartRateRoute>(
+  path: "/heart_rate",
+  routes: <TypedGoRoute>[
+    TypedGoRoute<AddHeartRateRoute>(path: "add"),
+    TypedGoRoute<ModifyHeartRateRoute>(path: "modify/:entryTimestamp"),
+  ],
+)
 class HeartRateRoute extends GoRouteData {
   const HeartRateRoute();
 
@@ -235,6 +243,36 @@ class HeartRateRoute extends GoRouteData {
     GoRouterState state,
   ) =>
       const HeartRateScreen();
+}
+
+class AddHeartRateRoute extends GoRouteData {
+  const AddHeartRateRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      const ModifyHeartRateScreen();
+}
+
+class ModifyHeartRateRoute extends GoRouteData {
+  final int entryTimestamp;
+
+  const ModifyHeartRateRoute({
+    required this.entryTimestamp,
+  });
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    final entry = ProviderScope.containerOf(context)
+        .read(heartRateListProvider)
+        .where(
+          (entry) => entry.dateTime.millisecondsSinceEpoch == entryTimestamp,
+        )
+        .firstOrNull;
+
+    return ModifyHeartRateScreen(
+      baseEntry: entry,
+    );
+  }
 }
 
 @TypedGoRoute<SettingsRoute>(path: "/settings")

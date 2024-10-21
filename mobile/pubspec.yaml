@@ -52,6 +52,7 @@ dev_dependencies:
   freezed: ^2.5.2
   json_serializable: ^6.8.0
   slang_build_runner: ^3.31.0
+  isar_generator: ^3.1.0+1
 
 flutter:
   uses-material-design: true

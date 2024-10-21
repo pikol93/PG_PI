@@ -1,5 +1,6 @@
 import "package:awesome_flutter_extensions/awesome_flutter_extensions.dart";
 import "package:flutter/material.dart";
+import "package:pi_mobile/routing/routes.dart";
 import "package:pi_mobile/widgets/common/app_navigation_drawer.dart";
 import "package:pi_mobile/widgets/heart_rate/heart_rate_data_page.dart";
 import "package:pi_mobile/widgets/heart_rate/heart_rate_graph_page.dart";
@@ -45,6 +46,10 @@ class _HeartRateScreenState extends State<HeartRateScreen>
   @override
   Widget build(BuildContext context) => Scaffold(
         drawer: const AppNavigationDrawer(),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => _onEntryAddPressed(context),
+          child: const Icon(Icons.add),
+        ),
         appBar: AppBar(
           backgroundColor: context.colors.scaffoldBackground,
           title: const Text("Heart rate"), // TODO: I18N
@@ -58,4 +63,8 @@ class _HeartRateScreenState extends State<HeartRateScreen>
           children: _tabs.map((tab) => tab.$2).toList(),
         ),
       );
+
+  void _onEntryAddPressed(BuildContext context) {
+    const AddHeartRateRoute().go(context);
+  }
 }

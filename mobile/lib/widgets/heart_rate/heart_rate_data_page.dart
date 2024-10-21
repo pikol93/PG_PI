@@ -4,6 +4,7 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:intl/intl.dart";
 import "package:pi_mobile/data/heart_rate_entry.dart";
 import "package:pi_mobile/provider/heart_rate_list_sorted_provider.dart";
+import "package:pi_mobile/routing/routes.dart";
 
 class HeartRateDataPage extends ConsumerWidget {
   static final dateFormat = DateFormat();
@@ -50,5 +51,8 @@ class HeartRateDataPage extends ConsumerWidget {
         ),
       );
 
-  void _onEntryTapped(BuildContext context, HeartRateEntry entry) {}
+  void _onEntryTapped(BuildContext context, HeartRateEntry entry) {
+    ModifyHeartRateRoute(entryTimestamp: entry.dateTime.millisecondsSinceEpoch)
+        .go(context);
+  }
 }

@@ -14,6 +14,10 @@ class HeartRateGraphPage extends ConsumerWidget with Logger {
   Widget build(BuildContext context, WidgetRef ref) {
     final defaultVisibleXSize = const Duration(days: 30).inMilliseconds;
     final data = ref.watch(heartRateChartDataProvider);
+    if (data.isEmpty) {
+      return const Center(child: Text("No data.")); // TODO: I18N
+    }
+
     final minX = data.first.x;
     final maxX = data.last.x;
     final currentDataSize = (maxX - minX).toInt();

@@ -58,7 +58,7 @@ class _RoutinesScreenState extends ConsumerState<RoutinesScreen> {
         );
 
     if (context.mounted) {
-      AddNewRoutineRoute(routineUuid: routineUuid).go(context);
+      EditRoutineSchemaRoute(routineUuid: routineUuid).go(context);
     }
   }
 }

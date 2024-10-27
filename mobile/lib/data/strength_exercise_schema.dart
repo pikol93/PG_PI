@@ -7,6 +7,7 @@ part "strength_exercise_schema.freezed.dart";
 @freezed
 class StrengthExerciseSchema with _$StrengthExerciseSchema {
   const factory StrengthExerciseSchema({
+    required String uuid,
     required String name,
     required int restTime,
     required List<StrengthExerciseSetSchema> sets,

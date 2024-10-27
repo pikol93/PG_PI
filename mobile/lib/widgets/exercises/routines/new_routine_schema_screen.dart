@@ -73,8 +73,9 @@ class _NewRoutineSchemaScreenState
         );
     if (context.mounted) {
       EditWorkoutSchemaRoute(
-              routineUuid: widget.routineUuid, workoutUuid: workoutUuid,)
-          .go(context);
+        routineUuid: widget.routineUuid,
+        workoutUuid: workoutUuid,
+      ).go(context);
     }
   }
 }

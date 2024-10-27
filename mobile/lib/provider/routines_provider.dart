@@ -69,6 +69,19 @@ class Routines extends _$Routines with Logger {
     return workout.exercisesSchemas;
   }
 
+  Future<StrengthExerciseSchema> getExercise(
+    String routineUuid,
+    String workoutUuid,
+    String exerciseUuid,
+  ) async {
+    final routines = await ref.read(routinesProvider.future);
+    final routine = routines.firstWhere((r) => r.uuid == routineUuid);
+    final workout = routine.workouts.firstWhere((w) => w.uuid == workoutUuid);
+    final exercise =
+        workout.exercisesSchemas.firstWhere((e) => e.uuid == exerciseUuid);
+    return exercise;
+  }
+
   Future<void> addExercise(
     String routineUuid,
     String workoutUuid,
@@ -81,6 +94,39 @@ class Routines extends _$Routines with Logger {
         final updatedWorkouts = routine.workouts.map((workout) {
           if (workout.uuid == workoutUuid) {
             final updatedExercises = workout.exercisesSchemas + [exercise];
+            return workout.copyWith(exercisesSchemas: updatedExercises);
+          }
+          return workout;
+        }).toList();
+        return routine.copyWith(workouts: updatedWorkouts);
+      }
+      return routine;
+    }).toList();
+
+    final preferences = SharedPreferencesAsync();
+    final jsonList = updatedRoutines.map(jsonEncode).toList();
+    await preferences.setStringList(_keyName, jsonList);
+
+    ref.invalidateSelf();
+  }
+
+  Future<void> updateExercise(
+    String routineUuid,
+    String workoutUuid,
+    StrengthExerciseSchema updatedExercise,
+  ) async {
+    final routines = await ref.read(routinesProvider.future);
+
+    final updatedRoutines = routines.toList().map((routine) {
+      if (routine.uuid == routineUuid) {
+        final updatedWorkouts = routine.workouts.map((workout) {
+          if (workout.uuid == workoutUuid) {
+            final updatedExercises = workout.exercisesSchemas.map((exercise) {
+              if (exercise.uuid == updatedExercise.uuid) {
+                return updatedExercise;
+              }
+              return exercise;
+            }).toList();
             return workout.copyWith(exercisesSchemas: updatedExercises);
           }
           return workout;

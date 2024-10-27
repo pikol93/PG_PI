@@ -2,6 +2,8 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pi_mobile/data/strength_exercise_schema.dart";
 import "package:pi_mobile/provider/routines_provider.dart";
+import "package:pi_mobile/routing/routes.dart";
+import "package:uuid/uuid.dart";
 
 class EditWorkoutSchemaScreen extends ConsumerStatefulWidget {
   final String routineUuid;
@@ -43,7 +45,7 @@ class _EditWorkoutSchemaScreen extends ConsumerState<EditWorkoutSchemaScreen> {
               return Center(
                 child: Text(
                   "No workouts available ${widget.routineUuid}"
-                      " ${widget.workoutUuid}",
+                  " ${widget.workoutUuid}",
                 ),
               );
             }
@@ -73,13 +75,25 @@ class _EditWorkoutSchemaScreen extends ConsumerState<EditWorkoutSchemaScreen> {
   }
 
   Future<void> _onAddButtonPressed(BuildContext context) async {
-    //   await ref.read(routinesProvider.notifier).addRoutine(
-    //     RoutineSchema(
-    //       uuid: routineUuid, name: "", description: "", workouts: [],),
-    //   );
-    //
-    //   if(context.mounted){
-    //     AddNewRoutineRoute(routineUuid: routineUuid).go(context);
-    //   }
+    final exerciseUuid = const Uuid().v4();
+
+    await ref.read(routinesProvider.notifier).addExercise(
+          widget.routineUuid,
+          widget.workoutUuid,
+          StrengthExerciseSchema(
+            uuid: exerciseUuid,
+            name: "",
+            restTime: 100,
+            sets: [],
+          ),
+        );
+
+    if (context.mounted) {
+      EditExerciseSchemaRoute(
+        routineUuid: widget.routineUuid,
+        workoutUuid: widget.workoutUuid,
+        exerciseUuid: exerciseUuid,
+      ).go(context);
+    }
   }
 }

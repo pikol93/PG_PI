@@ -33,6 +33,15 @@ dependencies:
   fl_location: ^4.1.0+1
   latlong2: ^0.9.1
   collection: ^1.18.0
+  fl_chart: ^0.69.0
+  package_info_plus: ^8.0.3
+  hive: ^2.2.3
+  isar:
+    version: ^3.1.8
+    hosted: https://pub.isar-community.dev/
+  isar_flutter_libs:
+    version: ^3.1.8
+    hosted: https://pub.isar-community.dev/
 
 dev_dependencies:
   flutter_test:
@@ -44,10 +53,12 @@ dev_dependencies:
   build_verify: any
   riverpod_generator: ^2.4.0
   custom_lint: ^0.6.4
-  riverpod_lint: ^2.3.10
   freezed: ^2.5.2
   json_serializable: ^6.8.0
   slang_build_runner: ^3.31.0
+  isar_generator:
+    version: ^3.1.8
+    hosted: https://pub.isar-community.dev/
 
 flutter:
   uses-material-design: true

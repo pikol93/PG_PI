@@ -12,6 +12,8 @@ import "package:pi_mobile/utility/location_permission.dart";
 import "package:pi_mobile/utility/notification_permission.dart";
 import "package:pi_mobile/widgets/exercises/exercises_screen.dart";
 import "package:pi_mobile/widgets/forgot_password/forgot_password_screen.dart";
+import "package:pi_mobile/widgets/heart_rate/heart_rate_screen.dart";
+import "package:pi_mobile/widgets/heart_rate/modify_heart_rate_screen.dart";
 import "package:pi_mobile/widgets/home/home_screen.dart";
 import "package:pi_mobile/widgets/login/login_screen.dart";
 import "package:pi_mobile/widgets/register/register_screen.dart";
@@ -222,6 +224,46 @@ class ExercisesRoute extends GoRouteData with Logger {
     logger.debug("exercises route");
     return const ExercisesScreen();
   }
+}
+
+@TypedGoRoute<HeartRateRoute>(
+  path: "/heart_rate",
+  routes: <TypedGoRoute>[
+    TypedGoRoute<AddHeartRateRoute>(path: "add"),
+    TypedGoRoute<ModifyHeartRateRoute>(path: "modify/:entryId"),
+  ],
+)
+class HeartRateRoute extends GoRouteData {
+  const HeartRateRoute();
+
+  @override
+  Widget build(
+    BuildContext context,
+    GoRouterState state,
+  ) =>
+      const HeartRateScreen();
+}
+
+class AddHeartRateRoute extends GoRouteData {
+  const AddHeartRateRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      const ModifyHeartRateScreen();
+}
+
+class ModifyHeartRateRoute extends GoRouteData {
+  final int entryId;
+
+  const ModifyHeartRateRoute({
+    required this.entryId,
+  });
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      ModifyHeartRateScreen(
+        entryId: entryId,
+      );
 }
 
 @TypedGoRoute<SettingsRoute>(path: "/settings")

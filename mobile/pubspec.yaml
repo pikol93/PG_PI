@@ -36,8 +36,12 @@ dependencies:
   fl_chart: ^0.69.0
   package_info_plus: ^8.0.3
   hive: ^2.2.3
-  isar_flutter_libs: ^3.1.0+1
-  isar: ^3.1.0+1
+  isar:
+    version: ^3.1.8
+    hosted: https://pub.isar-community.dev/
+  isar_flutter_libs:
+    version: ^3.1.8
+    hosted: https://pub.isar-community.dev/
 
 dev_dependencies:
   flutter_test:
@@ -52,7 +56,9 @@ dev_dependencies:
   freezed: ^2.5.2
   json_serializable: ^6.8.0
   slang_build_runner: ^3.31.0
-  isar_generator: ^3.1.0+1
+  isar_generator:
+    version: ^3.1.8
+    hosted: https://pub.isar-community.dev/
 
 flutter:
   uses-material-design: true

@@ -196,8 +196,9 @@ class _GenerateHeartRateDataSetting extends ConsumerWidget {
         ),
       );
 
-  void _onGeneratePressed(BuildContext context, WidgetRef ref) {
-    ref.read(heartRateListProvider.notifier).generateHeartRateData();
+  Future<void> _onGeneratePressed(BuildContext context, WidgetRef ref) async {
+    final manager = await ref.read(heartRateManagerProvider.future);
+    await manager.generateHeartRateData();
   }
 }
 
@@ -215,8 +216,9 @@ class _ClearHeartRateDataSetting extends ConsumerWidget {
         ),
       );
 
-  void _onClearPressed(BuildContext context, WidgetRef ref) {
-    ref.read(heartRateListProvider.notifier).clear();
+  Future<void> _onClearPressed(BuildContext context, WidgetRef ref) async {
+    final manager = await ref.read(heartRateManagerProvider.future);
+    return manager.clear();
   }
 }
 

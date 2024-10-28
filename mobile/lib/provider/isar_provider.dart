@@ -1,0 +1,18 @@
+import "package:isar/isar.dart";
+import "package:path_provider/path_provider.dart";
+import "package:pi_mobile/data/collections/heart_rate.dart";
+import "package:riverpod_annotation/riverpod_annotation.dart";
+
+part "isar_provider.g.dart";
+
+@Riverpod(keepAlive: true)
+class IsarInstance extends _$IsarInstance {
+  @override
+  Future<Isar> build() async {
+    final a = await getApplicationDocumentsDirectory();
+    return Isar.open(
+      [HeartRateSchema],
+      directory: a.path,
+    );
+  }
+}

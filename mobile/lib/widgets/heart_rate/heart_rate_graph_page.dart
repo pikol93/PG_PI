@@ -4,7 +4,7 @@ import "package:fl_chart/fl_chart.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pi_mobile/logger.dart";
-import "package:pi_mobile/provider/heart_rate_chart_data_provider.dart";
+import "package:pi_mobile/provider/heart_rate_list_provider.dart";
 import "package:pi_mobile/widgets/common/x_axis_scrollable_chart.dart";
 
 class HeartRateGraphPage extends ConsumerWidget with Logger {
@@ -13,38 +13,49 @@ class HeartRateGraphPage extends ConsumerWidget with Logger {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final defaultVisibleXSize = const Duration(days: 30).inMilliseconds;
-    final data = ref.watch(heartRateChartDataProvider);
-    if (data.isEmpty) {
-      return const Center(child: Text("No data.")); // TODO: I18N
-    }
 
-    final minX = data.first.x;
-    final maxX = data.last.x;
-    final currentDataSize = (maxX - minX).toInt();
-    final visibleXSize = currentDataSize < defaultVisibleXSize
-        ? currentDataSize
-        : defaultVisibleXSize;
+    return ref.watch(heartRateChartDataProvider).when(
+          data: (data) {
+            if (data.isEmpty) {
+              return const Center(child: Text("No data.")); // TODO: I18N
+            }
 
-    return Center(
-      child: Column(
-        children: [
-          Expanded(
-            // aspectRatio: 2,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16.0),
-              child: XAxisScrollableChart(
-                minX: minX,
-                maxX: maxX,
-                visibleXSize: visibleXSize,
-                // TODO: This should not be a constant value
-                xScrollOffset: 0.001,
-                itemBuilder: (minX, maxX) => _chartBuilder(data, minX, maxX),
+            final minX = data.first.x;
+            final maxX = data.last.x;
+            final currentDataSize = (maxX - minX).toInt();
+            final visibleXSize = currentDataSize < defaultVisibleXSize
+                ? currentDataSize
+                : defaultVisibleXSize;
+
+            return Center(
+              child: Column(
+                children: [
+                  Expanded(
+                    // aspectRatio: 2,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 16.0),
+                      child: XAxisScrollableChart(
+                        minX: minX,
+                        maxX: maxX,
+                        visibleXSize: visibleXSize,
+                        // TODO: This should not be a constant value
+                        xScrollOffset: 0.001,
+                        itemBuilder: (minX, maxX) =>
+                            _chartBuilder(data, minX, maxX),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ),
+            );
+          },
+          error: (error, stack) => Center(
+            child: Text("$error"),
           ),
-        ],
-      ),
-    );
+          loading: () => const Center(
+            child: CircularProgressIndicator(),
+          ),
+        );
   }
 
   Widget _chartBuilder(List<FlSpot> spots, double minX, double maxX) =>

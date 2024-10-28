@@ -1,48 +1,67 @@
-import "dart:convert";
 import "dart:math";
 
-import "package:pi_mobile/data/heart_rate_entry.dart";
-import "package:pi_mobile/logger.dart";
+import "package:collection/collection.dart";
+import "package:fl_chart/fl_chart.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:isar/isar.dart";
+import "package:pi_mobile/data/collections/heart_rate.dart";
+import "package:pi_mobile/provider/isar_provider.dart";
 import "package:pi_mobile/utility/random.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
-import "package:shared_preferences/shared_preferences.dart";
 
 part "heart_rate_list_provider.g.dart";
 
-@Riverpod(keepAlive: true)
-class HeartRateList extends _$HeartRateList with Logger {
-  static const _keyName = "heart_rate";
+@riverpod
+Future<List<HeartRate>> heartRateList(HeartRateListRef ref) async {
+  final heartRateManager = await ref.watch(heartRateManagerProvider.future);
+  return heartRateManager.getAll();
+}
 
-  List<HeartRateEntry> entries = [];
+@riverpod
+Future<List<HeartRate>> sortedHeartRateList(SortedHeartRateListRef ref) async {
+  final heartRateList = await ref.watch(heartRateListProvider.future);
+  return heartRateList.sortedBy((entry) => entry.time).reversed.toList();
+}
 
-  @override
-  List<HeartRateEntry> build() => entries;
+@riverpod
+Future<List<FlSpot>> heartRateChartData(HeartRateChartDataRef ref) async {
+  final heartRateList = await ref.watch(heartRateListProvider.future);
+  return heartRateList
+      .map(
+        (entry) => FlSpot(
+          entry.time.millisecondsSinceEpoch.toDouble(),
+          entry.beatsPerMinute,
+        ),
+      )
+      .toList();
+}
 
-  Future<void> init() async {
-    await _readAndUpdateFromStorage();
-  }
+@riverpod
+Future<HeartRateManager> heartRateManager(HeartRateManagerRef ref) async {
+  final isar = await ref.watch(isarInstanceProvider.future);
+  return HeartRateManager(ref: ref, isar: isar);
+}
 
-  Future<void> addEntry(HeartRateEntry entry) async {
-    entries.add(entry);
-    await _writeToStorage();
+class HeartRateManager {
+  final Ref ref;
+  final Isar isar;
 
+  HeartRateManager({
+    required this.ref,
+    required this.isar,
+  });
+
+  Future<int> save(HeartRate entry) async {
+    final result = await _save(entry);
     ref.invalidateSelf();
+    return result;
   }
 
-  Future<void> replace(HeartRateEntry oldEntry, HeartRateEntry newEntry) async {
-    entries.remove(oldEntry);
-    entries.add(newEntry);
-    await _writeToStorage();
+  Future<List<HeartRate>> getAll() => isar.heartRates.where().findAll();
 
-    ref.invalidateSelf();
-  }
+  Future<HeartRate?> getById(int id) => isar.heartRates.get(id);
 
-  Future<void> clear() async {
-    final preferences = SharedPreferencesAsync();
-    await preferences.remove(_keyName);
-
-    ref.invalidateSelf();
-  }
+  Future<void> clear() => isar.writeTxn(() => isar.heartRates.clear());
 
   Future<void> generateHeartRateData() async {
     final random = Random();
@@ -65,32 +84,16 @@ class HeartRateList extends _$HeartRateList with Logger {
       final trendIncrease = progress * trend;
       final baseHeartRate = random.nextRange(minHeartRate, maxHeartRate);
       final actualHeartRate = baseHeartRate + trendIncrease;
-      final entry = HeartRateEntry(
-        dateTime: currentTime,
-        beatsPerMinute: actualHeartRate,
-      );
+      final entry = HeartRate()
+        ..time = currentTime
+        ..beatsPerMinute = actualHeartRate;
 
-      entries.add(entry);
+      await _save(entry);
     }
 
     ref.invalidateSelf();
   }
 
-  Future<void> _readAndUpdateFromStorage() async {
-    final preferences = SharedPreferencesAsync();
-    final jsonList = await preferences.getStringList(_keyName) ?? [];
-    final readTracks = jsonList
-        .map((json) => HeartRateEntry.fromJson(jsonDecode(json)))
-        .toList();
-
-    logger.debug("Read ${readTracks.length} heart rate instances");
-    entries = readTracks;
-    ref.invalidateSelf();
-  }
-
-  Future<void> _writeToStorage() async {
-    final preferences = SharedPreferencesAsync();
-    final jsonList = entries.map(jsonEncode).toList();
-    return preferences.setStringList(_keyName, jsonList);
-  }
+  Future<int> _save(HeartRate entry) =>
+      isar.writeTxn(() => isar.heartRates.put(entry));
 }

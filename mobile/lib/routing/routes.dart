@@ -5,7 +5,6 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:go_router/go_router.dart";
 import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/provider/battery_permissions_provider.dart";
-import "package:pi_mobile/provider/heart_rate_list_provider.dart";
 import "package:pi_mobile/provider/location_permissions_provider.dart";
 import "package:pi_mobile/provider/notification_permissions_provider.dart";
 import "package:pi_mobile/provider/overlays_permissions_provider.dart";
@@ -231,7 +230,7 @@ class ExercisesRoute extends GoRouteData with Logger {
   path: "/heart_rate",
   routes: <TypedGoRoute>[
     TypedGoRoute<AddHeartRateRoute>(path: "add"),
-    TypedGoRoute<ModifyHeartRateRoute>(path: "modify/:entryTimestamp"),
+    TypedGoRoute<ModifyHeartRateRoute>(path: "modify/:entryId"),
   ],
 )
 class HeartRateRoute extends GoRouteData {
@@ -254,25 +253,17 @@ class AddHeartRateRoute extends GoRouteData {
 }
 
 class ModifyHeartRateRoute extends GoRouteData {
-  final int entryTimestamp;
+  final int entryId;
 
   const ModifyHeartRateRoute({
-    required this.entryTimestamp,
+    required this.entryId,
   });
 
   @override
-  Widget build(BuildContext context, GoRouterState state) {
-    final entry = ProviderScope.containerOf(context)
-        .read(heartRateListProvider)
-        .where(
-          (entry) => entry.dateTime.millisecondsSinceEpoch == entryTimestamp,
-        )
-        .firstOrNull;
-
-    return ModifyHeartRateScreen(
-      baseEntry: entry,
-    );
-  }
+  Widget build(BuildContext context, GoRouterState state) =>
+      ModifyHeartRateScreen(
+        entryId: entryId,
+      );
 }
 
 @TypedGoRoute<SettingsRoute>(path: "/settings")

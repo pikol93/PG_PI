@@ -124,7 +124,9 @@ class _ModifyHeartRateScreenState extends ConsumerState<ModifyHeartRateScreen>
       logger.debug("Adding a new heart rate entry: $newEntry");
       await notifier.addEntry(newEntry);
     } else {
-      logger.debug("Replacing heart rate entry ${widget.baseEntry} with $newEntry");
+      logger.debug(
+        "Replacing heart rate entry ${widget.baseEntry} with $newEntry",
+      );
       await notifier.replace(widget.baseEntry!, newEntry);
     }
 

@@ -5,6 +5,7 @@ import "package:fl_location/fl_location.dart";
 import "package:flutter_foreground_task/flutter_foreground_task.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:loggy/loggy.dart";
+import "package:pi_mobile/data/collections/track.dart";
 import "package:pi_mobile/data/location.dart" as internal;
 import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/provider/recorded_track_provider.dart";
@@ -113,7 +114,12 @@ class ReceiveTaskDataProcessor with Logger {
     }
     final locationMap = jsonDecode(data);
     final location = internal.Location.fromJson(locationMap);
+    // TODO: Skip Location into LocationRecord conversion
+    final locationRecord = LocationRecord()
+      ..latitude = location.latitude
+      ..longitude = location.longitude
+      ..dateTime = location.dateTime;
 
-    ref.read(recordedTrackProvider.notifier).appendLocation(location);
+    ref.read(recordedTrackProvider.notifier).appendLocation(locationRecord);
   }
 }

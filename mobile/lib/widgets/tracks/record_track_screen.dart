@@ -4,12 +4,11 @@ import "package:awesome_flutter_extensions/awesome_flutter_extensions.dart";
 import "package:flutter/material.dart";
 import "package:flutter_foreground_task/flutter_foreground_task.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:pi_mobile/data/track.dart";
+import "package:pi_mobile/data/collections/track.dart";
 import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/main.dart";
 import "package:pi_mobile/provider/processed_recorded_track_provider.dart";
 import "package:pi_mobile/provider/recorded_track_provider.dart";
-import "package:pi_mobile/provider/selected_track_provider.dart";
 import "package:pi_mobile/provider/tracks_provider.dart";
 import "package:pi_mobile/routing/routes.dart";
 import "package:pi_mobile/widgets/tracks/record_track_bottom_sheet.dart";
@@ -58,7 +57,7 @@ class _RecordTrackScreenState extends ConsumerState<RecordTrackScreen>
       bottomSheet: const RecordTrackBottomSheet(),
       body: Column(
         children: [
-          Text(track.uuid),
+          Text("${track.id}"),
           Text("Average velocity: ${processedTrack.averageVelocity}"),
           Expanded(
             child: ListView.builder(
@@ -95,11 +94,11 @@ class _RecordTrackScreenState extends ConsumerState<RecordTrackScreen>
     unawaited(_stopService());
 
     ref.read(recordedTrackProvider.notifier).clear();
-    await ref.read(tracksProvider.notifier).addTrack(track);
-    ref.read(selectedTrackProvider.notifier).updateTrack(track);
+    final manager = await ref.read(tracksManagerProvider.future);
+    final id = await manager.save(track);
 
     if (context.mounted) {
-      const TrackDetailsRoute().go(context);
+      TrackDetailsRoute(trackId: id).go(context);
     }
   }
 

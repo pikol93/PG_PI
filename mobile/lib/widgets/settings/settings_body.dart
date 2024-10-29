@@ -12,6 +12,7 @@ import "package:pi_mobile/provider/heart_rate_list_provider.dart";
 import "package:pi_mobile/provider/package_info_provider.dart";
 import "package:pi_mobile/provider/stored_locale_provider.dart";
 import "package:pi_mobile/provider/theme_provider.dart";
+import "package:pi_mobile/provider/tracks_provider.dart";
 import "package:pi_mobile/service/stored_locale_service.dart";
 import "package:pi_mobile/widgets/settings/development_setting.dart";
 import "package:pi_mobile/widgets/settings/setting_button.dart";
@@ -31,6 +32,8 @@ class SettingsBody extends StatelessWidget {
             _LogOffSetting(),
             _GenerateHeartRateDataSetting(),
             _ClearHeartRateDataSetting(),
+            _GenerateTracksSetting(),
+            _ClearTracksSetting(),
             _DisableDevelopmentModeSetting(),
             _AppInfoSetting(),
           ],
@@ -218,6 +221,46 @@ class _ClearHeartRateDataSetting extends ConsumerWidget {
 
   Future<void> _onClearPressed(BuildContext context, WidgetRef ref) async {
     final manager = await ref.read(heartRateManagerProvider.future);
+    return manager.clear();
+  }
+}
+
+class _GenerateTracksSetting extends ConsumerWidget {
+  const _GenerateTracksSetting();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) => DevelopmentSetting(
+        child: SettingButton(
+          icon: Icons.navigation,
+          title: "Generate tracks",
+          requiresConfirmation: true,
+          alertTitle: "Are you sure you want to generate tracks",
+          onConfirmed: () => _onGeneratePressed(context, ref),
+        ),
+      );
+
+  Future<void> _onGeneratePressed(BuildContext context, WidgetRef ref) async {
+    final manager = await ref.read(tracksManagerProvider.future);
+    await manager.generateTracks();
+  }
+}
+
+class _ClearTracksSetting extends ConsumerWidget {
+  const _ClearTracksSetting();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) => DevelopmentSetting(
+        child: SettingButton(
+          icon: Icons.navigation,
+          title: "Clear tracks data",
+          requiresConfirmation: true,
+          alertTitle: "Are you sure you want to clear tracks data",
+          onConfirmed: () => _onClearPressed(context, ref),
+        ),
+      );
+
+  Future<void> _onClearPressed(BuildContext context, WidgetRef ref) async {
+    final manager = await ref.read(tracksManagerProvider.future);
     return manager.clear();
   }
 }

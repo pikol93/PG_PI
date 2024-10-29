@@ -2,10 +2,9 @@ import "package:awesome_flutter_extensions/awesome_flutter_extensions.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:intl/intl.dart";
-import "package:pi_mobile/data/track.dart";
+import "package:pi_mobile/data/collections/track.dart";
 import "package:pi_mobile/logger.dart";
-import "package:pi_mobile/provider/selected_track_provider.dart";
-import "package:pi_mobile/provider/time_sorted_tracks_provider.dart";
+import "package:pi_mobile/provider/tracks_provider.dart";
 import "package:pi_mobile/routing/routes.dart";
 import "package:pi_mobile/utility/duration.dart";
 
@@ -16,7 +15,7 @@ class TracksList extends ConsumerWidget with Logger {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) =>
-      ref.watch(timeSortedTracksProvider).when(
+      ref.watch(tracksTempProvider).when(
             error: (error, stack) => Text("Could not fetch tracks. $error"),
             loading: () => const Center(child: CircularProgressIndicator()),
             data: (tracks) => ListView.builder(
@@ -76,8 +75,7 @@ class TracksList extends ConsumerWidget with Logger {
   }
 
   void _onTrackTapped(BuildContext context, WidgetRef ref, Track track) {
-    logger.debug("Track tapped: ${track.uuid}");
-    ref.read(selectedTrackProvider.notifier).updateTrack(track);
-    const TrackDetailsRoute().go(context);
+    logger.debug("Track tapped: ${track.id}");
+    TrackDetailsRoute(trackId: track.id).go(context);
   }
 }

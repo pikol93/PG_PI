@@ -12,4 +12,10 @@ extension RandomExtension on Random {
     final diff = nextInt(range);
     return min + diff;
   }
+
+  double nextRangeDouble(double min, double max) {
+    final range = max - min;
+    final diff = nextDouble() * range;
+    return min + diff;
+  }
 }

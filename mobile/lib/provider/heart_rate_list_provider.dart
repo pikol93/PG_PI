@@ -1,6 +1,5 @@
 import "dart:math";
 
-import "package:collection/collection.dart";
 import "package:fl_chart/fl_chart.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:isar/isar.dart";
@@ -19,8 +18,8 @@ Future<List<HeartRate>> heartRateList(HeartRateListRef ref) async {
 
 @riverpod
 Future<List<HeartRate>> sortedHeartRateList(SortedHeartRateListRef ref) async {
-  final heartRateList = await ref.watch(heartRateListProvider.future);
-  return heartRateList.sortedBy((entry) => entry.time).reversed.toList();
+  final heartRateManager = await ref.watch(heartRateManagerProvider.future);
+  return heartRateManager.getAllSortedByTime();
 }
 
 @riverpod
@@ -58,6 +57,9 @@ class HeartRateManager {
   }
 
   Future<List<HeartRate>> getAll() => isar.heartRates.where().findAll();
+
+  Future<List<HeartRate>> getAllSortedByTime() =>
+      isar.heartRates.where().sortByTimeDesc().findAll();
 
   Future<HeartRate?> getById(int id) => isar.heartRates.get(id);
 

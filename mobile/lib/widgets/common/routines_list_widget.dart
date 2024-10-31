@@ -34,15 +34,11 @@ class RoutinesListWidget extends StatelessWidget {
               ],
             ),
             onTap: () {
-              _onTap(context, routine.uuid);
+              _onEditRoutine(context, routine);
             },
           );
         },
       );
-
-  void _onTap(BuildContext context, String routineUuid) {
-    EditRoutineSchemaRoute(routineUuid: routineUuid).go(context);
-  }
 
   void _onStartRoutine(BuildContext context, RoutineSchema routine) {
     ScaffoldMessenger.of(context).showSnackBar(
@@ -67,7 +63,6 @@ class RoutinesListWidget extends StatelessWidget {
           ),
           TextButton(
             onPressed: () {
-              Navigator.of(context).pop();
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text("Usunięto rutynę: ${routine.name}")),
               );

@@ -101,12 +101,13 @@ class _EditExerciseSchemaScreen
                                 final set = exercise.sets[index];
                                 return ListTile(
                                   title: Text(
-                                      "${context.t.routines.set}"
-                                          " ${index + 1}",),
-                                  subtitle: Text(
-                                      "${context.t.routines.intensity}:"
+                                    "${context.t.routines.set}"
+                                    " ${index + 1}",
+                                  ),
+                                  subtitle:
+                                      Text("${context.t.routines.intensity}:"
                                           " ${set.intensity} \n"
-                                      "${context.t.routines.reps}:"
+                                          "${context.t.routines.reps}:"
                                           " ${set.reps}"),
                                   onTap: () {
                                     _onTap(
@@ -125,7 +126,8 @@ class _EditExerciseSchemaScreen
                       );
                     }
                     return Center(
-                        child: Text(context.t.routines.noDataAvailable),);
+                      child: Text(context.t.routines.noDataAvailable),
+                    );
                   },
                 ),
               ],
@@ -198,12 +200,12 @@ class _EditExerciseSchemaScreen
           ),
         );
 
-    if (context.mounted) {
-      EditWorkoutSchemaRoute(
-        routineUuid: widget.routineUuid,
-        workoutUuid: widget.workoutUuid,
-      ).go(context);
-    }
+    // if (context.mounted) {
+    //   EditWorkoutSchemaRoute(
+    //     routineUuid: widget.routineUuid,
+    //     workoutUuid: widget.workoutUuid,
+    //   ).go(context);
+    // }
   }
 
   void _onTap(

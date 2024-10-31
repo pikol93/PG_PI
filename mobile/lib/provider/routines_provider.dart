@@ -37,13 +37,37 @@ class Routines extends _$Routines with Logger {
     ref.invalidateSelf();
   }
 
-  Future<List<WorkoutSchema>> getWorkouts(String routineUuid) async {
+  Future<RoutineSchema> getRoutine(String routineUuid) async {
     final list = await ref.read(routinesProvider.future);
-    return list.firstWhere((routine) => routineUuid == routine.uuid).workouts;
+    return list.firstWhere((routine) => routineUuid == routine.uuid);
+  }
+
+  Future<void> updateRoutine(
+    RoutineSchema updatedRoutine,
+  ) async {
+    final routines = await ref.read(routinesProvider.future);
+
+    final updatedRoutines = routines.toList().map((routine) {
+      if (routine.uuid == updatedRoutine.uuid) {
+        return routine.copyWith(
+          name: updatedRoutine.name,
+          description: updatedRoutine.description,
+        );
+      }
+      return routine;
+    }).toList();
+
+    final preferences = SharedPreferencesAsync();
+    final jsonList = updatedRoutines.map(jsonEncode).toList();
+    await preferences.setStringList(_keyName, jsonList);
+
+    ref.invalidateSelf();
   }
 
   Future<WorkoutSchema> getWorkout(
-      String routineUuid, String workoutUuid,) async {
+    String routineUuid,
+    String workoutUuid,
+  ) async {
     final list = await ref.read(routinesProvider.future);
     return list
         .firstWhere((routine) => routineUuid == routine.uuid)
@@ -83,6 +107,26 @@ class Routines extends _$Routines with Logger {
           }
           return workout;
         }).toList();
+        return routine.copyWith(workouts: updatedWorkouts);
+      }
+      return routine;
+    }).toList();
+
+    final preferences = SharedPreferencesAsync();
+    final jsonList = updatedRoutines.map(jsonEncode).toList();
+    await preferences.setStringList(_keyName, jsonList);
+
+    ref.invalidateSelf();
+  }
+
+  Future<void> deleteWorkout(String routineUuid, String workoutUuid) async {
+    final routines = await ref.read(routinesProvider.future);
+
+    final updatedRoutines = routines.toList().map((routine) {
+      if (routine.uuid == routineUuid) {
+        final updatedWorkouts = routine.workouts
+            .where((workout) => workout.uuid != workoutUuid)
+            .toList();
         return routine.copyWith(workouts: updatedWorkouts);
       }
       return routine;
@@ -183,6 +227,36 @@ class Routines extends _$Routines with Logger {
     ref.invalidateSelf();
   }
 
+  Future<void> deleteExercise(
+    String routineUuid,
+    String workoutUuid,
+    String exerciseUuid,
+  ) async {
+    final routines = await ref.read(routinesProvider.future);
+
+    final updatedRoutines = routines.toList().map((routine) {
+      if (routine.uuid == routineUuid) {
+        final updatedWorkouts = routine.workouts.map((workout) {
+          if (workout.uuid == workoutUuid) {
+            final updatedExercises = workout.exercisesSchemas
+                .where((exercise) => exercise.uuid != exerciseUuid)
+                .toList();
+            return workout.copyWith(exercisesSchemas: updatedExercises);
+          }
+          return workout;
+        }).toList();
+        return routine.copyWith(workouts: updatedWorkouts);
+      }
+      return routine;
+    }).toList();
+
+    final preferences = SharedPreferencesAsync();
+    final jsonList = updatedRoutines.map(jsonEncode).toList();
+    await preferences.setStringList(_keyName, jsonList);
+
+    ref.invalidateSelf();
+  }
+
   Future<List<StrengthExerciseSetSchema>> getExerciseSets(
     String routineUuid,
     String workoutUuid,
@@ -265,7 +339,8 @@ class Routines extends _$Routines with Logger {
                     // return updatedSet;
                     return set.copyWith(
                       intensity: updatedSet.intensity,
-                      reps: updatedSet.reps,);
+                      reps: updatedSet.reps,
+                    );
                   }
                   return set;
                 }).toList();

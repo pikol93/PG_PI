@@ -1,9 +1,11 @@
 import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pi_mobile/data/strength_exercise_schema.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
+import "package:pi_mobile/provider/routines_provider.dart";
 import "package:pi_mobile/routing/routes.dart";
 
-class ExercisesListWidget extends StatelessWidget {
+class ExercisesListWidget extends ConsumerStatefulWidget {
   final String routineUuid;
   final String workoutUuid;
   final List<StrengthExerciseSchema> exercises;
@@ -16,18 +18,36 @@ class ExercisesListWidget extends StatelessWidget {
   });
 
   @override
+  ConsumerState<ExercisesListWidget> createState() => _ExercisesListWidget();
+}
+
+class _ExercisesListWidget extends ConsumerState<ExercisesListWidget> {
+  @override
   Widget build(BuildContext context) => ListView.builder(
         padding: const EdgeInsets.all(8),
-        itemCount: exercises.length,
+        itemCount: widget.exercises.length,
         itemBuilder: (context, index) {
-          final exercise = exercises[index];
-          return ListTile(
-            title: Text(exercise.name),
-            subtitle: Text(
-                "${context.t.routines.amountOfSets}: ${exercise.sets.length}",),
-            onTap: () {
-              _onTap(context, routineUuid, workoutUuid, exercise.uuid);
-            },
+          final exercise = widget.exercises[index];
+          return Row(
+            children: [
+              Expanded(
+                child: ListTile(
+                  title: Text(exercise.name),
+                  subtitle: Text(
+                    "${context.t.routines.amountOfSets}: "
+                        "${exercise.sets.length}",
+                  ),
+                  onTap: () {
+                    _onTap(context, widget.routineUuid, widget.workoutUuid,
+                        exercise.uuid,);
+                  },
+                ),
+              ),
+              IconButton(
+                icon: const Icon(Icons.delete),
+                onPressed: () => _onDeleteButtonPressed(context, exercise),
+              ),
+            ],
           );
         },
       );
@@ -44,4 +64,13 @@ class ExercisesListWidget extends StatelessWidget {
       exerciseUuid: exerciseUuid,
     ).go(context);
   }
+
+  Future<void> _onDeleteButtonPressed(
+      BuildContext context, StrengthExerciseSchema exercise,) async {
+    await ref
+        .read(routinesProvider.notifier)
+        .deleteExercise(widget.routineUuid, widget.workoutUuid, exercise.uuid);
+  }
+
+  // no refresh yet
 }

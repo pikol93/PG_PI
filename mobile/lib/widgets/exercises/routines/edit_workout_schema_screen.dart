@@ -63,35 +63,37 @@ class _EditWorkoutSchemaScreen extends ConsumerState<EditWorkoutSchemaScreen> {
             }
 
             return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 8.0),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: TextField(
-                          controller: _nameController,
-                          decoration: const InputDecoration(
-                            labelText: "Nazwa workoutu",
-                            border: OutlineInputBorder(),
-                          ),
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 8.0),
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        controller: _nameController,
+                        decoration: const InputDecoration(
+                          labelText: "Nazwa workoutu",
+                          border: OutlineInputBorder(),
                         ),
                       ),
-                      IconButton(
-                        icon: const Icon(Icons.save),
-                        onPressed: () => _saveWorkoutName(context),
-                      ),
-                    ],
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.save),
+                      onPressed: () => _saveWorkoutName(context),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 16.0),
+                SizedBox(
+                  height: 500,
+                  child: ExercisesListWidget(
+                    exercises: workout.exercisesSchemas,
+                    routineUuid: widget.routineUuid,
+                    workoutUuid: widget.workoutUuid,
                   ),
-                  const SizedBox(height: 16.0),
-                  SizedBox(
-                      height: 500,
-                      child: ExercisesListWidget(
-                        exercises: workout.exercisesSchemas,
-                        routineUuid: widget.routineUuid,
-                        workoutUuid: widget.workoutUuid,
-                      ),),
-                ],);
+                ),
+              ],
+            );
           }
 
           return Center(child: Text(context.t.routines.noDataAvailable));
@@ -108,11 +110,13 @@ class _EditWorkoutSchemaScreen extends ConsumerState<EditWorkoutSchemaScreen> {
 
   Future<void> _saveWorkoutName(BuildContext context) async {
     await ref.read(routinesProvider.notifier).updateWorkout(
-        widget.routineUuid,
-        WorkoutSchema(
+          widget.routineUuid,
+          WorkoutSchema(
             uuid: widget.workoutUuid,
             name: _nameController.text,
-            exercisesSchemas: [],),);
+            exercisesSchemas: [],
+          ),
+        );
   }
 
   Future<void> _onAddButtonPressed(BuildContext context) async {

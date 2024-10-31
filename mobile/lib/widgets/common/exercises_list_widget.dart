@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:pi_mobile/data/strength_exercise_schema.dart";
+import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/routing/routes.dart";
 
 class ExercisesListWidget extends StatelessWidget {
@@ -22,7 +23,8 @@ class ExercisesListWidget extends StatelessWidget {
           final exercise = exercises[index];
           return ListTile(
             title: Text(exercise.name),
-            subtitle: Text("${exercise.uuid}  ${exercise.sets.length}"),
+            subtitle: Text(
+                "${context.t.routines.amountOfSets}: ${exercise.sets.length}",),
             onTap: () {
               _onTap(context, routineUuid, workoutUuid, exercise.uuid);
             },
@@ -30,8 +32,12 @@ class ExercisesListWidget extends StatelessWidget {
         },
       );
 
-  void _onTap(BuildContext context, String routineUuid, String workoutUuid,
-      String exerciseUuid,) {
+  void _onTap(
+    BuildContext context,
+    String routineUuid,
+    String workoutUuid,
+    String exerciseUuid,
+  ) {
     EditExerciseSchemaRoute(
       routineUuid: routineUuid,
       workoutUuid: workoutUuid,

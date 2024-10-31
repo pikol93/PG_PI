@@ -236,7 +236,8 @@ class RequestBatteryPermissionRoute extends GoRouteData {
                   path: ":exerciseUuid",
                   routes: <TypedGoRoute<GoRouteData>>[
                     TypedGoRoute<EditExerciseSetSchemaRoute>(
-                        path: "exerciseSetUuid",),
+                      path: "exerciseSetUuid",
+                    ),
                   ],
                 ),
               ],

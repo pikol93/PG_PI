@@ -33,7 +33,7 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
                 onPressed: () {
                   _onRoutinesButtonPressed(context);
                 },
-                child: const Text("Rutyny"),
+                child: Text(context.t.routines.title),
               ),
               ElevatedButton(
                 onPressed: () async {

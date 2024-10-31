@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pi_mobile/data/strength_exercise_schema.dart";
 import "package:pi_mobile/data/strength_exercise_set_schema.dart";
+import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/provider/routines_provider.dart";
 import "package:pi_mobile/routing/routes.dart";
 import "package:uuid/uuid.dart";
@@ -45,7 +46,7 @@ class _EditExerciseSchemaScreen
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Exercise: ${widget.exerciseUuid}"),
+        title: Text("${context.t.routines.exercise}: ${widget.exerciseUuid}"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -73,35 +74,40 @@ class _EditExerciseSchemaScreen
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text("Edit Exercise Name"),
                           const SizedBox(height: 8.0),
                           TextField(
                             controller: _nameController,
-                            decoration: const InputDecoration(
-                              labelText: "Exercise Name",
-                              border: OutlineInputBorder(),
+                            decoration: InputDecoration(
+                              labelText: context.t.routines.exerciseName,
+                              border: const OutlineInputBorder(),
                             ),
                           ),
+                          const SizedBox(height: 16.0),
                           TextField(
                             controller: _restTimeController,
-                            decoration: const InputDecoration(
-                              labelText: "Rest time",
-                              border: OutlineInputBorder(),
+                            decoration: InputDecoration(
+                              labelText: context.t.routines.restTime,
+                              border: const OutlineInputBorder(),
                             ),
                           ),
                           const SizedBox(height: 16.0),
                           // Wrap ListView.builder in Expanded
                           SizedBox(
-                            height: 200,
+                            height: 500,
                             child: ListView.builder(
                               padding: const EdgeInsets.all(8),
                               itemCount: exercise.sets.length,
                               itemBuilder: (context, index) {
                                 final set = exercise.sets[index];
                                 return ListTile(
-                                  title: Text(set.uuid),
-                                  subtitle:
-                                      Text("${set.intensity}  ${set.reps}"),
+                                  title: Text(
+                                      "${context.t.routines.set}"
+                                          " ${index + 1}",),
+                                  subtitle: Text(
+                                      "${context.t.routines.intensity}:"
+                                          " ${set.intensity} \n"
+                                      "${context.t.routines.reps}:"
+                                          " ${set.reps}"),
                                   onTap: () {
                                     _onTap(
                                       context,
@@ -118,7 +124,8 @@ class _EditExerciseSchemaScreen
                         ],
                       );
                     }
-                    return const Center(child: Text("No data available"));
+                    return Center(
+                        child: Text(context.t.routines.noDataAvailable),);
                   },
                 ),
               ],
@@ -157,9 +164,16 @@ class _EditExerciseSchemaScreen
 
   Future<void> _addNewSet(BuildContext context) async {
     final newSet = StrengthExerciseSetSchema(
-        reps: 10, intensity: 20, uuid: const Uuid().v4(),);
+      reps: 8,
+      intensity: 70,
+      uuid: const Uuid().v4(),
+    );
     await ref.read(routinesProvider.notifier).addExerciseSet(
-        widget.routineUuid, widget.workoutUuid, widget.exerciseUuid, newSet,);
+          widget.routineUuid,
+          widget.workoutUuid,
+          widget.exerciseUuid,
+          newSet,
+        );
 
     if (context.mounted) {
       EditExerciseSetSchemaRoute(
@@ -192,13 +206,18 @@ class _EditExerciseSchemaScreen
     }
   }
 
-  void _onTap(BuildContext context, String routineUuid, String workoutUuid,
-      String exerciseUuid, String setUuid,) {
+  void _onTap(
+    BuildContext context,
+    String routineUuid,
+    String workoutUuid,
+    String exerciseUuid,
+    String setUuid,
+  ) {
     EditExerciseSetSchemaRoute(
-            routineUuid: routineUuid,
-            workoutUuid: workoutUuid,
-            exerciseUuid: exerciseUuid,
-            exerciseSetUuid: setUuid,)
-        .go(context);
+      routineUuid: routineUuid,
+      workoutUuid: workoutUuid,
+      exerciseUuid: exerciseUuid,
+      exerciseSetUuid: setUuid,
+    ).go(context);
   }
 }

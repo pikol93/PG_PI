@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pi_mobile/data/strength_exercise_set_schema.dart";
+import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/provider/routines_provider.dart";
 import "package:pi_mobile/routing/routes.dart";
 
@@ -38,10 +39,11 @@ class _EditExerciseSetSchemaScreen
   @override
   Widget build(BuildContext context) {
     final setFuture = ref.read(routinesProvider.notifier).getExerciseSet(
-        widget.routineUuid,
-        widget.workoutUuid,
-        widget.exerciseUuid,
-        widget.exerciseSetUuid,);
+          widget.routineUuid,
+          widget.workoutUuid,
+          widget.exerciseUuid,
+          widget.exerciseSetUuid,
+        );
 
     return Scaffold(
       appBar: AppBar(
@@ -68,28 +70,28 @@ class _EditExerciseSetSchemaScreen
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text("Edit Exercise Name"),
+                      Text(context.t.routines.editExerciseName),
                       const SizedBox(height: 8.0),
                       TextField(
                         controller: _intensityController,
-                        decoration: const InputDecoration(
-                          labelText: "Intensity: ",
-                          border: OutlineInputBorder(),
+                        decoration: InputDecoration(
+                          labelText: context.t.routines.intensity,
+                          border: const OutlineInputBorder(),
                         ),
                       ),
                       const SizedBox(height: 16.0),
                       TextField(
                         controller: _repsController,
-                        decoration: const InputDecoration(
-                          labelText: "Reps: ",
-                          border: OutlineInputBorder(),
+                        decoration: InputDecoration(
+                          labelText: context.t.routines.reps,
+                          border: const OutlineInputBorder(),
                         ),
                       ),
                     ],
                   );
                 }
 
-                return const Center(child: Text("No data available"));
+                return Center(child: Text(context.t.routines.noDataAvailable));
               },
             ),
           ],

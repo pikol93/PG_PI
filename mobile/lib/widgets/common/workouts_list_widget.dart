@@ -6,8 +6,11 @@ class WorkoutsListWidget extends StatelessWidget {
   final String routineUuid;
   final List<WorkoutSchema> workouts;
 
-  const WorkoutsListWidget(
-      {super.key, required this.workouts, required this.routineUuid,});
+  const WorkoutsListWidget({
+    super.key,
+    required this.workouts,
+    required this.routineUuid,
+  });
 
   @override
   Widget build(BuildContext context) => ListView.builder(

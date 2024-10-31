@@ -16,6 +16,23 @@ class RoutinesListWidget extends StatelessWidget {
           return ListTile(
             title: Text(routine.name),
             subtitle: Text(routine.uuid),
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.play_arrow),
+                  onPressed: () => _onStartRoutine(context, routine),
+                ),
+                IconButton(
+                  icon: const Icon(Icons.edit),
+                  onPressed: () => _onEditRoutine(context, routine),
+                ),
+                IconButton(
+                  icon: const Icon(Icons.delete),
+                  onPressed: () => _onDeleteRoutine(context, routine),
+                ),
+              ],
+            ),
             onTap: () {
               _onTap(context, routine.uuid);
             },
@@ -25,5 +42,40 @@ class RoutinesListWidget extends StatelessWidget {
 
   void _onTap(BuildContext context, String routineUuid) {
     EditRoutineSchemaRoute(routineUuid: routineUuid).go(context);
+  }
+
+  void _onStartRoutine(BuildContext context, RoutineSchema routine) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Rozpoczynasz rutynę: ${routine.name}")),
+    );
+  }
+
+  void _onEditRoutine(BuildContext context, RoutineSchema routine) {
+    EditRoutineSchemaRoute(routineUuid: routine.uuid).go(context);
+  }
+
+  void _onDeleteRoutine(BuildContext context, RoutineSchema routine) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text("Usuń rutynę"),
+        content: Text('Czy na pewno chcesz usunąć rutynę "${routine.name}"?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text("Anuluj"),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text("Usunięto rutynę: ${routine.name}")),
+              );
+            },
+            child: const Text("Usuń"),
+          ),
+        ],
+      ),
+    );
   }
 }

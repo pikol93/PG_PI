@@ -12,7 +12,7 @@ part "routines_provider.g.dart";
 
 @Riverpod(keepAlive: true)
 class Routines extends _$Routines with Logger {
-  static const _keyName = "routines";
+  static const _keyName = "routines2";
 
   @override
   Future<List<RoutineSchema>> build() async {
@@ -42,6 +42,15 @@ class Routines extends _$Routines with Logger {
     return list.firstWhere((routine) => routineUuid == routine.uuid).workouts;
   }
 
+  Future<WorkoutSchema> getWorkout(
+      String routineUuid, String workoutUuid,) async {
+    final list = await ref.read(routinesProvider.future);
+    return list
+        .firstWhere((routine) => routineUuid == routine.uuid)
+        .workouts
+        .firstWhere((workout) => workoutUuid == workout.uuid);
+  }
+
   Future<void> addWorkout(String routineUuid, WorkoutSchema workout) async {
     final routines = await ref.read(routinesProvider.future);
 
@@ -49,6 +58,32 @@ class Routines extends _$Routines with Logger {
       if (routine.uuid == routineUuid) {
         final newListOfWorkouts = routine.workouts + [workout];
         return routine.copyWith(workouts: newListOfWorkouts);
+      }
+      return routine;
+    }).toList();
+
+    final preferences = SharedPreferencesAsync();
+    final jsonList = updatedRoutines.map(jsonEncode).toList();
+    await preferences.setStringList(_keyName, jsonList);
+
+    ref.invalidateSelf();
+  }
+
+  Future<void> updateWorkout(
+    String routineUuid,
+    WorkoutSchema updatedWorkout,
+  ) async {
+    final routines = await ref.read(routinesProvider.future);
+
+    final updatedRoutines = routines.toList().map((routine) {
+      if (routine.uuid == routineUuid) {
+        final updatedWorkouts = routine.workouts.map((workout) {
+          if (workout.uuid == updatedWorkout.uuid) {
+            return workout.copyWith(name: updatedWorkout.name);
+          }
+          return workout;
+        }).toList();
+        return routine.copyWith(workouts: updatedWorkouts);
       }
       return routine;
     }).toList();
@@ -124,7 +159,11 @@ class Routines extends _$Routines with Logger {
           if (workout.uuid == workoutUuid) {
             final updatedExercises = workout.exercisesSchemas.map((exercise) {
               if (exercise.uuid == updatedExercise.uuid) {
-                return updatedExercise;
+                return exercise.copyWith(
+                  name: updatedExercise.name,
+                  restTime: updatedExercise.restTime,
+                );
+                // return updatedExercise;
               }
               return exercise;
             }).toList();
@@ -223,7 +262,10 @@ class Routines extends _$Routines with Logger {
               if (exercise.uuid == exerciseUuid) {
                 final updatedSets = exercise.sets.map((set) {
                   if (set.uuid == updatedSet.uuid) {
-                    return updatedSet;
+                    // return updatedSet;
+                    return set.copyWith(
+                      intensity: updatedSet.intensity,
+                      reps: updatedSet.reps,);
                   }
                   return set;
                 }).toList();

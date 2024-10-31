@@ -16,6 +16,18 @@
   "tracks": {
     "title": "Trasy"
   },
+  "routines": {
+    "title": "Rutyny",
+    "intensity": "Intensywność",
+    "exercise": "Ćwiczenie",
+    "editExerciseName": "Edytuj nazwę ćwiczenia",
+    "exerciseName": "Nazwa ćwiczenia",
+    "restTime": "Czas odpoczynku",
+    "set": "Seria",
+    "amountOfSets": "Ilość serii",
+    "reps": "Ilość powtórzeń",
+    "noDataAvailable": "Brak dostępnych danych"
+  },
   "exercises": {
     "title": "Ćwiczenia",
     "start": "Rozpocznij nowy trening",

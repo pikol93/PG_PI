@@ -3,20 +3,21 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pi_mobile/data/workout_schema.dart";
 import "package:pi_mobile/provider/routines_provider.dart";
 import "package:pi_mobile/routing/routes.dart";
+import "package:pi_mobile/widgets/common/workouts_list_widget.dart";
 import "package:uuid/uuid.dart";
 
-class NewRoutineSchemaScreen extends ConsumerStatefulWidget {
+class EditRoutineSchemaScreen extends ConsumerStatefulWidget {
   final String routineUuid;
 
-  const NewRoutineSchemaScreen({super.key, required this.routineUuid});
+  const EditRoutineSchemaScreen({super.key, required this.routineUuid});
 
   @override
-  ConsumerState<NewRoutineSchemaScreen> createState() =>
-      _NewRoutineSchemaScreenState();
+  ConsumerState<EditRoutineSchemaScreen> createState() =>
+      _EditRoutineSchemaScreenState();
 }
 
-class _NewRoutineSchemaScreenState
-    extends ConsumerState<NewRoutineSchemaScreen> {
+class _EditRoutineSchemaScreenState
+    extends ConsumerState<EditRoutineSchemaScreen> {
   @override
   Widget build(BuildContext context) {
     final workoutsFuture =
@@ -40,15 +41,9 @@ class _NewRoutineSchemaScreenState
               return const Center(child: Text("No workouts available"));
             }
 
-            return ListView.builder(
-              itemCount: workouts.length,
-              itemBuilder: (context, index) {
-                final workout = workouts[index];
-                return ListTile(
-                  title: Text(workout.name),
-                  subtitle: Text("${workout.exercisesSchemas.length}"),
-                );
-              },
+            return WorkoutsListWidget(
+              workouts: workouts,
+              routineUuid: widget.routineUuid,
             );
           }
 

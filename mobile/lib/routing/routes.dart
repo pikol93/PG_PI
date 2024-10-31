@@ -12,8 +12,9 @@ import "package:pi_mobile/utility/location_permission.dart";
 import "package:pi_mobile/utility/notification_permission.dart";
 import "package:pi_mobile/widgets/exercises/exercises_screen.dart";
 import "package:pi_mobile/widgets/exercises/routines/edit_exercise_schema_screen.dart";
+import "package:pi_mobile/widgets/exercises/routines/edit_exercise_set_schema_screen.dart";
+import "package:pi_mobile/widgets/exercises/routines/edit_routine_schema_screen.dart";
 import "package:pi_mobile/widgets/exercises/routines/edit_workout_schema_screen.dart";
-import "package:pi_mobile/widgets/exercises/routines/new_routine_schema_screen.dart";
 import "package:pi_mobile/widgets/exercises/routines/routines_screen.dart";
 import "package:pi_mobile/widgets/exercises/session/history_screen.dart";
 import "package:pi_mobile/widgets/forgot_password/forgot_password_screen.dart";
@@ -231,7 +232,13 @@ class RequestBatteryPermissionRoute extends GoRouteData {
             TypedGoRoute<EditWorkoutSchemaRoute>(
               path: ":workoutUuid",
               routes: <TypedGoRoute<GoRouteData>>[
-                TypedGoRoute<EditExerciseSchemaRoute>(path: ":exerciseUuid"),
+                TypedGoRoute<EditExerciseSchemaRoute>(
+                  path: ":exerciseUuid",
+                  routes: <TypedGoRoute<GoRouteData>>[
+                    TypedGoRoute<EditExerciseSetSchemaRoute>(
+                        path: "exerciseSetUuid",),
+                  ],
+                ),
               ],
             ),
           ],
@@ -278,7 +285,7 @@ class EditRoutineSchemaRoute extends GoRouteData with Logger {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     logger.debug("routines route");
-    return NewRoutineSchemaScreen(routineUuid: routineUuid);
+    return EditRoutineSchemaScreen(routineUuid: routineUuid);
   }
 }
 
@@ -319,6 +326,31 @@ class EditExerciseSchemaRoute extends GoRouteData with Logger {
       routineUuid: routineUuid,
       workoutUuid: workoutUuid,
       exerciseUuid: exerciseUuid,
+    );
+  }
+}
+
+class EditExerciseSetSchemaRoute extends GoRouteData with Logger {
+  const EditExerciseSetSchemaRoute({
+    required this.routineUuid,
+    required this.workoutUuid,
+    required this.exerciseUuid,
+    required this.exerciseSetUuid,
+  });
+
+  final String routineUuid;
+  final String workoutUuid;
+  final String exerciseUuid;
+  final String exerciseSetUuid;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    logger.debug("workouts route");
+    return EditExerciseSetSchemaScreen(
+      routineUuid: routineUuid,
+      workoutUuid: workoutUuid,
+      exerciseUuid: exerciseUuid,
+      exerciseSetUuid: exerciseSetUuid,
     );
   }
 }

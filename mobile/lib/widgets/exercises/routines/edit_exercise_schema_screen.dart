@@ -4,6 +4,7 @@ import "package:pi_mobile/data/strength_exercise_schema.dart";
 import "package:pi_mobile/data/strength_exercise_set_schema.dart";
 import "package:pi_mobile/provider/routines_provider.dart";
 import "package:pi_mobile/routing/routes.dart";
+import "package:uuid/uuid.dart";
 
 class EditExerciseSchemaScreen extends ConsumerStatefulWidget {
   final String routineUuid;
@@ -24,7 +25,6 @@ class EditExerciseSchemaScreen extends ConsumerStatefulWidget {
 
 class _EditExerciseSchemaScreen
     extends ConsumerState<EditExerciseSchemaScreen> {
-  final List<StrengthExerciseSetSchema> _sets = [];
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _restTimeController = TextEditingController();
 
@@ -38,7 +38,10 @@ class _EditExerciseSchemaScreen
   @override
   Widget build(BuildContext context) {
     final exerciseFuture = ref.read(routinesProvider.notifier).getExercise(
-        widget.routineUuid, widget.workoutUuid, widget.exerciseUuid,);
+          widget.routineUuid,
+          widget.workoutUuid,
+          widget.exerciseUuid,
+        );
 
     return Scaffold(
       appBar: AppBar(
@@ -46,81 +49,127 @@ class _EditExerciseSchemaScreen
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 16.0),
-            FutureBuilder<StrengthExerciseSchema>(
-              future: exerciseFuture,
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CircularProgressIndicator());
-                } else if (snapshot.hasError) {
-                  return Center(child: Text("Error: ${snapshot.error}"));
-                } else if (snapshot.hasData) {
-                  final exercise = snapshot.data!;
-                  _nameController.text = exercise.name;
-
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text("Edit Exercise Name"),
-                      const SizedBox(height: 8.0),
-                      TextField(
-                        controller: _nameController,
-                        decoration: const InputDecoration(
-                          labelText: "Exercise Name",
-                          border: OutlineInputBorder(),
-                        ),
-                      ),
-                      const SizedBox(height: 16.0),
-                      // Text("Current Exercise: ${exercise.name}"),
-                      ListView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: exercise.sets.length,
-                        itemBuilder: (context, index) {
-                          final exerciseSet = exercise.sets[index];
-                          return ListTile(
-                            title: Text("Set ${index + 1}"),
-                            subtitle: Text(
-                              "Reps: ${exerciseSet.reps}, "
-                                  "Weight: ${exerciseSet.intensity}",
-                            ),
-                          );
-                        },
-                      ),
-                      const SizedBox(height: 16.0),
-                      Center(
-                        child: ElevatedButton(
-                          onPressed: _addNewSet,
-                          child: const Text("Add Set"),
-                        ),
-                      ),
-                    ],
-                  );
-                }
-
-                return const Center(child: Text("No data available"));
-              },
+        child: SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              minHeight: MediaQuery.of(context).size.height,
             ),
-          ],
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 16.0),
+                FutureBuilder<StrengthExerciseSchema>(
+                  future: exerciseFuture,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(child: CircularProgressIndicator());
+                    } else if (snapshot.hasError) {
+                      return Center(child: Text("Error: ${snapshot.error}"));
+                    } else if (snapshot.hasData) {
+                      final exercise = snapshot.data!;
+                      _nameController.text = exercise.name;
+                      _restTimeController.text = exercise.restTime.toString();
+
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text("Edit Exercise Name"),
+                          const SizedBox(height: 8.0),
+                          TextField(
+                            controller: _nameController,
+                            decoration: const InputDecoration(
+                              labelText: "Exercise Name",
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                          TextField(
+                            controller: _restTimeController,
+                            decoration: const InputDecoration(
+                              labelText: "Rest time",
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                          const SizedBox(height: 16.0),
+                          // Wrap ListView.builder in Expanded
+                          SizedBox(
+                            height: 200,
+                            child: ListView.builder(
+                              padding: const EdgeInsets.all(8),
+                              itemCount: exercise.sets.length,
+                              itemBuilder: (context, index) {
+                                final set = exercise.sets[index];
+                                return ListTile(
+                                  title: Text(set.uuid),
+                                  subtitle:
+                                      Text("${set.intensity}  ${set.reps}"),
+                                  onTap: () {
+                                    _onTap(
+                                      context,
+                                      widget.routineUuid,
+                                      widget.workoutUuid,
+                                      widget.exerciseUuid,
+                                      set.uuid,
+                                    );
+                                  },
+                                );
+                              },
+                            ),
+                          ),
+                        ],
+                      );
+                    }
+                    return const Center(child: Text("No data available"));
+                  },
+                ),
+              ],
+            ),
+          ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          _onSaveButtonPressed(context);
-        },
-        child: const Icon(Icons.save),
+      floatingActionButton: Stack(
+        children: [
+          Positioned(
+            bottom: 16,
+            right: 16,
+            child: FloatingActionButton(
+              onPressed: () {
+                _addNewSet(context);
+              },
+              heroTag: "fab1",
+              child: const Icon(Icons.add),
+            ),
+          ),
+          Positioned(
+            bottom: 16,
+            right: 80,
+            child: FloatingActionButton(
+              onPressed: () {
+                _onSaveButtonPressed(context);
+              },
+              heroTag: "fab2",
+              child: const Icon(Icons.save),
+            ),
+          ),
+        ],
       ),
     );
   }
 
-  void _addNewSet() {
-    final newSet =
-        StrengthExerciseSetSchema(reps: 10, intensity: 20, no: _sets.length);
-    _sets.add(newSet);
-    setState(() {});
+  Future<void> _addNewSet(BuildContext context) async {
+    final newSet = StrengthExerciseSetSchema(
+        reps: 10, intensity: 20, uuid: const Uuid().v4(),);
+    await ref.read(routinesProvider.notifier).addExerciseSet(
+        widget.routineUuid, widget.workoutUuid, widget.exerciseUuid, newSet,);
+
+    if (context.mounted) {
+      EditExerciseSetSchemaRoute(
+        routineUuid: widget.routineUuid,
+        workoutUuid: widget.workoutUuid,
+        exerciseUuid: widget.exerciseUuid,
+        exerciseSetUuid: newSet.uuid,
+      ).go(context);
+    }
+    // setState(() {});
   }
 
   Future<void> _onSaveButtonPressed(BuildContext context) async {
@@ -141,5 +190,15 @@ class _EditExerciseSchemaScreen
         workoutUuid: widget.workoutUuid,
       ).go(context);
     }
+  }
+
+  void _onTap(BuildContext context, String routineUuid, String workoutUuid,
+      String exerciseUuid, String setUuid,) {
+    EditExerciseSetSchemaRoute(
+            routineUuid: routineUuid,
+            workoutUuid: workoutUuid,
+            exerciseUuid: exerciseUuid,
+            exerciseSetUuid: setUuid,)
+        .go(context);
   }
 }

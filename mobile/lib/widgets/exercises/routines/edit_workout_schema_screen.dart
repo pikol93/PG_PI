@@ -3,6 +3,7 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pi_mobile/data/strength_exercise_schema.dart";
 import "package:pi_mobile/provider/routines_provider.dart";
 import "package:pi_mobile/routing/routes.dart";
+import "package:pi_mobile/widgets/common/exercises_list_widget.dart";
 import "package:uuid/uuid.dart";
 
 class EditWorkoutSchemaScreen extends ConsumerStatefulWidget {
@@ -50,16 +51,10 @@ class _EditWorkoutSchemaScreen extends ConsumerState<EditWorkoutSchemaScreen> {
               );
             }
 
-            return ListView.builder(
-              itemCount: exercises.length,
-              itemBuilder: (context, index) {
-                final exercise = exercises[index];
-                return ListTile(
-                  title: Text(exercise.name),
-                  subtitle: Text("${exercises.length}"),
-                );
-              },
-            );
+            return ExercisesListWidget(
+                exercises: exercises,
+                routineUuid: widget.routineUuid,
+                workoutUuid: widget.workoutUuid,);
           }
 
           return const Center(child: Text("No data available"));

@@ -2,6 +2,7 @@ import "dart:convert";
 
 import "package:pi_mobile/data/routine_schema.dart";
 import "package:pi_mobile/data/strength_exercise_schema.dart";
+import "package:pi_mobile/data/strength_exercise_set_schema.dart";
 import "package:pi_mobile/data/workout_schema.dart";
 import "package:pi_mobile/logger.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
@@ -124,6 +125,109 @@ class Routines extends _$Routines with Logger {
             final updatedExercises = workout.exercisesSchemas.map((exercise) {
               if (exercise.uuid == updatedExercise.uuid) {
                 return updatedExercise;
+              }
+              return exercise;
+            }).toList();
+            return workout.copyWith(exercisesSchemas: updatedExercises);
+          }
+          return workout;
+        }).toList();
+        return routine.copyWith(workouts: updatedWorkouts);
+      }
+      return routine;
+    }).toList();
+
+    final preferences = SharedPreferencesAsync();
+    final jsonList = updatedRoutines.map(jsonEncode).toList();
+    await preferences.setStringList(_keyName, jsonList);
+
+    ref.invalidateSelf();
+  }
+
+  Future<List<StrengthExerciseSetSchema>> getExerciseSets(
+    String routineUuid,
+    String workoutUuid,
+    String exerciseUuid,
+  ) async {
+    final routines = await ref.read(routinesProvider.future);
+    final routine = routines.firstWhere((r) => r.uuid == routineUuid);
+    final workout = routine.workouts.firstWhere((w) => w.uuid == workoutUuid);
+    final exercise =
+        workout.exercisesSchemas.firstWhere((e) => e.uuid == exerciseUuid);
+    return exercise.sets;
+  }
+
+  Future<StrengthExerciseSetSchema> getExerciseSet(
+    String routineUuid,
+    String workoutUuid,
+    String exerciseUuid,
+    String setUuid,
+  ) async {
+    final routines = await ref.read(routinesProvider.future);
+    final routine = routines.firstWhere((r) => r.uuid == routineUuid);
+    final workout = routine.workouts.firstWhere((w) => w.uuid == workoutUuid);
+    final exercise =
+        workout.exercisesSchemas.firstWhere((e) => e.uuid == exerciseUuid);
+    final set = exercise.sets.firstWhere((s) => s.uuid == setUuid);
+    return set;
+  }
+
+  Future<void> addExerciseSet(
+    String routineUuid,
+    String workoutUuid,
+    String exerciseUuid,
+    StrengthExerciseSetSchema newSet,
+  ) async {
+    final routines = await ref.read(routinesProvider.future);
+
+    final updatedRoutines = routines.map((routine) {
+      if (routine.uuid == routineUuid) {
+        final updatedWorkouts = routine.workouts.map((workout) {
+          if (workout.uuid == workoutUuid) {
+            final updatedExercises = workout.exercisesSchemas.map((exercise) {
+              if (exercise.uuid == exerciseUuid) {
+                final updatedSets = exercise.sets + [newSet];
+                return exercise.copyWith(sets: updatedSets);
+              }
+              return exercise;
+            }).toList();
+            return workout.copyWith(exercisesSchemas: updatedExercises);
+          }
+          return workout;
+        }).toList();
+        return routine.copyWith(workouts: updatedWorkouts);
+      }
+      return routine;
+    }).toList();
+
+    final preferences = SharedPreferencesAsync();
+    final jsonList = updatedRoutines.map(jsonEncode).toList();
+    await preferences.setStringList(_keyName, jsonList);
+
+    ref.invalidateSelf();
+  }
+
+  Future<void> updateExerciseSet(
+    String routineUuid,
+    String workoutUuid,
+    String exerciseUuid,
+    StrengthExerciseSetSchema updatedSet,
+  ) async {
+    final routines = await ref.read(routinesProvider.future);
+
+    final updatedRoutines = routines.map((routine) {
+      if (routine.uuid == routineUuid) {
+        final updatedWorkouts = routine.workouts.map((workout) {
+          if (workout.uuid == workoutUuid) {
+            final updatedExercises = workout.exercisesSchemas.map((exercise) {
+              if (exercise.uuid == exerciseUuid) {
+                final updatedSets = exercise.sets.map((set) {
+                  if (set.uuid == updatedSet.uuid) {
+                    return updatedSet;
+                  }
+                  return set;
+                }).toList();
+                return exercise.copyWith(sets: updatedSets);
               }
               return exercise;
             }).toList();

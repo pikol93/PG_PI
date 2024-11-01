@@ -92,7 +92,7 @@ class HomeRoute extends GoRouteData with Logger {
 @TypedGoRoute<TracksRoute>(
   path: "/tracks",
   routes: <TypedGoRoute<GoRouteData>>[
-    TypedGoRoute<TrackDetailsRoute>(path: "details"),
+    TypedGoRoute<TrackDetailsRoute>(path: "details/:trackId"),
     TypedGoRoute<RecordTrackRoute>(path: "record"),
     TypedGoRoute<RequestLocationPermissionRoute>(
       path: "request_permission_location",
@@ -119,14 +119,18 @@ class TracksRoute extends GoRouteData with Logger {
 }
 
 class TrackDetailsRoute extends GoRouteData {
-  const TrackDetailsRoute();
+  final int trackId;
+
+  const TrackDetailsRoute({required this.trackId});
 
   @override
   Widget build(
     BuildContext context,
     GoRouterState state,
   ) =>
-      const TrackDetailsScreen();
+      TrackDetailsScreen(
+        trackId: trackId,
+      );
 }
 
 class RecordTrackRoute extends GoRouteData {

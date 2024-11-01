@@ -1,9 +1,7 @@
-import "package:pi_mobile/data/location.dart";
+import "package:pi_mobile/data/collections/track.dart";
 import "package:pi_mobile/data/mutable_track.dart";
-import "package:pi_mobile/data/track.dart";
 import "package:pi_mobile/logger.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
-import "package:uuid/uuid.dart";
 
 part "recorded_track_provider.g.dart";
 
@@ -20,16 +18,14 @@ class RecordedTrack extends _$RecordedTrack with Logger {
       return;
     }
 
-    final uuid = const Uuid().v4();
     currentTrack = MutableTrack(
-      uuid: uuid,
       startTime: DateTime.now(),
     );
 
     ref.invalidateSelf();
   }
 
-  void appendLocation(Location location) {
+  void appendLocation(LocationRecord location) {
     if (currentTrack == null) {
       logger.error("Cannot append location! Current track is null.");
       return;

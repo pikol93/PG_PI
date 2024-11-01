@@ -1,5 +1,4 @@
-import "package:pi_mobile/data/location.dart";
-import "package:pi_mobile/data/track.dart";
+import "package:pi_mobile/data/collections/track.dart";
 import "package:pi_mobile/utility/iterable.dart";
 
 class ProcessedTrack {
@@ -41,7 +40,7 @@ class ProcessedTrack {
 
     final result = <double>[];
     for (var i = 0; i < locations.length - 1; i++) {
-      final velocity = Location.getVelocityBetweenLocations(
+      final velocity = LocationRecord.getVelocityBetweenLocations(
         locations[i],
         locations[i + 1],
       );

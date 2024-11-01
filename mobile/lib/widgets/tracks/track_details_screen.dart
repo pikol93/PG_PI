@@ -1,27 +1,63 @@
-import "package:awesome_flutter_extensions/awesome_flutter_extensions.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:pi_mobile/provider/selected_track_provider.dart";
+import "package:pi_mobile/data/collections/track.dart";
+import "package:pi_mobile/data/processed_track.dart";
+import "package:pi_mobile/logger.dart";
+import "package:pi_mobile/provider/tracks_provider.dart";
+import "package:pi_mobile/widgets/tracks/tracks_details_page.dart";
 
-class TrackDetailsScreen extends ConsumerWidget {
-  const TrackDetailsScreen({super.key});
+class TrackDetailsScreen extends ConsumerStatefulWidget {
+  final int trackId;
+
+  const TrackDetailsScreen({
+    super.key,
+    required this.trackId,
+  });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) => Scaffold(
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _TrackDetailsScreenState();
+}
+
+class _TrackDetailsScreenState extends ConsumerState<TrackDetailsScreen>
+    with Logger {
+  late Future<Track?> _readTrackFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _readTrackFuture = _readTrack();
+  }
+
+  @override
+  Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          backgroundColor: context.colors.scaffoldBackground,
-          title: const Text("Track details"), // TODO: I18N
+          title: const Text("Tracks"), // TODO: I18N
         ),
-        body: ref.watch(selectedTrackProvider).when(
-              data: (track) => Center(
-                child: Text("${track?.averageVelocity}"),
-              ),
-              error: (a, b) => Center(
-                child: Text("Error $b"),
-              ),
-              loading: () => const Center(
+        body: FutureBuilder(
+          future: _readTrackFuture,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState != ConnectionState.done) {
+              return const Center(
                 child: CircularProgressIndicator(),
-              ),
-            ),
+              );
+            }
+
+            final track = snapshot.data;
+            if (track == null) {
+              return const Center(
+                child: Text("Could not read track from repository."),
+              );
+            }
+
+            final processedTrack = ProcessedTrack.calculateFrom(track);
+            return TracksDetailsPage(track: processedTrack);
+          },
+        ),
       );
+
+  Future<Track?> _readTrack() async {
+    final manager = await ref.read(tracksManagerProvider.future);
+    return manager.getById(widget.trackId);
+  }
 }

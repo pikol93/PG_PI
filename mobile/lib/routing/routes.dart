@@ -18,6 +18,8 @@ import "package:pi_mobile/widgets/exercises/routines/edit_workout_schema_screen.
 import "package:pi_mobile/widgets/exercises/routines/routines_screen.dart";
 import "package:pi_mobile/widgets/exercises/session/history_screen.dart";
 import "package:pi_mobile/widgets/forgot_password/forgot_password_screen.dart";
+import "package:pi_mobile/widgets/heart_rate/heart_rate_screen.dart";
+import "package:pi_mobile/widgets/heart_rate/modify_heart_rate_screen.dart";
 import "package:pi_mobile/widgets/home/home_screen.dart";
 import "package:pi_mobile/widgets/login/login_screen.dart";
 import "package:pi_mobile/widgets/register/register_screen.dart";
@@ -96,7 +98,7 @@ class HomeRoute extends GoRouteData with Logger {
 @TypedGoRoute<TracksRoute>(
   path: "/tracks",
   routes: <TypedGoRoute<GoRouteData>>[
-    TypedGoRoute<TrackDetailsRoute>(path: "details"),
+    TypedGoRoute<TrackDetailsRoute>(path: "details/:trackId"),
     TypedGoRoute<RecordTrackRoute>(path: "record"),
     TypedGoRoute<RequestLocationPermissionRoute>(
       path: "request_permission_location",
@@ -123,14 +125,18 @@ class TracksRoute extends GoRouteData with Logger {
 }
 
 class TrackDetailsRoute extends GoRouteData {
-  const TrackDetailsRoute();
+  final int trackId;
+
+  const TrackDetailsRoute({required this.trackId});
 
   @override
   Widget build(
     BuildContext context,
     GoRouterState state,
   ) =>
-      const TrackDetailsScreen();
+      TrackDetailsScreen(
+        trackId: trackId,
+      );
 }
 
 class RecordTrackRoute extends GoRouteData {
@@ -356,15 +362,45 @@ class EditExerciseSetSchemaRoute extends GoRouteData with Logger {
   }
 }
 
-// class WorkoutSessionRoute extends GoRouteData with Logger {
-//   const WorkoutSessionRoute();
-//
-//   @override
-//   Widget build(BuildContext context, GoRouterState state) {
-//     logger.debug("workout session route");
-//     return const WorkoutSessionScreen();
-//   }
-// }
+@TypedGoRoute<HeartRateRoute>(
+  path: "/heart_rate",
+  routes: <TypedGoRoute>[
+    TypedGoRoute<AddHeartRateRoute>(path: "add"),
+    TypedGoRoute<ModifyHeartRateRoute>(path: "modify/:entryId"),
+  ],
+)
+class HeartRateRoute extends GoRouteData {
+  const HeartRateRoute();
+
+  @override
+  Widget build(
+    BuildContext context,
+    GoRouterState state,
+  ) =>
+      const HeartRateScreen();
+}
+
+class AddHeartRateRoute extends GoRouteData {
+  const AddHeartRateRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      const ModifyHeartRateScreen();
+}
+
+class ModifyHeartRateRoute extends GoRouteData {
+  final int entryId;
+
+  const ModifyHeartRateRoute({
+    required this.entryId,
+  });
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      ModifyHeartRateScreen(
+        entryId: entryId,
+      );
+}
 
 @TypedGoRoute<SettingsRoute>(path: "/settings")
 class SettingsRoute extends GoRouteData with Logger {

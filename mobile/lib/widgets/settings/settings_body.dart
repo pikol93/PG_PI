@@ -1,3 +1,5 @@
+import "dart:async";
+
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pi_mobile/data/app_theme.dart";
@@ -5,9 +7,14 @@ import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/provider/auth_provider.dart";
 import "package:pi_mobile/provider/connection_settings_provider.dart";
+import "package:pi_mobile/provider/development_mode_provider.dart";
+import "package:pi_mobile/provider/heart_rate_list_provider.dart";
+import "package:pi_mobile/provider/package_info_provider.dart";
 import "package:pi_mobile/provider/stored_locale_provider.dart";
 import "package:pi_mobile/provider/theme_provider.dart";
+import "package:pi_mobile/provider/tracks_provider.dart";
 import "package:pi_mobile/service/stored_locale_service.dart";
+import "package:pi_mobile/widgets/settings/development_setting.dart";
 import "package:pi_mobile/widgets/settings/setting_button.dart";
 import "package:pi_mobile/widgets/settings/setting_option.dart";
 import "package:pi_mobile/widgets/settings/setting_text.dart";
@@ -23,6 +30,12 @@ class SettingsBody extends StatelessWidget {
             _ChangeThemeSetting(),
             _ChangeServerAddressSetting(),
             _LogOffSetting(),
+            _GenerateHeartRateDataSetting(),
+            _ClearHeartRateDataSetting(),
+            _GenerateTracksSetting(),
+            _ClearTracksSetting(),
+            _DisableDevelopmentModeSetting(),
+            _AppInfoSetting(),
           ],
         ),
       );
@@ -169,5 +182,126 @@ class _LogOffSetting extends ConsumerWidget with Logger {
   void _onLogOffPressed(BuildContext context, WidgetRef ref) {
     logger.debug("Log off button pressed");
     ref.read(authProvider.notifier).logOff();
+  }
+}
+
+class _GenerateHeartRateDataSetting extends ConsumerWidget {
+  const _GenerateHeartRateDataSetting();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) => DevelopmentSetting(
+        child: SettingButton(
+          icon: Icons.monitor_heart_outlined,
+          title: "Generate heart rate data",
+          requiresConfirmation: true,
+          alertTitle: "Are you sure you want to generate heart rate data",
+          onConfirmed: () => _onGeneratePressed(context, ref),
+        ),
+      );
+
+  Future<void> _onGeneratePressed(BuildContext context, WidgetRef ref) async {
+    final manager = await ref.read(heartRateManagerProvider.future);
+    await manager.generateHeartRateData();
+  }
+}
+
+class _ClearHeartRateDataSetting extends ConsumerWidget {
+  const _ClearHeartRateDataSetting();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) => DevelopmentSetting(
+        child: SettingButton(
+          icon: Icons.monitor_heart_outlined,
+          title: "Clear heart rate data",
+          requiresConfirmation: true,
+          alertTitle: "Are you sure you want to clear heart rate data",
+          onConfirmed: () => _onClearPressed(context, ref),
+        ),
+      );
+
+  Future<void> _onClearPressed(BuildContext context, WidgetRef ref) async {
+    final manager = await ref.read(heartRateManagerProvider.future);
+    return manager.clear();
+  }
+}
+
+class _GenerateTracksSetting extends ConsumerWidget {
+  const _GenerateTracksSetting();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) => DevelopmentSetting(
+        child: SettingButton(
+          icon: Icons.navigation,
+          title: "Generate tracks",
+          requiresConfirmation: true,
+          alertTitle: "Are you sure you want to generate tracks",
+          onConfirmed: () => _onGeneratePressed(context, ref),
+        ),
+      );
+
+  Future<void> _onGeneratePressed(BuildContext context, WidgetRef ref) async {
+    final manager = await ref.read(tracksManagerProvider.future);
+    await manager.generateTracks();
+  }
+}
+
+class _ClearTracksSetting extends ConsumerWidget {
+  const _ClearTracksSetting();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) => DevelopmentSetting(
+        child: SettingButton(
+          icon: Icons.navigation,
+          title: "Clear tracks data",
+          requiresConfirmation: true,
+          alertTitle: "Are you sure you want to clear tracks data",
+          onConfirmed: () => _onClearPressed(context, ref),
+        ),
+      );
+
+  Future<void> _onClearPressed(BuildContext context, WidgetRef ref) async {
+    final manager = await ref.read(tracksManagerProvider.future);
+    return manager.clear();
+  }
+}
+
+class _DisableDevelopmentModeSetting extends ConsumerWidget {
+  const _DisableDevelopmentModeSetting();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) => DevelopmentSetting(
+        child: SettingButton(
+          icon: Icons.developer_board_off,
+          // TODO: I18N
+          title: "Turn off development mode",
+          requiresConfirmation: true,
+          // TODO: I18N
+          alertTitle: "Are you sure you want to turn off development mode?",
+          onConfirmed: () => _onLogOffPressed(context, ref),
+        ),
+      );
+
+  void _onLogOffPressed(BuildContext context, WidgetRef ref) {
+    ref.read(developmentModeProvider.notifier).setDevelopmentMode(false);
+  }
+}
+
+class _AppInfoSetting extends ConsumerWidget with Logger {
+  const _AppInfoSetting();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) => SettingButton(
+        icon: Icons.info,
+        title: "App version",
+        subtitle: ref.watch(packageInfoProvider).version,
+        onConfirmed: () => _onAppInfoPressed(ref),
+      );
+
+  Future<void> _onAppInfoPressed(WidgetRef ref) async {
+    unawaited(
+      ref
+          .read(developmentModeProvider.notifier)
+          .decrementDevelopmentModeCounter(),
+    );
   }
 }

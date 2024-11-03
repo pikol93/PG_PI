@@ -7,8 +7,6 @@ pub struct Configuration {
     pub host: String,
     pub port: u16,
     pub mongo_db_url: String,
-    pub redis_url: String,
-    pub session_secret_key: String,
 }
 
 impl Configuration {

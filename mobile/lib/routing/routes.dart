@@ -25,7 +25,6 @@ import "package:pi_mobile/widgets/login/login_screen.dart";
 import "package:pi_mobile/widgets/register/register_screen.dart";
 import "package:pi_mobile/widgets/settings/settings_screen.dart";
 import "package:pi_mobile/widgets/settings/welcome_settings_screen.dart";
-import "package:pi_mobile/widgets/splash/splash_screen.dart";
 import "package:pi_mobile/widgets/tracks/record_track_screen.dart";
 import "package:pi_mobile/widgets/tracks/request_battery_permission_screen.dart";
 import "package:pi_mobile/widgets/tracks/request_location_permission_screen.dart";
@@ -41,8 +40,8 @@ class SplashRoute extends GoRouteData {
   const SplashRoute();
 
   @override
-  Widget build(BuildContext context, GoRouterState state) =>
-      const SplashScreen();
+  FutureOr<String?> redirect(BuildContext context, GoRouterState state) =>
+      const HomeRoute().location;
 }
 
 @TypedGoRoute<HomeRoute>(path: "/home")

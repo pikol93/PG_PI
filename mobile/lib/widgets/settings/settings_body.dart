@@ -5,7 +5,6 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pi_mobile/data/app_theme.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/logger.dart";
-import "package:pi_mobile/provider/auth_provider.dart";
 import "package:pi_mobile/provider/connection_settings_provider.dart";
 import "package:pi_mobile/provider/development_mode_provider.dart";
 import "package:pi_mobile/provider/heart_rate_list_provider.dart";
@@ -29,7 +28,6 @@ class SettingsBody extends StatelessWidget {
             _ChangeLanguageSetting(),
             _ChangeThemeSetting(),
             _ChangeServerAddressSetting(),
-            _LogOffSetting(),
             _GenerateHeartRateDataSetting(),
             _ClearHeartRateDataSetting(),
             _GenerateTracksSetting(),
@@ -164,24 +162,6 @@ class _ChangeServerAddressSetting extends ConsumerWidget {
 
   void _onConfirmed(WidgetRef ref, String newValue) {
     ref.read(connectionSettingsProvider.notifier).updateServerAddress(newValue);
-  }
-}
-
-class _LogOffSetting extends ConsumerWidget with Logger {
-  const _LogOffSetting();
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) => SettingButton(
-        icon: Icons.logout,
-        title: context.t.settings.logOff.title,
-        requiresConfirmation: true,
-        alertTitle: context.t.settings.logOff.alertTitle,
-        onConfirmed: () => _onLogOffPressed(context, ref),
-      );
-
-  void _onLogOffPressed(BuildContext context, WidgetRef ref) {
-    logger.debug("Log off button pressed");
-    ref.read(authProvider.notifier).logOff();
   }
 }
 

@@ -43,6 +43,7 @@ dependencies:
     version: ^3.1.8
     hosted: https://pub.isar-community.dev/
   fpdart: ^1.1.0
+  hashcash_dart: ^1.1.0
 
 dev_dependencies:
   flutter_test:

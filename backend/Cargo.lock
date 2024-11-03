@@ -345,6 +345,7 @@ dependencies = [
  "eyre",
  "futures",
  "itertools",
+ "mime",
  "mongodb",
  "serde",
  "serde-aux",

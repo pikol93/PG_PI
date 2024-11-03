@@ -1,13 +1,18 @@
 mod configuration;
+mod puzzle;
 pub mod serializer;
+mod share;
 pub mod utility;
 
 use crate::configuration::Configuration;
+use crate::share::routes::route_share;
 use actix_web::middleware::Logger;
+use actix_web::web::JsonConfig;
 use actix_web::{get, App, HttpResponse, HttpServer, Responder};
 use dotenvy::dotenv;
 use eyre::Result;
 use mongodb::Client;
+use puzzle::routes::{route_puzzle_solution, route_request_puzzle};
 use tracing::{debug, info};
 use tracing_subscriber::filter::EnvFilter;
 
@@ -24,10 +29,18 @@ async fn main() -> Result<()> {
 
     let client = Client::with_uri_str(&configuration.mongo_db_url).await?;
 
-    HttpServer::new(move || App::new().wrap(Logger::default()).service(health_check))
-        .bind((configuration.host, configuration.port))?
-        .run()
-        .await?;
+    HttpServer::new(move || {
+        App::new()
+            .wrap(Logger::default())
+            .app_data(JsonConfig::default().content_type(|mime| mime == mime::APPLICATION_JSON))
+            .service(health_check)
+            .service(route_request_puzzle)
+            .service(route_puzzle_solution)
+            .service(route_share)
+    })
+    .bind((configuration.host, configuration.port))?
+    .run()
+    .await?;
 
     debug!("Shutting down MongoDB client");
     client.shutdown().await;

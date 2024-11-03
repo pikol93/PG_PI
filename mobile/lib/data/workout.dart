@@ -7,6 +7,7 @@ part "workout.freezed.dart";
 @freezed
 class Workout with _$Workout {
   const factory Workout({
+    required String uuid,
     required DateTime date,
     required List<Workload> exercises,
   }) = _Workout;

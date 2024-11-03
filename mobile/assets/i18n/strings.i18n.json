@@ -16,6 +16,18 @@
   "tracks": {
     "title": "Tracks"
   },
+  "routines": {
+    "title": "Routines",
+    "intensity": "Intensity",
+    "exercise": "Exercise",
+    "editExerciseName": "Edit exercise name",
+    "exerciseName": "Exercise name",
+    "restTime": "Rest time",
+    "set": "Set",
+    "amountOfSets": "Amount of sets",
+    "reps": "Reps",
+    "noDataAvailable": "No data available"
+  },
   "exercises": {
     "title": "Exercises",
     "start": "Start new workout",

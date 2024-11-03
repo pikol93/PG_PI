@@ -107,11 +107,14 @@ class _EditRoutineSchemaScreenState
   }
 
   Future<void> _saveRoutineName(BuildContext context) async {
-    await ref.read(routinesProvider.notifier).updateRoutine(RoutineSchema(
-        uuid: widget.routineUuid,
-        name: _nameController.text,
-        description: _descriptionController.text,
-        workouts: [],),);
+    await ref.read(routinesProvider.notifier).updateRoutine(
+          RoutineSchema(
+            uuid: widget.routineUuid,
+            name: _nameController.text,
+            description: _descriptionController.text,
+            workouts: [],
+          ),
+        );
   }
 
   Future<void> _onAddButtonPressed(BuildContext context) async {

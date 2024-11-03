@@ -35,11 +35,15 @@ class _ExercisesListWidget extends ConsumerState<ExercisesListWidget> {
                   title: Text(exercise.name),
                   subtitle: Text(
                     "${context.t.routines.amountOfSets}: "
-                        "${exercise.sets.length}",
+                    "${exercise.sets.length}",
                   ),
                   onTap: () {
-                    _onTap(context, widget.routineUuid, widget.workoutUuid,
-                        exercise.uuid,);
+                    _onTap(
+                      context,
+                      widget.routineUuid,
+                      widget.workoutUuid,
+                      exercise.uuid,
+                    );
                   },
                 ),
               ),
@@ -66,7 +70,9 @@ class _ExercisesListWidget extends ConsumerState<ExercisesListWidget> {
   }
 
   Future<void> _onDeleteButtonPressed(
-      BuildContext context, StrengthExerciseSchema exercise,) async {
+    BuildContext context,
+    StrengthExerciseSchema exercise,
+  ) async {
     await ref
         .read(routinesProvider.notifier)
         .deleteExercise(widget.routineUuid, widget.workoutUuid, exercise.uuid);

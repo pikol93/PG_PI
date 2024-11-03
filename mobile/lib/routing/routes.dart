@@ -36,45 +36,6 @@ import "package:pi_mobile/widgets/tracks/tracks_screen.dart";
 
 part "routes.g.dart";
 
-final _routesNotRequiringAuthentication = [
-  const LoginRoute().location,
-  const RegisterRoute().location,
-  const WelcomeSettingsRoute().location,
-];
-
-final _routesRequiringAuthentication = [
-  const HomeRoute().location,
-  const TracksRoute().location,
-  const ExercisesRoute().location,
-  const SettingsRoute().location,
-];
-
-final _routesRedirections = [
-  const SplashRoute().location,
-];
-
-enum RouteAuthorizationType {
-  noAuthorization,
-  requiresAuthorization,
-  redirect,
-}
-
-RouteAuthorizationType? getAuthorizationTypeFromPath(String uri) {
-  if (_routesRequiringAuthentication.contains(uri)) {
-    return RouteAuthorizationType.requiresAuthorization;
-  }
-
-  if (_routesNotRequiringAuthentication.contains(uri)) {
-    return RouteAuthorizationType.noAuthorization;
-  }
-
-  if (_routesRedirections.contains(uri)) {
-    return RouteAuthorizationType.redirect;
-  }
-
-  return null;
-}
-
 @TypedGoRoute<SplashRoute>(path: "/")
 class SplashRoute extends GoRouteData {
   const SplashRoute();

@@ -17,14 +17,10 @@ import "package:pi_mobile/widgets/exercises/routines/edit_routine_schema_screen.
 import "package:pi_mobile/widgets/exercises/routines/edit_workout_schema_screen.dart";
 import "package:pi_mobile/widgets/exercises/routines/routines_screen.dart";
 import "package:pi_mobile/widgets/exercises/session/history_screen.dart";
-import "package:pi_mobile/widgets/forgot_password/forgot_password_screen.dart";
 import "package:pi_mobile/widgets/heart_rate/heart_rate_screen.dart";
 import "package:pi_mobile/widgets/heart_rate/modify_heart_rate_screen.dart";
 import "package:pi_mobile/widgets/home/home_screen.dart";
-import "package:pi_mobile/widgets/login/login_screen.dart";
-import "package:pi_mobile/widgets/register/register_screen.dart";
 import "package:pi_mobile/widgets/settings/settings_screen.dart";
-import "package:pi_mobile/widgets/settings/welcome_settings_screen.dart";
 import "package:pi_mobile/widgets/tracks/record_track_screen.dart";
 import "package:pi_mobile/widgets/tracks/request_battery_permission_screen.dart";
 import "package:pi_mobile/widgets/tracks/request_location_permission_screen.dart";
@@ -371,46 +367,4 @@ class SettingsRoute extends GoRouteData with Logger {
     logger.debug("settings route");
     return const SettingsScreen();
   }
-}
-
-@TypedGoRoute<RegisterRoute>(path: "/register")
-class RegisterRoute extends GoRouteData with Logger {
-  const RegisterRoute();
-
-  @override
-  Widget build(BuildContext context, GoRouterState state) {
-    logger.debug("register route");
-    return const RegisterScreen();
-  }
-}
-
-@TypedGoRoute<LoginRoute>(path: "/login")
-class LoginRoute extends GoRouteData with Logger {
-  const LoginRoute();
-
-  @override
-  Widget build(BuildContext context, GoRouterState state) {
-    logger.debug("login route");
-    return const LoginScreen();
-  }
-}
-
-@TypedGoRoute<WelcomeSettingsRoute>(path: "/welcome_settings")
-class WelcomeSettingsRoute extends GoRouteData with Logger {
-  const WelcomeSettingsRoute();
-
-  @override
-  Widget build(BuildContext context, GoRouterState state) {
-    logger.debug("welcome settings route");
-    return const WelcomeSettingsScreen();
-  }
-}
-
-@TypedGoRoute<ForgotPasswordRoute>(path: "/forgot_password")
-class ForgotPasswordRoute extends GoRouteData with Logger {
-  const ForgotPasswordRoute();
-
-  @override
-  Widget build(BuildContext context, GoRouterState state) =>
-      const ForgotPasswordScreen();
 }

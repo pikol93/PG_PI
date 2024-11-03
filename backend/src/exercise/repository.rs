@@ -1,5 +1,4 @@
-use color_eyre::eyre::OptionExt;
-use color_eyre::Result;
+use eyre::{OptionExt, Result};
 use futures::TryStreamExt;
 use mongodb::bson::doc;
 use mongodb::bson::oid::ObjectId;

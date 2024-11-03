@@ -1,7 +1,4 @@
-use color_eyre::{
-    eyre::{OptionExt, Report},
-    Result,
-};
+use eyre::{OptionExt, Report, Result};
 use itertools::Itertools;
 use mongodb::bson::oid::ObjectId;
 use serde::Serialize;

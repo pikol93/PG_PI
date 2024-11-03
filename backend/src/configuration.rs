@@ -1,5 +1,5 @@
-use color_eyre::Result;
 use envy::from_env;
+use eyre::Result;
 use serde::Deserialize;
 
 #[derive(Deserialize, Debug)]

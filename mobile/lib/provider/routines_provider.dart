@@ -207,7 +207,6 @@ class Routines extends _$Routines with Logger {
                   name: updatedExercise.name,
                   restTime: updatedExercise.restTime,
                 );
-                // return updatedExercise;
               }
               return exercise;
             }).toList();
@@ -336,7 +335,6 @@ class Routines extends _$Routines with Logger {
               if (exercise.uuid == exerciseUuid) {
                 final updatedSets = exercise.sets.map((set) {
                   if (set.uuid == updatedSet.uuid) {
-                    // return updatedSet;
                     return set.copyWith(
                       intensity: updatedSet.intensity,
                       reps: updatedSet.reps,

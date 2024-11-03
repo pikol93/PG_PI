@@ -77,6 +77,4 @@ class _ExercisesListWidget extends ConsumerState<ExercisesListWidget> {
         .read(routinesProvider.notifier)
         .deleteExercise(widget.routineUuid, widget.workoutUuid, exercise.uuid);
   }
-
-  // no refresh yet
 }

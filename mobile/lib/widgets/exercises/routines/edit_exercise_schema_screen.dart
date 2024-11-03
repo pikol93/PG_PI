@@ -91,7 +91,6 @@ class _EditExerciseSchemaScreen
                             ),
                           ),
                           const SizedBox(height: 16.0),
-                          // Wrap ListView.builder in Expanded
                           SizedBox(
                             height: 500,
                             child: ListView.builder(
@@ -185,7 +184,6 @@ class _EditExerciseSchemaScreen
         exerciseSetUuid: newSet.uuid,
       ).go(context);
     }
-    // setState(() {});
   }
 
   Future<void> _onSaveButtonPressed(BuildContext context) async {
@@ -199,13 +197,6 @@ class _EditExerciseSchemaScreen
             sets: [],
           ),
         );
-
-    // if (context.mounted) {
-    //   EditWorkoutSchemaRoute(
-    //     routineUuid: widget.routineUuid,
-    //     workoutUuid: widget.workoutUuid,
-    //   ).go(context);
-    // }
   }
 
   void _onTap(

@@ -1,6 +1,5 @@
 use crate::user::model::User;
-use color_eyre::eyre::OptionExt;
-use color_eyre::Result;
+use eyre::{OptionExt, Result};
 use mongodb::bson::doc;
 use mongodb::bson::oid::ObjectId;
 use mongodb::options::IndexOptions;

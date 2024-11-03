@@ -1,5 +1,6 @@
 use actix_session::Session;
-use color_eyre::{eyre::OptionExt, Result};
+use eyre::OptionExt;
+use eyre::Result;
 use mongodb::bson::oid::ObjectId;
 
 const USER_ID_KEY: &str = "user_id";

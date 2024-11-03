@@ -68,26 +68,6 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
         ),
       );
 
-  // void _onStartTrainingButtonPressed(BuildContext context) {
-  //   // logger.debug("Start training button presses");
-  //   final uuid = const Uuid().v4();
-  //   final emptyWorkout = Workout(
-  //     uuid: uuid,
-  //     date: DateTime.now(),
-  //     exercises: [],
-  //   );
-  //   await ref
-  //       .read(workoutsProvider.notifier)
-  //       .addWorkout(emptyWorkout);
-  //   await Navigator.push(
-  //     context,
-  //     MaterialPageRoute(
-  //       builder: (context) => WorkoutSessionScreen(uuid: uuid),
-  //     ),
-  //   );
-  //   const StartTrainingRoute().go(context);
-  // }
-
   void _onRoutinesButtonPressed(BuildContext context) {
     // logger.debug("Routine screen button pressed");
     const RoutinesRoute().go(context);

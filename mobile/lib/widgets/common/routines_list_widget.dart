@@ -34,16 +34,14 @@ class RoutinesListWidget extends StatelessWidget {
               ],
             ),
             onTap: () {
-              _onEditRoutine(context, routine);
+              _onStartRoutine(context, routine);
             },
           );
         },
       );
 
   void _onStartRoutine(BuildContext context, RoutineSchema routine) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text("Rozpoczynasz rutynę: ${routine.name}")),
-    );
+    OpenRoutineSchemaRoute(routineUuid: routine.uuid).go(context);
   }
 
   void _onEditRoutine(BuildContext context, RoutineSchema routine) {

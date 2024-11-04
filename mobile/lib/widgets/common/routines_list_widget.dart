@@ -41,7 +41,7 @@ class RoutinesListWidget extends StatelessWidget {
       );
 
   void _onStartRoutine(BuildContext context, RoutineSchema routine) {
-    OpenRoutineSchemaRoute(routineUuid: routine.uuid).go(context);
+    OpenRoutineTrainingRoute(routineUuid: routine.uuid).go(context);
   }
 
   void _onEditRoutine(BuildContext context, RoutineSchema routine) {

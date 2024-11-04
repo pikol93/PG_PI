@@ -29,7 +29,7 @@ class WorkoutsListWidget extends StatelessWidget {
       );
 
   void _onTap(BuildContext context, String routineUuid, String workoutUuid) {
-    EditWorkoutSchemaRoute(routineUuid: routineUuid, workoutUuid: workoutUuid)
+    OpenWorkoutTrainingRoute(routineUuid: routineUuid, workoutUuid: workoutUuid)
         .go(context);
   }
 }

@@ -7,17 +7,17 @@ import "package:pi_mobile/routing/routes.dart";
 import "package:pi_mobile/widgets/common/workouts_list_widget.dart";
 import "package:uuid/uuid.dart";
 
-class RoutineSchemaScreen extends ConsumerStatefulWidget {
+class RoutineTrainingScreen extends ConsumerStatefulWidget {
   final String routineUuid;
 
-  const RoutineSchemaScreen({super.key, required this.routineUuid});
+  const RoutineTrainingScreen({super.key, required this.routineUuid});
 
   @override
-  ConsumerState<RoutineSchemaScreen> createState() =>
-      _RoutineSchemaScreenState();
+  ConsumerState<RoutineTrainingScreen> createState() =>
+      _RoutineTrainingScreenState();
 }
 
-class _RoutineSchemaScreenState extends ConsumerState<RoutineSchemaScreen> {
+class _RoutineTrainingScreenState extends ConsumerState<RoutineTrainingScreen> {
   @override
   Widget build(BuildContext context) {
     final routineFuture =
@@ -76,7 +76,7 @@ class _RoutineSchemaScreenState extends ConsumerState<RoutineSchemaScreen> {
           WorkoutSchema(uuid: workoutUuid, name: "", exercisesSchemas: []),
         );
     if (context.mounted) {
-      EditWorkoutSchemaRoute(
+      OpenWorkoutTrainingRoute(
         routineUuid: widget.routineUuid,
         workoutUuid: workoutUuid,
       ).go(context);

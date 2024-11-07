@@ -1,7 +1,12 @@
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 
-#[derive(Deserialize, Debug, Clone)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct DataToShare {
-    something: String,
-    something2: String,
+    pub something: String,
+    pub something2: String,
+}
+
+#[derive(Serialize)]
+pub struct ShareResponse {
+    pub id: String,
 }

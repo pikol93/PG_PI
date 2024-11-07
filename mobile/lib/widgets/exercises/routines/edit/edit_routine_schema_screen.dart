@@ -2,7 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pi_mobile/data/routine_schema.dart";
 import "package:pi_mobile/data/workout_schema.dart";
-import "package:pi_mobile/provider/routines_provider.dart";
+import "package:pi_mobile/provider/schemas_provider.dart";
 import "package:pi_mobile/routing/routes.dart";
 import "package:pi_mobile/widgets/common/workouts_list_widget.dart";
 import "package:uuid/uuid.dart";
@@ -32,7 +32,7 @@ class _EditRoutineSchemaScreenState
   @override
   Widget build(BuildContext context) {
     final routineFuture =
-        ref.read(routinesProvider.notifier).getRoutine(widget.routineUuid);
+        ref.read(schemasProvider.notifier).getRoutine(widget.routineUuid);
 
     return Scaffold(
       appBar: AppBar(
@@ -107,7 +107,7 @@ class _EditRoutineSchemaScreenState
   }
 
   Future<void> _saveRoutineName(BuildContext context) async {
-    await ref.read(routinesProvider.notifier).updateRoutine(
+    await ref.read(schemasProvider.notifier).updateRoutine(
           RoutineSchema(
             uuid: widget.routineUuid,
             name: _nameController.text,
@@ -120,7 +120,7 @@ class _EditRoutineSchemaScreenState
   Future<void> _onAddButtonPressed(BuildContext context) async {
     final workoutUuid = const Uuid().v4();
 
-    await ref.read(routinesProvider.notifier).addWorkout(
+    await ref.read(schemasProvider.notifier).addWorkout(
           widget.routineUuid,
           WorkoutSchema(uuid: workoutUuid, name: "", exercisesSchemas: []),
         );

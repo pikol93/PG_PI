@@ -2,7 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pi_mobile/data/strength_exercise_set_schema.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
-import "package:pi_mobile/provider/routines_provider.dart";
+import "package:pi_mobile/provider/schemas_provider.dart";
 import "package:pi_mobile/routing/routes.dart";
 
 class EditExerciseSetSchemaScreen extends ConsumerStatefulWidget {
@@ -38,7 +38,7 @@ class _EditExerciseSetSchemaScreen
 
   @override
   Widget build(BuildContext context) {
-    final setFuture = ref.read(routinesProvider.notifier).getExerciseSet(
+    final setFuture = ref.read(schemasProvider.notifier).getExerciseSet(
           widget.routineUuid,
           widget.workoutUuid,
           widget.exerciseUuid,
@@ -107,7 +107,7 @@ class _EditExerciseSetSchemaScreen
   }
 
   Future<void> _onSaveButtonPressed(BuildContext context) async {
-    await ref.read(routinesProvider.notifier).updateExerciseSet(
+    await ref.read(schemasProvider.notifier).updateExerciseSet(
           widget.routineUuid,
           widget.workoutUuid,
           widget.exerciseUuid,

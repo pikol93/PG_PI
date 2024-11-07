@@ -2,7 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pi_mobile/data/workout_schema.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
-import "package:pi_mobile/provider/routines_provider.dart";
+import "package:pi_mobile/provider/schemas_provider.dart";
 import "package:pi_mobile/widgets/common/exercises_list_widget.dart";
 
 class WorkoutTrainingScreen extends ConsumerStatefulWidget {
@@ -24,7 +24,7 @@ class _WorkoutTrainingScreen extends ConsumerState<WorkoutTrainingScreen> {
   @override
   Widget build(BuildContext context) {
     final workoutFuture = ref
-        .read(routinesProvider.notifier)
+        .read(schemasProvider.notifier)
         .getWorkout(widget.routineUuid, widget.workoutUuid);
 
     return Scaffold(

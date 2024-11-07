@@ -3,7 +3,7 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pi_mobile/data/strength_exercise_schema.dart";
 import "package:pi_mobile/data/workout_schema.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
-import "package:pi_mobile/provider/routines_provider.dart";
+import "package:pi_mobile/provider/schemas_provider.dart";
 import "package:pi_mobile/routing/routes.dart";
 import "package:pi_mobile/widgets/common/exercises_list_widget.dart";
 import "package:uuid/uuid.dart";
@@ -35,7 +35,7 @@ class _EditWorkoutSchemaScreen extends ConsumerState<EditWorkoutSchemaScreen> {
   @override
   Widget build(BuildContext context) {
     final workoutFuture = ref
-        .read(routinesProvider.notifier)
+        .read(schemasProvider.notifier)
         .getWorkout(widget.routineUuid, widget.workoutUuid);
 
     return Scaffold(
@@ -109,7 +109,7 @@ class _EditWorkoutSchemaScreen extends ConsumerState<EditWorkoutSchemaScreen> {
   }
 
   Future<void> _saveWorkoutName(BuildContext context) async {
-    await ref.read(routinesProvider.notifier).updateWorkout(
+    await ref.read(schemasProvider.notifier).updateWorkout(
           widget.routineUuid,
           WorkoutSchema(
             uuid: widget.workoutUuid,
@@ -122,7 +122,7 @@ class _EditWorkoutSchemaScreen extends ConsumerState<EditWorkoutSchemaScreen> {
   Future<void> _onAddButtonPressed(BuildContext context) async {
     final exerciseUuid = const Uuid().v4();
 
-    await ref.read(routinesProvider.notifier).addExercise(
+    await ref.read(schemasProvider.notifier).addExercise(
           widget.routineUuid,
           widget.workoutUuid,
           StrengthExerciseSchema(

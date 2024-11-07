@@ -3,7 +3,7 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pi_mobile/data/routine_schema.dart";
 import "package:pi_mobile/data/workload.dart";
 import "package:pi_mobile/logger.dart";
-import "package:pi_mobile/provider/routines_provider.dart";
+import "package:pi_mobile/provider/schemas_provider.dart";
 import "package:pi_mobile/routing/routes.dart";
 import "package:pi_mobile/widgets/common/routines_list_widget.dart";
 import "package:uuid/uuid.dart";
@@ -24,7 +24,7 @@ class _RoutinesScreenState extends ConsumerState<RoutinesScreen> {
         appBar: AppBar(
           title: const Text("Rutyny"),
         ),
-        body: ref.watch(routinesProvider).when(
+        body: ref.watch(schemasProvider).when(
               error: (error, stack) => Text("Could not fetch routines. $error"),
               loading: () => const Center(child: CircularProgressIndicator()),
               data: (routines) => RoutinesListWidget(routines: routines),
@@ -41,7 +41,7 @@ class _RoutinesScreenState extends ConsumerState<RoutinesScreen> {
   Future<void> _onAddButtonPressed(BuildContext context) async {
     final routineUuid = const Uuid().v4();
 
-    await ref.read(routinesProvider.notifier).addRoutine(
+    await ref.read(schemasProvider.notifier).addRoutine(
           RoutineSchema(
             uuid: routineUuid,
             name: "",

@@ -3,7 +3,7 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pi_mobile/data/strength_exercise_schema.dart";
 import "package:pi_mobile/data/strength_exercise_set_schema.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
-import "package:pi_mobile/provider/routines_provider.dart";
+import "package:pi_mobile/provider/schemas_provider.dart";
 import "package:pi_mobile/routing/routes.dart";
 import "package:uuid/uuid.dart";
 
@@ -37,7 +37,7 @@ class _ExerciseTrainingScreen extends ConsumerState<ExerciseTrainingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final exerciseFuture = ref.read(routinesProvider.notifier).getExercise(
+    final exerciseFuture = ref.read(schemasProvider.notifier).getExercise(
           widget.routineUuid,
           widget.workoutUuid,
           widget.exerciseUuid,
@@ -169,7 +169,7 @@ class _ExerciseTrainingScreen extends ConsumerState<ExerciseTrainingScreen> {
       intensity: 70,
       uuid: const Uuid().v4(),
     );
-    await ref.read(routinesProvider.notifier).addExerciseSet(
+    await ref.read(schemasProvider.notifier).addExerciseSet(
           widget.routineUuid,
           widget.workoutUuid,
           widget.exerciseUuid,
@@ -187,7 +187,7 @@ class _ExerciseTrainingScreen extends ConsumerState<ExerciseTrainingScreen> {
   }
 
   Future<void> _onSaveButtonPressed(BuildContext context) async {
-    await ref.read(routinesProvider.notifier).updateExercise(
+    await ref.read(schemasProvider.notifier).updateExercise(
           widget.routineUuid,
           widget.workoutUuid,
           StrengthExerciseSchema(

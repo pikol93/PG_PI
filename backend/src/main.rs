@@ -14,6 +14,7 @@ use eyre::Result;
 use mongodb::Client;
 use puzzle::routes::{route_puzzle_solution, route_request_puzzle};
 use puzzle::service::authorization::AuthorizationStoreService;
+use puzzle::service::puzzle::PuzzleStoreService;
 use share::service::SharedDataService;
 use tracing::{debug, info};
 use tracing_subscriber::filter::EnvFilter;
@@ -32,12 +33,14 @@ async fn main() -> Result<()> {
     let client = Client::with_uri_str(&configuration.mongo_db_url).await?;
     info!("MongoDB client initialized successfully");
     let authorization_store_service = AuthorizationStoreService::default();
+    let puzzle_store_service = PuzzleStoreService::default();
     let shared_data_service = SharedDataService::new_with_client(client.clone());
 
     HttpServer::new(move || {
         App::new()
             .wrap(Logger::default())
             .app_data(authorization_store_service.clone())
+            .app_data(puzzle_store_service.clone())
             .app_data(shared_data_service.clone())
             .app_data(JsonConfig::default().content_type(|mime| mime == mime::APPLICATION_JSON))
             .service(health_check)

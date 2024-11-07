@@ -26,7 +26,7 @@ impl PuzzleStoreService {
         uuid
     }
 
-    pub async fn solve(&self, key_string: &str, solution: &str) -> Result<()> {
+    pub async fn verify_solution(&self, key_string: &str, solution: &str) -> Result<()> {
         let key = Uuid::from_str(&key_string)?;
         let entry = self
             .entries

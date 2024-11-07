@@ -6,7 +6,9 @@ use actix_web::{
 use tracing::warn;
 use uuid::Uuid;
 
-use crate::{puzzle::service::AuthorizationStoreService, share::model::ShareResponse};
+use crate::{
+    puzzle::service::authorization::AuthorizationStoreService, share::model::ShareResponse,
+};
 
 use super::{model::DataToShare, service::SharedDataService};
 

@@ -13,7 +13,7 @@ use dotenvy::dotenv;
 use eyre::Result;
 use mongodb::Client;
 use puzzle::routes::{route_puzzle_solution, route_request_puzzle};
-use puzzle::service::AuthorizationStoreService;
+use puzzle::service::authorization::AuthorizationStoreService;
 use share::service::SharedDataService;
 use tracing::{debug, info};
 use tracing_subscriber::filter::EnvFilter;

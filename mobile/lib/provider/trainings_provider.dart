@@ -16,9 +16,20 @@ class Trainings extends _$Trainings with Logger {
     final preferences = SharedPreferencesAsync();
     final jsonList = await preferences.getStringList(_keyName) ?? [];
     final trainings =
-    jsonList.map((json) => Training.fromJson(jsonDecode(json))).toList();
+        jsonList.map((json) => Training.fromJson(jsonDecode(json))).toList();
 
     logger.debug("Read ${trainings.length} trainings");
     return trainings;
+  }
+
+  Future<void> addTraining(Training training) async {
+    final list = await ref.read(trainingsProvider.future);
+    list.add(training);
+
+    final preferences = SharedPreferencesAsync();
+    final jsonList = list.map(jsonEncode).toList();
+    await preferences.setStringList(_keyName, jsonList);
+
+    ref.invalidateSelf();
   }
 }

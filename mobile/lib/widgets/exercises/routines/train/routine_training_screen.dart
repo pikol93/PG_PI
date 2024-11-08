@@ -1,10 +1,14 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pi_mobile/data/routine_schema.dart";
-import "package:pi_mobile/data/workout_schema.dart";
+import "package:pi_mobile/data/training.dart";
+import "package:pi_mobile/data/training_exercise.dart";
+import "package:pi_mobile/data/training_exercise_set.dart";
+import "package:pi_mobile/data/training_workload.dart";
+import "package:pi_mobile/provider/one_rep_max_provider.dart";
 import "package:pi_mobile/provider/schemas_provider.dart";
+import "package:pi_mobile/provider/trainings_provider.dart";
 import "package:pi_mobile/routing/routes.dart";
-import "package:pi_mobile/widgets/common/workouts_list_widget.dart";
 import "package:uuid/uuid.dart";
 
 class RoutineTrainingScreen extends ConsumerStatefulWidget {
@@ -20,15 +24,19 @@ class RoutineTrainingScreen extends ConsumerStatefulWidget {
 class _RoutineTrainingScreenState extends ConsumerState<RoutineTrainingScreen> {
   @override
   Widget build(BuildContext context) {
-    final routineFuture =
+    final schemaFuture =
         ref.read(schemasProvider.notifier).getRoutine(widget.routineUuid);
+
+    // final trainingFuture =
+    //     ref.read(trainingsProvider.notifier).
+    //     startTraining(widget.routineUuid);
 
     return Scaffold(
       appBar: AppBar(
         title: const Text("Toja routine"),
       ),
       body: FutureBuilder<RoutineSchema>(
-        future: routineFuture,
+        future: schemaFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
@@ -48,9 +56,19 @@ class _RoutineTrainingScreenState extends ConsumerState<RoutineTrainingScreen> {
               children: [
                 SizedBox(
                   height: 500,
-                  child: WorkoutsListWidget(
-                    routineUuid: widget.routineUuid,
-                    workouts: routine.workouts,
+                  child: ListView.builder(
+                    padding: const EdgeInsets.all(8),
+                    itemCount: routine.workouts.length,
+                    itemBuilder: (context, index) {
+                      final workout = routine.workouts[index];
+                      return ListTile(
+                        title: Text(workout.name),
+                        subtitle: Text(workout.uuid),
+                        onTap: () {
+                          _onTap(context, widget.routineUuid, workout.uuid);
+                        },
+                      );
+                    },
                   ),
                 ),
               ],
@@ -59,27 +77,72 @@ class _RoutineTrainingScreenState extends ConsumerState<RoutineTrainingScreen> {
           return const Center(child: Text("No data available"));
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          _onAddButtonPressed(context);
-        },
-        child: const Icon(Icons.add),
-      ),
     );
   }
 
-  Future<void> _onAddButtonPressed(BuildContext context) async {
-    final workoutUuid = const Uuid().v4();
+  Future<void> _onTap(
+    BuildContext context,
+    String routineUuid,
+    String workoutUuid,
+  ) async {
+    final workoutSchema = await ref
+        .read(schemasProvider.notifier)
+        .getWorkout(routineUuid, workoutUuid);
 
-    await ref.read(schemasProvider.notifier).addWorkout(
-          widget.routineUuid,
-          WorkoutSchema(uuid: workoutUuid, name: "", exercisesSchemas: []),
+    final trainingExercisesBlank = <TrainingExercise>[];
+    for (final exerciseSchema in workoutSchema.exercisesSchemas) {
+      final trainingExerciseSetsBlank = <TrainingExerciseSet>[];
+
+      final oneRepMax = await ref
+          .read(oneRepMaxsProvider.notifier)
+          .getCertainOneRepMax(exerciseSchema.name);
+
+      for (final exerciseSchemaSet in exerciseSchema.sets) {
+        trainingExerciseSetsBlank.add(
+          TrainingExerciseSet(
+            trainingExerciseSetUuid: const Uuid().v4(),
+            exerciseSetSchemaUuid: exerciseSchemaSet.uuid,
+            weight: 0,
+            reps: 0,
+            expectedReps: exerciseSchemaSet.reps,
+            expectedWeight: exerciseSchemaSet.intensity * 0.01 * oneRepMax,
+            rpe: 0,
+            isFinished: false,
+          ),
         );
+      }
+
+      trainingExercisesBlank.add(
+        TrainingExercise(
+          trainingExerciseUuid: const Uuid().v4(),
+          exerciseSchemaUuid: exerciseSchema.uuid,
+          wasStarted: false,
+          isFinished: false,
+          exerciseSets: [],
+        ),
+      );
+    }
+
+    final newTraining = Training(
+      initialWorkoutName: workoutSchema.name,
+      trainingUuid: const Uuid().v4(),
+      routineSchemaUuid: routineUuid,
+      workoutSchemaUuid: workoutUuid,
+      startDate: DateTime.now(),
+      endDate: DateTime(2023),
+      isFinished: false,
+      trainingWorkload: TrainingWorkload(
+        trainingWorkloadUuid: const Uuid().v4(),
+        workoutSchemaUuid: workoutUuid,
+        trainingExercises: trainingExercisesBlank,
+      ),
+    );
+
+    await ref.read(trainingsProvider.notifier).addTraining(newTraining);
+
     if (context.mounted) {
       OpenWorkoutTrainingRoute(
-        routineUuid: widget.routineUuid,
-        workoutUuid: workoutUuid,
-      ).go(context);
+          routineUuid: routineUuid, workoutUuid: workoutUuid,).go(context);
     }
   }
 }

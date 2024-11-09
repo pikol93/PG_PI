@@ -53,7 +53,7 @@ pub async fn route_share(
     };
 
     let response = ShareResponse {
-        id: object_id.to_hex(),
+        id: object_id.to_string(),
     };
 
     HttpResponse::Ok().json(response)

@@ -30,7 +30,9 @@ async fn main() -> Result<()> {
 
     let client = Client::with_uri_str(&configuration.mongo_db_url).await?;
     info!("MongoDB client initialized successfully");
+
     let shared_data_service = SharedDataService::new_with_client(client.clone());
+    shared_data_service.initialize_indexes().await?;
 
     HttpServer::new(move || {
         App::new()

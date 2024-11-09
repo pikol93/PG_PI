@@ -273,6 +273,7 @@ name = "backend"
 version = "0.1.0"
 dependencies = [
  "actix-web",
+ "chrono",
  "dotenvy",
  "envy",
  "eyre",
@@ -438,8 +439,10 @@ checksum = "a21f936df1771bf62b77f047b726c4625ff2e8aa607c01ec06e5a05bd8463401"
 dependencies = [
  "android-tzdata",
  "iana-time-zone",
+ "js-sys",
  "num-traits",
  "serde",
+ "wasm-bindgen",
  "windows-targets 0.52.5",
 ]
 

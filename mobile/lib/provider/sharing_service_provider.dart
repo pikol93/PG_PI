@@ -4,8 +4,8 @@ import "package:dio/dio.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:fpdart/fpdart.dart";
 import "package:freezed_annotation/freezed_annotation.dart";
+import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/provider/dio_instance_provider.dart";
-import "package:pi_mobile/provider/proof_of_work_service_provider.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 part "sharing_service_provider.g.dart";
@@ -15,46 +15,60 @@ part "sharing_service_provider.freezed.dart";
 @riverpod
 Future<SharingService> sharingService(SharingServiceRef ref) async {
   final dio = await ref.watch(dioInstanceProvider.future);
-  final proofOfWorkService = await ref.watch(proofOfWorkServiceProvider.future);
   return SharingService(
     ref: ref,
     dio: dio,
-    proofOfWorkService: proofOfWorkService,
   );
 }
 
-class SharingService {
+class SharingService with Logger {
   final Ref ref;
   final Dio dio;
-  final ProofOfWorkService proofOfWorkService;
 
   SharingService({
     required this.ref,
     required this.dio,
-    required this.proofOfWorkService,
   });
 
-  TaskEither<String, ()> share(DataToShare data) => proofOfWorkService
-      .requestToken()
-      .map((token) => _sendShareRequest(token, data))
-      .flatMap((value) => value);
-
-  TaskEither<String, ()> _sendShareRequest(String token, DataToShare data) =>
-      TaskEither.tryCatch(
+  TaskEither<String, ()> share(ShareRequest request) => TaskEither.tryCatch(
         () async {
-          final result = await dio.post(
-            "/share/$token",
-            data: data.toJson(),
+          final result = await dio.post<Map<String, dynamic>>(
+            "/share",
+            data: request.toJson(),
           );
 
           if (result.statusCode != HttpStatus.ok) {
             throw StateError("Returned invalid HTTP status.");
           }
 
+          final response = ShareResponse.fromJson(result.data!);
+          logger.debug("Response: $response");
+
           return ();
         },
         (e, stackTrace) => "$e",
       );
+}
+
+@freezed
+class ShareRequest with _$ShareRequest {
+  const factory ShareRequest({
+    required int validityMillis,
+    required DataToShare dataToShare,
+  }) = _ShareRequest;
+
+  factory ShareRequest.fromJson(Map<String, Object?> json) =>
+      _$ShareRequestFromJson(json);
+}
+
+@freezed
+class ShareResponse with _$ShareResponse {
+  const factory ShareResponse({
+    required String id,
+  }) = _ShareResponse;
+
+  factory ShareResponse.fromJson(Map<String, Object?> json) =>
+      _$ShareResponseFromJson(json);
 }
 
 @freezed

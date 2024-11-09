@@ -14,9 +14,12 @@ class ShareButton extends ConsumerWidget with Logger {
     final sharingService = await ref.read(sharingServiceProvider.future);
     final result = await sharingService
         .share(
-          const DataToShare(
-            something: "something",
-            something2: "something2",
+          ShareRequest(
+            validityMillis: const Duration(days: 7).inMilliseconds,
+            dataToShare: const DataToShare(
+              something: "something",
+              something2: "something2",
+            ),
           ),
         )
         .run();

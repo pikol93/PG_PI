@@ -1,9 +1,9 @@
+use bson::Uuid;
 use chrono::{DateTime, Utc};
 use eyre::{OptionExt, Result};
 use mongodb::{bson::doc, Client, Collection, IndexModel};
 use serde::{Deserialize, Serialize};
-use tracing::debug;
-use uuid::Uuid;
+use tracing::{debug, trace};
 
 use super::model::DataToShare;
 
@@ -13,7 +13,7 @@ pub struct SharedDataService {
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
-struct ShareDocument {
+pub struct ShareDocument {
     uuid: Uuid,
     expiration_date: DateTime<Utc>,
     data: DataToShare,
@@ -38,7 +38,7 @@ impl SharedDataService {
     }
 
     pub async fn save(&self, expiration_date: DateTime<Utc>, data: DataToShare) -> Result<Uuid> {
-        let uuid = Uuid::new_v4();
+        let uuid = Uuid::new();
         let document = ShareDocument {
             uuid,
             expiration_date,
@@ -53,6 +53,21 @@ impl SharedDataService {
             .ok_or_eyre("Could not extract object ID.")?;
 
         Ok(uuid)
+    }
+
+    pub async fn find(&self, uuid: &Uuid) -> Result<Option<ShareDocument>> {
+        let filter_doc = doc!("uuid": uuid);
+        trace!("Filter doc: {:?}", filter_doc);
+        let result = self
+            .get_shared_data_collection()
+            .find_one(filter_doc)
+            .await?
+            .filter(|document| {
+                debug!("AAAA: {:?}", document);
+                Utc::now() < document.expiration_date
+            });
+
+        Ok(result)
     }
 
     fn get_shared_data_collection(&self) -> Collection<ShareDocument> {

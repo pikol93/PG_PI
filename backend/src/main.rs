@@ -16,6 +16,7 @@ use mongodb::Client;
 use share::service::SharedDataService;
 use tracing::{debug, info};
 use tracing_subscriber::filter::EnvFilter;
+use share::routes::route_fetch_shared;
 
 #[actix_web::main]
 async fn main() -> Result<()> {
@@ -41,6 +42,7 @@ async fn main() -> Result<()> {
             .app_data(JsonConfig::default().content_type(|mime| mime == mime::APPLICATION_JSON))
             .service(health_check)
             .service(route_share)
+            .service(route_fetch_shared)
     })
     .bind((configuration.host, configuration.port))?
     .run()

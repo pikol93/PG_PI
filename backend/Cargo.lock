@@ -284,6 +284,7 @@ dependencies = [
  "serde-aux",
  "tracing",
  "tracing-subscriber",
+ "uuid",
 ]
 
 [[package]]

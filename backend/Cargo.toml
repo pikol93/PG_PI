@@ -16,3 +16,4 @@ serde-aux = "4.5"
 mime = "0.3.17"
 chrono = { version = "0.4.38", features = ["serde"] }
 bson = { version = "2.13.0", features = ["chrono", "uuid-1"] }
+uuid = { version = "1.11.0", features = ["serde"] }

@@ -8,7 +8,7 @@ pub mod utility;
 use crate::configuration::Configuration;
 use crate::share::routes::route_share;
 use actix_web::middleware::Logger;
-use actix_web::web::JsonConfig;
+use actix_web::web::{Data, JsonConfig};
 use actix_web::{get, App, HttpResponse, HttpServer, Responder};
 use dotenvy::dotenv;
 use eyre::Result;
@@ -35,7 +35,7 @@ async fn main() -> Result<()> {
     HttpServer::new(move || {
         App::new()
             .wrap(Logger::default())
-            .app_data(shared_data_service.clone())
+            .app_data(Data::new(shared_data_service.clone()))
             .app_data(JsonConfig::default().content_type(|mime| mime == mime::APPLICATION_JSON))
             .service(health_check)
             .service(route_share)

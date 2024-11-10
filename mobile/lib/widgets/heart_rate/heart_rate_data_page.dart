@@ -1,14 +1,12 @@
 import "package:awesome_flutter_extensions/awesome_flutter_extensions.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:intl/intl.dart";
 import "package:pi_mobile/data/collections/heart_rate.dart";
+import "package:pi_mobile/provider/date_formatter_provider.dart";
 import "package:pi_mobile/provider/heart_rate_list_provider.dart";
 import "package:pi_mobile/routing/routes.dart";
 
 class HeartRateDataPage extends ConsumerWidget {
-  static final dateFormat = DateFormat();
-
   const HeartRateDataPage({super.key});
 
   @override
@@ -20,6 +18,7 @@ class HeartRateDataPage extends ConsumerWidget {
               itemBuilder: (context, index) => _itemBuilder(
                 data[index],
                 context,
+                ref,
               ),
             ),
             error: (error, stackTrace) => Center(
@@ -30,7 +29,12 @@ class HeartRateDataPage extends ConsumerWidget {
             ),
           );
 
-  Widget _itemBuilder(HeartRate entry, BuildContext context) => InkWell(
+  Widget _itemBuilder(
+    HeartRate entry,
+    BuildContext context,
+    WidgetRef ref,
+  ) =>
+      InkWell(
         onTap: () => _onEntryTapped(context, entry),
         child: Column(
           children: [
@@ -40,7 +44,7 @@ class HeartRateDataPage extends ConsumerWidget {
                 children: [
                   Expanded(
                     child: Text(
-                      dateFormat.format(entry.time),
+                      ref.read(dateFormatterProvider).fullDateTime(entry.time),
                       style: context.textStyles.bodyLarge,
                     ),
                   ),

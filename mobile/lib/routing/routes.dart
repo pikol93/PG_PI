@@ -189,12 +189,13 @@ class RequestBatteryPermissionRoute extends GoRouteData {
   path: "/exercises",
   routes: <TypedGoRoute<GoRouteData>>[
     TypedGoRoute<HistoryRoute>(
-        path: "history",
-        routes: <TypedGoRoute<GoRouteData>>[
-          TypedGoRoute<HistoryRecordRoute>(
-            path: ":trainingUuid",
-          ),
-        ],),
+      path: "history",
+      routes: <TypedGoRoute<GoRouteData>>[
+        TypedGoRoute<HistoryRecordRoute>(
+          path: ":trainingUuid",
+        ),
+      ],
+    ),
     TypedGoRoute<RoutinesRoute>(
       path: "routines",
       routes: <TypedGoRoute<GoRouteData>>[
@@ -220,7 +221,7 @@ class RequestBatteryPermissionRoute extends GoRouteData {
           path: ":routineUuid",
           routes: <TypedGoRoute<GoRouteData>>[
             TypedGoRoute<OpenWorkoutTrainingRoute>(
-              path: ":workoutUuid",
+              path: ":trainingUuid",
               routes: <TypedGoRoute<GoRouteData>>[
                 TypedGoRoute<OpenExerciseTrainingRoute>(
                   path: ":exerciseUuid",
@@ -369,18 +370,18 @@ class OpenRoutineTrainingRoute extends GoRouteData with Logger {
 class OpenWorkoutTrainingRoute extends GoRouteData with Logger {
   const OpenWorkoutTrainingRoute({
     required this.routineUuid,
-    required this.workoutUuid,
+    required this.trainingUuid,
   });
 
   final String routineUuid;
-  final String workoutUuid;
+  final String trainingUuid;
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
     logger.debug("execute workouts route");
     return WorkoutTrainingScreen(
       routineUuid: routineUuid,
-      workoutUuid: workoutUuid,
+      trainingUuid: trainingUuid,
     );
   }
 }
@@ -388,20 +389,19 @@ class OpenWorkoutTrainingRoute extends GoRouteData with Logger {
 class OpenExerciseTrainingRoute extends GoRouteData with Logger {
   const OpenExerciseTrainingRoute({
     required this.routineUuid,
-    required this.workoutUuid,
+    required this.trainingUuid,
     required this.exerciseUuid,
   });
 
   final String routineUuid;
-  final String workoutUuid;
+  final String trainingUuid;
   final String exerciseUuid;
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
     logger.debug("execute exercise route");
     return ExerciseTrainingScreen(
-      routineUuid: routineUuid,
-      workoutUuid: workoutUuid,
+      trainingUuid: trainingUuid,
       exerciseUuid: exerciseUuid,
     );
   }

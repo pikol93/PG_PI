@@ -1,6 +1,8 @@
 import "dart:convert";
 
 import "package:pi_mobile/data/training.dart";
+import "package:pi_mobile/data/training_exercise.dart";
+import "package:pi_mobile/data/training_workload.dart";
 import "package:pi_mobile/logger.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:shared_preferences/shared_preferences.dart";
@@ -36,5 +38,25 @@ class Trainings extends _$Trainings with Logger {
   Future<Training> readTraining(String trainingUuid) async {
     final list = await ref.read(trainingsProvider.future);
     return list.firstWhere((training) => trainingUuid == training.trainingUuid);
+  }
+
+  Future<TrainingWorkload> readWorkout(String trainingUuid) async {
+    final list = await ref.read(trainingsProvider.future);
+    return list
+        .firstWhere((training) => trainingUuid == training.trainingUuid)
+        .trainingWorkload;
+  }
+
+  Future<TrainingExercise> readExercise(
+    String trainingUuid,
+    String exerciseUuid,
+  ) async {
+    final list = await ref.read(trainingsProvider.future);
+    return list
+        .firstWhere((training) => trainingUuid == training.trainingUuid)
+        .trainingWorkload
+        .trainingExercises
+        .firstWhere(
+            (exercise) => exerciseUuid == exercise.trainingExerciseUuid,);
   }
 }

@@ -1,18 +1,18 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:pi_mobile/data/workout_schema.dart";
+import "package:pi_mobile/data/training.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
-import "package:pi_mobile/provider/schemas_provider.dart";
-import "package:pi_mobile/widgets/common/exercises_list_widget.dart";
+import "package:pi_mobile/provider/trainings_provider.dart";
+import "package:pi_mobile/routing/routes.dart";
 
 class WorkoutTrainingScreen extends ConsumerStatefulWidget {
   final String routineUuid;
-  final String workoutUuid;
+  final String trainingUuid;
 
   const WorkoutTrainingScreen({
     super.key,
     required this.routineUuid,
-    required this.workoutUuid,
+    required this.trainingUuid,
   });
 
   @override
@@ -23,25 +23,24 @@ class WorkoutTrainingScreen extends ConsumerStatefulWidget {
 class _WorkoutTrainingScreen extends ConsumerState<WorkoutTrainingScreen> {
   @override
   Widget build(BuildContext context) {
-    final workoutFuture = ref
-        .read(schemasProvider.notifier)
-        .getWorkout(widget.routineUuid, widget.workoutUuid);
+    final trainingFuture =
+        ref.read(trainingsProvider.notifier).readTraining(widget.trainingUuid);
 
     return Scaffold(
       appBar: AppBar(
         title: const Text("EGESZEGE RUSZAMY"),
       ),
-      body: FutureBuilder<WorkoutSchema>(
-        future: workoutFuture,
+      body: FutureBuilder<Training>(
+        future: trainingFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             return Center(child: Text("Error: ${snapshot.error}"));
           } else if (snapshot.hasData) {
-            final workout = snapshot.data!;
+            final training = snapshot.data!;
 
-            if (workout.exercisesSchemas.isEmpty) {
+            if (training.trainingWorkload.trainingExercises.isEmpty) {
               return const Center(
                 child: Text(
                   "No exercises available",
@@ -54,10 +53,31 @@ class _WorkoutTrainingScreen extends ConsumerState<WorkoutTrainingScreen> {
               children: [
                 SizedBox(
                   height: 500,
-                  child: ExercisesListWidget(
-                    exercises: workout.exercisesSchemas,
-                    routineUuid: widget.routineUuid,
-                    workoutUuid: widget.workoutUuid,
+                  child: ListView.builder(
+                    padding: const EdgeInsets.all(8),
+                    itemCount:
+                        training.trainingWorkload.trainingExercises.length,
+                    itemBuilder: (context, index) {
+                      final exercise =
+                          training.trainingWorkload.trainingExercises[index];
+                      return Row(
+                        children: [
+                          Expanded(
+                            child: ListTile(
+                              title: Text(exercise.name),
+                              subtitle: Text(
+                                "${context.t.routines.amountOfSets}: "
+                                "${exercise.exerciseSets.length}",
+                              ),
+                              onTap: () {
+                                _onTap(context, widget.trainingUuid,
+                                    exercise.trainingExerciseUuid,);
+                              },
+                            ),
+                          ),
+                        ],
+                      );
+                    },
                   ),
                 ),
               ],
@@ -68,5 +88,17 @@ class _WorkoutTrainingScreen extends ConsumerState<WorkoutTrainingScreen> {
         },
       ),
     );
+  }
+
+  void _onTap(
+    BuildContext context,
+    String trainingUuid,
+    String exerciseUuid,
+  ) {
+    OpenExerciseTrainingRoute(
+      trainingUuid: trainingUuid,
+      exerciseUuid: exerciseUuid,
+      routineUuid: widget.routineUuid,
+    ).go(context);
   }
 }

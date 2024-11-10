@@ -50,19 +50,17 @@ class _HistoryRecordScreen extends ConsumerState<HistoryRecordScreen> {
                 const SizedBox(height: 8),
                 _buildTrainingInfo(training),
                 const SizedBox(height: 16),
-                ...training.trainingWorkload.trainingExercises
-                    .map((exercise) => Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            _buildExerciseInfo(exercise),
-                            const SizedBox(height: 8),
-                            ...exercise.exerciseSets
-                                .map(_buildExerciseSetInfo)
-                                ,
-                            const Divider(),
-                          ],
-                        ),)
-                    ,
+                ...training.trainingWorkload.trainingExercises.map(
+                  (exercise) => Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildExerciseInfo(exercise),
+                      const SizedBox(height: 8),
+                      ...exercise.exerciseSets.map(_buildExerciseSetInfo),
+                      const Divider(),
+                    ],
+                  ),
+                ),
               ],
             ),
           );
@@ -82,11 +80,9 @@ class _HistoryRecordScreen extends ConsumerState<HistoryRecordScreen> {
           Text("End Date: ${training.endDate}"),
           Text("Is Finished: ${training.isFinished}"),
           const SizedBox(height: 8),
-          Text(
-              """
+          Text("""
 Training Workload UUID: ${training.trainingWorkload.trainingWorkloadUuid}"""),
-          Text(
-              """
+          Text("""
 Workout Schema UUID: ${training.trainingWorkload.workoutSchemaUuid}"""),
         ],
       );

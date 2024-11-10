@@ -9,6 +9,7 @@ class TrainingExercise with _$TrainingExercise {
   const factory TrainingExercise({
     required String trainingExerciseUuid,
     required String exerciseSchemaUuid,
+    required String name,
     required bool wasStarted,
     required bool isFinished,
     required List<TrainingExerciseSet> exerciseSets,

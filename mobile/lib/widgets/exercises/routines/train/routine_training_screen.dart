@@ -27,10 +27,6 @@ class _RoutineTrainingScreenState extends ConsumerState<RoutineTrainingScreen> {
     final schemaFuture =
         ref.read(schemasProvider.notifier).getRoutine(widget.routineUuid);
 
-    // final trainingFuture =
-    //     ref.read(trainingsProvider.notifier).
-    //     startTraining(widget.routineUuid);
-
     return Scaffold(
       appBar: AppBar(
         title: const Text("Toja routine"),
@@ -44,8 +40,6 @@ class _RoutineTrainingScreenState extends ConsumerState<RoutineTrainingScreen> {
             return Center(child: Text("Error: ${snapshot.error}"));
           } else if (snapshot.hasData) {
             final routine = snapshot.data!;
-            // _nameController.text = routine.name;
-            // _descriptionController.text = routine.description;
 
             if (routine.workouts.isEmpty) {
               return const Center(child: Text("No workouts available"));
@@ -114,6 +108,7 @@ class _RoutineTrainingScreenState extends ConsumerState<RoutineTrainingScreen> {
 
       trainingExercisesBlank.add(
         TrainingExercise(
+          name: exerciseSchema.name,
           trainingExerciseUuid: const Uuid().v4(),
           exerciseSchemaUuid: exerciseSchema.uuid,
           wasStarted: false,
@@ -123,9 +118,11 @@ class _RoutineTrainingScreenState extends ConsumerState<RoutineTrainingScreen> {
       );
     }
 
+    final trainingUuid = const Uuid().v4();
+
     final newTraining = Training(
       initialWorkoutName: workoutSchema.name,
-      trainingUuid: const Uuid().v4(),
+      trainingUuid: trainingUuid,
       routineSchemaUuid: routineUuid,
       workoutSchemaUuid: workoutUuid,
       startDate: DateTime.now(),
@@ -142,8 +139,8 @@ class _RoutineTrainingScreenState extends ConsumerState<RoutineTrainingScreen> {
 
     if (context.mounted) {
       OpenWorkoutTrainingRoute(
+        trainingUuid: trainingUuid,
         routineUuid: routineUuid,
-        workoutUuid: workoutUuid,
       ).go(context);
     }
   }

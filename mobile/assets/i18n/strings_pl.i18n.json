@@ -14,7 +14,13 @@
     "title": "Strona główna"
   },
   "tracks": {
-    "title": "Trasy"
+    "title": "Trasy",
+    "service": {
+      "notification": {
+        "title": "Nagrywanie pozycji",
+        "text": "Dotknij, aby powrócić do aplikacji"
+      }
+    }
   },
   "routines": {
     "title": "Rutyny",

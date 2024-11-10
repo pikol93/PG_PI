@@ -32,4 +32,9 @@ class Trainings extends _$Trainings with Logger {
 
     ref.invalidateSelf();
   }
+
+  Future<Training> readTraining(String trainingUuid) async {
+    final list = await ref.read(trainingsProvider.future);
+    return list.firstWhere((training) => trainingUuid == training.trainingUuid);
+  }
 }

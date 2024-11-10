@@ -118,7 +118,7 @@ class _RoutineTrainingScreenState extends ConsumerState<RoutineTrainingScreen> {
           exerciseSchemaUuid: exerciseSchema.uuid,
           wasStarted: false,
           isFinished: false,
-          exerciseSets: [],
+          exerciseSets: trainingExerciseSetsBlank,
         ),
       );
     }
@@ -142,7 +142,9 @@ class _RoutineTrainingScreenState extends ConsumerState<RoutineTrainingScreen> {
 
     if (context.mounted) {
       OpenWorkoutTrainingRoute(
-          routineUuid: routineUuid, workoutUuid: workoutUuid,).go(context);
+        routineUuid: routineUuid,
+        workoutUuid: workoutUuid,
+      ).go(context);
     }
   }
 }

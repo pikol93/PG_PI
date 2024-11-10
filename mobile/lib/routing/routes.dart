@@ -19,6 +19,7 @@ import "package:pi_mobile/widgets/exercises/routines/routines_screen.dart";
 import "package:pi_mobile/widgets/exercises/routines/train/exercise_training_screen.dart";
 import "package:pi_mobile/widgets/exercises/routines/train/routine_training_screen.dart";
 import "package:pi_mobile/widgets/exercises/routines/train/workout_training_screen.dart";
+import "package:pi_mobile/widgets/exercises/session/history_record_screen.dart";
 import "package:pi_mobile/widgets/exercises/session/history_screen.dart";
 import "package:pi_mobile/widgets/heart_rate/heart_rate_screen.dart";
 import "package:pi_mobile/widgets/heart_rate/modify_heart_rate_screen.dart";
@@ -187,7 +188,13 @@ class RequestBatteryPermissionRoute extends GoRouteData {
 @TypedGoRoute<ExercisesRoute>(
   path: "/exercises",
   routes: <TypedGoRoute<GoRouteData>>[
-    TypedGoRoute<HistoryRoute>(path: "history"),
+    TypedGoRoute<HistoryRoute>(
+        path: "history",
+        routes: <TypedGoRoute<GoRouteData>>[
+          TypedGoRoute<HistoryRecordRoute>(
+            path: ":trainingUuid",
+          ),
+        ],),
     TypedGoRoute<RoutinesRoute>(
       path: "routines",
       routes: <TypedGoRoute<GoRouteData>>[
@@ -244,6 +251,18 @@ class HistoryRoute extends GoRouteData with Logger {
   Widget build(BuildContext context, GoRouterState state) {
     logger.debug("history route");
     return const HistoryScreen();
+  }
+}
+
+class HistoryRecordRoute extends GoRouteData with Logger {
+  const HistoryRecordRoute({required this.trainingUuid});
+
+  final String trainingUuid;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    logger.debug("history record route");
+    return HistoryRecordScreen(trainingUuid: trainingUuid);
   }
 }
 

@@ -19,12 +19,14 @@ Future<List<HeartRate>> heartRateList(HeartRateListRef ref) async {
 @riverpod
 Future<List<HeartRate>> sortedHeartRateList(SortedHeartRateListRef ref) async {
   final heartRateManager = await ref.watch(heartRateManagerProvider.future);
-  return heartRateManager.getAllSortedByTime();
+  return heartRateManager.getAllSortedByTimeDescending();
 }
 
 @riverpod
 Future<List<FlSpot>> heartRateChartData(HeartRateChartDataRef ref) async {
-  final heartRateList = await ref.watch(heartRateListProvider.future);
+  final heartRateManager = await ref.watch(heartRateManagerProvider.future);
+  final heartRateList = await heartRateManager.getAllSortedByTimeAscending();
+
   return heartRateList
       .map(
         (entry) => FlSpot(
@@ -58,7 +60,10 @@ class HeartRateManager {
 
   Future<List<HeartRate>> getAll() => isar.heartRates.where().findAll();
 
-  Future<List<HeartRate>> getAllSortedByTime() =>
+  Future<List<HeartRate>> getAllSortedByTimeAscending() =>
+      isar.heartRates.where().sortByTime().findAll();
+
+  Future<List<HeartRate>> getAllSortedByTimeDescending() =>
       isar.heartRates.where().sortByTimeDesc().findAll();
 
   Future<HeartRate?> getById(int id) => isar.heartRates.get(id);

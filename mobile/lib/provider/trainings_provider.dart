@@ -76,8 +76,40 @@ class Trainings extends _$Trainings with Logger {
           (exercise) => exerciseUuid == exercise.trainingExerciseUuid,
         )
         .exerciseSets
-        .firstWhere((exerciseSet) =>
-            exerciseSetUuid == exerciseSet.trainingExerciseSetUuid,);
+        .firstWhere(
+          (exerciseSet) =>
+              exerciseSetUuid == exerciseSet.trainingExerciseSetUuid,
+        );
+  }
+
+  Future<void> updateExercise(
+    String trainingUuid,
+    TrainingExercise updatedExercise,
+  ) async {
+    final trainings = await ref.read(trainingsProvider.future);
+
+    final updatedTrainings = trainings.map((training) {
+      if (training.trainingUuid == trainingUuid) {
+        final workload = training.trainingWorkload;
+        final updatedExercises = workload.trainingExercises.map((exercise) {
+          if (exercise.trainingExerciseUuid ==
+              updatedExercise.trainingExerciseUuid) {
+            return updatedExercise;
+          }
+          return exercise;
+        }).toList();
+        final updatedWorkload =
+            workload.copyWith(trainingExercises: updatedExercises);
+        return training.copyWith(trainingWorkload: updatedWorkload);
+      }
+      return training;
+    }).toList();
+
+    final preferences = SharedPreferencesAsync();
+    final jsonList = updatedTrainings.map(jsonEncode).toList();
+    await preferences.setStringList(_keyName, jsonList);
+
+    ref.invalidateSelf();
   }
 
   Future<void> updateExerciseSet(
@@ -115,5 +147,24 @@ class Trainings extends _$Trainings with Logger {
     await preferences.setStringList(_keyName, jsonList);
 
     ref.invalidateSelf();
+  }
+
+  Future<void> checkExerciseComplition(
+      String trainingUuid, String exerciseUuid,) async {
+    final exercise = await readExercise(trainingUuid, exerciseUuid);
+    final sets = exercise.exerciseSets;
+
+    var areAllExercisesCompleted = true;
+
+    for (var set in sets) {
+      if (!set.isFinished) {
+        areAllExercisesCompleted = false;
+      }
+    }
+
+    if (areAllExercisesCompleted) {
+      final finishedExercise = exercise.copyWith(isFinished: true);
+      await updateExercise(trainingUuid, finishedExercise);
+    }
   }
 }

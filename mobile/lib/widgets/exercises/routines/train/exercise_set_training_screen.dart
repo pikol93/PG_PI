@@ -145,6 +145,10 @@ class _ExerciseSetTrainingScreen
         .read(trainingsProvider.notifier)
         .updateExerciseSet(widget.trainingUuid, widget.exerciseUuid, newSet);
 
+    await ref
+        .read(trainingsProvider.notifier)
+        .checkExerciseComplition(widget.trainingUuid, widget.exerciseUuid);
+
     if (context.mounted) {
       OpenExerciseTrainingRoute(
         routineUuid: widget.routineUuid,

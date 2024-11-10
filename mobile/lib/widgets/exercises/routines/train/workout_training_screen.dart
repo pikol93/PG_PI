@@ -64,18 +64,23 @@ class _WorkoutTrainingScreen extends ConsumerState<WorkoutTrainingScreen> {
                         children: [
                           Expanded(
                             child: ListTile(
+                              tileColor: exercise.isFinished
+                                  ? Colors.green
+                                  : Colors.white70,
                               title: Text(exercise.name),
                               subtitle: Text(
                                 "${context.t.routines.amountOfSets}: "
                                 "${exercise.exerciseSets.length}",
                               ),
-                              onTap: () {
-                                _onTap(
-                                  context,
-                                  widget.trainingUuid,
-                                  exercise.trainingExerciseUuid,
-                                );
-                              },
+                              onTap: !exercise.isFinished
+                                  ? () {
+                                      _onTap(
+                                        context,
+                                        widget.trainingUuid,
+                                        exercise.trainingExerciseUuid,
+                                      );
+                                    }
+                                  : null,
                             ),
                           ),
                         ],

@@ -74,10 +74,9 @@ class _AppState extends ConsumerState<App> {
             useMaterial3: true,
           ),
           themeMode: theme.toThemeMode(),
-          localizationsDelegates: const [
-            GlobalMaterialLocalizations.delegate,
-          ],
+          localizationsDelegates: GlobalMaterialLocalizations.delegates,
           supportedLocales: AppLocaleUtils.supportedLocales,
+          locale: AppLocale.pl.flutterLocale,
         ),
         error: (error, stackTrace) => Center(
           child: Text("An error has occurred. $error\n$stackTrace"),

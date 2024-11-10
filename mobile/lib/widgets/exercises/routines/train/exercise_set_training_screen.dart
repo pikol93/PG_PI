@@ -89,7 +89,8 @@ class _ExerciseSetTrainingScreen
                         keyboardType: TextInputType.number,
                         inputFormatters: <TextInputFormatter>[
                           FilteringTextInputFormatter.allow(
-                              RegExp(r"^(?!.*\.\..*)[0-9]*\.?[0-9]{0,2}$"),),
+                            RegExp(r"^(?!.*\.\..*)[0-9]*\.?[0-9]{0,2}$"),
+                          ),
                         ],
                         decoration: InputDecoration(
                           labelText: context.t.exercises.dataInput.weight,

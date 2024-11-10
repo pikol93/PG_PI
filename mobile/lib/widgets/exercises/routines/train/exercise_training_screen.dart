@@ -67,6 +67,9 @@ class _ExerciseTrainingScreen extends ConsumerState<ExerciseTrainingScreen> {
                               itemBuilder: (context, index) {
                                 final set = exercise.exerciseSets[index];
                                 return ListTile(
+                                  tileColor: set.isFinished
+                                      ? Colors.green
+                                      : Colors.white70,
                                   title: Text(
                                     "${context.t.routines.set}"
                                     " ${index + 1}",
@@ -77,15 +80,17 @@ class _ExerciseTrainingScreen extends ConsumerState<ExerciseTrainingScreen> {
                                           "${context.t.routines.reps}:"
                                           " ${set.reps} \n"
                                           "Is finished: ${set.isFinished}"),
-                                  onTap: () {
-                                    _onTap(
-                                      context,
-                                      widget.routineUuid,
-                                      widget.trainingUuid,
-                                      widget.exerciseUuid,
-                                      set.trainingExerciseSetUuid,
-                                    );
-                                  },
+                                  onTap: !set.isFinished
+                                      ? () {
+                                          _onTap(
+                                            context,
+                                            widget.routineUuid,
+                                            widget.trainingUuid,
+                                            widget.exerciseUuid,
+                                            set.trainingExerciseSetUuid,
+                                          );
+                                        }
+                                      : null,
                                 );
                               },
                             ),

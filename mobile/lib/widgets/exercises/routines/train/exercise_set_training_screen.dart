@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:flutter/services.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pi_mobile/data/training_exercise_set.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
@@ -28,11 +29,13 @@ class _ExerciseSetTrainingScreen
     extends ConsumerState<ExerciseSetTrainingScreen> {
   final TextEditingController _weightController = TextEditingController();
   final TextEditingController _repsController = TextEditingController();
+  final TextEditingController _rpeController = TextEditingController();
 
   @override
   void dispose() {
     _weightController.dispose();
     _repsController.dispose();
+    _rpeController.dispose();
     super.dispose();
   }
 
@@ -63,34 +66,57 @@ class _ExerciseSetTrainingScreen
                   return Center(child: Text("Error: ${snapshot.error}"));
                 } else if (snapshot.hasData) {
                   final set = snapshot.data!;
-                  _weightController.text = set.weight.toString();
-                  _repsController.text = set.reps.toString();
+                  _weightController.text = set.expectedWeight.toString();
+                  _repsController.text = set.expectedReps.toString();
+                  _rpeController.text = "7";
 
                   return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(context.t.routines.editExerciseName),
-                      const SizedBox(height: 8.0),
                       TextField(
-                        controller: _weightController,
+                        keyboardType: TextInputType.number,
+                        inputFormatters: <TextInputFormatter>[
+                          FilteringTextInputFormatter.digitsOnly,
+                        ],
                         decoration: InputDecoration(
-                          labelText: context.t.routines.intensity,
+                          labelText: context.t.exercises.dataInput.reps,
                           border: const OutlineInputBorder(),
                         ),
-                      ),
-                      const SizedBox(height: 16.0),
-                      TextField(
+                        textAlign: TextAlign.center,
                         controller: _repsController,
+                      ),
+                      const SizedBox(height: 20.0),
+                      TextField(
+                        keyboardType: TextInputType.number,
+                        inputFormatters: <TextInputFormatter>[
+                          FilteringTextInputFormatter.allow(
+                              RegExp(r"^(?!.*\.\..*)[0-9]*\.?[0-9]{0,2}$"),),
+                        ],
                         decoration: InputDecoration(
-                          labelText: context.t.routines.reps,
+                          labelText: context.t.exercises.dataInput.weight,
                           border: const OutlineInputBorder(),
                         ),
+                        textAlign: TextAlign.center,
+                        controller: _weightController,
                       ),
-                      const SizedBox(height: 16.0),
+                      const SizedBox(height: 20.0),
+                      TextField(
+                        keyboardType: TextInputType.number,
+                        inputFormatters: <TextInputFormatter>[
+                          FilteringTextInputFormatter.digitsOnly,
+                        ],
+                        decoration: const InputDecoration(
+                          labelText: "RPE",
+                          border: OutlineInputBorder(),
+                        ),
+                        textAlign: TextAlign.center,
+                        controller: _rpeController,
+                      ),
+                      const SizedBox(height: 20),
                       ElevatedButton(
                         onPressed: () => _onSaveButtonPressed(context, set),
-                        child: const Text("Zapisz"),
+                        child: Text(context.t.exercises.dataInput.saveSet),
                       ),
+                      const SizedBox(height: 10),
                     ],
                   );
                 }
@@ -105,7 +131,9 @@ class _ExerciseSetTrainingScreen
   }
 
   Future<void> _onSaveButtonPressed(
-      BuildContext context, TrainingExerciseSet set,) async {
+    BuildContext context,
+    TrainingExerciseSet set,
+  ) async {
     final newSet = set.copyWith(
       reps: int.tryParse(_repsController.text) ?? 100,
       weight: double.tryParse(_weightController.text) ?? 100,

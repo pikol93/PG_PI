@@ -20,6 +20,7 @@ class NavigationDrawerEntry extends StatelessWidget {
       );
 
   void _onTap(BuildContext context) {
+    Scaffold.of(context).openEndDrawer();
     goMethod(context);
   }
 }

@@ -94,15 +94,14 @@ class _RoutineTrainingScreenState extends ConsumerState<RoutineTrainingScreen> {
       for (final exerciseSchemaSet in exerciseSchema.sets) {
         trainingExerciseSetsBlank.add(
           TrainingExerciseSet(
-            trainingExerciseSetUuid: const Uuid().v4(),
-            exerciseSetSchemaUuid: exerciseSchemaSet.uuid,
-            weight: 0,
-            reps: 0,
-            expectedReps: exerciseSchemaSet.reps,
-            expectedWeight: exerciseSchemaSet.intensity * 0.01 * oneRepMax,
-            rpe: 0,
-            isFinished: false,
-          ),
+              trainingExerciseSetUuid: const Uuid().v4(),
+              exerciseSetSchemaUuid: exerciseSchemaSet.uuid,
+              weight: 0,
+              reps: 0,
+              expectedReps: exerciseSchemaSet.reps,
+              expectedWeight: exerciseSchemaSet.intensity * 0.01 * oneRepMax,
+              rpe: 0,
+              isFinished: false,),
         );
       }
 

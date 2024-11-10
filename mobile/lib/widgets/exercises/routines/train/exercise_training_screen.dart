@@ -3,13 +3,16 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pi_mobile/data/training_exercise.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/provider/trainings_provider.dart";
+import "package:pi_mobile/routing/routes.dart";
 
 class ExerciseTrainingScreen extends ConsumerStatefulWidget {
+  final String routineUuid;
   final String trainingUuid;
   final String exerciseUuid;
 
   const ExerciseTrainingScreen({
     super.key,
+    required this.routineUuid,
     required this.trainingUuid,
     required this.exerciseUuid,
   });
@@ -72,7 +75,17 @@ class _ExerciseTrainingScreen extends ConsumerState<ExerciseTrainingScreen> {
                                       Text("${context.t.routines.intensity}:"
                                           " ${set.weight} \n"
                                           "${context.t.routines.reps}:"
-                                          " ${set.reps}"),
+                                          " ${set.reps} \n"
+                                          "Is finished: ${set.isFinished}"),
+                                  onTap: () {
+                                    _onTap(
+                                      context,
+                                      widget.routineUuid,
+                                      widget.trainingUuid,
+                                      widget.exerciseUuid,
+                                      set.trainingExerciseSetUuid,
+                                    );
+                                  },
                                 );
                               },
                             ),
@@ -91,5 +104,20 @@ class _ExerciseTrainingScreen extends ConsumerState<ExerciseTrainingScreen> {
         ),
       ),
     );
+  }
+
+  void _onTap(
+    BuildContext context,
+    String routineUuid,
+    String trainingUuid,
+    String exerciseUuid,
+    String setUuid,
+  ) {
+    OpenExerciseSetTrainingRoute(
+      routineUuid: routineUuid,
+      trainingUuid: trainingUuid,
+      exerciseUuid: exerciseUuid,
+      exerciseSetUuid: setUuid,
+    ).go(context);
   }
 }

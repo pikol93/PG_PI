@@ -16,6 +16,7 @@ import "package:pi_mobile/widgets/exercises/routines/edit/edit_exercise_set_sche
 import "package:pi_mobile/widgets/exercises/routines/edit/edit_routine_schema_screen.dart";
 import "package:pi_mobile/widgets/exercises/routines/edit/edit_workout_schema_screen.dart";
 import "package:pi_mobile/widgets/exercises/routines/routines_screen.dart";
+import "package:pi_mobile/widgets/exercises/routines/train/exercise_set_training_screen.dart";
 import "package:pi_mobile/widgets/exercises/routines/train/exercise_training_screen.dart";
 import "package:pi_mobile/widgets/exercises/routines/train/routine_training_screen.dart";
 import "package:pi_mobile/widgets/exercises/routines/train/workout_training_screen.dart";
@@ -225,7 +226,11 @@ class RequestBatteryPermissionRoute extends GoRouteData {
               routes: <TypedGoRoute<GoRouteData>>[
                 TypedGoRoute<OpenExerciseTrainingRoute>(
                   path: ":exerciseUuid",
-                  routes: <TypedGoRoute<GoRouteData>>[],
+                  routes: <TypedGoRoute<GoRouteData>>[
+                    TypedGoRoute<OpenExerciseSetTrainingRoute>(
+                      path: ":exerciseSetUuid",
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -401,8 +406,34 @@ class OpenExerciseTrainingRoute extends GoRouteData with Logger {
   Widget build(BuildContext context, GoRouterState state) {
     logger.debug("execute exercise route");
     return ExerciseTrainingScreen(
+      routineUuid: routineUuid,
       trainingUuid: trainingUuid,
       exerciseUuid: exerciseUuid,
+    );
+  }
+}
+
+class OpenExerciseSetTrainingRoute extends GoRouteData with Logger {
+  const OpenExerciseSetTrainingRoute({
+    required this.routineUuid,
+    required this.trainingUuid,
+    required this.exerciseUuid,
+    required this.exerciseSetUuid,
+  });
+
+  final String routineUuid;
+  final String trainingUuid;
+  final String exerciseUuid;
+  final String exerciseSetUuid;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    logger.debug("execute exercise set route");
+    return ExerciseSetTrainingScreen(
+      routineUuid: routineUuid,
+      trainingUuid: trainingUuid,
+      exerciseUuid: exerciseUuid,
+      exerciseSetUuid: exerciseSetUuid,
     );
   }
 }

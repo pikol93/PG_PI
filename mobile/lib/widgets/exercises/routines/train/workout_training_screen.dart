@@ -70,8 +70,11 @@ class _WorkoutTrainingScreen extends ConsumerState<WorkoutTrainingScreen> {
                                 "${exercise.exerciseSets.length}",
                               ),
                               onTap: () {
-                                _onTap(context, widget.trainingUuid,
-                                    exercise.trainingExerciseUuid,);
+                                _onTap(
+                                  context,
+                                  widget.trainingUuid,
+                                  exercise.trainingExerciseUuid,
+                                );
                               },
                             ),
                           ),

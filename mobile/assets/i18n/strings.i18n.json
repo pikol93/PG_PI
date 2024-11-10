@@ -14,7 +14,13 @@
     "title": "Home"
   },
   "tracks": {
-    "title": "Tracks"
+    "title": "Tracks",
+    "service": {
+      "notification": {
+        "title": "Recording position",
+        "text": "Tap to return to the app"
+      }
+    }
   },
   "routines": {
     "title": "Routines",

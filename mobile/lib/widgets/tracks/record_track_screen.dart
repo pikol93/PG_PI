@@ -7,6 +7,7 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pi_mobile/data/collections/track.dart";
 import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/main.dart";
+import "package:pi_mobile/provider/date_formatter_provider.dart";
 import "package:pi_mobile/provider/processed_recorded_track_provider.dart";
 import "package:pi_mobile/provider/recorded_track_provider.dart";
 import "package:pi_mobile/provider/tracks_provider.dart";
@@ -32,7 +33,14 @@ class _RecordTrackScreenState extends ConsumerState<RecordTrackScreen>
     //  starting the service did not work.
     ref.read(recordedTrackProvider.notifier).initializeIfNotInitialized();
     _initService();
-    unawaited(_startService());
+
+    final translations = ref.read(currentLocaleProvider).translations;
+    unawaited(
+      _startService(
+        translations.tracks.service.notification.title,
+        translations.tracks.service.notification.text,
+      ),
+    );
   }
 
   @override
@@ -129,12 +137,15 @@ class _RecordTrackScreenState extends ConsumerState<RecordTrackScreen>
     );
   }
 
-  Future<ServiceRequestResult> _startService() async {
+  Future<ServiceRequestResult> _startService(
+    String notificationTitle,
+    String notificationText,
+  ) async {
     logger.debug("Starting foreground service.");
     final serviceRequestResult = await FlutterForegroundTask.startService(
       serviceId: serviceId,
-      notificationTitle: "Foreground Service is running",
-      notificationText: "Tap to return to the app",
+      notificationTitle: notificationTitle,
+      notificationText: notificationText,
       callback: startCallback,
     );
     logger.debug("Service request result:"

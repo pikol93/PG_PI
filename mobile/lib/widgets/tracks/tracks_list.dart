@@ -4,6 +4,7 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:intl/intl.dart";
 import "package:pi_mobile/data/collections/track.dart";
 import "package:pi_mobile/logger.dart";
+import "package:pi_mobile/provider/date_formatter_provider.dart";
 import "package:pi_mobile/provider/tracks_provider.dart";
 import "package:pi_mobile/routing/routes.dart";
 import "package:pi_mobile/utility/duration.dart";
@@ -55,7 +56,9 @@ class TracksList extends ConsumerWidget with Logger {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      dateFormat.format(track.startTime),
+                      ref
+                          .read(dateFormatterProvider)
+                          .toFullName(track.startTime),
                       style: context.textStyles.bodyLarge,
                     ),
                     Text(

@@ -58,7 +58,7 @@ class TracksList extends ConsumerWidget with Logger {
                     Text(
                       ref
                           .read(dateFormatterProvider)
-                          .toFullName(track.startTime),
+                          .fullDateTime(track.startTime),
                       style: context.textStyles.bodyLarge,
                     ),
                     Text(

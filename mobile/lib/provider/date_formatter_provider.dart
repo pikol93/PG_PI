@@ -12,19 +12,20 @@ DateFormatter dateFormatter(DateFormatterRef ref) {
   final currentLocale = ref.watch(currentLocaleProvider);
 
   return DateFormatter(
-    appLocale: currentLocale,
+    languageCode: currentLocale.flutterLocale.languageCode,
   );
 }
 
 class DateFormatter {
-  final AppLocale appLocale;
-  final DateFormat formatFullName;
+  final String languageCode;
+  final DateFormat formatFullDate;
+  final DateFormat formatFullTime;
 
   DateFormatter({
-    required this.appLocale,
-  }) : formatFullName = DateFormat.yMMMMEEEEd(
-          appLocale.flutterLocale.languageCode,
-        );
+    required this.languageCode,
+  })  : formatFullDate = DateFormat.yMMMMEEEEd(languageCode),
+        formatFullTime = DateFormat.jms(languageCode);
 
-  String toFullName(DateTime dateTime) => formatFullName.format(dateTime);
+  String fullDateTime(DateTime dateTime) =>
+      "${formatFullDate.format(dateTime)} ${formatFullTime.format(dateTime)}";
 }

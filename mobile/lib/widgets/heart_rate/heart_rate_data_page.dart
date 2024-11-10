@@ -44,7 +44,7 @@ class HeartRateDataPage extends ConsumerWidget {
                 children: [
                   Expanded(
                     child: Text(
-                      ref.read(dateFormatterProvider).toFullName(entry.time),
+                      ref.read(dateFormatterProvider).fullDateTime(entry.time),
                       style: context.textStyles.bodyLarge,
                     ),
                   ),

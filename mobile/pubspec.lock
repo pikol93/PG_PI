@@ -210,7 +210,7 @@ packages:
     source: hosted
     version: "1.10.0"
   crypto:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: crypto
       sha256: "1e445881f28f22d6140f181e07737b22f1e099a5e1ff94b0af2f9e4a463f4855"
@@ -405,6 +405,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  fpdart:
+    dependency: "direct main"
+    description:
+      name: fpdart
+      sha256: "7413acc5a6569a3fe8277928fc7487f3198530f0c4e635d0baef199ea36e8ee9"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.0"
   freezed:
     dependency: "direct dev"
     description:
@@ -461,6 +469,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.2"
+  hashcash_dart:
+    dependency: "direct main"
+    description:
+      name: hashcash_dart
+      sha256: "55bb40dfb677f12778c14dfcc55ae75345dec10fa92bc0c94754ac4ac3d9a091"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.0"
   hive:
     dependency: "direct main"
     description:

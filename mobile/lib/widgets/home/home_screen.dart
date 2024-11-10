@@ -3,6 +3,7 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/widgets/common/app_navigation_drawer.dart";
+import "package:pi_mobile/widgets/home/share_button.dart";
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -15,7 +16,12 @@ class HomeScreen extends ConsumerWidget {
           title: Text(context.t.home.title),
         ),
         body: const Center(
-          child: Text("TODO: Home screen"),
+          child: Column(
+            children: [
+              Text("TODO: Home screen"),
+              ShareButton(),
+            ],
+          ),
         ),
       );
 }

@@ -42,6 +42,9 @@ dependencies:
   isar_flutter_libs:
     version: ^3.1.8
     hosted: https://pub.isar-community.dev/
+  fpdart: ^1.1.0
+  hashcash_dart: ^1.1.0
+  crypto: ^3.0.6
 
 dev_dependencies:
   flutter_test:

@@ -6,6 +6,7 @@ import "package:pi_mobile/data/app_theme.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/provider/connection_settings_provider.dart";
+import "package:pi_mobile/provider/date_formatter_provider.dart";
 import "package:pi_mobile/provider/development_mode_provider.dart";
 import "package:pi_mobile/provider/heart_rate_list_provider.dart";
 import "package:pi_mobile/provider/package_info_provider.dart";
@@ -94,7 +95,8 @@ class _ChangeLanguageSetting extends ConsumerWidget with Logger {
                     await StoredLocaleService.saveAndUpdateLocale(locale);
                   }
 
-                  ref.watch(storedLocaleProvider.notifier).forceRebuild();
+                  ref.read(storedLocaleProvider.notifier).forceRebuild();
+                  ref.invalidate(currentLocaleProvider);
                 },
               );
             },

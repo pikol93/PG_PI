@@ -45,6 +45,7 @@ dependencies:
   fpdart: ^1.1.0
   hashcash_dart: ^1.1.0
   crypto: ^3.0.6
+  table_calendar: ^3.1.2
 
 dev_dependencies:
   flutter_test:

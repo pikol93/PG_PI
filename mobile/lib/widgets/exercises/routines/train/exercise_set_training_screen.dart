@@ -154,7 +154,7 @@ class _ExerciseSetTrainingScreen
       final percentage = ref
           .read(oneRepMaxsProvider.notifier)
           .getPercentageOfRepMax(newSet.reps);
-      final oneRepMax = newSet.weight / (percentage * 0.01).floorToDouble();
+      final oneRepMax = (newSet.weight / (percentage * 0.01)).floorToDouble();
 
       if (context.mounted) {
         await showDialog<bool>(

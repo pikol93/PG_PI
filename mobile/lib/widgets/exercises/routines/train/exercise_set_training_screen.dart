@@ -1,4 +1,3 @@
-import "package:awesome_flutter_extensions/awesome_flutter_extensions.dart";
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
@@ -161,39 +160,7 @@ class _ExerciseSetTrainingScreen
         await showDialog<void>(
           context: context,
           barrierDismissible: false,
-          builder: (context) => AlertDialog(
-            title: const Text("Twój 1RM"),
-            content: SingleChildScrollView(
-              child: ListBody(
-                children: <Widget>[
-                  const Text(
-                    "Nie miałeś wcześniej ustalone oneRepMax"
-                    " dla tego ćwiczenia",
-                  ),
-                  Text(
-                    "Czy chcesz zmienić swój OneRepMax na: $oneRepMax",
-                  ),
-                ],
-              ),
-            ),
-            actions: <Widget>[
-              TextButton(
-                child: const Text("Zapisz"),
-                onPressed: () async {
-                  await ref.read(oneRepMaxsProvider.notifier).updateOneRepMaxs(
-                        MapEntry(set.exerciseName, oneRepMax),
-                      );
-                  context.navigator.pop();
-                },
-              ),
-              TextButton(
-                child: const Text("Odrzuć"),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-            ],
-          ),
+          builder: (context) => _builder(context, oneRepMax, set),
         );
       }
     }
@@ -205,4 +172,43 @@ class _ExerciseSetTrainingScreen
       ).go(context);
     }
   }
+
+  Widget _builder(
+    BuildContext context,
+    double oneRepMax,
+    TrainingExerciseSet set,
+  ) =>
+      AlertDialog(
+        title: const Text("Twój 1RM"),
+        content: SingleChildScrollView(
+          child: ListBody(
+            children: <Widget>[
+              const Text(
+                "Nie miałeś wcześniej ustalone oneRepMax"
+                " dla tego ćwiczenia",
+              ),
+              Text(
+                "Czy chcesz zmienić swój OneRepMax na: $oneRepMax",
+              ),
+            ],
+          ),
+        ),
+        actions: [
+          TextButton(
+            child: const Text("Zapisz"),
+            onPressed: () {
+              ref.read(oneRepMaxsProvider.notifier).updateOneRepMaxs(
+                    MapEntry(set.exerciseName, oneRepMax),
+                  );
+              Navigator.pop(context);
+            },
+          ),
+          TextButton(
+            child: const Text("Odrzuć"),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+        ],
+      );
 }

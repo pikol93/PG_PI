@@ -84,11 +84,13 @@ class _RoutineTrainingScreenState extends ConsumerState<RoutineTrainingScreen> {
         await ref.read(trainingsProvider.notifier).isAnyPendingTraining();
 
     if (isAnyPendingTraining) {
-      await showDialog(
-        context: context,
-        barrierDismissible: true,
-        builder: _builder,
-      );
+      if (context.mounted) {
+        await showDialog(
+          context: context,
+          barrierDismissible: true,
+          builder: _builder,
+        );
+      }
     } else {
       final newTraining =
           await prepareTrainingToAddition(routineUuid, workoutUuid);
@@ -174,7 +176,7 @@ class _RoutineTrainingScreenState extends ConsumerState<RoutineTrainingScreen> {
   Widget _builder(BuildContext context) => AlertDialog(
         title: const Text(
           "Nie ukończyłeś poprzedniego treningu,"
-              " najpierw go zakończ w historii",
+          " najpierw go zakończ w historii",
         ),
         actions: [
           TextButton(

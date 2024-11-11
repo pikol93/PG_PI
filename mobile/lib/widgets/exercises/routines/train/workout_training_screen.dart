@@ -106,7 +106,9 @@ class _WorkoutTrainingScreen extends ConsumerState<WorkoutTrainingScreen> {
   }
 
   Future<void> _onEndTrainingButtonPressed(
-      BuildContext context, String trainingUuid,) async {
+    BuildContext context,
+    String trainingUuid,
+  ) async {
     await ref.read(trainingsProvider.notifier).endTraining(trainingUuid);
     if (context.mounted) {
       HistoryRecordRoute(trainingUuid: trainingUuid).go(context);

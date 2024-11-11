@@ -20,12 +20,18 @@ class DateFormatter {
   final String languageCode;
   final DateFormat formatFullDate;
   final DateFormat formatFullTime;
+  final DateFormat formatHourMinute;
 
   DateFormatter({
     required this.languageCode,
   })  : formatFullDate = DateFormat.yMMMMEEEEd(languageCode),
-        formatFullTime = DateFormat.jms(languageCode);
+        formatFullTime = DateFormat.jms(languageCode),
+        formatHourMinute = DateFormat.jm(languageCode);
+
+  String fullDate(DateTime dateTime) => formatFullDate.format(dateTime);
 
   String fullDateTime(DateTime dateTime) =>
       "${formatFullDate.format(dateTime)} ${formatFullTime.format(dateTime)}";
+
+  String hourMinute(DateTime dateTime) => formatHourMinute.format(dateTime);
 }

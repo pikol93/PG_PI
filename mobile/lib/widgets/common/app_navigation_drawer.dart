@@ -45,6 +45,11 @@ class AppNavigationDrawer extends StatelessWidget {
               text: context.t.exercises.title,
             ),
             NavigationDrawerEntry(
+              goMethod: const CalendarRoute().go,
+              icon: Icons.calendar_month,
+              text: "Calendar", // TODO: I18N
+            ),
+            NavigationDrawerEntry(
               goMethod: const HeartRateRoute().go,
               icon: Icons.monitor_heart_outlined,
               text: "Heart rate", // TODO: I18N

@@ -10,6 +10,7 @@ import "package:pi_mobile/provider/notification_permissions_provider.dart";
 import "package:pi_mobile/provider/overlays_permissions_provider.dart";
 import "package:pi_mobile/utility/location_permission.dart";
 import "package:pi_mobile/utility/notification_permission.dart";
+import "package:pi_mobile/widgets/calendar/calendar_screen.dart";
 import "package:pi_mobile/widgets/exercises/exercises_screen.dart";
 import "package:pi_mobile/widgets/exercises/routines/edit_exercise_schema_screen.dart";
 import "package:pi_mobile/widgets/exercises/routines/edit_exercise_set_schema_screen.dart";
@@ -367,4 +368,13 @@ class SettingsRoute extends GoRouteData with Logger {
     logger.debug("settings route");
     return const SettingsScreen();
   }
+}
+
+@TypedGoRoute<CalendarRoute>(path: "/calendar")
+class CalendarRoute extends GoRouteData with Logger {
+  const CalendarRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      const CalendarScreen();
 }

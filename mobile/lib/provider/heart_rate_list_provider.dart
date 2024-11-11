@@ -5,6 +5,7 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:isar/isar.dart";
 import "package:pi_mobile/data/collections/heart_rate.dart";
 import "package:pi_mobile/provider/isar_provider.dart";
+import "package:pi_mobile/utility/datetime.dart";
 import "package:pi_mobile/utility/random.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
@@ -67,6 +68,12 @@ class HeartRateManager {
       isar.heartRates.where().sortByTimeDesc().findAll();
 
   Future<HeartRate?> getById(int id) => isar.heartRates.get(id);
+
+  Future<List<HeartRate>> getHeartRateEntriesOn(DateTime date) =>
+      isar.heartRates
+          .where()
+          .timeBetween(date.toMidnightSameDay(), date.toMidnightNextDay())
+          .findAll();
 
   Future<void> clear() => isar.writeTxn(() => isar.heartRates.clear());
 

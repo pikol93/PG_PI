@@ -94,10 +94,10 @@ class TracksManager {
     const maxLatitude = 52.019;
     const minLongitude = 17.776;
     const maxLongitude = 20.056;
-    const minBaseSpeed = 4.0;
-    const maxBaseSpeed = 6.0;
-    const minSpeedVariation = 2.0;
-    const maxSpeedVariation = 4.0;
+    const minBaseSpeed = 3.5;
+    const maxBaseSpeed = 4.0;
+    const minSpeedVariation = -0.5;
+    const maxSpeedVariation = 0.5;
     const minBaseBearing = 0.0;
     const maxBaseBearing = 360.0;
     const minBearingVariation = 2.0;

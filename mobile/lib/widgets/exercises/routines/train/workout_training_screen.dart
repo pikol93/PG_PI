@@ -93,7 +93,7 @@ class _WorkoutTrainingScreen extends ConsumerState<WorkoutTrainingScreen> {
                   onPressed: () {
                     _onEndTrainingButtonPressed(context, training.trainingUuid);
                   },
-                  child: Text("End Training"),
+                  child: const Text("End Training"),
                 ),
               ],
             );
@@ -106,9 +106,11 @@ class _WorkoutTrainingScreen extends ConsumerState<WorkoutTrainingScreen> {
   }
 
   Future<void> _onEndTrainingButtonPressed(
-      BuildContext context, String trainingUuid) async {
+      BuildContext context, String trainingUuid,) async {
     await ref.read(trainingsProvider.notifier).endTraining(trainingUuid);
-    HistoryRecordRoute(trainingUuid: trainingUuid).go(context);
+    if (context.mounted) {
+      HistoryRecordRoute(trainingUuid: trainingUuid).go(context);
+    }
   }
 
   void _onTap(

@@ -30,7 +30,7 @@ class _RoutineTrainingScreenState extends ConsumerState<RoutineTrainingScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Toja routine"),
+        title: const Text("Choose your workout"),
       ),
       body: FutureBuilder<RoutineSchema>(
         future: schemaFuture,
@@ -92,6 +92,7 @@ class _RoutineTrainingScreenState extends ConsumerState<RoutineTrainingScreen> {
     } else {
       final newTraining =
           await prepareTrainingToAddition(routineUuid, workoutUuid);
+
       await ref.read(trainingsProvider.notifier).addTraining(newTraining);
 
       if (context.mounted) {
@@ -172,12 +173,13 @@ class _RoutineTrainingScreenState extends ConsumerState<RoutineTrainingScreen> {
 
   Widget _builder(BuildContext context) => AlertDialog(
         title: const Text(
-          "PENDING TRAINING",
+          "Nie ukończyłeś poprzedniego treningu,"
+              " najpierw go zakończ w historii",
         ),
         actions: [
           TextButton(
             onPressed: () => context.navigator.pop(),
-            child: const Text("XD"),
+            child: const Text("Zamknij"),
           ),
         ],
       );

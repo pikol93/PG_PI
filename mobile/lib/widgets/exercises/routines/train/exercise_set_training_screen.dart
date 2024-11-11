@@ -1,3 +1,4 @@
+import "package:awesome_flutter_extensions/awesome_flutter_extensions.dart";
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
@@ -157,7 +158,7 @@ class _ExerciseSetTrainingScreen
       final oneRepMax = (newSet.weight / (percentage * 0.01)).floorToDouble();
 
       if (context.mounted) {
-        await showDialog<bool>(
+        await showDialog<void>(
           context: context,
           barrierDismissible: false,
           builder: (context) => AlertDialog(
@@ -182,7 +183,7 @@ class _ExerciseSetTrainingScreen
                   await ref.read(oneRepMaxsProvider.notifier).updateOneRepMaxs(
                         MapEntry(set.exerciseName, oneRepMax),
                       );
-                  Navigator.pop(context);
+                  context.navigator.pop();
                 },
               ),
               TextButton(

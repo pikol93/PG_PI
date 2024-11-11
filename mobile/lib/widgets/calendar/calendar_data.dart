@@ -1,4 +1,5 @@
 import "package:collection/collection.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:fpdart/fpdart.dart";
 import "package:pi_mobile/data/collections/heart_rate.dart";
 import "package:pi_mobile/data/collections/track.dart";
@@ -19,6 +20,8 @@ Future<CalendarData> calendarData(CalendarDataRef ref) async {
     trackList: trackList,
   );
 }
+
+final focusedDayProvider = StateProvider<DateTime>((ref) => DateTime.now());
 
 class CalendarData {
   final List<HeartRate> heartRateList;

@@ -8,4 +8,8 @@ extension DateTimeExtension on DateTime {
       !isSameDay(this, other) && isBefore(other);
 
   bool isDayAfter(DateTime other) => !isSameDay(this, other) && isAfter(other);
+
+  DateTime toMidnightSameDay() => DateTime(year, month, day);
+
+  DateTime toMidnightNextDay() => DateTime(year, month, day + 1);
 }

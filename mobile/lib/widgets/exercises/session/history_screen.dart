@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:intl/intl.dart";
+import "package:pi_mobile/provider/date_formatter_provider.dart";
 import "package:pi_mobile/provider/trainings_provider.dart";
 import "package:pi_mobile/routing/routes.dart";
 
@@ -24,10 +25,14 @@ class HistoryScreen extends ConsumerWidget {
                 padding: const EdgeInsets.all(8),
                 itemCount: trainings.length,
                 itemBuilder: (context, index) => ListTile(
-                  title: Text(trainings[index].startDate.toString()),
+                  title: Text(
+                    ref
+                        .read(dateFormatterProvider)
+                        .fullDateTime(trainings[index].startDate),
+                  ),
                   subtitle: Text(
-                    "${trainings[index].trainingUuid} -> "
-                    "${trainings[index].initialWorkoutName}",
+                    "${trainings[index].initialRoutineName} -> "
+                    "${trainings[index].initialTrainingName}",
                   ),
                   onTap: () {
                     _onTap(context, trainings[index].trainingUuid);

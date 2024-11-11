@@ -72,7 +72,7 @@ class _HistoryRecordScreen extends ConsumerState<HistoryRecordScreen> {
   Widget _buildTrainingInfo(Training training) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Initial Workout Name: ${training.initialWorkoutName}"),
+          Text("Initial Workout Name: ${training.initialTrainingName}"),
           Text("Training UUID: ${training.trainingUuid}"),
           Text("Routine Schema UUID: ${training.routineSchemaUuid}"),
           Text("Workout Schema UUID: ${training.workoutSchemaUuid}"),

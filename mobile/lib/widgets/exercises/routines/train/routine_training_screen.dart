@@ -79,6 +79,9 @@ class _RoutineTrainingScreenState extends ConsumerState<RoutineTrainingScreen> {
     String routineUuid,
     String workoutUuid,
   ) async {
+    final routineSchema =
+        await ref.read(schemasProvider.notifier).getRoutine(routineUuid);
+
     final workoutSchema = await ref
         .read(schemasProvider.notifier)
         .getWorkout(routineUuid, workoutUuid);
@@ -123,7 +126,7 @@ class _RoutineTrainingScreenState extends ConsumerState<RoutineTrainingScreen> {
     final trainingUuid = const Uuid().v4();
 
     final newTraining = Training(
-      initialWorkoutName: workoutSchema.name,
+      initialTrainingName: workoutSchema.name,
       trainingUuid: trainingUuid,
       routineSchemaUuid: routineUuid,
       workoutSchemaUuid: workoutUuid,
@@ -135,6 +138,7 @@ class _RoutineTrainingScreenState extends ConsumerState<RoutineTrainingScreen> {
         workoutSchemaUuid: workoutUuid,
         trainingExercises: trainingExercisesBlank,
       ),
+      initialRoutineName: routineSchema.name,
     );
 
     await ref.read(trainingsProvider.notifier).addTraining(newTraining);

@@ -167,7 +167,7 @@ class _ExerciseSetTrainingScreen
                 children: <Widget>[
                   const Text(
                     "Nie miałeś wcześniej ustalone oneRepMax"
-                        " dla tego ćwiczenia",
+                    " dla tego ćwiczenia",
                   ),
                   Text(
                     "Czy chcesz zmienić swój OneRepMax na: $oneRepMax",

@@ -7,7 +7,8 @@ part "training.freezed.dart";
 @freezed
 class Training with _$Training {
   const factory Training({
-    required String initialWorkoutName,
+    required String initialTrainingName,
+    required String initialRoutineName,
     required String trainingUuid,
     required String routineSchemaUuid,
     required String workoutSchemaUuid,

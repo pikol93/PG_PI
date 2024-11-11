@@ -5,6 +5,7 @@ import "package:isar/isar.dart";
 import "package:latlong2/latlong.dart";
 import "package:pi_mobile/data/collections/track.dart" as temp;
 import "package:pi_mobile/provider/isar_provider.dart";
+import "package:pi_mobile/utility/datetime.dart";
 import "package:pi_mobile/utility/random.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
@@ -38,6 +39,11 @@ class TracksManager {
 
   Future<List<temp.Track>> getAllSortedByTimeDescending() =>
       isar.tracks.where().sortByStartTimeDesc().findAll();
+
+  Future<List<temp.Track>> getTrackEntriesOn(DateTime date) => isar.tracks
+      .where()
+      .startTimeBetween(date.toMidnightSameDay(), date.toMidnightNextDay())
+      .findAll();
 
   Future<int> save(temp.Track track) async {
     final result = await _save(track);

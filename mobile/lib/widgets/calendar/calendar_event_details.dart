@@ -78,7 +78,7 @@ class TrackCalendarEventDetails extends ConsumerWidget {
                 children: [
                   Text(dateFormatter.hourMinute(track.startTime)),
                   const SizedBox(width: 8.0),
-                  const Icon(Icons.navigation),
+                  const Icon(Icons.directions_run),
                 ],
               ),
               Text("${track.getTotalLength()} m"),

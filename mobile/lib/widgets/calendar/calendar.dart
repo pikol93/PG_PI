@@ -189,7 +189,7 @@ class _StacklessCalendarDay extends StatelessWidget {
           height: 32.0,
           decoration: const BoxDecoration(
             shape: BoxShape.circle,
-            color: Colors.red,
+            color: Color.fromRGBO(128, 128, 128, 0.5),
           ),
           child: Center(
             child: Text(

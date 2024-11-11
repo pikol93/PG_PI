@@ -18,6 +18,7 @@ class CalendarScreen extends StatelessWidget {
           child: Column(
             children: [
               Calendar(),
+              Divider(),
               CalendarDayDetails(),
             ],
           ),

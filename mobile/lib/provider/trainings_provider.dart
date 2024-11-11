@@ -48,6 +48,22 @@ class Trainings extends _$Trainings with Logger {
         .trainingWorkload;
   }
 
+  Future<void> endTraining(String trainingUuid) async {
+    final trainings = await ref.read(trainingsProvider.future);
+    final updatedTrainings = trainings.map((training) {
+      if (training.trainingUuid == trainingUuid) {
+        return training.copyWith(endDate: DateTime.now(), isFinished: true);
+      }
+      return training;
+    });
+
+    final preferences = SharedPreferencesAsync();
+    final jsonList = updatedTrainings.map(jsonEncode).toList();
+    await preferences.setStringList(_keyName, jsonList);
+
+    ref.invalidateSelf();
+  }
+
   Future<TrainingExercise> readExercise(
     String trainingUuid,
     String exerciseUuid,
@@ -169,5 +185,10 @@ class Trainings extends _$Trainings with Logger {
       await updateExercise(trainingUuid, finishedExercise);
     }
     return areAllExercisesCompleted;
+  }
+
+  Future<bool> isAnyPendingTraining() async {
+    final list = await ref.read(trainingsProvider.future);
+    return list.any((training) => !training.isFinished);
   }
 }

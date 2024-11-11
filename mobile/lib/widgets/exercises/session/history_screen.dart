@@ -25,6 +25,9 @@ class HistoryScreen extends ConsumerWidget {
                 padding: const EdgeInsets.all(8),
                 itemCount: trainings.length,
                 itemBuilder: (context, index) => ListTile(
+                  tileColor: trainings[index].isFinished
+                      ? Colors.green
+                      : Colors.white70,
                   title: Text(
                     ref
                         .read(dateFormatterProvider)
@@ -34,15 +37,37 @@ class HistoryScreen extends ConsumerWidget {
                     "${trainings[index].initialRoutineName} -> "
                     "${trainings[index].initialTrainingName}",
                   ),
-                  onTap: () {
-                    _onTap(context, trainings[index].trainingUuid);
-                  },
+                  onTap: trainings[index].isFinished
+                      ? () {
+                          _onFinishedTap(
+                            context,
+                            trainings[index].trainingUuid,
+                          );
+                        }
+                      : () {
+                          _onPendingTap(
+                            context,
+                            trainings[index].routineSchemaUuid,
+                            trainings[index].trainingUuid,
+                          );
+                        },
                 ),
               ),
             ),
       );
 
-  void _onTap(BuildContext context, String trainingUuid) {
+  void _onFinishedTap(BuildContext context, String trainingUuid) {
     HistoryRecordRoute(trainingUuid: trainingUuid).go(context);
+  }
+
+  void _onPendingTap(
+    BuildContext context,
+    String routineUuid,
+    String trainingUuid,
+  ) {
+    OpenWorkoutTrainingRoute(
+      trainingUuid: trainingUuid,
+      routineUuid: routineUuid,
+    ).go(context);
   }
 }

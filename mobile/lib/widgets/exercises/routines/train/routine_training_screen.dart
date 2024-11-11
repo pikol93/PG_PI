@@ -1,3 +1,4 @@
+import "package:awesome_flutter_extensions/awesome_flutter_extensions.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pi_mobile/data/routine_schema.dart";
@@ -79,6 +80,33 @@ class _RoutineTrainingScreenState extends ConsumerState<RoutineTrainingScreen> {
     String routineUuid,
     String workoutUuid,
   ) async {
+    final isAnyPendingTraining =
+        await ref.read(trainingsProvider.notifier).isAnyPendingTraining();
+
+    if (isAnyPendingTraining) {
+      await showDialog(
+        context: context,
+        barrierDismissible: true,
+        builder: _builder,
+      );
+    } else {
+      final newTraining =
+          await prepareTrainingToAddition(routineUuid, workoutUuid);
+      await ref.read(trainingsProvider.notifier).addTraining(newTraining);
+
+      if (context.mounted) {
+        OpenWorkoutTrainingRoute(
+          trainingUuid: newTraining.trainingUuid,
+          routineUuid: routineUuid,
+        ).go(context);
+      }
+    }
+  }
+
+  Future<Training> prepareTrainingToAddition(
+    String routineUuid,
+    String workoutUuid,
+  ) async {
     final routineSchema =
         await ref.read(schemasProvider.notifier).getRoutine(routineUuid);
 
@@ -125,7 +153,7 @@ class _RoutineTrainingScreenState extends ConsumerState<RoutineTrainingScreen> {
 
     final trainingUuid = const Uuid().v4();
 
-    final newTraining = Training(
+    return Training(
       initialTrainingName: workoutSchema.name,
       trainingUuid: trainingUuid,
       routineSchemaUuid: routineUuid,
@@ -140,14 +168,17 @@ class _RoutineTrainingScreenState extends ConsumerState<RoutineTrainingScreen> {
       ),
       initialRoutineName: routineSchema.name,
     );
-
-    await ref.read(trainingsProvider.notifier).addTraining(newTraining);
-
-    if (context.mounted) {
-      OpenWorkoutTrainingRoute(
-        trainingUuid: trainingUuid,
-        routineUuid: routineUuid,
-      ).go(context);
-    }
   }
+
+  Widget _builder(BuildContext context) => AlertDialog(
+        title: const Text(
+          "PENDING TRAINING",
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => context.navigator.pop(),
+            child: const Text("XD"),
+          ),
+        ],
+      );
 }

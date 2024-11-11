@@ -22,6 +22,7 @@ class CalendarIcon extends StatelessWidget {
         child: Icon(
           icon,
           size: 16.0,
+          color: Colors.white,
         ),
       );
 }

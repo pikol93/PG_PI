@@ -5,6 +5,7 @@ import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/provider/date_formatter_provider.dart";
 import "package:pi_mobile/utility/datetime.dart";
 import "package:pi_mobile/widgets/calendar/calendar_data.dart";
+import "package:pi_mobile/widgets/calendar/calendar_day_details.dart";
 import "package:pi_mobile/widgets/calendar/calendar_icon.dart";
 import "package:pi_mobile/widgets/common/app_navigation_drawer.dart";
 import "package:table_calendar/table_calendar.dart";
@@ -21,12 +22,12 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> with Logger {
     CalendarFormat.month: "",
   };
 
-  DateTime _focusedDay = DateTime.now();
-
   @override
   Widget build(BuildContext context) {
     final defaultTextStyle = context.textStyles.labelLarge;
     final locale = ref.watch(currentLocaleProvider).languageCode;
+    final focusedDay = ref.watch(focusedDayProvider);
+
     return ref.watch(calendarDataProvider).when(
           data: (data) {
             final firstDay = data.getMinDate() ??
@@ -43,7 +44,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> with Logger {
                 child: Column(
                   children: [
                     TableCalendar(
-                      focusedDay: _focusedDay,
+                      focusedDay: focusedDay,
                       firstDay: firstDay,
                       lastDay: lastDay,
                       locale: locale,
@@ -51,7 +52,6 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> with Logger {
                       availableCalendarFormats: _availableCalendarFormats,
                       startingDayOfWeek: StartingDayOfWeek.monday,
                       onDaySelected: _onDaySelected,
-                      selectedDayPredicate: _selectedDayPredicate,
                       onPageChanged: _onPageChanged,
                       calendarBuilders: CalendarBuilders(
                         prioritizedBuilder: (context, day, focusedDay) =>
@@ -66,6 +66,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> with Logger {
                         ),
                       ),
                     ),
+                    const CalendarDayDetails(),
                   ],
                 ),
               ),
@@ -78,15 +79,6 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> with Logger {
             child: CircularProgressIndicator(),
           ),
         );
-  }
-
-  bool _selectedDayPredicate(DateTime day) => isSameDay(day, _focusedDay);
-
-  void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
-    logger.debug("On day selected: $selectedDay, $focusedDay");
-    setState(() {
-      _focusedDay = selectedDay;
-    });
   }
 
   Widget? _prioritizedBuilder(
@@ -113,11 +105,11 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> with Logger {
     }
 
     DayType dayType;
-    if (!day.isSameYearAndMonth(_focusedDay) ||
+    if (!day.isSameYearAndMonth(focusedDay) ||
         day.isDayBefore(firstDay) ||
         day.isDayAfter(lastDay)) {
       dayType = DayType.inactive;
-    } else if (isSameDay(day, _focusedDay)) {
+    } else if (isSameDay(day, focusedDay)) {
       dayType = DayType.selected;
     } else {
       dayType = DayType.normal;
@@ -131,10 +123,14 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> with Logger {
     );
   }
 
+  void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
+    logger.debug("On day selected: $selectedDay, $focusedDay");
+    ref.read(focusedDayProvider.notifier).state = selectedDay;
+  }
+
   void _onPageChanged(DateTime focusedDay) {
-    setState(() {
-      _focusedDay = focusedDay;
-    });
+    logger.debug("On page changed: $focusedDay");
+    ref.read(focusedDayProvider.notifier).state = focusedDay;
   }
 }
 

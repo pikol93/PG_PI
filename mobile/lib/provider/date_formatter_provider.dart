@@ -26,6 +26,8 @@ class DateFormatter {
   })  : formatFullDate = DateFormat.yMMMMEEEEd(languageCode),
         formatFullTime = DateFormat.jms(languageCode);
 
+  String fullDate(DateTime dateTime) => formatFullDate.format(dateTime);
+
   String fullDateTime(DateTime dateTime) =>
       "${formatFullDate.format(dateTime)} ${formatFullTime.format(dateTime)}";
 }

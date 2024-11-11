@@ -28,7 +28,7 @@ Future<List<Widget>> dayDetails(DayDetailsRef ref) async {
     (item) => TrackCalendarEventDetails(track: item) as Widget,
   );
 
-  return heartRateWidgets.concat(tracksWidgets).toList();
+  return tracksWidgets.concat(heartRateWidgets).toList();
 }
 
 class CalendarDayDetails extends ConsumerWidget {

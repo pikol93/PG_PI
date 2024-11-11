@@ -149,8 +149,10 @@ class Trainings extends _$Trainings with Logger {
     ref.invalidateSelf();
   }
 
-  Future<void> checkExerciseComplition(
-      String trainingUuid, String exerciseUuid,) async {
+  Future<bool> checkExerciseComplition(
+    String trainingUuid,
+    String exerciseUuid,
+  ) async {
     final exercise = await readExercise(trainingUuid, exerciseUuid);
     final sets = exercise.exerciseSets;
 
@@ -166,5 +168,6 @@ class Trainings extends _$Trainings with Logger {
       final finishedExercise = exercise.copyWith(isFinished: true);
       await updateExercise(trainingUuid, finishedExercise);
     }
+    return areAllExercisesCompleted;
   }
 }

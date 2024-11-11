@@ -3,6 +3,7 @@ import "package:flutter/services.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pi_mobile/data/training_exercise_set.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
+import "package:pi_mobile/provider/one_rep_max_provider.dart";
 import "package:pi_mobile/provider/trainings_provider.dart";
 import "package:pi_mobile/routing/routes.dart";
 
@@ -145,10 +146,56 @@ class _ExerciseSetTrainingScreen
         .read(trainingsProvider.notifier)
         .updateExerciseSet(widget.trainingUuid, widget.exerciseUuid, newSet);
 
-    await ref
+    final isExerciseFinished = await ref
         .read(trainingsProvider.notifier)
         .checkExerciseComplition(widget.trainingUuid, widget.exerciseUuid);
 
+    if (isExerciseFinished && set.expectedWeight == 0.0) {
+      final percentage = ref
+          .read(oneRepMaxsProvider.notifier)
+          .getPercentageOfRepMax(newSet.reps);
+      final oneRepMax = newSet.weight / (percentage * 0.01).floorToDouble();
+
+      if (context.mounted) {
+        await showDialog<bool>(
+          context: context,
+          barrierDismissible: false,
+          builder: (context) => AlertDialog(
+            title: const Text("Twój 1RM"),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  const Text(
+                    "Nie miałeś wcześniej ustalone oneRepMax"
+                        " dla tego ćwiczenia",
+                  ),
+                  Text(
+                    "Czy chcesz zmienić swój OneRepMax na: $oneRepMax",
+                  ),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: const Text("Zapisz"),
+                onPressed: () async {
+                  await ref.read(oneRepMaxsProvider.notifier).updateOneRepMaxs(
+                        MapEntry(set.exerciseName, oneRepMax),
+                      );
+                  Navigator.pop(context);
+                },
+              ),
+              TextButton(
+                child: const Text("Odrzuć"),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
+        );
+      }
+    }
     if (context.mounted) {
       OpenExerciseTrainingRoute(
         routineUuid: widget.routineUuid,

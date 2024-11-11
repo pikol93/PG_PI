@@ -8,6 +8,7 @@ class TrainingExerciseSet with _$TrainingExerciseSet {
   const factory TrainingExerciseSet({
     required String trainingExerciseSetUuid,
     required String exerciseSetSchemaUuid,
+    required String exerciseName,
     required double weight,
     required int reps,
     required int expectedReps,

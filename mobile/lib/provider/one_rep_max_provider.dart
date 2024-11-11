@@ -63,4 +63,41 @@ class OneRepMaxs extends _$OneRepMaxs with Logger {
       return 0;
     }
   }
+
+  int getPercentageOfRepMax(int reps) {
+    switch (reps) {
+      case 1:
+        return 100;
+      case 2:
+        return 92;
+      case 3:
+        return 90;
+      case 4:
+        return 87;
+      case 5:
+        return 85;
+      case 6:
+        return 82;
+      case 7:
+        return 75;
+      case 8:
+        return 75;
+      case 9:
+        return 70;
+      case 10:
+        return 70;
+      case 11:
+        return 65;
+      case 12:
+        return 65;
+      case 13:
+        return 60;
+      case 14:
+        return 60;
+      case 15:
+        return 60;
+      default:
+        return 0;
+    }
+  }
 }

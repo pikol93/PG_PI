@@ -99,9 +99,11 @@ class _RoutineTrainingScreenState extends ConsumerState<RoutineTrainingScreen> {
             weight: 0,
             reps: 0,
             expectedReps: exerciseSchemaSet.reps,
-            expectedWeight: exerciseSchemaSet.intensity * 0.01 * oneRepMax,
+            expectedWeight: (exerciseSchemaSet.intensity * 0.01 * oneRepMax)
+                .floorToDouble(),
             rpe: 0,
             isFinished: false,
+            exerciseName: exerciseSchema.name,
           ),
         );
       }

@@ -1,6 +1,8 @@
+import "package:awesome_flutter_extensions/awesome_flutter_extensions.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:fpdart/fpdart.dart";
+import "package:pi_mobile/provider/date_formatter_provider.dart";
 import "package:pi_mobile/provider/heart_rate_list_provider.dart";
 import "package:pi_mobile/provider/tracks_provider.dart";
 import "package:pi_mobile/widgets/calendar/calendar_data.dart";
@@ -33,14 +35,36 @@ class CalendarDayDetails extends ConsumerWidget {
   const CalendarDayDetails({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) =>
-      ref.watch(dayDetailsProvider).when(
-            data: (data) => Column(children: data),
-            error: (error, stackTrace) => Center(
-              child: Text("Error: $error"),
+  Widget build(BuildContext context, WidgetRef ref) {
+    final focusedDate = ref.watch(focusedDayProvider);
+    final formattedDate = ref.read(dateFormatterProvider).fullDate(focusedDate);
+
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              formattedDate,
+              style: context.textStyles.titleMedium,
             ),
-            loading: () => const Center(
-              child: CircularProgressIndicator(),
-            ),
-          );
+          ],
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: getDetailsWidget(ref),
+        ),
+      ],
+    );
+  }
+
+  Widget getDetailsWidget(WidgetRef ref) => ref.watch(dayDetailsProvider).when(
+        data: (data) => Column(children: data),
+        error: (error, stackTrace) => Center(
+          child: Text("Error: $error"),
+        ),
+        loading: () => const Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
 }

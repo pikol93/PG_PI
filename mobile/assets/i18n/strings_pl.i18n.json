@@ -132,9 +132,42 @@
       "title": "Adres serwera",
       "alertTitle": "Wprowadź nowy adres serwera"
     },
-    "logOff": {
-      "title": "Wyloguj",
-      "alertTitle": "Czy na pewno chcesz się wylogować?"
+    "heartRate": {
+      "generate": {
+        "title": "Generuj dane dla tempa bicia serca",
+        "alertTitle": "Czy na pewno chcesz wygenerować dane dla tempa bicia serca?"
+      },
+      "clear": {
+        "title": "Wyczyść dane dla tempa bicia serca",
+        "alertTitle": "Czy na pewno chcesz usunąć dane dla tempa bicia serca?"
+      }
+    },
+    "tracks": {
+      "generate": {
+        "title": "Generuj dane dla tras",
+        "alertTitle": "Czy na pewno chcesz wygenerować dane dla tras?"
+      },
+      "clear": {
+        "title": "Wyczyść dane dla tras",
+        "alertTitle": "Czy na pewno chcesz usunąć dane dla tras?"
+      }
+    },
+    "trainingHistory": {
+      "generate": {
+        "title": "Generuj dane historyczne treningów",
+        "alertTitle": "Czy na pewno chcesz wygenerować dane historyczne treningów"
+      },
+      "clear": {
+        "title": "Wyczyść dane historyczne treningów",
+        "alertTitle": "Czy na pewno chcesz usunąć dane historyczne treningów"
+      }
+    },
+    "disableDevelopmentMode": {
+      "title": "Wyłacz tryb deweloperski",
+      "alertTitle": "Czy na pewno chcesz wyłączyć tryb deweloperski?"
+    },
+    "appInfo": {
+      "title": "Wersja aplikacji"
     }
   }
 }

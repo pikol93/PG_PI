@@ -25,6 +25,15 @@ class Trainings extends _$Trainings with Logger {
     return trainings;
   }
 
+  Future<void> deleteHistory() async {
+    final list = <Training>[];
+    final preferences = SharedPreferencesAsync();
+    final jsonList = list.map(jsonEncode).toList();
+    await preferences.setStringList(_keyName, jsonList);
+
+    ref.invalidateSelf();
+  }
+
   Future<void> addTraining(Training training) async {
     final list = await ref.read(trainingsProvider.future);
     list.add(training);

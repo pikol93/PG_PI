@@ -22,6 +22,28 @@
       }
     }
   },
+  "common": {
+    "delete": "Delete",
+    "save": "Save",
+    "cancel": "Cancel",
+    "date": "Date",
+    "dismiss": "Dismiss"
+  },
+  "error": {
+    "noExercises": "No exercises available",
+    "noValue": "No value",
+    "cannotParse": "Cannot parse",
+    "unexpectedErrorOccurred": "An unexpected error occurred."
+  },
+  "heartRate": {
+    "title": "Heart rate",
+    "modify": "Modify heart rate",
+    "invalidForm": "Invalid form"
+  },
+  "training": {
+    "title": "Training",
+    "endTraining": "End training"
+  },
   "routines": {
     "title": "Routines",
     "intensity": "Intensity",
@@ -32,7 +54,10 @@
     "set": "Set",
     "amountOfSets": "Amount of sets",
     "reps": "Reps",
-    "noDataAvailable": "No data available"
+    "noDataAvailable": "No data available",
+    "delete": "Delete routine",
+    "areYouSureYouWantToDelete": "Are you sure about deleting",
+    "gotDeleted": "Deleted routine"
   },
   "exercises": {
     "title": "Exercises",

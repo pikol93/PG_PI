@@ -28,8 +28,8 @@ class HistoryScreen extends ConsumerWidget {
                   final index = (tempIndex - trainings.length + 1).abs();
                   return ListTile(
                     tileColor: trainings[index].isFinished
-                        ? Colors.green
-                        : Colors.white70,
+                        ? Colors.lightGreen
+                        : Colors.white54,
                     title: Text(
                       ref
                           .read(dateFormatterProvider)

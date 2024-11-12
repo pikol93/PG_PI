@@ -22,6 +22,28 @@
       }
     }
   },
+  "common": {
+    "delete": "Usuń",
+    "save": "Zapisz",
+    "cancel": "Anuluj",
+    "date": "Data",
+    "dismiss": "Odrzuć"
+  },
+  "error": {
+    "noExercises": "Brak dostępnych ćwiczeń",
+    "noValue": "Brak wartości",
+    "cannotParse": "Nie można przetworzyć",
+    "unexpectedErrorOccurred": "Wystąpił nieprzewidziany błąd."
+  },
+  "heartRate": {
+    "title": "Tempo bicia serca",
+    "modify": "Zmodyfikuj rekord bicia serca",
+    "invalidForm": "Błędnie wprowadzone dane"
+  },
+  "training": {
+    "title": "Trening",
+    "endTraining": "Zakończ trening"
+  },
   "routines": {
     "title": "Rutyny",
     "intensity": "Intensywność",
@@ -32,7 +54,10 @@
     "set": "Seria",
     "amountOfSets": "Ilość serii",
     "reps": "Ilość powtórzeń",
-    "noDataAvailable": "Brak dostępnych danych"
+    "noDataAvailable": "Brak dostępnych danych",
+    "delete": "Usuń rutynę",
+    "areYouSureYouWantToDelete": "Czy na pewno chcesz usunąć",
+    "gotDeleted": "Usunięto rutynę"
   },
   "exercises": {
     "title": "Ćwiczenia",

@@ -28,7 +28,7 @@ class SettingsBody extends StatelessWidget {
           children: [
             _ChangeLanguageSetting(),
             _ChangeThemeSetting(),
-            _ChangeServerAddressSetting(),
+            // _ChangeServerAddressSetting(),
             _GenerateHeartRateDataSetting(),
             _ClearHeartRateDataSetting(),
             _GenerateTracksSetting(),
@@ -100,7 +100,8 @@ class _ChangeLanguageSetting extends ConsumerWidget with Logger {
                 },
               );
             },
-            error: (obj, stack) => const Text("An unexpected error occurred."),
+            error: (obj, stack) =>
+                Text(context.t.error.unexpectedErrorOccurred),
             loading: () => const CircularProgressIndicator(),
           );
 
@@ -174,7 +175,7 @@ class _GenerateHeartRateDataSetting extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) => DevelopmentSetting(
         child: SettingButton(
           icon: Icons.monitor_heart_outlined,
-          title: "Generate heart rate data",
+          title: "Generuj dane dla tempa bicia serca",
           requiresConfirmation: true,
           alertTitle: "Are you sure you want to generate heart rate data",
           onConfirmed: () => _onGeneratePressed(context, ref),
@@ -194,7 +195,7 @@ class _ClearHeartRateDataSetting extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) => DevelopmentSetting(
         child: SettingButton(
           icon: Icons.monitor_heart_outlined,
-          title: "Clear heart rate data",
+          title: "Wyczyść dane dla tempa bicia serca",
           requiresConfirmation: true,
           alertTitle: "Are you sure you want to clear heart rate data",
           onConfirmed: () => _onClearPressed(context, ref),
@@ -214,7 +215,7 @@ class _GenerateTracksSetting extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) => DevelopmentSetting(
         child: SettingButton(
           icon: Icons.navigation,
-          title: "Generate tracks",
+          title: "Wygeneruj trasy",
           requiresConfirmation: true,
           alertTitle: "Are you sure you want to generate tracks",
           onConfirmed: () => _onGeneratePressed(context, ref),
@@ -234,7 +235,7 @@ class _ClearTracksSetting extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) => DevelopmentSetting(
         child: SettingButton(
           icon: Icons.navigation,
-          title: "Clear tracks data",
+          title: "Wyczyść trasy",
           requiresConfirmation: true,
           alertTitle: "Are you sure you want to clear tracks data",
           onConfirmed: () => _onClearPressed(context, ref),
@@ -255,7 +256,7 @@ class _DisableDevelopmentModeSetting extends ConsumerWidget {
         child: SettingButton(
           icon: Icons.developer_board_off,
           // TODO: I18N
-          title: "Turn off development mode",
+          title: "Wyłacz tryb deweloperski",
           requiresConfirmation: true,
           // TODO: I18N
           alertTitle: "Are you sure you want to turn off development mode?",
@@ -274,7 +275,7 @@ class _AppInfoSetting extends ConsumerWidget with Logger {
   @override
   Widget build(BuildContext context, WidgetRef ref) => SettingButton(
         icon: Icons.info,
-        title: "App version",
+        title: "Wersja aplikacji",
         subtitle: ref.watch(packageInfoProvider).version,
         onConfirmed: () => _onAppInfoPressed(ref),
       );

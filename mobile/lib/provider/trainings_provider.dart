@@ -12,7 +12,7 @@ part "trainings_provider.g.dart";
 
 @Riverpod(keepAlive: true)
 class Trainings extends _$Trainings with Logger {
-  static const _keyName = "trainings";
+  static const _keyName = "trainings8";
 
   @override
   Future<List<Training>> build() async {

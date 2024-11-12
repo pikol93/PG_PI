@@ -1,5 +1,6 @@
 import "package:awesome_flutter_extensions/awesome_flutter_extensions.dart";
 import "package:flutter/material.dart";
+import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/routing/routes.dart";
 import "package:pi_mobile/widgets/common/app_navigation_drawer.dart";
 import "package:pi_mobile/widgets/heart_rate/heart_rate_data_page.dart";
@@ -52,7 +53,7 @@ class _HeartRateScreenState extends State<HeartRateScreen>
         ),
         appBar: AppBar(
           backgroundColor: context.colors.scaffoldBackground,
-          title: const Text("Heart rate"), // TODO: I18N
+          title: Text(context.t.heartRate.title),
           bottom: TabBar(
             controller: _tabController,
             tabs: _tabs.map((tab) => tab.$1).toList(),

@@ -68,8 +68,8 @@ class _ExerciseTrainingScreen extends ConsumerState<ExerciseTrainingScreen> {
                                 final set = exercise.exerciseSets[index];
                                 return ListTile(
                                   tileColor: set.isFinished
-                                      ? Colors.green
-                                      : Colors.white70,
+                                      ? Colors.lightGreen
+                                      : Colors.white54,
                                   title: Text(
                                     "${context.t.routines.set}"
                                     " ${index + 1}",

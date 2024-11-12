@@ -28,7 +28,7 @@ class _WorkoutTrainingScreen extends ConsumerState<WorkoutTrainingScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("EGESZEGE RUSZAMY"),
+        title: Text(context.t.training.title),
       ),
       body: FutureBuilder<Training>(
         future: trainingFuture,
@@ -41,10 +41,8 @@ class _WorkoutTrainingScreen extends ConsumerState<WorkoutTrainingScreen> {
             final training = snapshot.data!;
 
             if (training.trainingWorkload.trainingExercises.isEmpty) {
-              return const Center(
-                child: Text(
-                  "No exercises available",
-                ),
+              return Center(
+                child: Text(context.t.error.noExercises),
               );
             }
 
@@ -52,7 +50,7 @@ class _WorkoutTrainingScreen extends ConsumerState<WorkoutTrainingScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-                  height: 500,
+                  height: 300,
                   child: ListView.builder(
                     padding: const EdgeInsets.all(8),
                     itemCount:
@@ -65,8 +63,8 @@ class _WorkoutTrainingScreen extends ConsumerState<WorkoutTrainingScreen> {
                           Expanded(
                             child: ListTile(
                               tileColor: exercise.isFinished
-                                  ? Colors.green
-                                  : Colors.white70,
+                                  ? Colors.lightGreen
+                                  : Colors.white54,
                               title: Text(exercise.name),
                               subtitle: Text(
                                 "${context.t.routines.amountOfSets}: "
@@ -88,12 +86,21 @@ class _WorkoutTrainingScreen extends ConsumerState<WorkoutTrainingScreen> {
                     },
                   ),
                 ),
-                const SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: () {
-                    _onEndTrainingButtonPressed(context, training.trainingUuid);
-                  },
-                  child: const Text("End Training"),
+                const SizedBox(
+                  height: 50,
+                ),
+                Center(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      _onEndTrainingButtonPressed(
+                          context, training.trainingUuid,);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.red,
+                    ),
+                    child: Text(context.t.training.endTraining),
+                  ),
                 ),
               ],
             );

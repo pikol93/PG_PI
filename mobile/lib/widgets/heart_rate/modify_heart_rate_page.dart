@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:go_router/go_router.dart";
 import "package:pi_mobile/data/collections/heart_rate.dart";
+import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/provider/heart_rate_list_provider.dart";
 
@@ -37,14 +38,14 @@ class _ModifyHeartRatePageState extends ConsumerState<ModifyHeartRatePage>
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: const Text("Modify heart rate"), // TODO: I18N
+          title: Text(context.t.heartRate.modify),
         ),
         body: Form(
           key: _formKey,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           child: Column(
             children: [
-              const Text("Date"), // TODO: I18N
+              Text(context.t.common.date),
               TextButton(
                 onPressed: _onDatePressed,
                 child: Text("$_measurementDate"),
@@ -59,11 +60,11 @@ class _ModifyHeartRatePageState extends ConsumerState<ModifyHeartRatePage>
                 children: [
                   TextButton(
                     onPressed: _onSavePressed,
-                    child: const Text("Save"), // TODO: I18N
+                    child: Text(context.t.common.save),
                   ),
                   TextButton(
                     onPressed: _onCancelPressed,
-                    child: const Text("Cancel"), // TODO: I18N
+                    child: Text(context.t.common.cancel),
                   ),
                 ],
               ),
@@ -74,12 +75,12 @@ class _ModifyHeartRatePageState extends ConsumerState<ModifyHeartRatePage>
 
   String? _validateHeartRate(String? value) {
     if (value == null || value.isEmpty) {
-      return "No value."; // TODO: I18N
+      return "${context.t.error.noValue}.";
     }
 
     final heartRateValue = double.tryParse(value);
     if (heartRateValue == null) {
-      return "Cannot parse."; // TODO: I18N
+      return "${context.t.error.cannotParse}.";
     }
 
     return null;
@@ -109,7 +110,7 @@ class _ModifyHeartRatePageState extends ConsumerState<ModifyHeartRatePage>
     if (!isValidated) {
       logger.debug("Form is not validated.");
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Invalid form")), // TODO: I18N
+        SnackBar(content: Text(context.t.heartRate.invalidForm)),
       );
       return;
     }

@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:pi_mobile/data/routine_schema.dart";
+import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/routing/routes.dart";
 
 class RoutinesListWidget extends StatelessWidget {
@@ -15,7 +16,6 @@ class RoutinesListWidget extends StatelessWidget {
           final routine = routines[index];
           return ListTile(
             title: Text(routine.name),
-            subtitle: Text(routine.uuid),
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -52,20 +52,27 @@ class RoutinesListWidget extends StatelessWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text("Usuń rutynę"),
-        content: Text('Czy na pewno chcesz usunąć rutynę "${routine.name}"?'),
+        title: Text(context.t.routines.delete),
+        content: Text(
+          "${context.t.routines.areYouSureYouWantToDelete} "
+          '"${routine.name}"?',
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: const Text("Anuluj"),
+            child: Text(context.t.common.dismiss),
           ),
           TextButton(
             onPressed: () {
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text("Usunięto rutynę: ${routine.name}")),
+                SnackBar(
+                  content: Text(
+                    "${context.t.routines.gotDeleted}: ${routine.name}",
+                  ),
+                ),
               );
             },
-            child: const Text("Usuń"),
+            child: Text(context.t.common.delete),
           ),
         ],
       ),

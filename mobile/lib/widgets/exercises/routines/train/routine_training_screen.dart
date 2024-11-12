@@ -6,6 +6,7 @@ import "package:pi_mobile/data/training.dart";
 import "package:pi_mobile/data/training_exercise.dart";
 import "package:pi_mobile/data/training_exercise_set.dart";
 import "package:pi_mobile/data/training_workload.dart";
+import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/provider/one_rep_max_provider.dart";
 import "package:pi_mobile/provider/schemas_provider.dart";
 import "package:pi_mobile/provider/trainings_provider.dart";
@@ -30,7 +31,7 @@ class _RoutineTrainingScreenState extends ConsumerState<RoutineTrainingScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Choose your workout"),
+        title: Text(context.t.training.chooseYourWorkout),
       ),
       body: FutureBuilder<RoutineSchema>(
         future: schemaFuture,
@@ -38,12 +39,14 @@ class _RoutineTrainingScreenState extends ConsumerState<RoutineTrainingScreen> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
-            return Center(child: Text("Error: ${snapshot.error}"));
+            return Center(
+              child: Text("${context.t.error.title}: ${snapshot.error}"),
+            );
           } else if (snapshot.hasData) {
             final routine = snapshot.data!;
 
             if (routine.workouts.isEmpty) {
-              return const Center(child: Text("No workouts available"));
+              return Center(child: Text(context.t.error.noWorkouts));
             }
 
             return Column(
@@ -69,7 +72,7 @@ class _RoutineTrainingScreenState extends ConsumerState<RoutineTrainingScreen> {
               ],
             );
           }
-          return const Center(child: Text("No data available"));
+          return Center(child: Text(context.t.error.noDataAvailable));
         },
       ),
     );
@@ -174,14 +177,11 @@ class _RoutineTrainingScreenState extends ConsumerState<RoutineTrainingScreen> {
   }
 
   Widget _builder(BuildContext context) => AlertDialog(
-        title: const Text(
-          "Nie ukończyłeś poprzedniego treningu,"
-          " najpierw go zakończ w historii",
-        ),
+        title: Text(context.t.routines.youDidntFinishLastTrainingMessage),
         actions: [
           TextButton(
             onPressed: () => context.navigator.pop(),
-            child: const Text("Zamknij"),
+            child: Text(context.t.common.ok),
           ),
         ],
       );

@@ -50,7 +50,7 @@ class _ExerciseSetTrainingScreen
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Set: ${widget.exerciseSetUuid}"),
+        title: Text("${context.t.routines.set}: ${widget.exerciseSetUuid}"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -64,7 +64,9 @@ class _ExerciseSetTrainingScreen
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(child: CircularProgressIndicator());
                 } else if (snapshot.hasError) {
-                  return Center(child: Text("Error: ${snapshot.error}"));
+                  return Center(
+                    child: Text("${context.t.error.title}: ${snapshot.error}"),
+                  );
                 } else if (snapshot.hasData) {
                   final set = snapshot.data!;
                   _weightController.text = set.expectedWeight.toString();
@@ -179,23 +181,20 @@ class _ExerciseSetTrainingScreen
     TrainingExerciseSet set,
   ) =>
       AlertDialog(
-        title: const Text("Twój 1RM"),
+        title: Text(context.t.oneRepMax.your1RM),
         content: SingleChildScrollView(
           child: ListBody(
             children: <Widget>[
-              const Text(
-                "Nie miałeś wcześniej ustalone oneRepMax"
-                " dla tego ćwiczenia",
-              ),
+              Text(context.t.oneRepMax.youDidntHaveOneBeforeMessage),
               Text(
-                "Czy chcesz zmienić swój OneRepMax na: $oneRepMax",
+                "${context.t.oneRepMax.DoYouWantToChangeMessage}: $oneRepMax",
               ),
             ],
           ),
         ),
         actions: [
           TextButton(
-            child: const Text("Zapisz"),
+            child: Text(context.t.common.save),
             onPressed: () {
               ref.read(oneRepMaxsProvider.notifier).updateOneRepMaxs(
                     MapEntry(set.exerciseName, oneRepMax),
@@ -204,7 +203,7 @@ class _ExerciseSetTrainingScreen
             },
           ),
           TextButton(
-            child: const Text("Odrzuć"),
+            child: Text(context.t.common.dismiss),
             onPressed: () {
               Navigator.pop(context);
             },

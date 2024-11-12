@@ -1,7 +1,10 @@
+// ignore_for_file: require_trailing_commas
+
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pi_mobile/data/routine_schema.dart";
 import "package:pi_mobile/data/workout_schema.dart";
+import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/provider/schemas_provider.dart";
 import "package:pi_mobile/routing/routes.dart";
 import "package:pi_mobile/widgets/common/workouts_list_widget.dart";
@@ -36,7 +39,7 @@ class _EditRoutineSchemaScreenState
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Edycja Planu Treningowego"),
+        title: Text(context.t.schema.modifyRoutineTitle),
       ),
       body: FutureBuilder<RoutineSchema>(
         future: routineFuture,
@@ -44,14 +47,15 @@ class _EditRoutineSchemaScreenState
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
-            return Center(child: Text("Error: ${snapshot.error}"));
+            return Center(
+                child: Text("${context.t.error.title}: ${snapshot.error}"));
           } else if (snapshot.hasData) {
             final routine = snapshot.data!;
             _nameController.text = routine.name;
             _descriptionController.text = routine.description;
 
             if (routine.workouts.isEmpty) {
-              return const Center(child: Text("No workouts available"));
+              return Center(child: Text(context.t.error.noWorkouts));
             }
 
             return Column(
@@ -63,9 +67,9 @@ class _EditRoutineSchemaScreenState
                     Expanded(
                       child: TextField(
                         controller: _nameController,
-                        decoration: const InputDecoration(
-                          labelText: "Nazwa rutyny",
-                          border: OutlineInputBorder(),
+                        decoration: InputDecoration(
+                          labelText: context.t.schema.routineNameInput,
+                          border: const OutlineInputBorder(),
                         ),
                       ),
                     ),
@@ -78,9 +82,9 @@ class _EditRoutineSchemaScreenState
                 const SizedBox(height: 16.0),
                 TextField(
                   controller: _descriptionController,
-                  decoration: const InputDecoration(
-                    labelText: "Opis",
-                    border: OutlineInputBorder(),
+                  decoration: InputDecoration(
+                    labelText: context.t.schema.description,
+                    border: const OutlineInputBorder(),
                   ),
                 ),
                 const SizedBox(height: 16.0),
@@ -94,7 +98,7 @@ class _EditRoutineSchemaScreenState
               ],
             );
           }
-          return const Center(child: Text("No data available"));
+          return Center(child: Text(context.t.error.noDataAvailable));
         },
       ),
       floatingActionButton: FloatingActionButton(

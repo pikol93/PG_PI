@@ -27,10 +27,15 @@
     "save": "Zapisz",
     "cancel": "Anuluj",
     "date": "Data",
-    "dismiss": "Odrzuć"
+    "dismiss": "Odrzuć",
+    "ok": "Ok"
+
   },
   "error": {
+    "title": "Błąd",
     "noExercises": "Brak dostępnych ćwiczeń",
+    "noWorkouts": "Brak dostępnych treningów",
+    "noDataAvailable": "Brak danych",
     "noValue": "Brak wartości",
     "cannotParse": "Nie można przetworzyć",
     "unexpectedErrorOccurred": "Wystąpił nieprzewidziany błąd."
@@ -42,7 +47,20 @@
   },
   "training": {
     "title": "Trening",
-    "endTraining": "Zakończ trening"
+    "endTraining": "Zakończ trening",
+    "chooseYourWorkout": "Wybierz trening"
+  },
+  "schema": {
+    "modifyRoutineTitle": "Edytuj schemat rutyny",
+    "routineNameInput": "Nazwa rutyny",
+    "workoutNameInput": "Nazwa treningu",
+    "description": "Opis",
+    "workout": "Trening"
+  },
+  "oneRepMax": {
+    "your1RM": "Twój 1RM",
+    "youDidntHaveOneBeforeMessage": "Nie miałeś dotychczas ustalone 1RM dla tego ćwiczenia.",
+    "DoYouWantToChangeMessage": "Czy chcesz zmienić swój 1RM na"
   },
   "routines": {
     "title": "Rutyny",
@@ -57,6 +75,7 @@
     "noDataAvailable": "Brak dostępnych danych",
     "delete": "Usuń rutynę",
     "areYouSureYouWantToDelete": "Czy na pewno chcesz usunąć",
+    "youDidntFinishLastTrainingMessage": "Nie skończyłeś swojego poprzedniego treningu, najpierw zamknij go w zakładce Historia",
     "gotDeleted": "Usunięto rutynę"
   },
   "exercises": {

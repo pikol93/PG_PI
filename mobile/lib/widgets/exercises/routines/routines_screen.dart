@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pi_mobile/data/routine_schema.dart";
 import "package:pi_mobile/data/workload.dart";
+import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/provider/schemas_provider.dart";
 import "package:pi_mobile/routing/routes.dart";
@@ -22,10 +23,11 @@ class _RoutinesScreenState extends ConsumerState<RoutinesScreen> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: const Text("Rutyny"),
+          title: Text(context.t.routines.title),
         ),
         body: ref.watch(schemasProvider).when(
-              error: (error, stack) => Text("Could not fetch routines. $error"),
+              error: (error, stack) =>
+                  Text("${context.t.routines.couldNotFetch} $error"),
               loading: () => const Center(child: CircularProgressIndicator()),
               data: (routines) => RoutinesListWidget(routines: routines),
             ),

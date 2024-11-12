@@ -3,6 +3,7 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:intl/intl.dart";
 import "package:pi_mobile/data/collections/track.dart";
+import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/provider/date_formatter_provider.dart";
 import "package:pi_mobile/provider/tracks_provider.dart";
@@ -17,7 +18,8 @@ class TracksList extends ConsumerWidget with Logger {
   @override
   Widget build(BuildContext context, WidgetRef ref) =>
       ref.watch(tracksTempProvider).when(
-            error: (error, stack) => Text("Could not fetch tracks. $error"),
+            error: (error, stack) =>
+                Text("${context.t.tracks.couldNotFetch} $error"),
             loading: () => const Center(child: CircularProgressIndicator()),
             data: (tracks) => ListView.builder(
               padding: const EdgeInsets.all(8),

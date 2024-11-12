@@ -47,7 +47,7 @@ class _EditExerciseSetSchemaScreen
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Set: ${widget.exerciseSetUuid}"),
+        title: Text("${context.t.routines.set}: ${widget.exerciseSetUuid}"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -61,7 +61,9 @@ class _EditExerciseSetSchemaScreen
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(child: CircularProgressIndicator());
                 } else if (snapshot.hasError) {
-                  return Center(child: Text("Error: ${snapshot.error}"));
+                  return Center(
+                    child: Text("${context.t.error.title}: ${snapshot.error}"),
+                  );
                 } else if (snapshot.hasData) {
                   final set = snapshot.data!;
                   _intensityController.text = set.intensity.toString();

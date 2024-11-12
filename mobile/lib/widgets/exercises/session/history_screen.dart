@@ -19,7 +19,7 @@ class HistoryScreen extends ConsumerWidget {
         ),
         body: ref.watch(trainingsProvider).when(
               error: (error, stack) =>
-                  Text("Could not fetch trainings. $error"),
+                  Text("${context.t.training.couldNotFetch} $error"),
               loading: () => const Center(child: CircularProgressIndicator()),
               data: (trainings) => ListView.builder(
                 padding: const EdgeInsets.all(8),

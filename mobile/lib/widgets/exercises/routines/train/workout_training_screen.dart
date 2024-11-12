@@ -93,7 +93,9 @@ class _WorkoutTrainingScreen extends ConsumerState<WorkoutTrainingScreen> {
                   child: ElevatedButton(
                     onPressed: () {
                       _onEndTrainingButtonPressed(
-                          context, training.trainingUuid,);
+                        context,
+                        training.trainingUuid,
+                      );
                     },
                     style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.white,

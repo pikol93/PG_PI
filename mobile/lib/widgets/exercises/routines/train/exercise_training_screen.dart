@@ -51,7 +51,11 @@ class _ExerciseTrainingScreen extends ConsumerState<ExerciseTrainingScreen> {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const Center(child: CircularProgressIndicator());
                     } else if (snapshot.hasError) {
-                      return Center(child: Text("Error: ${snapshot.error}"));
+                      return Center(
+                        child: Text(
+                          "${context.t.error.title}: ${snapshot.error}",
+                        ),
+                      );
                     } else if (snapshot.hasData) {
                       final exercise = snapshot.data!;
 

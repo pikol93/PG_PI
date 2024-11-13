@@ -72,6 +72,7 @@
     "set": "Seria",
     "amountOfSets": "Ilość serii",
     "reps": "Ilość powtórzeń",
+    "expectedReps": "Przewidywana ilość powtórzeń",
     "noDataAvailable": "Brak dostępnych danych",
     "delete": "Usuń rutynę",
     "areYouSureYouWantToDelete": "Czy na pewno chcesz usunąć",

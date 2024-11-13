@@ -46,7 +46,7 @@ class _EditExerciseSchemaScreen
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("${context.t.routines.exercise}: ${widget.exerciseUuid}"),
+        title: Text(context.t.routines.exercise),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -169,7 +169,7 @@ class _EditExerciseSchemaScreen
 
   Future<void> _addNewSet(BuildContext context) async {
     final newSet = StrengthExerciseSetSchema(
-      reps: 8,
+      reps: 10,
       intensity: 70,
       uuid: const Uuid().v4(),
     );

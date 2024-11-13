@@ -335,10 +335,7 @@ class Schemas extends _$Schemas with Logger {
               if (exercise.uuid == exerciseUuid) {
                 final updatedSets = exercise.sets.map((set) {
                   if (set.uuid == updatedSet.uuid) {
-                    return set.copyWith(
-                      intensity: updatedSet.intensity,
-                      reps: updatedSet.reps,
-                    );
+                    return updatedSet;
                   }
                   return set;
                 }).toList();

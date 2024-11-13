@@ -50,7 +50,7 @@ class _ExerciseSetTrainingScreen
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("${context.t.routines.set}: ${widget.exerciseSetUuid}"),
+        title: Text(context.t.routines.set),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -156,7 +156,7 @@ class _ExerciseSetTrainingScreen
       final percentage = ref
           .read(oneRepMaxsProvider.notifier)
           .getPercentageOfRepMax(newSet.reps);
-      final oneRepMax = (newSet.weight / (percentage * 0.01)).floorToDouble();
+      final oneRepMax = (newSet.weight / (percentage * 0.01)).ceilToDouble();
 
       if (context.mounted) {
         await showDialog<void>(

@@ -74,6 +74,7 @@
     "set": "Set",
     "amountOfSets": "Amount of sets",
     "reps": "Reps",
+    "expectedReps": "Expected reps",
     "noDataAvailable": "No data available",
     "delete": "Delete routine",
     "areYouSureYouWantToDelete": "Are you sure about deleting",

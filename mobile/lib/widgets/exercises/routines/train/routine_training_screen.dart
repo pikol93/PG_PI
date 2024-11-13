@@ -61,7 +61,6 @@ class _RoutineTrainingScreenState extends ConsumerState<RoutineTrainingScreen> {
                       final workout = routine.workouts[index];
                       return ListTile(
                         title: Text(workout.name),
-                        subtitle: Text(workout.uuid),
                         onTap: () {
                           _onTap(context, widget.routineUuid, workout.uuid);
                         },
@@ -133,14 +132,15 @@ class _RoutineTrainingScreenState extends ConsumerState<RoutineTrainingScreen> {
           TrainingExerciseSet(
             trainingExerciseSetUuid: const Uuid().v4(),
             exerciseSetSchemaUuid: exerciseSchemaSet.uuid,
+            exerciseName: exerciseSchema.name,
             weight: 0,
             reps: 0,
             expectedReps: exerciseSchemaSet.reps,
+            expectedIntensity: exerciseSchemaSet.intensity,
             expectedWeight: (exerciseSchemaSet.intensity * 0.01 * oneRepMax)
                 .floorToDouble(),
             rpe: 0,
             isFinished: false,
-            exerciseName: exerciseSchema.name,
           ),
         );
       }

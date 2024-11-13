@@ -32,7 +32,7 @@ class _ExerciseTrainingScreen extends ConsumerState<ExerciseTrainingScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("${context.t.routines.exercise}: ${widget.exerciseUuid}"),
+        title: Text(context.t.routines.exercise),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -78,12 +78,15 @@ class _ExerciseTrainingScreen extends ConsumerState<ExerciseTrainingScreen> {
                                     "${context.t.routines.set}"
                                     " ${index + 1}",
                                   ),
-                                  subtitle:
-                                      Text("${context.t.routines.intensity}:"
-                                          " ${set.weight} \n"
-                                          "${context.t.routines.reps}:"
-                                          " ${set.reps} \n"
-                                          "Is finished: ${set.isFinished}"),
+                                  subtitle: !set.isFinished
+                                      ? Text(
+                                      "${context.t.routines.intensity}: ${set.expectedIntensity}% 1RM\n"
+                                          "${context.t.routines.expectedReps}: ${set.expectedReps} \n"
+                                  )
+                                      : Text(
+                                      "${context.t.exercises.dataInput.weight}: ${set.weight} kg\n"
+                                          "${context.t.routines.reps}: ${set.reps} \n"
+                                  ),
                                   onTap: !set.isFinished
                                       ? () {
                                           _onTap(

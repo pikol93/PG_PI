@@ -13,6 +13,7 @@ class TrainingExerciseSet with _$TrainingExerciseSet {
     required int reps,
     required int expectedReps,
     required double expectedWeight,
+    required int expectedIntensity,
     required int rpe,
     required bool isFinished,
   }) = _TrainingExerciseSet;

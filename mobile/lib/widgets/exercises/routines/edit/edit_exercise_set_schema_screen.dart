@@ -47,7 +47,7 @@ class _EditExerciseSetSchemaScreen
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("${context.t.routines.set}: ${widget.exerciseSetUuid}"),
+        title: Text(context.t.routines.set),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -72,7 +72,6 @@ class _EditExerciseSetSchemaScreen
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(context.t.routines.editExerciseName),
                       const SizedBox(height: 8.0),
                       TextField(
                         controller: _intensityController,
@@ -115,8 +114,8 @@ class _EditExerciseSetSchemaScreen
           widget.exerciseUuid,
           StrengthExerciseSetSchema(
             uuid: widget.exerciseUuid,
-            reps: int.tryParse(_repsController.text) ?? 100,
-            intensity: int.tryParse(_intensityController.text) ?? 80,
+            reps: int.tryParse(_repsController.text) ?? 10,
+            intensity: int.tryParse(_intensityController.text) ?? 70, //TODO int input widget
           ),
         );
 

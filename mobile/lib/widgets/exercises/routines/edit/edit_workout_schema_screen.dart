@@ -40,7 +40,7 @@ class _EditWorkoutSchemaScreen extends ConsumerState<EditWorkoutSchemaScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("${context.t.schema.workout}: ${widget.workoutUuid}"),
+        title: Text(context.t.schema.workout),
       ),
       body: FutureBuilder<WorkoutSchema>(
         future: workoutFuture,

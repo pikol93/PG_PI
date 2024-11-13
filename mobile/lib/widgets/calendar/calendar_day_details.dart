@@ -12,7 +12,7 @@ import "package:riverpod_annotation/riverpod_annotation.dart";
 part "calendar_day_details.g.dart";
 
 @riverpod
-Future<List<Widget>> dayDetails(DayDetailsRef ref) async {
+Future<List<Widget>> dayDetails(Ref ref) async {
   final heartRateManager = await ref.watch(heartRateManagerProvider.future);
   final tracksManager = await ref.watch(tracksManagerProvider.future);
   final focusedDay = ref.watch(focusedDayProvider);

@@ -1,3 +1,4 @@
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:intl/intl.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
@@ -5,10 +6,10 @@ import "package:riverpod_annotation/riverpod_annotation.dart";
 part "date_formatter_provider.g.dart";
 
 @riverpod
-AppLocale currentLocale(CurrentLocaleRef ref) => LocaleSettings.currentLocale;
+AppLocale currentLocale(Ref ref) => LocaleSettings.currentLocale;
 
 @riverpod
-DateFormatter dateFormatter(DateFormatterRef ref) {
+DateFormatter dateFormatter(Ref ref) {
   final currentLocale = ref.watch(currentLocaleProvider);
 
   return DateFormatter(

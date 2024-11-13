@@ -11,7 +11,7 @@ import "package:table_calendar/table_calendar.dart";
 part "calendar_data.g.dart";
 
 @riverpod
-Future<CalendarData> calendarData(CalendarDataRef ref) async {
+Future<CalendarData> calendarData(Ref ref) async {
   final heartRateList = await ref.watch(heartRateListProvider.future);
   final trackList = await ref.watch(tracksTempProvider.future);
 

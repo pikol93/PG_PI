@@ -13,7 +13,7 @@ part "sharing_service_provider.g.dart";
 part "sharing_service_provider.freezed.dart";
 
 @riverpod
-Future<SharingService> sharingService(SharingServiceRef ref) async {
+Future<SharingService> sharingService(Ref ref) async {
   final dio = await ref.watch(dioInstanceProvider.future);
   return SharingService(
     ref: ref,

@@ -12,13 +12,13 @@ import "package:riverpod_annotation/riverpod_annotation.dart";
 part "tracks_provider.g.dart";
 
 @riverpod
-Future<List<temp.Track>> tracksTemp(TracksTempRef ref) async {
+Future<List<temp.Track>> tracksTemp(Ref ref) async {
   final manager = await ref.watch(tracksManagerProvider.future);
   return manager.getAllSortedByTimeDescending();
 }
 
 @Riverpod(keepAlive: true)
-Future<TracksManager> tracksManager(TracksManagerRef ref) async {
+Future<TracksManager> tracksManager(Ref ref) async {
   final isar = await ref.watch(isarInstanceProvider.future);
   return TracksManager(
     ref: ref,

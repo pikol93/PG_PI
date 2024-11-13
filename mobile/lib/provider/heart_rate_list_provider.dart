@@ -12,19 +12,19 @@ import "package:riverpod_annotation/riverpod_annotation.dart";
 part "heart_rate_list_provider.g.dart";
 
 @riverpod
-Future<List<HeartRate>> heartRateList(HeartRateListRef ref) async {
+Future<List<HeartRate>> heartRateList(Ref ref) async {
   final heartRateManager = await ref.watch(heartRateManagerProvider.future);
   return heartRateManager.getAll();
 }
 
 @riverpod
-Future<List<HeartRate>> sortedHeartRateList(SortedHeartRateListRef ref) async {
+Future<List<HeartRate>> sortedHeartRateList(Ref ref) async {
   final heartRateManager = await ref.watch(heartRateManagerProvider.future);
   return heartRateManager.getAllSortedByTimeDescending();
 }
 
 @riverpod
-Future<List<FlSpot>> heartRateChartData(HeartRateChartDataRef ref) async {
+Future<List<FlSpot>> heartRateChartData(Ref ref) async {
   final heartRateManager = await ref.watch(heartRateManagerProvider.future);
   final heartRateList = await heartRateManager.getAllSortedByTimeAscending();
 
@@ -39,7 +39,7 @@ Future<List<FlSpot>> heartRateChartData(HeartRateChartDataRef ref) async {
 }
 
 @riverpod
-Future<HeartRateManager> heartRateManager(HeartRateManagerRef ref) async {
+Future<HeartRateManager> heartRateManager(Ref ref) async {
   final isar = await ref.watch(isarInstanceProvider.future);
   return HeartRateManager(ref: ref, isar: isar);
 }

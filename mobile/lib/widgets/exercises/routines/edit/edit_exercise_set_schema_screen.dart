@@ -2,7 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pi_mobile/data/strength_exercise_set_schema.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
-import "package:pi_mobile/provider/routines_provider.dart";
+import "package:pi_mobile/provider/schemas_provider.dart";
 import "package:pi_mobile/routing/routes.dart";
 
 class EditExerciseSetSchemaScreen extends ConsumerStatefulWidget {
@@ -38,7 +38,7 @@ class _EditExerciseSetSchemaScreen
 
   @override
   Widget build(BuildContext context) {
-    final setFuture = ref.read(routinesProvider.notifier).getExerciseSet(
+    final setFuture = ref.read(schemasProvider.notifier).getExerciseSet(
           widget.routineUuid,
           widget.workoutUuid,
           widget.exerciseUuid,
@@ -47,7 +47,7 @@ class _EditExerciseSetSchemaScreen
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Set: ${widget.exerciseSetUuid}"),
+        title: Text(context.t.routines.set),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -61,7 +61,9 @@ class _EditExerciseSetSchemaScreen
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(child: CircularProgressIndicator());
                 } else if (snapshot.hasError) {
-                  return Center(child: Text("Error: ${snapshot.error}"));
+                  return Center(
+                    child: Text("${context.t.error.title}: ${snapshot.error}"),
+                  );
                 } else if (snapshot.hasData) {
                   final set = snapshot.data!;
                   _intensityController.text = set.intensity.toString();
@@ -70,7 +72,6 @@ class _EditExerciseSetSchemaScreen
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(context.t.routines.editExerciseName),
                       const SizedBox(height: 8.0),
                       TextField(
                         controller: _intensityController,
@@ -107,14 +108,15 @@ class _EditExerciseSetSchemaScreen
   }
 
   Future<void> _onSaveButtonPressed(BuildContext context) async {
-    await ref.read(routinesProvider.notifier).updateExerciseSet(
+    await ref.read(schemasProvider.notifier).updateExerciseSet(
           widget.routineUuid,
           widget.workoutUuid,
           widget.exerciseUuid,
           StrengthExerciseSetSchema(
             uuid: widget.exerciseUuid,
-            reps: int.tryParse(_repsController.text) ?? 100,
-            intensity: int.tryParse(_intensityController.text) ?? 80,
+            reps: int.tryParse(_repsController.text) ?? 10,
+            intensity: int.tryParse(_intensityController.text) ??
+                70, //TODO int input widget
           ),
         );
 

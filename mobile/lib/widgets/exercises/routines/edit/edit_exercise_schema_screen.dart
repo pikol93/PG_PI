@@ -3,7 +3,7 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pi_mobile/data/strength_exercise_schema.dart";
 import "package:pi_mobile/data/strength_exercise_set_schema.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
-import "package:pi_mobile/provider/routines_provider.dart";
+import "package:pi_mobile/provider/schemas_provider.dart";
 import "package:pi_mobile/routing/routes.dart";
 import "package:uuid/uuid.dart";
 
@@ -38,7 +38,7 @@ class _EditExerciseSchemaScreen
 
   @override
   Widget build(BuildContext context) {
-    final exerciseFuture = ref.read(routinesProvider.notifier).getExercise(
+    final exerciseFuture = ref.read(schemasProvider.notifier).getExercise(
           widget.routineUuid,
           widget.workoutUuid,
           widget.exerciseUuid,
@@ -46,7 +46,7 @@ class _EditExerciseSchemaScreen
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("${context.t.routines.exercise}: ${widget.exerciseUuid}"),
+        title: Text(context.t.routines.exercise),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -65,7 +65,11 @@ class _EditExerciseSchemaScreen
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const Center(child: CircularProgressIndicator());
                     } else if (snapshot.hasError) {
-                      return Center(child: Text("Error: ${snapshot.error}"));
+                      return Center(
+                        child: Text(
+                          "${context.t.error.title}: ${snapshot.error}",
+                        ),
+                      );
                     } else if (snapshot.hasData) {
                       final exercise = snapshot.data!;
                       _nameController.text = exercise.name;
@@ -165,11 +169,11 @@ class _EditExerciseSchemaScreen
 
   Future<void> _addNewSet(BuildContext context) async {
     final newSet = StrengthExerciseSetSchema(
-      reps: 8,
+      reps: 10,
       intensity: 70,
       uuid: const Uuid().v4(),
     );
-    await ref.read(routinesProvider.notifier).addExerciseSet(
+    await ref.read(schemasProvider.notifier).addExerciseSet(
           widget.routineUuid,
           widget.workoutUuid,
           widget.exerciseUuid,
@@ -187,7 +191,7 @@ class _EditExerciseSchemaScreen
   }
 
   Future<void> _onSaveButtonPressed(BuildContext context) async {
-    await ref.read(routinesProvider.notifier).updateExercise(
+    await ref.read(schemasProvider.notifier).updateExercise(
           widget.routineUuid,
           widget.workoutUuid,
           StrengthExerciseSchema(

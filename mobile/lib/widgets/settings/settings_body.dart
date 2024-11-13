@@ -13,6 +13,7 @@ import "package:pi_mobile/provider/package_info_provider.dart";
 import "package:pi_mobile/provider/stored_locale_provider.dart";
 import "package:pi_mobile/provider/theme_provider.dart";
 import "package:pi_mobile/provider/tracks_provider.dart";
+import "package:pi_mobile/provider/trainings_provider.dart";
 import "package:pi_mobile/service/stored_locale_service.dart";
 import "package:pi_mobile/widgets/settings/development_setting.dart";
 import "package:pi_mobile/widgets/settings/setting_button.dart";
@@ -33,6 +34,7 @@ class SettingsBody extends StatelessWidget {
             _ClearHeartRateDataSetting(),
             _GenerateTracksSetting(),
             _ClearTracksSetting(),
+            _ClearTrainingHistorySetting(),
             _DisableDevelopmentModeSetting(),
             _AppInfoSetting(),
           ],
@@ -100,7 +102,8 @@ class _ChangeLanguageSetting extends ConsumerWidget with Logger {
                 },
               );
             },
-            error: (obj, stack) => const Text("An unexpected error occurred."),
+            error: (obj, stack) =>
+                Text(context.t.error.unexpectedErrorOccurred),
             loading: () => const CircularProgressIndicator(),
           );
 
@@ -132,7 +135,8 @@ class _ChangeThemeSetting extends ConsumerWidget {
               itemToDisplayMapper: (variant) => _mapToDisplay(context, variant),
               onConfirmed: (variant) => _onConfirmed(ref, variant),
             ),
-            error: (obj, stack) => const Text("An unexpected error occurred."),
+            error: (obj, stack) =>
+                Text(context.t.error.unexpectedErrorOccurred),
             loading: () => const CircularProgressIndicator(),
           );
 
@@ -158,7 +162,8 @@ class _ChangeServerAddressSetting extends ConsumerWidget {
               currentValue: data.serverAddress,
               onConfirmed: (value) => _onConfirmed(ref, value),
             ),
-            error: (obj, stack) => const Text("An unexpected error occurred."),
+            error: (obj, stack) =>
+                Text(context.t.error.unexpectedErrorOccurred),
             loading: () => const CircularProgressIndicator(),
           );
 
@@ -174,9 +179,9 @@ class _GenerateHeartRateDataSetting extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) => DevelopmentSetting(
         child: SettingButton(
           icon: Icons.monitor_heart_outlined,
-          title: "Generate heart rate data",
+          title: context.t.settings.heartRate.generate.title,
           requiresConfirmation: true,
-          alertTitle: "Are you sure you want to generate heart rate data",
+          alertTitle: context.t.settings.heartRate.generate.alertTitle,
           onConfirmed: () => _onGeneratePressed(context, ref),
         ),
       );
@@ -194,9 +199,9 @@ class _ClearHeartRateDataSetting extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) => DevelopmentSetting(
         child: SettingButton(
           icon: Icons.monitor_heart_outlined,
-          title: "Clear heart rate data",
+          title: context.t.settings.heartRate.clear.title,
           requiresConfirmation: true,
-          alertTitle: "Are you sure you want to clear heart rate data",
+          alertTitle: context.t.settings.heartRate.clear.alertTitle,
           onConfirmed: () => _onClearPressed(context, ref),
         ),
       );
@@ -214,9 +219,9 @@ class _GenerateTracksSetting extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) => DevelopmentSetting(
         child: SettingButton(
           icon: Icons.navigation,
-          title: "Generate tracks",
+          title: context.t.settings.tracks.generate.title,
           requiresConfirmation: true,
-          alertTitle: "Are you sure you want to generate tracks",
+          alertTitle: context.t.settings.tracks.generate.alertTitle,
           onConfirmed: () => _onGeneratePressed(context, ref),
         ),
       );
@@ -234,9 +239,9 @@ class _ClearTracksSetting extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) => DevelopmentSetting(
         child: SettingButton(
           icon: Icons.navigation,
-          title: "Clear tracks data",
+          title: context.t.settings.tracks.clear.title,
           requiresConfirmation: true,
-          alertTitle: "Are you sure you want to clear tracks data",
+          alertTitle: context.t.settings.tracks.clear.alertTitle,
           onConfirmed: () => _onClearPressed(context, ref),
         ),
       );
@@ -247,6 +252,25 @@ class _ClearTracksSetting extends ConsumerWidget {
   }
 }
 
+class _ClearTrainingHistorySetting extends ConsumerWidget {
+  const _ClearTrainingHistorySetting();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) => DevelopmentSetting(
+        child: SettingButton(
+          icon: Icons.book,
+          title: context.t.settings.trainingHistory.clear.title,
+          requiresConfirmation: true,
+          alertTitle: context.t.settings.trainingHistory.clear.alertTitle,
+          onConfirmed: () => _onClearPressed(context, ref),
+        ),
+      );
+
+  Future<void> _onClearPressed(BuildContext context, WidgetRef ref) async {
+    await ref.read(trainingsProvider.notifier).deleteTrainingsHistory();
+  }
+}
+
 class _DisableDevelopmentModeSetting extends ConsumerWidget {
   const _DisableDevelopmentModeSetting();
 
@@ -254,11 +278,9 @@ class _DisableDevelopmentModeSetting extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) => DevelopmentSetting(
         child: SettingButton(
           icon: Icons.developer_board_off,
-          // TODO: I18N
-          title: "Turn off development mode",
+          title: context.t.settings.disableDevelopmentMode.title,
           requiresConfirmation: true,
-          // TODO: I18N
-          alertTitle: "Are you sure you want to turn off development mode?",
+          alertTitle: context.t.settings.disableDevelopmentMode.title,
           onConfirmed: () => _onLogOffPressed(context, ref),
         ),
       );
@@ -274,7 +296,7 @@ class _AppInfoSetting extends ConsumerWidget with Logger {
   @override
   Widget build(BuildContext context, WidgetRef ref) => SettingButton(
         icon: Icons.info,
-        title: "App version",
+        title: context.t.settings.appInfo.title,
         subtitle: ref.watch(packageInfoProvider).version,
         onConfirmed: () => _onAppInfoPressed(ref),
       );

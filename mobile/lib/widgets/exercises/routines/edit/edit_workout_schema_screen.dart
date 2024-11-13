@@ -3,7 +3,7 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pi_mobile/data/strength_exercise_schema.dart";
 import "package:pi_mobile/data/workout_schema.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
-import "package:pi_mobile/provider/routines_provider.dart";
+import "package:pi_mobile/provider/schemas_provider.dart";
 import "package:pi_mobile/routing/routes.dart";
 import "package:pi_mobile/widgets/common/exercises_list_widget.dart";
 import "package:uuid/uuid.dart";
@@ -35,12 +35,12 @@ class _EditWorkoutSchemaScreen extends ConsumerState<EditWorkoutSchemaScreen> {
   @override
   Widget build(BuildContext context) {
     final workoutFuture = ref
-        .read(routinesProvider.notifier)
+        .read(schemasProvider.notifier)
         .getWorkout(widget.routineUuid, widget.workoutUuid);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Workout: ${widget.workoutUuid}"),
+        title: Text(context.t.schema.workout),
       ),
       body: FutureBuilder<WorkoutSchema>(
         future: workoutFuture,
@@ -48,16 +48,18 @@ class _EditWorkoutSchemaScreen extends ConsumerState<EditWorkoutSchemaScreen> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
-            return Center(child: Text("Error: ${snapshot.error}"));
+            return Center(
+              child: Text("${context.t.error.title}: ${snapshot.error}"),
+            );
           } else if (snapshot.hasData) {
             final workout = snapshot.data!;
 
             _nameController.text = workout.name;
 
             if (workout.exercisesSchemas.isEmpty) {
-              return const Center(
+              return Center(
                 child: Text(
-                  "No exercises available",
+                  context.t.error.noExercises,
                 ),
               );
             }
@@ -71,9 +73,9 @@ class _EditWorkoutSchemaScreen extends ConsumerState<EditWorkoutSchemaScreen> {
                     Expanded(
                       child: TextField(
                         controller: _nameController,
-                        decoration: const InputDecoration(
-                          labelText: "Nazwa workoutu",
-                          border: OutlineInputBorder(),
+                        decoration: InputDecoration(
+                          labelText: context.t.schema.workoutNameInput,
+                          border: const OutlineInputBorder(),
                         ),
                       ),
                     ),
@@ -109,7 +111,7 @@ class _EditWorkoutSchemaScreen extends ConsumerState<EditWorkoutSchemaScreen> {
   }
 
   Future<void> _saveWorkoutName(BuildContext context) async {
-    await ref.read(routinesProvider.notifier).updateWorkout(
+    await ref.read(schemasProvider.notifier).updateWorkout(
           widget.routineUuid,
           WorkoutSchema(
             uuid: widget.workoutUuid,
@@ -122,7 +124,7 @@ class _EditWorkoutSchemaScreen extends ConsumerState<EditWorkoutSchemaScreen> {
   Future<void> _onAddButtonPressed(BuildContext context) async {
     final exerciseUuid = const Uuid().v4();
 
-    await ref.read(routinesProvider.notifier).addExercise(
+    await ref.read(schemasProvider.notifier).addExercise(
           widget.routineUuid,
           widget.workoutUuid,
           StrengthExerciseSchema(

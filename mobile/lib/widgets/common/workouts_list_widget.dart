@@ -20,7 +20,6 @@ class WorkoutsListWidget extends StatelessWidget {
           final workout = workouts[index];
           return ListTile(
             title: Text(workout.name),
-            subtitle: Text(workout.uuid),
             onTap: () {
               _onTap(context, routineUuid, workout.uuid);
             },

@@ -20,9 +20,51 @@
         "title": "Recording position",
         "text": "Tap to return to the app"
       }
-    }
+    },
+    "couldNotFetch": "Could not fetch tracks."
+  },
+  "common": {
+    "delete": "Delete",
+    "save": "Save",
+    "cancel": "Cancel",
+    "date": "Date",
+    "dismiss": "Dismiss",
+    "ok": "Ok"
+  },
+  "error": {
+    "title": "Error",
+    "noExercises": "No exercises available",
+    "noWorkouts": "No workouts available",
+    "noDataAvailable": "No data available",
+    "noValue": "No value",
+    "cannotParse": "Cannot parse",
+    "unexpectedErrorOccurred": "An unexpected error occurred."
+  },
+  "heartRate": {
+    "title": "Heart rate",
+    "modify": "Modify heart rate",
+    "invalidForm": "Invalid form"
+  },
+  "training": {
+    "title": "Training",
+    "endTraining": "End training",
+    "chooseYourWorkout": "Choose workout",
+    "couldNotFetch": "Could not fetch trainings."
+  },
+  "schema": {
+    "modifyRoutineTitle": "Edit routine schema",
+    "routineNameInput": "Routine name",
+    "workoutNameInput": "Workout name",
+    "description": "Description",
+    "workout": "Workout"
+  },
+  "oneRepMax": {
+    "your1RM": "Your 1RM",
+    "youDidntHaveOneBeforeMessage": "You didn't have 1RM for this exercise yet.",
+    "DoYouWantToChangeMessage": "Do you want to change your 1RM to"
   },
   "routines": {
+    "couldNotFetch": "Could not fetch routines.",
     "title": "Routines",
     "intensity": "Intensity",
     "exercise": "Exercise",
@@ -32,7 +74,12 @@
     "set": "Set",
     "amountOfSets": "Amount of sets",
     "reps": "Reps",
-    "noDataAvailable": "No data available"
+    "expectedReps": "Expected reps",
+    "noDataAvailable": "No data available",
+    "delete": "Delete routine",
+    "areYouSureYouWantToDelete": "Are you sure about deleting",
+    "youDidntFinishLastTrainingMessage": "You didn't finish your last training, end it in History view first",
+    "gotDeleted": "Deleted routine"
   },
   "exercises": {
     "title": "Exercises",
@@ -88,9 +135,42 @@
       "title": "Server address",
       "alertTitle": "Enter new server address"
     },
-    "logOff": {
-      "title": "Log off",
-      "alertTitle": "Are you sure you want to log off?"
+    "heartRate": {
+      "generate": {
+        "title": "Generate heart rate data",
+        "alertTitle": "Are you sure you want to generate heart rate data"
+      },
+      "clear": {
+        "title": "Clear heart rate data",
+        "alertTitle": "Are you sure you want to clear heart rate data"
+      }
+    },
+    "tracks": {
+      "generate": {
+        "title": "Generate tracks data",
+        "alertTitle": "Are you sure you want to generate tracks data"
+      },
+      "clear": {
+        "title": "Clear tracks data",
+        "alertTitle": "Are you sure you want to clear tracks data"
+      }
+    },
+    "trainingHistory": {
+      "generate": {
+        "title": "Generate training history data",
+        "alertTitle": "Are you sure you want to generate training history data"
+      },
+      "clear": {
+        "title": "Clear training history data",
+        "alertTitle": "Are you sure you want to clear tracks data"
+      }
+    },
+    "disableDevelopmentMode": {
+      "title": "Disable development mode",
+      "alertTitle": "Are you sure you want to turn off development mode?"
+    },
+    "appInfo": {
+      "title": "App version"
     }
   }
 }

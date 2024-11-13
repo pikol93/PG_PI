@@ -2,7 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pi_mobile/data/strength_exercise_schema.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
-import "package:pi_mobile/provider/routines_provider.dart";
+import "package:pi_mobile/provider/schemas_provider.dart";
 import "package:pi_mobile/routing/routes.dart";
 
 class ExercisesListWidget extends ConsumerStatefulWidget {
@@ -74,7 +74,7 @@ class _ExercisesListWidget extends ConsumerState<ExercisesListWidget> {
     StrengthExerciseSchema exercise,
   ) async {
     await ref
-        .read(routinesProvider.notifier)
+        .read(schemasProvider.notifier)
         .deleteExercise(widget.routineUuid, widget.workoutUuid, exercise.uuid);
   }
 }

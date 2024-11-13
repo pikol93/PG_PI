@@ -8,10 +8,10 @@ import "package:pi_mobile/logger.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:shared_preferences/shared_preferences.dart";
 
-part "routines_provider.g.dart";
+part "schemas_provider.g.dart";
 
 @Riverpod(keepAlive: true)
-class Routines extends _$Routines with Logger {
+class Schemas extends _$Schemas with Logger {
   static const _keyName = "routines2";
 
   @override
@@ -27,7 +27,7 @@ class Routines extends _$Routines with Logger {
   }
 
   Future<void> addRoutine(RoutineSchema routineSchema) async {
-    final list = await ref.read(routinesProvider.future);
+    final list = await ref.read(schemasProvider.future);
     list.add(routineSchema);
 
     final preferences = SharedPreferencesAsync();
@@ -38,14 +38,14 @@ class Routines extends _$Routines with Logger {
   }
 
   Future<RoutineSchema> getRoutine(String routineUuid) async {
-    final list = await ref.read(routinesProvider.future);
+    final list = await ref.read(schemasProvider.future);
     return list.firstWhere((routine) => routineUuid == routine.uuid);
   }
 
   Future<void> updateRoutine(
     RoutineSchema updatedRoutine,
   ) async {
-    final routines = await ref.read(routinesProvider.future);
+    final routines = await ref.read(schemasProvider.future);
 
     final updatedRoutines = routines.toList().map((routine) {
       if (routine.uuid == updatedRoutine.uuid) {
@@ -68,7 +68,7 @@ class Routines extends _$Routines with Logger {
     String routineUuid,
     String workoutUuid,
   ) async {
-    final list = await ref.read(routinesProvider.future);
+    final list = await ref.read(schemasProvider.future);
     return list
         .firstWhere((routine) => routineUuid == routine.uuid)
         .workouts
@@ -76,7 +76,7 @@ class Routines extends _$Routines with Logger {
   }
 
   Future<void> addWorkout(String routineUuid, WorkoutSchema workout) async {
-    final routines = await ref.read(routinesProvider.future);
+    final routines = await ref.read(schemasProvider.future);
 
     final updatedRoutines = routines.toList().map((routine) {
       if (routine.uuid == routineUuid) {
@@ -97,7 +97,7 @@ class Routines extends _$Routines with Logger {
     String routineUuid,
     WorkoutSchema updatedWorkout,
   ) async {
-    final routines = await ref.read(routinesProvider.future);
+    final routines = await ref.read(schemasProvider.future);
 
     final updatedRoutines = routines.toList().map((routine) {
       if (routine.uuid == routineUuid) {
@@ -120,7 +120,7 @@ class Routines extends _$Routines with Logger {
   }
 
   Future<void> deleteWorkout(String routineUuid, String workoutUuid) async {
-    final routines = await ref.read(routinesProvider.future);
+    final routines = await ref.read(schemasProvider.future);
 
     final updatedRoutines = routines.toList().map((routine) {
       if (routine.uuid == routineUuid) {
@@ -143,7 +143,7 @@ class Routines extends _$Routines with Logger {
     String routineUuid,
     String workoutUuid,
   ) async {
-    final routines = await ref.read(routinesProvider.future);
+    final routines = await ref.read(schemasProvider.future);
     final routine = routines.firstWhere((r) => r.uuid == routineUuid);
     final workout = routine.workouts.firstWhere((w) => w.uuid == workoutUuid);
     return workout.exercisesSchemas;
@@ -154,7 +154,7 @@ class Routines extends _$Routines with Logger {
     String workoutUuid,
     String exerciseUuid,
   ) async {
-    final routines = await ref.read(routinesProvider.future);
+    final routines = await ref.read(schemasProvider.future);
     final routine = routines.firstWhere((r) => r.uuid == routineUuid);
     final workout = routine.workouts.firstWhere((w) => w.uuid == workoutUuid);
     final exercise =
@@ -167,7 +167,7 @@ class Routines extends _$Routines with Logger {
     String workoutUuid,
     StrengthExerciseSchema exercise,
   ) async {
-    final routines = await ref.read(routinesProvider.future);
+    final routines = await ref.read(schemasProvider.future);
 
     final updatedRoutines = routines.toList().map((routine) {
       if (routine.uuid == routineUuid) {
@@ -195,7 +195,7 @@ class Routines extends _$Routines with Logger {
     String workoutUuid,
     StrengthExerciseSchema updatedExercise,
   ) async {
-    final routines = await ref.read(routinesProvider.future);
+    final routines = await ref.read(schemasProvider.future);
 
     final updatedRoutines = routines.toList().map((routine) {
       if (routine.uuid == routineUuid) {
@@ -231,7 +231,7 @@ class Routines extends _$Routines with Logger {
     String workoutUuid,
     String exerciseUuid,
   ) async {
-    final routines = await ref.read(routinesProvider.future);
+    final routines = await ref.read(schemasProvider.future);
 
     final updatedRoutines = routines.toList().map((routine) {
       if (routine.uuid == routineUuid) {
@@ -261,7 +261,7 @@ class Routines extends _$Routines with Logger {
     String workoutUuid,
     String exerciseUuid,
   ) async {
-    final routines = await ref.read(routinesProvider.future);
+    final routines = await ref.read(schemasProvider.future);
     final routine = routines.firstWhere((r) => r.uuid == routineUuid);
     final workout = routine.workouts.firstWhere((w) => w.uuid == workoutUuid);
     final exercise =
@@ -275,7 +275,7 @@ class Routines extends _$Routines with Logger {
     String exerciseUuid,
     String setUuid,
   ) async {
-    final routines = await ref.read(routinesProvider.future);
+    final routines = await ref.read(schemasProvider.future);
     final routine = routines.firstWhere((r) => r.uuid == routineUuid);
     final workout = routine.workouts.firstWhere((w) => w.uuid == workoutUuid);
     final exercise =
@@ -290,7 +290,7 @@ class Routines extends _$Routines with Logger {
     String exerciseUuid,
     StrengthExerciseSetSchema newSet,
   ) async {
-    final routines = await ref.read(routinesProvider.future);
+    final routines = await ref.read(schemasProvider.future);
 
     final updatedRoutines = routines.map((routine) {
       if (routine.uuid == routineUuid) {
@@ -325,7 +325,7 @@ class Routines extends _$Routines with Logger {
     String exerciseUuid,
     StrengthExerciseSetSchema updatedSet,
   ) async {
-    final routines = await ref.read(routinesProvider.future);
+    final routines = await ref.read(schemasProvider.future);
 
     final updatedRoutines = routines.map((routine) {
       if (routine.uuid == routineUuid) {
@@ -335,10 +335,7 @@ class Routines extends _$Routines with Logger {
               if (exercise.uuid == exerciseUuid) {
                 final updatedSets = exercise.sets.map((set) {
                   if (set.uuid == updatedSet.uuid) {
-                    return set.copyWith(
-                      intensity: updatedSet.intensity,
-                      reps: updatedSet.reps,
-                    );
+                    return updatedSet;
                   }
                   return set;
                 }).toList();

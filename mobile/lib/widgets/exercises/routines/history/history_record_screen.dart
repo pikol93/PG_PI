@@ -4,6 +4,7 @@ import "package:intl/intl.dart";
 import "package:pi_mobile/data/training.dart";
 import "package:pi_mobile/data/training_exercise.dart";
 import "package:pi_mobile/data/training_exercise_set.dart";
+import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/provider/trainings_provider.dart";
 
 class HistoryRecordScreen extends ConsumerStatefulWidget {
@@ -20,7 +21,7 @@ class _HistoryRecordScreen extends ConsumerState<HistoryRecordScreen> {
   @override
   Widget build(BuildContext context) {
     final trainingFuture =
-        ref.read(trainingsProvider.notifier).readTraining(widget.trainingUuid);
+        ref.read(trainingsProvider.notifier).getTraining(widget.trainingUuid);
 
     return Scaffold(
       appBar: AppBar(
@@ -32,9 +33,11 @@ class _HistoryRecordScreen extends ConsumerState<HistoryRecordScreen> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
-            return Center(child: Text("Error: ${snapshot.error}"));
+            return Center(
+              child: Text("${context.t.error.title}: ${snapshot.error}"),
+            );
           } else if (!snapshot.hasData) {
-            return const Center(child: Text("No training data found."));
+            return Center(child: Text(context.t.error.noDataAvailable));
           }
 
           final training = snapshot.data!;
@@ -72,8 +75,8 @@ class _HistoryRecordScreen extends ConsumerState<HistoryRecordScreen> {
   Widget _buildTrainingInfo(Training training) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Initial Workout Name: ${training.initialTrainingName}"),
-          Text("Training UUID: ${training.trainingUuid}"),
+          Text("Initial Workout Name: ${training.trainingName}"),
+          Text("Training UUID: ${training.uuid}"),
           Text("Routine Schema UUID: ${training.routineSchemaUuid}"),
           Text("Workout Schema UUID: ${training.workoutSchemaUuid}"),
           Text("Start Date: ${training.startDate}"),
@@ -81,9 +84,7 @@ class _HistoryRecordScreen extends ConsumerState<HistoryRecordScreen> {
           Text("Is Finished: ${training.isFinished}"),
           const SizedBox(height: 8),
           Text("""
-Training Workload UUID: ${training.trainingWorkload.trainingWorkloadUuid}"""),
-          Text("""
-Workout Schema UUID: ${training.trainingWorkload.workoutSchemaUuid}"""),
+Training Workload UUID: ${training.trainingWorkload.uuid}"""),
         ],
       );
 
@@ -100,7 +101,7 @@ Workout Schema UUID: ${training.trainingWorkload.workoutSchemaUuid}"""),
   Widget _buildExerciseSetInfo(TrainingExerciseSet set) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Exercise Set UUID: ${set.trainingExerciseSetUuid}"),
+          Text("Exercise Set UUID: ${set.uuid}"),
           Text("Exercise Set Schema UUID: ${set.exerciseSetSchemaUuid}"),
           Text("Weight: ${set.weight} kg"),
           Text("Reps: ${set.reps}"),

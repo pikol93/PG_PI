@@ -5,7 +5,7 @@ import "package:pi_mobile/provider/date_formatter_provider.dart";
 import "package:pi_mobile/provider/trainings_provider.dart";
 import "package:pi_mobile/routing/routes.dart";
 
-import "../../../i18n/strings.g.dart";
+import "../../../../i18n/strings.g.dart";
 
 class HistoryScreen extends ConsumerWidget {
   static final dateFormat = DateFormat();
@@ -36,21 +36,21 @@ class HistoryScreen extends ConsumerWidget {
                           .fullDateTime(trainings[index].startDate),
                     ),
                     subtitle: Text(
-                      "${trainings[index].initialRoutineName} -> "
-                      "${trainings[index].initialTrainingName}",
+                      "${trainings[index].routineName} -> "
+                      "${trainings[index].trainingName}",
                     ),
                     onTap: trainings[index].isFinished
                         ? () {
                             _onFinishedTap(
                               context,
-                              trainings[index].trainingUuid,
+                              trainings[index].uuid,
                             );
                           }
                         : () {
                             _onPendingTap(
                               context,
                               trainings[index].routineSchemaUuid,
-                              trainings[index].trainingUuid,
+                              trainings[index].uuid,
                             );
                           },
                   );

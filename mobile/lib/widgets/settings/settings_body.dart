@@ -29,7 +29,7 @@ class SettingsBody extends StatelessWidget {
           children: [
             _ChangeLanguageSetting(),
             _ChangeThemeSetting(),
-            // _ChangeServerAddressSetting(),
+            _ChangeServerAddressSetting(),
             _GenerateHeartRateDataSetting(),
             _ClearHeartRateDataSetting(),
             _GenerateTracksSetting(),
@@ -267,7 +267,7 @@ class _ClearTrainingHistorySetting extends ConsumerWidget {
       );
 
   Future<void> _onClearPressed(BuildContext context, WidgetRef ref) async {
-    await ref.read(trainingsProvider.notifier).deleteHistory();
+    await ref.read(trainingsProvider.notifier).deleteTrainingsHistory();
   }
 }
 

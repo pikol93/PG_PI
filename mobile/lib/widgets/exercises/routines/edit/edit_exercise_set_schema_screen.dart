@@ -115,7 +115,8 @@ class _EditExerciseSetSchemaScreen
           StrengthExerciseSetSchema(
             uuid: widget.exerciseUuid,
             reps: int.tryParse(_repsController.text) ?? 10,
-            intensity: int.tryParse(_intensityController.text) ?? 70, //TODO int input widget
+            intensity: int.tryParse(_intensityController.text) ??
+                70, //TODO int input widget
           ),
         );
 

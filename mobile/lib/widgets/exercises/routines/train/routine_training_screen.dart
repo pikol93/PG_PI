@@ -2,16 +2,10 @@ import "package:awesome_flutter_extensions/awesome_flutter_extensions.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pi_mobile/data/routine_schema.dart";
-import "package:pi_mobile/data/training.dart";
-import "package:pi_mobile/data/training_exercise.dart";
-import "package:pi_mobile/data/training_exercise_set.dart";
-import "package:pi_mobile/data/training_workload.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
-import "package:pi_mobile/provider/one_rep_max_provider.dart";
 import "package:pi_mobile/provider/schemas_provider.dart";
 import "package:pi_mobile/provider/trainings_provider.dart";
 import "package:pi_mobile/routing/routes.dart";
-import "package:uuid/uuid.dart";
 
 class RoutineTrainingScreen extends ConsumerStatefulWidget {
   final String routineUuid;
@@ -94,86 +88,17 @@ class _RoutineTrainingScreenState extends ConsumerState<RoutineTrainingScreen> {
         );
       }
     } else {
-      final newTraining =
-          await prepareTrainingToAddition(routineUuid, workoutUuid);
-
-      await ref.read(trainingsProvider.notifier).addTraining(newTraining);
+      final newTrainingUuid = await ref
+          .read(trainingsProvider.notifier)
+          .addEmptyTraining(routineUuid, workoutUuid);
 
       if (context.mounted) {
         OpenWorkoutTrainingRoute(
-          trainingUuid: newTraining.trainingUuid,
+          trainingUuid: newTrainingUuid,
           routineUuid: routineUuid,
         ).go(context);
       }
     }
-  }
-
-  Future<Training> prepareTrainingToAddition(
-    String routineUuid,
-    String workoutUuid,
-  ) async {
-    final routineSchema =
-        await ref.read(schemasProvider.notifier).getRoutine(routineUuid);
-
-    final workoutSchema = await ref
-        .read(schemasProvider.notifier)
-        .getWorkout(routineUuid, workoutUuid);
-
-    final trainingExercisesBlank = <TrainingExercise>[];
-    for (final exerciseSchema in workoutSchema.exercisesSchemas) {
-      final trainingExerciseSetsBlank = <TrainingExerciseSet>[];
-
-      final oneRepMax = await ref
-          .read(oneRepMaxsProvider.notifier)
-          .getCertainOneRepMax(exerciseSchema.name);
-
-      for (final exerciseSchemaSet in exerciseSchema.sets) {
-        trainingExerciseSetsBlank.add(
-          TrainingExerciseSet(
-            trainingExerciseSetUuid: const Uuid().v4(),
-            exerciseSetSchemaUuid: exerciseSchemaSet.uuid,
-            exerciseName: exerciseSchema.name,
-            weight: 0,
-            reps: 0,
-            expectedReps: exerciseSchemaSet.reps,
-            expectedIntensity: exerciseSchemaSet.intensity,
-            expectedWeight: (exerciseSchemaSet.intensity * 0.01 * oneRepMax)
-                .floorToDouble(),
-            rpe: 0,
-            isFinished: false,
-          ),
-        );
-      }
-
-      trainingExercisesBlank.add(
-        TrainingExercise(
-          name: exerciseSchema.name,
-          trainingExerciseUuid: const Uuid().v4(),
-          exerciseSchemaUuid: exerciseSchema.uuid,
-          wasStarted: false,
-          isFinished: false,
-          exerciseSets: trainingExerciseSetsBlank,
-        ),
-      );
-    }
-
-    final trainingUuid = const Uuid().v4();
-
-    return Training(
-      initialTrainingName: workoutSchema.name,
-      trainingUuid: trainingUuid,
-      routineSchemaUuid: routineUuid,
-      workoutSchemaUuid: workoutUuid,
-      startDate: DateTime.now(),
-      endDate: DateTime(2023),
-      isFinished: false,
-      trainingWorkload: TrainingWorkload(
-        trainingWorkloadUuid: const Uuid().v4(),
-        workoutSchemaUuid: workoutUuid,
-        trainingExercises: trainingExercisesBlank,
-      ),
-      initialRoutineName: routineSchema.name,
-    );
   }
 
   Widget _builder(BuildContext context) => AlertDialog(

@@ -42,7 +42,7 @@ class _ExerciseSetTrainingScreen
 
   @override
   Widget build(BuildContext context) {
-    final setFuture = ref.read(trainingsProvider.notifier).readExerciseSet(
+    final setFuture = ref.read(trainingsProvider.notifier).getExerciseSet(
           widget.trainingUuid,
           widget.exerciseUuid,
           widget.exerciseSetUuid,
@@ -71,7 +71,7 @@ class _ExerciseSetTrainingScreen
                   final set = snapshot.data!;
                   _weightController.text = set.expectedWeight.toString();
                   _repsController.text = set.expectedReps.toString();
-                  _rpeController.text = "7";
+                  _rpeController.text = "7"; //TODO Magic number
 
                   return Column(
                     children: [
@@ -139,7 +139,7 @@ class _ExerciseSetTrainingScreen
     TrainingExerciseSet set,
   ) async {
     final newSet = set.copyWith(
-      reps: int.tryParse(_repsController.text) ?? 100,
+      reps: int.tryParse(_repsController.text) ?? 100, //TODO int input widget
       weight: double.tryParse(_weightController.text) ?? 100,
       isFinished: true,
     );

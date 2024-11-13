@@ -15,13 +15,13 @@ import "package:pi_mobile/widgets/exercises/routines/edit/edit_exercise_schema_s
 import "package:pi_mobile/widgets/exercises/routines/edit/edit_exercise_set_schema_screen.dart";
 import "package:pi_mobile/widgets/exercises/routines/edit/edit_routine_schema_screen.dart";
 import "package:pi_mobile/widgets/exercises/routines/edit/edit_workout_schema_screen.dart";
+import "package:pi_mobile/widgets/exercises/routines/history/history_record_screen.dart";
+import "package:pi_mobile/widgets/exercises/routines/history/history_screen.dart";
 import "package:pi_mobile/widgets/exercises/routines/routines_screen.dart";
 import "package:pi_mobile/widgets/exercises/routines/train/exercise_set_training_screen.dart";
 import "package:pi_mobile/widgets/exercises/routines/train/exercise_training_screen.dart";
 import "package:pi_mobile/widgets/exercises/routines/train/routine_training_screen.dart";
 import "package:pi_mobile/widgets/exercises/routines/train/workout_training_screen.dart";
-import "package:pi_mobile/widgets/exercises/session/history_record_screen.dart";
-import "package:pi_mobile/widgets/exercises/session/history_screen.dart";
 import "package:pi_mobile/widgets/heart_rate/heart_rate_screen.dart";
 import "package:pi_mobile/widgets/heart_rate/modify_heart_rate_screen.dart";
 import "package:pi_mobile/widgets/home/home_screen.dart";

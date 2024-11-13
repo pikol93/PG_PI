@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pi_mobile/data/training_exercise.dart";
+import "package:pi_mobile/data/training_exercise_set.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/provider/trainings_provider.dart";
 import "package:pi_mobile/routing/routes.dart";
@@ -25,7 +26,7 @@ class ExerciseTrainingScreen extends ConsumerStatefulWidget {
 class _ExerciseTrainingScreen extends ConsumerState<ExerciseTrainingScreen> {
   @override
   Widget build(BuildContext context) {
-    final exerciseFuture = ref.read(trainingsProvider.notifier).readExercise(
+    final exerciseFuture = ref.read(trainingsProvider.notifier).getExercise(
           widget.trainingUuid,
           widget.exerciseUuid,
         );
@@ -78,15 +79,7 @@ class _ExerciseTrainingScreen extends ConsumerState<ExerciseTrainingScreen> {
                                     "${context.t.routines.set}"
                                     " ${index + 1}",
                                   ),
-                                  subtitle: !set.isFinished
-                                      ? Text(
-                                      "${context.t.routines.intensity}: ${set.expectedIntensity}% 1RM\n"
-                                          "${context.t.routines.expectedReps}: ${set.expectedReps} \n"
-                                  )
-                                      : Text(
-                                      "${context.t.exercises.dataInput.weight}: ${set.weight} kg\n"
-                                          "${context.t.routines.reps}: ${set.reps} \n"
-                                  ),
+                                  subtitle: getListTileSubtitle(set),
                                   onTap: !set.isFinished
                                       ? () {
                                           _onTap(
@@ -94,7 +87,7 @@ class _ExerciseTrainingScreen extends ConsumerState<ExerciseTrainingScreen> {
                                             widget.routineUuid,
                                             widget.trainingUuid,
                                             widget.exerciseUuid,
-                                            set.trainingExerciseSetUuid,
+                                            set.uuid,
                                           );
                                         }
                                       : null,
@@ -116,6 +109,20 @@ class _ExerciseTrainingScreen extends ConsumerState<ExerciseTrainingScreen> {
         ),
       ),
     );
+  }
+
+  Text getListTileSubtitle(TrainingExerciseSet set) {
+    if (!set.isFinished) {
+      return Text("${context.t.routines.intensity}: "
+          "${set.expectedIntensity}% 1RM\n"
+          "${context.t.routines.expectedReps}: "
+          "${set.expectedReps} \n");
+    } else {
+      return Text("${context.t.exercises.dataInput.weight}: "
+          "${set.weight} kg\n"
+          "${context.t.routines.reps}: "
+          "${set.reps} \n");
+    }
   }
 
   void _onTap(

@@ -24,7 +24,7 @@ class _WorkoutTrainingScreen extends ConsumerState<WorkoutTrainingScreen> {
   @override
   Widget build(BuildContext context) {
     final trainingFuture =
-        ref.read(trainingsProvider.notifier).readTraining(widget.trainingUuid);
+        ref.read(trainingsProvider.notifier).getTraining(widget.trainingUuid);
 
     return Scaffold(
       appBar: AppBar(
@@ -36,8 +36,10 @@ class _WorkoutTrainingScreen extends ConsumerState<WorkoutTrainingScreen> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
-            return Center(child: Text("${context.t.error.title}:"
-                " ${snapshot.error}"),);
+            return Center(
+              child: Text("${context.t.error.title}:"
+                  " ${snapshot.error}"),
+            );
           } else if (snapshot.hasData) {
             final training = snapshot.data!;
 
@@ -95,7 +97,7 @@ class _WorkoutTrainingScreen extends ConsumerState<WorkoutTrainingScreen> {
                     onPressed: () {
                       _onEndTrainingButtonPressed(
                         context,
-                        training.trainingUuid,
+                        training.uuid,
                       );
                     },
                     style: ElevatedButton.styleFrom(

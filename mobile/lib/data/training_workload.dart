@@ -7,8 +7,7 @@ part "training_workload.freezed.dart";
 @freezed
 class TrainingWorkload with _$TrainingWorkload {
   const factory TrainingWorkload({
-    required String trainingWorkloadUuid,
-    required String workoutSchemaUuid,
+    required String uuid,
     required List<TrainingExercise> trainingExercises,
   }) = _TrainingWorkload;
 

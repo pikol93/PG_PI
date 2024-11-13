@@ -63,6 +63,7 @@ dev_dependencies:
   isar_generator:
     version: ^3.1.8
     hosted: https://pub.isar-community.dev/
+  flutter_launcher_icons: ^0.14.1
 
 flutter:
   uses-material-design: true

@@ -197,7 +197,8 @@ class _ExerciseSetTrainingScreen
             child: Text(context.t.common.save),
             onPressed: () {
               ref.read(oneRepMaxsProvider.notifier).updateOneRepMaxs(
-                    MapEntry(set.exerciseName, oneRepMax),
+                    set.exerciseName,
+                    oneRepMax,
                   );
               Navigator.pop(context);
             },

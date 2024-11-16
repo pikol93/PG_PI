@@ -87,7 +87,7 @@
     "trainingSession": "Sesja treningowa",
     "addExercise": "Dodaj ćwiczenie",
     "endWorkout": "Zakończ trening",
-    "exercises": {
+    "exercises(map)": {
       "benchPress": "Wyciskanie na klatkę",
       "backSquat": "Przysiad tylny",
       "barbellCurls": "Uginanie ramion",

@@ -89,11 +89,68 @@
     "trainingSession": "Training session",
     "addExercise": "Add exercise",
     "endWorkout": "End workout",
-    "exercises": {
-      "benchPress": "Bench press",
-      "backSquat": "Back squat",
-      "barbellCurls": "Barbell curls",
-      "pullUp": "Pull up"
+    "muscleGroup(context=MuscleGroup)": {
+      "chest": "chest",
+      "frontDeltoid": "front deltoid",
+      "triceps": "triceps"
+    },
+    "exercises(map)": {
+      "benchPress": {
+        "name": "Bench press",
+        "steps": [
+          "Step one for bench press",
+          "Step two for bench press"
+        ]
+      },
+      "benchPress2": {
+        "name": "Bench press",
+        "steps": [
+          "Step one for bench press",
+          "Step two for bench press",
+          "Step two for bench press",
+          "Step two for bench press",
+          "Step two for bench press",
+          "Step two for bench press",
+          "Step two for bench press",
+          "Step two for bench press",
+          "Step two for bench press",
+          "Step two for bench press",
+          "Step two for bench press",
+          "Step two for bench press",
+          "Step two for bench press",
+          "Step two for bench press",
+          "Step two for bench press",
+          "Step two for bench press"
+        ]
+      },
+      "barDips": {
+        "name": "Bar dips",
+        "steps": [
+          "Step one for bar dips",
+          "Step two for bar dips"
+        ]
+      },
+      "backSquat": {
+        "name": "Back squat",
+        "steps": [
+          "Step one for back squat",
+          "Step two for back squat"
+        ]
+      },
+      "barbellCurls": {
+        "name": "Barbell curls",
+        "steps": [
+          "Step one for barbell curls",
+          "Step two for barbell curls"
+        ]
+      },
+      "pullUp": {
+        "name": "Pull up",
+        "steps": [
+          "Step one for pull up",
+          "Step two for pull up"
+        ]
+      }
     },
     "dataInput": {
       "set": "Set",

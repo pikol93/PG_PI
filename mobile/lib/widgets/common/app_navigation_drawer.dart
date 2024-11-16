@@ -35,6 +35,11 @@ class AppNavigationDrawer extends StatelessWidget {
               text: context.t.home.title,
             ),
             NavigationDrawerEntry(
+              goMethod: const ExercisesScreenARoute().go,
+              icon: Icons.home,
+              text: context.t.home.title,
+            ),
+            NavigationDrawerEntry(
               goMethod: const TracksRoute().go,
               icon: Icons.navigation,
               text: context.t.tracks.title,

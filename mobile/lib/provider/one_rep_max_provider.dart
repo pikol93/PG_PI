@@ -38,12 +38,12 @@ class OneRepMaxs extends _$OneRepMaxs with Logger {
     return initObject;
   }
 
-  Future<void> updateOneRepMaxs(MapEntry<String, double> newValue) async {
+  Future<void> updateOneRepMaxs(String exerciseName, double oneRepMax) async {
     final list = await ref.read(oneRepMaxsProvider.future);
     final oneRepMaxsObject = await getLatestOneRepMaxMap();
     final updatedMap = Map<String, double>.from(oneRepMaxsObject.oneRepMaxMap);
 
-    updatedMap[newValue.key] = newValue.value;
+    updatedMap[exerciseName] = oneRepMax;
     final newOneRepMax =
         OneRepMax(oneRepMaxMap: updatedMap, date: DateTime.now());
     list.add(newOneRepMax);

@@ -48,21 +48,21 @@ class _ChooseExerciseScreen extends ConsumerState<ChooseExerciseScreen> {
   }
 }
 
-List<StrengthExercise> getAllExercises(BuildContext context) => [
+List<StrengthExercise> getAllExercises(BuildContext context) => const [
       StrengthExercise(
-        name: context.t.exercises.exercises.benchPress,
+        name: "",
         imageLink: "assets/benchpress.png",
       ),
       StrengthExercise(
-        name: context.t.exercises.exercises.backSquat,
+        name: "",
         imageLink: "assets/backsquad.png",
       ),
       StrengthExercise(
-        name: context.t.exercises.exercises.barbellCurls,
+        name: "",
         imageLink: "assets/biceps_curls.png",
       ),
       StrengthExercise(
-        name: context.t.exercises.exercises.pullUp,
+        name: "",
         imageLink: "assets/pullups.png",
       ),
     ];

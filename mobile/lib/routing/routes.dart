@@ -4,8 +4,6 @@ import "package:flutter/material.dart";
 import "package:go_router/go_router.dart";
 import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/widgets/calendar/calendar_screen.dart";
-import "package:pi_mobile/widgets/heart_rate/heart_rate_screen.dart";
-import "package:pi_mobile/widgets/heart_rate/modify_heart_rate_screen.dart";
 import "package:pi_mobile/widgets/home/home_screen.dart";
 import "package:pi_mobile/widgets/new_exercises/details/exercise_details_screen.dart";
 import "package:pi_mobile/widgets/new_exercises/details/exercise_modify_one_rep_max_screen.dart";
@@ -33,46 +31,6 @@ class HomeRoute extends GoRouteData with Logger {
     logger.debug("home route");
     return const HomeScreen();
   }
-}
-
-@TypedGoRoute<HeartRateRoute>(
-  path: "/heart_rate",
-  routes: <TypedGoRoute>[
-    TypedGoRoute<AddHeartRateRoute>(path: "add"),
-    TypedGoRoute<ModifyHeartRateRoute>(path: "modify/:entryId"),
-  ],
-)
-class HeartRateRoute extends GoRouteData {
-  const HeartRateRoute();
-
-  @override
-  Widget build(
-    BuildContext context,
-    GoRouterState state,
-  ) =>
-      const HeartRateScreen();
-}
-
-class AddHeartRateRoute extends GoRouteData {
-  const AddHeartRateRoute();
-
-  @override
-  Widget build(BuildContext context, GoRouterState state) =>
-      const ModifyHeartRateScreen();
-}
-
-class ModifyHeartRateRoute extends GoRouteData {
-  final int entryId;
-
-  const ModifyHeartRateRoute({
-    required this.entryId,
-  });
-
-  @override
-  Widget build(BuildContext context, GoRouterState state) =>
-      ModifyHeartRateScreen(
-        entryId: entryId,
-      );
 }
 
 @TypedGoRoute<SettingsRoute>(path: "/settings")

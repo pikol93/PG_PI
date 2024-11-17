@@ -9,8 +9,8 @@ import "package:pi_mobile/widgets/new_exercises/exercises_screen.dart";
 
 part "routes_exercises.g.dart";
 
-@TypedGoRoute<ExercisesScreenARoute>(
-  path: "/exercises_a",
+@TypedGoRoute<ExercisesRoute>(
+  path: "/exercises",
   routes: <TypedGoRoute<GoRouteData>>[
     TypedGoRoute<ExerciseDetailsRoute>(
       path: ":exerciseId",
@@ -30,12 +30,12 @@ part "routes_exercises.g.dart";
     ),
   ],
 )
-class ExercisesScreenARoute extends GoRouteData {
-  const ExercisesScreenARoute();
+class ExercisesRoute extends GoRouteData {
+  const ExercisesRoute();
 
   @override
   Widget build(BuildContext context, GoRouterState state) =>
-      const ExercisesScreenA();
+      const ExercisesScreen();
 }
 
 class ExerciseDetailsRoute extends GoRouteData {

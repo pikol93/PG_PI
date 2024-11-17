@@ -16,7 +16,7 @@ import "package:pi_mobile/widgets/exercises/routines/train/workout_training_scre
 part "routes_old_exercises.g.dart";
 
 @TypedGoRoute<ExercisesRoute>(
-  path: "/exercises",
+  path: "/exercises_old",
   routes: <TypedGoRoute<GoRouteData>>[
     TypedGoRoute<HistoryRoute>(
       path: "history",

@@ -7,8 +7,8 @@ import "package:pi_mobile/utility/async_value.dart";
 import "package:pi_mobile/widgets/common/app_navigation_drawer.dart";
 import "package:pi_mobile/widgets/new_exercises/exercise_list_entry.dart";
 
-class ExercisesScreenA extends ConsumerWidget {
-  const ExercisesScreenA({super.key});
+class ExercisesScreen extends ConsumerWidget {
+  const ExercisesScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) => Scaffold(

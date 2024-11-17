@@ -5,7 +5,7 @@ import "package:pi_mobile/data/workout.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/provider/workouts_provider.dart";
-import "package:pi_mobile/routing/routes.dart";
+import "package:pi_mobile/routing/routes_old_exercises.dart";
 import "package:pi_mobile/widgets/common/app_navigation_drawer.dart";
 import "package:pi_mobile/widgets/exercises/session/workout_session_screen.dart";
 import "package:uuid/uuid.dart";

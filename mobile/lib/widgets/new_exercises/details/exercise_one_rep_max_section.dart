@@ -42,15 +42,18 @@ class _ExerciseOneRepMaxSectionInternal extends StatefulWidget {
 
 class _ExerciseOneRepMaxSectionInternalState
     extends State<_ExerciseOneRepMaxSectionInternal> {
-  late final Future<fpdart.Option<OneRepMaxHistory>> oneRepMaxFuture;
+  late Future<fpdart.Option<OneRepMaxHistory>> oneRepMaxFuture;
 
   @override
   void initState() {
     super.initState();
+    _updateFuture();
+  }
 
-    oneRepMaxFuture = widget.oneRepMaxService
-        .findOneRepMaxHistoryForExercise(widget.exerciseId)
-        .run();
+  @override
+  void didUpdateWidget(covariant _ExerciseOneRepMaxSectionInternal oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    setState(_updateFuture);
   }
 
   @override
@@ -76,6 +79,12 @@ class _ExerciseOneRepMaxSectionInternalState
           );
         },
       );
+
+  void _updateFuture() {
+    oneRepMaxFuture = widget.oneRepMaxService
+        .findOneRepMaxHistoryForExercise(widget.exerciseId)
+        .run();
+  }
 }
 
 class _OneRepMaxListHeader extends StatelessWidget with Logger {

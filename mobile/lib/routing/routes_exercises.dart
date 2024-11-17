@@ -3,8 +3,8 @@ import "dart:async";
 import "package:flutter/material.dart";
 import "package:go_router/go_router.dart";
 import "package:pi_mobile/widgets/new_exercises/details/exercise_details_screen.dart";
+import "package:pi_mobile/widgets/new_exercises/details/exercise_inspect_one_rep_max_screen.dart";
 import "package:pi_mobile/widgets/new_exercises/details/exercise_modify_one_rep_max_screen.dart";
-import "package:pi_mobile/widgets/new_exercises/details/exercise_modify_specific_one_rep_max_screen.dart";
 import "package:pi_mobile/widgets/new_exercises/exercises_screen.dart";
 
 part "routes_exercises.g.dart";
@@ -59,7 +59,7 @@ class ExerciseModifyOneRepMaxRoute extends GoRouteData {
 
   @override
   Widget build(BuildContext context, GoRouterState state) =>
-      ExerciseModifyOneRepMaxScreen(exerciseId: exerciseId);
+      ExerciseInspectOneRepMaxScreen(exerciseId: exerciseId);
 }
 
 class ExerciseAddSpecificOneRepMaxRoute extends GoRouteData {
@@ -71,7 +71,7 @@ class ExerciseAddSpecificOneRepMaxRoute extends GoRouteData {
 
   @override
   Widget build(BuildContext context, GoRouterState state) =>
-      ExerciseModifySpecificOneRepMaxScreen(
+      ExerciseModifyOneRepMaxScreen(
         exerciseId: exerciseId,
       );
 }
@@ -87,7 +87,7 @@ class ExerciseModifySpecificOneRepMaxRoute extends GoRouteData {
 
   @override
   Widget build(BuildContext context, GoRouterState state) =>
-      ExerciseModifySpecificOneRepMaxScreen(
+      ExerciseModifyOneRepMaxScreen(
         exerciseId: exerciseId,
         date: DateTime.fromMillisecondsSinceEpoch(dateTimestamp),
       );

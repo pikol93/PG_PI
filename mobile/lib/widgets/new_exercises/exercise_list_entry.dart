@@ -1,7 +1,7 @@
 import "package:awesome_flutter_extensions/awesome_flutter_extensions.dart";
 import "package:flutter/material.dart";
 import "package:pi_mobile/logger.dart";
-import "package:pi_mobile/routing/routes.dart";
+import "package:pi_mobile/routing/routes_exercises.dart";
 
 class ExerciseListEntry extends StatelessWidget with Logger {
   final int exerciseId;

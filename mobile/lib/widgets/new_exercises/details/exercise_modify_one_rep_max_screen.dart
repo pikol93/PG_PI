@@ -4,7 +4,7 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/provider/date_formatter_provider.dart";
 import "package:pi_mobile/provider/exercises_screen_entries_provider.dart";
-import "package:pi_mobile/routing/routes.dart";
+import "package:pi_mobile/routing/routes_exercises.dart";
 import "package:pi_mobile/utility/async_value.dart";
 
 class ExerciseModifyOneRepMaxScreen extends ConsumerWidget with Logger {

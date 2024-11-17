@@ -1,6 +1,5 @@
 import "package:flutter/material.dart";
 import "package:go_router/go_router.dart";
-import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/widgets/exercises/exercises_screen.dart";
 import "package:pi_mobile/widgets/exercises/routines/edit/edit_exercise_schema_screen.dart";
 import "package:pi_mobile/widgets/exercises/routines/edit/edit_exercise_set_schema_screen.dart";
@@ -70,61 +69,51 @@ part "routes_old_exercises.g.dart";
     ),
   ],
 )
-class ExercisesRoute extends GoRouteData with Logger {
+class ExercisesRoute extends GoRouteData {
   const ExercisesRoute();
 
   @override
-  Widget build(BuildContext context, GoRouterState state) {
-    logger.debug("exercises route");
-    return const ExercisesScreen();
-  }
+  Widget build(BuildContext context, GoRouterState state) =>
+      const ExercisesScreen();
 }
 
-class HistoryRoute extends GoRouteData with Logger {
+class HistoryRoute extends GoRouteData {
   const HistoryRoute();
 
   @override
-  Widget build(BuildContext context, GoRouterState state) {
-    logger.debug("history route");
-    return const HistoryScreen();
-  }
+  Widget build(BuildContext context, GoRouterState state) =>
+      const HistoryScreen();
 }
 
-class HistoryRecordRoute extends GoRouteData with Logger {
+class HistoryRecordRoute extends GoRouteData {
   const HistoryRecordRoute({required this.trainingUuid});
 
   final String trainingUuid;
 
   @override
-  Widget build(BuildContext context, GoRouterState state) {
-    logger.debug("history record route");
-    return HistoryRecordScreen(trainingUuid: trainingUuid);
-  }
+  Widget build(BuildContext context, GoRouterState state) =>
+      HistoryRecordScreen(trainingUuid: trainingUuid);
 }
 
-class RoutinesRoute extends GoRouteData with Logger {
+class RoutinesRoute extends GoRouteData {
   const RoutinesRoute();
 
   @override
-  Widget build(BuildContext context, GoRouterState state) {
-    logger.debug("routines route");
-    return const RoutinesScreen();
-  }
+  Widget build(BuildContext context, GoRouterState state) =>
+      const RoutinesScreen();
 }
 
-class EditRoutineSchemaRoute extends GoRouteData with Logger {
+class EditRoutineSchemaRoute extends GoRouteData {
   const EditRoutineSchemaRoute({required this.routineUuid});
 
   final String routineUuid;
 
   @override
-  Widget build(BuildContext context, GoRouterState state) {
-    logger.debug("routines route");
-    return EditRoutineSchemaScreen(routineUuid: routineUuid);
-  }
+  Widget build(BuildContext context, GoRouterState state) =>
+      EditRoutineSchemaScreen(routineUuid: routineUuid);
 }
 
-class EditWorkoutSchemaRoute extends GoRouteData with Logger {
+class EditWorkoutSchemaRoute extends GoRouteData {
   const EditWorkoutSchemaRoute({
     required this.routineUuid,
     required this.workoutUuid,
@@ -134,16 +123,14 @@ class EditWorkoutSchemaRoute extends GoRouteData with Logger {
   final String workoutUuid;
 
   @override
-  Widget build(BuildContext context, GoRouterState state) {
-    logger.debug("workouts route");
-    return EditWorkoutSchemaScreen(
-      routineUuid: routineUuid,
-      workoutUuid: workoutUuid,
-    );
-  }
+  Widget build(BuildContext context, GoRouterState state) =>
+      EditWorkoutSchemaScreen(
+        routineUuid: routineUuid,
+        workoutUuid: workoutUuid,
+      );
 }
 
-class EditExerciseSchemaRoute extends GoRouteData with Logger {
+class EditExerciseSchemaRoute extends GoRouteData {
   const EditExerciseSchemaRoute({
     required this.routineUuid,
     required this.workoutUuid,
@@ -155,17 +142,15 @@ class EditExerciseSchemaRoute extends GoRouteData with Logger {
   final String exerciseUuid;
 
   @override
-  Widget build(BuildContext context, GoRouterState state) {
-    logger.debug("workouts route");
-    return EditExerciseSchemaScreen(
-      routineUuid: routineUuid,
-      workoutUuid: workoutUuid,
-      exerciseUuid: exerciseUuid,
-    );
-  }
+  Widget build(BuildContext context, GoRouterState state) =>
+      EditExerciseSchemaScreen(
+        routineUuid: routineUuid,
+        workoutUuid: workoutUuid,
+        exerciseUuid: exerciseUuid,
+      );
 }
 
-class EditExerciseSetSchemaRoute extends GoRouteData with Logger {
+class EditExerciseSetSchemaRoute extends GoRouteData {
   const EditExerciseSetSchemaRoute({
     required this.routineUuid,
     required this.workoutUuid,
@@ -179,30 +164,26 @@ class EditExerciseSetSchemaRoute extends GoRouteData with Logger {
   final String exerciseSetUuid;
 
   @override
-  Widget build(BuildContext context, GoRouterState state) {
-    logger.debug("workouts route");
-    return EditExerciseSetSchemaScreen(
-      routineUuid: routineUuid,
-      workoutUuid: workoutUuid,
-      exerciseUuid: exerciseUuid,
-      exerciseSetUuid: exerciseSetUuid,
-    );
-  }
+  Widget build(BuildContext context, GoRouterState state) =>
+      EditExerciseSetSchemaScreen(
+        routineUuid: routineUuid,
+        workoutUuid: workoutUuid,
+        exerciseUuid: exerciseUuid,
+        exerciseSetUuid: exerciseSetUuid,
+      );
 }
 
-class OpenRoutineTrainingRoute extends GoRouteData with Logger {
+class OpenRoutineTrainingRoute extends GoRouteData {
   const OpenRoutineTrainingRoute({required this.routineUuid});
 
   final String routineUuid;
 
   @override
-  Widget build(BuildContext context, GoRouterState state) {
-    logger.debug("execute routines route");
-    return RoutineTrainingScreen(routineUuid: routineUuid);
-  }
+  Widget build(BuildContext context, GoRouterState state) =>
+      RoutineTrainingScreen(routineUuid: routineUuid);
 }
 
-class OpenWorkoutTrainingRoute extends GoRouteData with Logger {
+class OpenWorkoutTrainingRoute extends GoRouteData {
   const OpenWorkoutTrainingRoute({
     required this.routineUuid,
     required this.trainingUuid,
@@ -212,16 +193,14 @@ class OpenWorkoutTrainingRoute extends GoRouteData with Logger {
   final String trainingUuid;
 
   @override
-  Widget build(BuildContext context, GoRouterState state) {
-    logger.debug("execute workouts route");
-    return WorkoutTrainingScreen(
-      routineUuid: routineUuid,
-      trainingUuid: trainingUuid,
-    );
-  }
+  Widget build(BuildContext context, GoRouterState state) =>
+      WorkoutTrainingScreen(
+        routineUuid: routineUuid,
+        trainingUuid: trainingUuid,
+      );
 }
 
-class OpenExerciseTrainingRoute extends GoRouteData with Logger {
+class OpenExerciseTrainingRoute extends GoRouteData {
   const OpenExerciseTrainingRoute({
     required this.routineUuid,
     required this.trainingUuid,
@@ -233,17 +212,15 @@ class OpenExerciseTrainingRoute extends GoRouteData with Logger {
   final String exerciseUuid;
 
   @override
-  Widget build(BuildContext context, GoRouterState state) {
-    logger.debug("execute exercise route");
-    return ExerciseTrainingScreen(
-      routineUuid: routineUuid,
-      trainingUuid: trainingUuid,
-      exerciseUuid: exerciseUuid,
-    );
-  }
+  Widget build(BuildContext context, GoRouterState state) =>
+      ExerciseTrainingScreen(
+        routineUuid: routineUuid,
+        trainingUuid: trainingUuid,
+        exerciseUuid: exerciseUuid,
+      );
 }
 
-class OpenExerciseSetTrainingRoute extends GoRouteData with Logger {
+class OpenExerciseSetTrainingRoute extends GoRouteData {
   const OpenExerciseSetTrainingRoute({
     required this.routineUuid,
     required this.trainingUuid,
@@ -257,13 +234,11 @@ class OpenExerciseSetTrainingRoute extends GoRouteData with Logger {
   final String exerciseSetUuid;
 
   @override
-  Widget build(BuildContext context, GoRouterState state) {
-    logger.debug("execute exercise set route");
-    return ExerciseSetTrainingScreen(
-      routineUuid: routineUuid,
-      trainingUuid: trainingUuid,
-      exerciseUuid: exerciseUuid,
-      exerciseSetUuid: exerciseSetUuid,
-    );
-  }
+  Widget build(BuildContext context, GoRouterState state) =>
+      ExerciseSetTrainingScreen(
+        routineUuid: routineUuid,
+        trainingUuid: trainingUuid,
+        exerciseUuid: exerciseUuid,
+        exerciseSetUuid: exerciseSetUuid,
+      );
 }

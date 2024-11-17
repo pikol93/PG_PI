@@ -3,7 +3,6 @@ import "dart:async";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:go_router/go_router.dart";
-import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/provider/battery_permissions_provider.dart";
 import "package:pi_mobile/provider/location_permissions_provider.dart";
 import "package:pi_mobile/provider/notification_permissions_provider.dart";
@@ -39,14 +38,12 @@ part "routes_tracks.g.dart";
     ),
   ],
 )
-class TracksRoute extends GoRouteData with Logger {
+class TracksRoute extends GoRouteData {
   const TracksRoute();
 
   @override
-  Widget build(BuildContext context, GoRouterState state) {
-    logger.debug("tracks route");
-    return const TracksScreen();
-  }
+  Widget build(BuildContext context, GoRouterState state) =>
+      const TracksScreen();
 }
 
 class TrackDetailsRoute extends GoRouteData {

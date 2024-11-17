@@ -2,7 +2,6 @@ import "dart:async";
 
 import "package:flutter/material.dart";
 import "package:go_router/go_router.dart";
-import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/widgets/calendar/calendar_screen.dart";
 import "package:pi_mobile/widgets/home/home_screen.dart";
 import "package:pi_mobile/widgets/settings/settings_screen.dart";
@@ -19,29 +18,24 @@ class SplashRoute extends GoRouteData {
 }
 
 @TypedGoRoute<HomeRoute>(path: "/home")
-class HomeRoute extends GoRouteData with Logger {
+class HomeRoute extends GoRouteData {
   const HomeRoute();
 
   @override
-  Widget build(BuildContext context, GoRouterState state) {
-    logger.debug("home route");
-    return const HomeScreen();
-  }
+  Widget build(BuildContext context, GoRouterState state) => const HomeScreen();
 }
 
 @TypedGoRoute<SettingsRoute>(path: "/settings")
-class SettingsRoute extends GoRouteData with Logger {
+class SettingsRoute extends GoRouteData {
   const SettingsRoute();
 
   @override
-  Widget build(BuildContext context, GoRouterState state) {
-    logger.debug("settings route");
-    return const SettingsScreen();
-  }
+  Widget build(BuildContext context, GoRouterState state) =>
+      const SettingsScreen();
 }
 
 @TypedGoRoute<CalendarRoute>(path: "/calendar")
-class CalendarRoute extends GoRouteData with Logger {
+class CalendarRoute extends GoRouteData {
   const CalendarRoute();
 
   @override

@@ -40,8 +40,8 @@ class AppNavigationDrawer extends StatelessWidget {
             ),
             NavigationDrawerEntry(
               goMethod: const ExercisesRoute().go,
-              icon: Icons.home,
-              text: context.t.home.title,
+              icon: Icons.fitness_center,
+              text: context.t.exercises.title,
             ),
             NavigationDrawerEntry(
               goMethod: const TracksRoute().go,
@@ -51,7 +51,7 @@ class AppNavigationDrawer extends StatelessWidget {
             NavigationDrawerEntry(
               goMethod: const old.ExercisesRoute().go,
               icon: Icons.fitness_center,
-              text: context.t.exercises.title,
+              text: "${context.t.exercises.title} [DEPRECATED]",
             ),
             NavigationDrawerEntry(
               goMethod: const CalendarRoute().go,

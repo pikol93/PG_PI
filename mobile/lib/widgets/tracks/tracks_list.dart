@@ -7,7 +7,7 @@ import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/provider/date_formatter_provider.dart";
 import "package:pi_mobile/provider/tracks_provider.dart";
-import "package:pi_mobile/routing/routes.dart";
+import "package:pi_mobile/routing/routes_tracks.dart";
 import "package:pi_mobile/utility/duration.dart";
 
 class TracksList extends ConsumerWidget with Logger {

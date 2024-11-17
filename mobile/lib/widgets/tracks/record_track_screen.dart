@@ -11,7 +11,7 @@ import "package:pi_mobile/provider/date_formatter_provider.dart";
 import "package:pi_mobile/provider/processed_recorded_track_provider.dart";
 import "package:pi_mobile/provider/recorded_track_provider.dart";
 import "package:pi_mobile/provider/tracks_provider.dart";
-import "package:pi_mobile/routing/routes.dart";
+import "package:pi_mobile/routing/routes_tracks.dart";
 import "package:pi_mobile/widgets/tracks/record_track_bottom_sheet.dart";
 
 class RecordTrackScreen extends ConsumerStatefulWidget {

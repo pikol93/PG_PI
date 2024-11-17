@@ -2,87 +2,160 @@ import "package:awesome_flutter_extensions/awesome_flutter_extensions.dart";
 import "package:collection/collection.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:fpdart/fpdart.dart" as fpdart;
 import "package:intl/intl.dart";
+import "package:pi_mobile/data/collections/one_rep_max_history.dart";
 import "package:pi_mobile/logger.dart";
-import "package:pi_mobile/provider/exercises_screen_entries_provider.dart";
+import "package:pi_mobile/provider/one_rep_max_service_provider.dart";
 import "package:pi_mobile/routing/routes_exercises.dart";
 import "package:pi_mobile/utility/async_value.dart";
 
-class ExerciseOneRepMaxSection extends ConsumerWidget with Logger {
+class ExerciseOneRepMaxSection extends ConsumerWidget {
   final int exerciseId;
 
-  const ExerciseOneRepMaxSection({
-    super.key,
+  const ExerciseOneRepMaxSection({super.key, required this.exerciseId});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) =>
+      ref.watch(oneRepMaxServiceProvider).whenDataOrDefault(
+            context,
+            (service) => _ExerciseOneRepMaxSectionInternal(
+              exerciseId: exerciseId,
+              oneRepMaxService: service,
+            ),
+          );
+}
+
+class _ExerciseOneRepMaxSectionInternal extends StatefulWidget {
+  final int exerciseId;
+  final OneRepMaxService oneRepMaxService;
+
+  const _ExerciseOneRepMaxSectionInternal({
+    required this.exerciseId,
+    required this.oneRepMaxService,
+  });
+
+  @override
+  State<StatefulWidget> createState() =>
+      _ExerciseOneRepMaxSectionInternalState();
+}
+
+class _ExerciseOneRepMaxSectionInternalState
+    extends State<_ExerciseOneRepMaxSectionInternal> {
+  late final Future<fpdart.Option<OneRepMaxHistory>> oneRepMaxFuture;
+
+  @override
+  void initState() {
+    super.initState();
+
+    oneRepMaxFuture = widget.oneRepMaxService
+        .findOneRepMaxHistoryForExercise(widget.exerciseId)
+        .run();
+  }
+
+  @override
+  Widget build(BuildContext context) => FutureBuilder(
+        future: oneRepMaxFuture,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState != ConnectionState.done) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+
+          final listWidget = snapshot.data!
+              .map((data) => _OneRepMaxList(oneRepMaxHistory: data) as Widget)
+              .getOrElse(_OneRepMaxEmptyList.new);
+
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              _OneRepMaxListHeader(exerciseId: widget.exerciseId),
+              listWidget,
+            ],
+          );
+        },
+      );
+}
+
+class _OneRepMaxListHeader extends StatelessWidget with Logger {
+  final int exerciseId;
+
+  const _OneRepMaxListHeader({
     required this.exerciseId,
   });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) => ref
-          .watch(exerciseScreenEntriesProvider)
-          .whenDataOrDefault(context, (entriesList) {
-        final entry = entriesList
-            .where((item) => item.id == exerciseId)
-            .map((item) => item.oneRepMaxHistory.toNullable())
-            .firstOrNull;
-
-        if (entry == null || entry.oneRepMaxHistory.isEmpty) {
-          return const SizedBox.shrink();
-        }
-
-        final rows = [
-          const TableRow(
+  Widget build(BuildContext context) => Stack(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: Text(
+              "1RM", // TODO: I18N
+              style: context.textStyles.headlineMedium,
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Text("Date"),
-              Text("1RM (kg)"),
+              ElevatedButton(
+                onPressed: () => _onModifyPressed(context),
+                child: const Text("Modify"), // TODO: I18N
+              ),
             ],
           ),
-        ];
-
-        rows.addAll(
-          entry.oneRepMaxHistory.sortedBy((item) => item.dateTime).reversed.map(
-                (item) => TableRow(
-                  children: [
-                    Text(DateFormat.yMd().format(item.dateTime)),
-                    Text(item.value.toStringAsFixed(1)),
-                  ],
-                ),
-              ),
-        );
-
-        // TODO: Add a chart
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Stack(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: Text(
-                    "1RM", // TODO: I18N
-                    style: context.textStyles.headlineMedium,
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    ElevatedButton(
-                      onPressed: () => _onModifyPressed(context),
-                      child: const Text("Modify"), // TODO: I18N
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            Table(
-              border: TableBorder.all(),
-              children: rows,
-            ),
-          ],
-        );
-      });
+        ],
+      );
 
   void _onModifyPressed(BuildContext context) {
     logger.debug("Modify pressed for $exerciseId");
     ExerciseModifyOneRepMaxRoute(exerciseId: exerciseId).go(context);
   }
+}
+
+class _OneRepMaxEmptyList extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) => const Center(
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 16.0),
+          child: Text("No data."), // TODO: I18N
+        ),
+      );
+}
+
+class _OneRepMaxList extends StatelessWidget {
+  static const headerRowList = [
+    TableRow(
+      children: [
+        Text("Date"),
+        Text("1RM (kg)"),
+      ],
+    ),
+  ];
+
+  final OneRepMaxHistory oneRepMaxHistory;
+
+  const _OneRepMaxList({
+    required this.oneRepMaxHistory,
+  });
+
+  @override
+  Widget build(BuildContext context) => Table(
+        border: TableBorder.all(),
+        children: headerRowList
+            .concat(
+              oneRepMaxHistory.oneRepMaxHistory
+                  .sortedBy((item) => item.dateTime)
+                  .reversed
+                  .map(
+                    (item) => TableRow(
+                      children: [
+                        Text(DateFormat.yMd().format(item.dateTime)),
+                        Text(item.value.toStringAsFixed(1)),
+                      ],
+                    ),
+                  ),
+            )
+            .toList(),
+      );
 }

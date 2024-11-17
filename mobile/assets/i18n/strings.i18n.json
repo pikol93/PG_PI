@@ -92,63 +92,260 @@
     "muscleGroup(context=MuscleGroup)": {
       "chest": "chest",
       "frontDeltoid": "front deltoid",
-      "triceps": "triceps"
+      "triceps": "triceps",
+      "lats": "lats",
+      "abs": "abs",
+      "obliques": "obliques",
+      "quads": "quads",
+      "adductors": "adductors",
+      "glutes": "glutes",
+      "lowerBack": "lower back",
+      "calves": "calves",
+      "hamstrings": "hamstrings",
+      "trapezius": "trapezius",
+      "forearmFlexors": "forearm flexors",
+      "lateralDeltoid": "lateral deltoid",
+      "rearDeltoids": "rear deltoids",
+      "biceps": "biceps",
+      "rotatorCuffs": "rotator cuffs"
     },
     "exercises(map)": {
-      "benchPress": {
-        "name": "Bench press",
-        "steps": [
-          "Step one for bench press",
-          "Step two for bench press"
-        ]
-      },
-      "benchPress2": {
-        "name": "Bench press",
-        "steps": [
-          "Step one for bench press",
-          "Step two for bench press",
-          "Step two for bench press",
-          "Step two for bench press",
-          "Step two for bench press",
-          "Step two for bench press",
-          "Step two for bench press",
-          "Step two for bench press",
-          "Step two for bench press",
-          "Step two for bench press",
-          "Step two for bench press",
-          "Step two for bench press",
-          "Step two for bench press",
-          "Step two for bench press",
-          "Step two for bench press",
-          "Step two for bench press"
-        ]
-      },
       "barDips": {
         "name": "Bar dips",
         "steps": [
-          "Step one for bar dips",
-          "Step two for bar dips"
+          "Grip a dip station about shoulder-width apart, and climb or jump to get into the starting position.",
+          "Lower yourself with control until your shoulder is below your elbow, or as deep as you comfortably can.",
+          "Reverse the motion and return to the starting position."
         ]
       },
-      "backSquat": {
-        "name": "Back squat",
+      "benchPress": {
+        "name": "Bench press",
         "steps": [
-          "Step one for back squat",
-          "Step two for back squat"
+          "Lie on the bench, pull your shoulder blades together and down, and slightly arch your back.",
+          "Grip the bar slightly wider than shoulder-width apart.",
+          "Inhale, hold your breath, and unrack the bar.",
+          "Lower the bar with control, until it touches your chest somewhere close to your sternum.",
+          "Push the bar up to the starting position while exhaling.",
+          "Take another breath while in the top position, and repeat for reps."
         ]
       },
-      "barbellCurls": {
-        "name": "Barbell curls",
+      "cableChestPress": {
+        "name": "Cable chest press",
         "steps": [
-          "Step one for barbell curls",
-          "Step two for barbell curls"
+          "Fasten a pair of handles in the top position of a cable cross. Grip the handles, step forward, and lean slightly forward.",
+          "Push the handles forward until they meet in front of your body.",
+          "With control, let the handles go back to the starting position."
         ]
       },
-      "pullUp": {
-        "name": "Pull up",
+      "dumbbellChestFly": {
+        "name": "Dumbbell chest fly",
         "steps": [
-          "Step one for pull up",
-          "Step two for pull up"
+          "Lie on a bench, and lift a pair of dumbbells up to the starting position.",
+          "With almost completely straight arms, lower the dumbbells out to your sides.",
+          "When you’ve lowered the dumbbells as deep as possible, reverse the motion and return the dumbbells to the starting position.",
+          "Repeat for reps."
+        ]
+      },
+      "dumbbellChestPress": {
+        "name": "Dumbbell chest press",
+        "steps": [
+          "Lie on a bench, and lift a pair of dumbbells up to the starting position.",
+          "Press the dumbbells up to straight arms, while exhaling.",
+          "Inhale at the top, or while lowering the dumbbells with control back to your shoulders.",
+          "Repeat for reps."
+        ]
+      },
+      "dumbbellPullover": {
+        "name": "Dumbbell pullover",
+        "steps": [
+          "Lie down on a bench and lift a dumbbell up to almost straight arms above you.",
+          "Lower the dumbbell down behind your head, while keeping your arms almost completely straight, just with a slight bend in the elbows.",
+          "Reverse the motion and return the dumbbell to the starting position."
+        ]
+      },
+      "pecDeck": {
+        "name": "Pec deck",
+        "steps": [
+          "Adjust the the back support and handles, so that you can lean your elbows against the pads while your upper arms are horizontal.",
+          "Push the pads forward until they meet in front of your body.",
+          "With control, let the pads go back to the starting position."
+        ]
+      },
+      "pushUp": {
+        "name": "Push up",
+        "steps": [
+          "Assume the starting position, with hands slightly wider than shoulder-width apart.",
+          "Try to form a straight line from head to feet, and brace your abdomen slightly.",
+          "Lower yourself as deep as you can, while inhaling.",
+          "Reverse the motion when you’ve touched the floor, and push yourself up to straight arms again while exhaling.",
+          "Repeat for reps."
+        ]
+      },
+      "resistanceBandChestFly": {
+        "name": "Resistance band chest fly",
+        "steps": [
+          "Attach the band to a door or something similarly stable around chest level.",
+          "In a standing position, grab the band with one hand and move away from the anchor point until you feel a stretch and resistance in your chest muscles.",
+          "Pull the band in front of your body at chest height with a slight bend at the elbow.",
+          "Contract your chest muscle before returning to the starting position with a controlled movement and repeat for reps.",
+          "Switch to the other side of your body and perform the above steps again."
+        ]
+      },
+      "crunches": {
+        "name": "Crunches",
+        "steps": [
+          "Lie on your back, with your hands in front of your chest and your knees bent to about 90 degrees.",
+          "Lift your upper body by contracting your abs and bending forward.",
+          "Bend as far forward as possible while still keeping your low back in contact with the floor, and then return to the starting position."
+        ]
+      },
+      "squat": {
+        "name": "Squat",
+        "steps": [
+          "Place the bar on your upper back. Inhale and brace your core slightly, and unrack the bar.",
+          "Take two steps back, and adjust your foot position.",
+          "Squat as deep as possible with good technique.",
+          "With control, stop and reverse the movement, extending your hips and legs again.",
+          "Exhale on the way up or exchange air in the top position.",
+          "Inhale and repeat for reps."
+        ]
+      },
+      "deadlift": {
+        "name": "Deadlift",
+        "steps": [
+          "Step up close to the bar so that it is about over the middle of your foot.",
+          "Inhale, lean forward, and grip the bar.",
+          "Hold your breath, brace your core slightly, and lift the bar.",
+          "Pull the bar close to your body, with a straight back, until you are standing straight.",
+          "Lower the bar back to the ground with control.",
+          "Take another breath, and repeat for reps."
+        ]
+      },
+      "overheadPress": {
+        "name": "Overhead press",
+        "steps": [
+          "First, place a barbell in a rack at about chest height.",
+          "Grip the bar slightly wider than shoulder-width apart, and step close to it.",
+          "Inhale, lightly brace your core, and unrack the bar.",
+          "Let the bar rest against your front delts while you step back from the rack.",
+          "Press the bar up to straight arms while exhaling.",
+          "Inhale at the top or while lowering the bar with control back to your shoulders.",
+          "Repeat for reps."
+        ]
+      },
+      "barbellRows": {
+        "name": "Barbell rows",
+        "steps": [
+          "Grip the bar with an overhand grip.",
+          "Lean forward with the bar hanging from straight arms.",
+          "Inhale and pull the bar towards you.",
+          "Pull the bar as high as you can so that it touches your abs or chest, if possible.",
+          "With control, lower the bar back to the starting position."
+        ]
+      },
+      "cableCrunch": {
+        "name": "Cable crunch",
+        "steps": [
+          "Fasten a rope handle in the upper position on a cable pulley. Sit down on your knees a few feet away, facing the pulley.",
+          "Bend your upper body forward by contracting your abs. Hold the ropes on either side of your head throughout the movement.",
+          "Reverse the motion and return to the starting position with control."
+        ]
+      },
+      "dumbbellRow": {
+        "name": "Dumbbell row",
+        "steps": [
+          "Start by placing a dumbbell on the floor beside a bench or chair. Stand facing the bench or chair and place your left hand and left knee on top of it.",
+          "Keep your back flat and parallel to the ground, with a slight bend in the standing leg. Grip the dumbbell with your right hand.",
+          "Inhale and pull the dumbbell by driving the elbow toward the ceiling.",
+          "With control, lower the dumbbell back to the starting position while exhaling.",
+          "Complete desired reps on one side, then switch to the opposite arm and leg."
+        ]
+      },
+      "dumbbellLateralRaise": {
+        "name": "Dumbbell lateral raise",
+        "steps": [
+          "Hold a pair of dumbbells in almost straight arms hanging by your sides.",
+          "With control, lift the dumbbells out to your sides until your upper arms are horizontal.",
+          "Lower the dumbbells with control.",
+          "Repeat for reps."
+        ]
+      },
+      "cableRow": {
+        "name": "Cable row",
+        "steps": [
+          "Grab the handle and assume the starting position.",
+          "Inhale and pull the handle towards the side of your abdomen, while leaning back slightly.",
+          "Exhale and slowly return to the starting position by extending your arm and leaning forward."
+        ]
+      },
+      "legExtension": {
+        "name": "Leg extension",
+        "steps": [
+          "Adjust the machine so that you are correctly positioned. Your knees should be in line with the machine’s joint.",
+          "Extend your knees with control, until they are completely straight.",
+          "Slowly lower the weight again."
+        ]
+      },
+      "machineGluteKickback": {
+        "name": "Machine glute kickback",
+        "steps": [
+          "Adjust the machine to your body. The knees should be facing forward and resting near the bottom of the padding. Place your forearms on the upper padding and grip the handles.",
+          "Next, make sure that you have the arm of the machine under your knee. Brace your core, keep your body still, and start to press your leg backwards and upwards by activating the glute.",
+          "Push the leg as far up as you can without rotating in the hips, then return to the starting position.",
+          "Do all reps on one side first, and then switch to the other leg."
+        ]
+      },
+      "tricepPushdown": {
+        "name": "Tricep pushdown",
+        "steps": [
+          "Stand one step away from the cable pulley, and grip a bar about shoulder-width apart.",
+          "Pull the handle down until your upper arms are perpendicular to the floor. This is the starting position.",
+          "Push the handle down until your arms are fully extended.",
+          "With control, let the handle up again."
+        ]
+      },
+      "calfRaise": {
+        "name": "Calf raise",
+        "steps": [
+          "Place your toes and the ball of your feet on the foot support. Place the shoulder pads against your shoulders and stand upright in the starting position.",
+          "Lower yourself down by bending your ankles in a controlled movement.",
+          "Push yourself up by extending your ankles."
+        ]
+      },
+      "cableCurl": {
+        "name": "Cable curl",
+        "steps": [
+          "Fasten a bar in the lower position of a cable cross. Grip the bar with an underhand (supinated) grip, hands about shoulder-width apart, and take a step back.",
+          "Lift the bar with control, by flexing your elbows.",
+          "Don’t let your upper arm travel back during the curl, keep it still or move it slightly forward.",
+          "Reverse the movement and lower the bar back to the starting position."
+        ]
+      },
+      "seatedLegCurl": {
+        "name": "Seated leg curl",
+        "steps": [
+          "Adjust the machine so that you are correctly positioned. Your knees should be in line with the machine’s joint.",
+          "Push the weight down by bending your knees as far as possible.",
+          "Slowly let the weight back again."
+        ]
+      },
+      "dumbbellShoulderPress": {
+        "name": "Dumbbell shoulder press",
+        "steps": [
+          "Grab a pair of dumbbells, and lift them up to the starting position at your shoulders.",
+          "Inhale and lightly brace your core.",
+          "Press the dumbbells up to straight arms, while exhaling.",
+          "Inhale at the top, or while lowering the dumbbells with control back to your shoulders.",
+          "Repeat for reps."
+        ]
+      },
+      "hammerCurl": {
+        "name": "Hammer curl",
+        "steps": [
+          "Hold a pair of dumbbells in a neutral grip (palms facing each other), arms hanging by your sides.",
+          "Lift the dumbbells with control by flexing your elbows.",
+          "Don’t let your upper arms travel back during the curl. Keep them at your sides, or move them slightly forward.",
+          "Reverse the movement and lower the dumbbells back to the starting position."
         ]
       }
     },

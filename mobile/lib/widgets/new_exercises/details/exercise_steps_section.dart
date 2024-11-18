@@ -1,5 +1,6 @@
 import "package:awesome_flutter_extensions/awesome_flutter_extensions.dart";
 import "package:flutter/material.dart";
+import "package:pi_mobile/i18n/strings.g.dart";
 
 class ExerciseStepsSection extends StatelessWidget {
   final List<String> steps;
@@ -16,7 +17,7 @@ class ExerciseStepsSection extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: Text(
-              "Steps", // TODO: I18N
+              context.t.exercises.steps,
               style: context.textStyles.headlineMedium,
             ),
           ),

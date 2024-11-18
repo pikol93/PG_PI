@@ -73,7 +73,7 @@ class _ExerciseModifySpecificOneRepMaxScreenState
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Text("Modify"), // TODO: I18N
+        title: Text(context.t.exercises.modify1rm),
       ),
       body: Form(
         key: _formKey,

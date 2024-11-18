@@ -3,7 +3,9 @@
     "alert": {
       "confirm": "Potwierdź",
       "cancel": "Anuluj"
-    }
+    },
+    "date": "Data",
+    "noData": "Brak danych"
   },
   "welcome": {
     "welcome": "Witaj",
@@ -87,6 +89,15 @@
     "trainingSession": "Sesja treningowa",
     "addExercise": "Dodaj ćwiczenie",
     "endWorkout": "Zakończ trening",
+    "exerciseDetails": "Szczegóły ćwiczenia",
+    "deleteExercise": "Usuń",
+    "muscleGroups": "Grupy mięśni",
+    "primaryMuscleGroups": "Główne grupy mięśni",
+    "secondaryMuscleGroups": "Dodatkowe grupy mięśni",
+    "steps": "Kroki",
+    "sectionTitle1rm": "1RM",
+    "history1rm": "Historia 1RM",
+    "modify1rm": "Zmień 1RM",
     "muscleGroup(context=MuscleGroup)": {
       "chest": "klatka piersiowa",
       "frontDeltoid": "przedni akton barku",

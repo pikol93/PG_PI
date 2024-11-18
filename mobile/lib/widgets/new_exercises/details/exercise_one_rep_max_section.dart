@@ -3,9 +3,10 @@ import "package:collection/collection.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:fpdart/fpdart.dart" as fpdart;
-import "package:intl/intl.dart";
 import "package:pi_mobile/data/collections/one_rep_max_history.dart";
+import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/logger.dart";
+import "package:pi_mobile/provider/date_formatter_provider.dart";
 import "package:pi_mobile/provider/one_rep_max_service_provider.dart";
 import "package:pi_mobile/routing/routes_exercises.dart";
 import "package:pi_mobile/utility/async_value.dart";
@@ -100,7 +101,7 @@ class _OneRepMaxListHeader extends StatelessWidget with Logger {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: Text(
-              "1RM", // TODO: I18N
+              context.t.exercises.sectionTitle1rm,
               style: context.textStyles.headlineMedium,
             ),
           ),
@@ -109,7 +110,7 @@ class _OneRepMaxListHeader extends StatelessWidget with Logger {
             children: [
               ElevatedButton(
                 onPressed: () => _onModifyPressed(context),
-                child: const Text("Modify"), // TODO: I18N
+                child: Text(context.t.exercises.modify1rm),
               ),
             ],
           ),
@@ -124,24 +125,15 @@ class _OneRepMaxListHeader extends StatelessWidget with Logger {
 
 class _OneRepMaxEmptyList extends StatelessWidget {
   @override
-  Widget build(BuildContext context) => const Center(
+  Widget build(BuildContext context) => Center(
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 16.0),
-          child: Text("No data."), // TODO: I18N
+          padding: const EdgeInsets.symmetric(vertical: 16.0),
+          child: Text(context.t.general.noData),
         ),
       );
 }
 
-class _OneRepMaxList extends StatelessWidget {
-  static const headerRowList = [
-    TableRow(
-      children: [
-        Text("Date"),
-        Text("1RM (kg)"),
-      ],
-    ),
-  ];
-
+class _OneRepMaxList extends ConsumerWidget {
   final OneRepMaxHistory oneRepMaxHistory;
 
   const _OneRepMaxList({
@@ -149,22 +141,33 @@ class _OneRepMaxList extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) => Table(
-        border: TableBorder.all(),
-        children: headerRowList
-            .concat(
-              oneRepMaxHistory.oneRepMaxHistory
-                  .sortedBy((item) => item.dateTime)
-                  .reversed
-                  .map(
-                    (item) => TableRow(
-                      children: [
-                        Text(DateFormat.yMd().format(item.dateTime)),
-                        Text(item.value.toStringAsFixed(1)),
-                      ],
-                    ),
+  Widget build(BuildContext context, WidgetRef ref) {
+    final dateFormatter = ref.watch(dateFormatterProvider);
+
+    return Table(
+      border: TableBorder.all(),
+      children: [
+        TableRow(
+          children: [
+            Text(context.t.general.date),
+            const Text("1RM (kg)"),
+          ],
+        ),
+      ]
+          .concat(
+            oneRepMaxHistory.oneRepMaxHistory
+                .sortedBy((item) => item.dateTime)
+                .reversed
+                .map(
+                  (item) => TableRow(
+                    children: [
+                      Text(dateFormatter.onlyNumbersDate(item.dateTime)),
+                      Text(item.value.toStringAsFixed(1)),
+                    ],
                   ),
-            )
-            .toList(),
-      );
+                ),
+          )
+          .toList(),
+    );
+  }
 }

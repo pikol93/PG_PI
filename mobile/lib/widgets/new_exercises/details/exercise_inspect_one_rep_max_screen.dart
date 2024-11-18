@@ -3,6 +3,7 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:fpdart/fpdart.dart" as fpdart;
 import "package:pi_mobile/data/collections/one_rep_max_history.dart";
+import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/provider/date_formatter_provider.dart";
 import "package:pi_mobile/provider/one_rep_max_service_provider.dart";
@@ -23,7 +24,7 @@ class ExerciseInspectOneRepMaxScreen extends ConsumerWidget {
             context,
             (service) => Scaffold(
               appBar: AppBar(
-                title: const Text("Inspect 1RM"), // TODO: I18N
+                title: Text(context.t.exercises.history1rm), // TODO: I18N
               ),
               floatingActionButton: FloatingActionButton(
                 child: const Icon(Icons.add),
@@ -94,8 +95,8 @@ class _ScreenBodyState extends State<_ScreenBody> {
 
 class _ScreenBodyNoEntries extends StatelessWidget {
   @override
-  Widget build(BuildContext context) => const Center(
-        child: Text("No data."),
+  Widget build(BuildContext context) => Center(
+        child: Text(context.t.general.noData),
       );
 }
 

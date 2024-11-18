@@ -20,7 +20,7 @@ class ExerciseMuscleGroupsSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
-            "Primary muscle groups", // TODO: I18N
+            context.t.exercises.primaryMuscleGroups, // TODO: I18N
             style: context.textStyles.titleMedium,
           ),
           Column(
@@ -39,7 +39,7 @@ class ExerciseMuscleGroupsSection extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
-              "Secondary muscle groups", // TODO: I18N
+              context.t.exercises.secondaryMuscleGroups,
               style: context.textStyles.titleMedium,
             ),
             Column(
@@ -59,7 +59,7 @@ class ExerciseMuscleGroupsSection extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0),
           child: Text(
-            "Muscle groups", // TODO: I18N
+            context.t.exercises.muscleGroups,
             style: context.textStyles.headlineMedium,
           ),
         ),

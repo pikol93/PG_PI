@@ -3,7 +3,9 @@
     "alert": {
       "confirm": "Confirm",
       "cancel": "Cancel"
-    }
+    },
+    "date": "Date",
+    "noData": "No data"
   },
   "welcome": {
     "welcome": "Welcome",
@@ -89,6 +91,15 @@
     "trainingSession": "Training session",
     "addExercise": "Add exercise",
     "endWorkout": "End workout",
+    "exerciseDetails": "Exercise details",
+    "deleteExercise": "Delete",
+    "muscleGroups": "Muscle groups",
+    "primaryMuscleGroups": "Primary muscle groups",
+    "secondaryMuscleGroups": "Secondary muscle groups",
+    "steps": "Steps",
+    "sectionTitle1rm": "1RM",
+    "history1rm": "1RM history",
+    "modify1rm": "Modify 1RM",
     "muscleGroup(context=MuscleGroup)": {
       "chest": "chest",
       "frontDeltoid": "front deltoid",

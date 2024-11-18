@@ -24,7 +24,7 @@ class ExerciseDetailsScreen extends ConsumerWidget with Logger {
         if (model == null) {
           return Scaffold(
             appBar: AppBar(
-              title: Text(context.t.exercises.title),
+              title: Text(context.t.exercises.exerciseDetails),
             ),
             body: Center(
               child: Text("Invalid entry. $exerciseId"),
@@ -34,7 +34,7 @@ class ExerciseDetailsScreen extends ConsumerWidget with Logger {
 
         return Scaffold(
           appBar: AppBar(
-            title: Text(context.t.exercises.title),
+            title: Text(context.t.exercises.exerciseDetails),
             actions: _buildActions(model),
           ),
           body: ExerciseDetailsPage(model: model),
@@ -51,7 +51,7 @@ class ExerciseDetailsScreen extends ConsumerWidget with Logger {
         itemBuilder: (context) => [
           PopupMenuItem(
             onTap: () => _onDeleteTapped(model),
-            child: const Text("Delete"), // TODO: I18N
+            child: Text(context.t.exercises.deleteExercise),
           ),
         ],
       ),

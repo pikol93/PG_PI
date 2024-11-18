@@ -1,7 +1,7 @@
 import "package:awesome_flutter_extensions/awesome_flutter_extensions.dart";
 import "package:flutter/material.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
-import "package:pi_mobile/routing/routes.dart";
+import "package:pi_mobile/routing/routes_heart_rate.dart";
 import "package:pi_mobile/widgets/common/app_navigation_drawer.dart";
 import "package:pi_mobile/widgets/heart_rate/heart_rate_data_page.dart";
 import "package:pi_mobile/widgets/heart_rate/heart_rate_graph_page.dart";

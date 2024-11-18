@@ -22,12 +22,14 @@ class DateFormatter {
   final DateFormat formatFullDate;
   final DateFormat formatFullTime;
   final DateFormat formatHourMinute;
+  final DateFormat formatOnlyNumbersDate;
 
   DateFormatter({
     required this.languageCode,
   })  : formatFullDate = DateFormat.yMMMMEEEEd(languageCode),
         formatFullTime = DateFormat.jms(languageCode),
-        formatHourMinute = DateFormat.jm(languageCode);
+        formatHourMinute = DateFormat.jm(languageCode),
+        formatOnlyNumbersDate = DateFormat.yMd(languageCode);
 
   String fullDate(DateTime dateTime) => formatFullDate.format(dateTime);
 
@@ -35,4 +37,7 @@ class DateFormatter {
       "${formatFullDate.format(dateTime)} ${formatFullTime.format(dateTime)}";
 
   String hourMinute(DateTime dateTime) => formatHourMinute.format(dateTime);
+
+  String onlyNumbersDate(DateTime dateTime) =>
+      formatOnlyNumbersDate.format(dateTime);
 }

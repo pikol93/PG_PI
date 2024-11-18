@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 import "package:pi_mobile/data/routine_schema.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
-import "package:pi_mobile/routing/routes.dart";
+import "package:pi_mobile/routing/routes_old_exercises.dart";
 
 class RoutinesListWidget extends StatelessWidget {
   final List<RoutineSchema> routines;

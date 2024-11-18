@@ -3,7 +3,7 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/provider/notification_permissions_provider.dart";
-import "package:pi_mobile/routing/routes.dart";
+import "package:pi_mobile/routing/routes_tracks.dart";
 import "package:pi_mobile/utility/notification_permission.dart";
 
 class RequestNotificationPermissionScreen extends ConsumerWidget with Logger {

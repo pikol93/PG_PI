@@ -4,7 +4,7 @@ import "package:pi_mobile/data/training_exercise.dart";
 import "package:pi_mobile/data/training_exercise_set.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/provider/trainings_provider.dart";
-import "package:pi_mobile/routing/routes.dart";
+import "package:pi_mobile/routing/routes_old_exercises.dart";
 
 class ExerciseTrainingScreen extends ConsumerStatefulWidget {
   final String routineUuid;

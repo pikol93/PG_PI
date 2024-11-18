@@ -5,7 +5,7 @@ import "package:pi_mobile/data/strength_exercise.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/widgets/common/activity_tile.dart";
 import "package:pi_mobile/widgets/common/app_navigation_drawer.dart";
-import "package:pi_mobile/widgets/exercises/session/pending_exercise_screen.dart";
+import "package:pi_mobile/widgets/old_exercises/session/pending_exercise_screen.dart";
 
 class ChooseExerciseScreen extends ConsumerStatefulWidget {
   final String workoutUuid;
@@ -48,21 +48,21 @@ class _ChooseExerciseScreen extends ConsumerState<ChooseExerciseScreen> {
   }
 }
 
-List<StrengthExercise> getAllExercises(BuildContext context) => [
+List<StrengthExercise> getAllExercises(BuildContext context) => const [
       StrengthExercise(
-        name: context.t.exercises.exercises.benchPress,
+        name: "",
         imageLink: "assets/benchpress.png",
       ),
       StrengthExercise(
-        name: context.t.exercises.exercises.backSquat,
+        name: "",
         imageLink: "assets/backsquad.png",
       ),
       StrengthExercise(
-        name: context.t.exercises.exercises.barbellCurls,
+        name: "",
         imageLink: "assets/biceps_curls.png",
       ),
       StrengthExercise(
-        name: context.t.exercises.exercises.pullUp,
+        name: "",
         imageLink: "assets/pullups.png",
       ),
     ];

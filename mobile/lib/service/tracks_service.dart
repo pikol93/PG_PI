@@ -9,7 +9,7 @@ import "package:pi_mobile/data/collections/track.dart";
 import "package:pi_mobile/data/location.dart" as internal;
 import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/provider/recorded_track_provider.dart";
-import "package:pi_mobile/routing/routes.dart";
+import "package:pi_mobile/routing/routes_tracks.dart";
 
 class LocationTaskHandler extends TaskHandler with Logger {
   StreamSubscription<LocationServicesStatus>? _servicesStatusSubscription;

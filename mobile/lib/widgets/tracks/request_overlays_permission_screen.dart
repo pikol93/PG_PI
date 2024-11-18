@@ -3,7 +3,7 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/provider/overlays_permissions_provider.dart";
-import "package:pi_mobile/routing/routes.dart";
+import "package:pi_mobile/routing/routes_tracks.dart";
 
 class RequestOverlaysPermissionScreen extends ConsumerWidget with Logger {
   const RequestOverlaysPermissionScreen({super.key});

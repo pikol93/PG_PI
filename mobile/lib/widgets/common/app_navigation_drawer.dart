@@ -1,6 +1,10 @@
 import "package:flutter/material.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/routing/routes.dart";
+import "package:pi_mobile/routing/routes_exercises.dart";
+import "package:pi_mobile/routing/routes_heart_rate.dart";
+import "package:pi_mobile/routing/routes_old_exercises.dart" as old;
+import "package:pi_mobile/routing/routes_tracks.dart";
 import "package:pi_mobile/widgets/common/navigation_drawer_entry.dart";
 
 class AppNavigationDrawer extends StatelessWidget {
@@ -35,14 +39,19 @@ class AppNavigationDrawer extends StatelessWidget {
               text: context.t.home.title,
             ),
             NavigationDrawerEntry(
+              goMethod: const ExercisesRoute().go,
+              icon: Icons.fitness_center,
+              text: context.t.exercises.title,
+            ),
+            NavigationDrawerEntry(
               goMethod: const TracksRoute().go,
               icon: Icons.navigation,
               text: context.t.tracks.title,
             ),
             NavigationDrawerEntry(
-              goMethod: const ExercisesRoute().go,
+              goMethod: const old.ExercisesRoute().go,
               icon: Icons.fitness_center,
-              text: context.t.exercises.title,
+              text: "${context.t.exercises.title} [DEPRECATED]",
             ),
             NavigationDrawerEntry(
               goMethod: const CalendarRoute().go,

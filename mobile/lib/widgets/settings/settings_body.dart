@@ -8,7 +8,9 @@ import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/provider/connection_settings_provider.dart";
 import "package:pi_mobile/provider/date_formatter_provider.dart";
 import "package:pi_mobile/provider/development_mode_provider.dart";
+import "package:pi_mobile/provider/exercise_model_service_provider.dart";
 import "package:pi_mobile/provider/heart_rate_list_provider.dart";
+import "package:pi_mobile/provider/one_rep_max_service_provider.dart";
 import "package:pi_mobile/provider/package_info_provider.dart";
 import "package:pi_mobile/provider/stored_locale_provider.dart";
 import "package:pi_mobile/provider/theme_provider.dart";
@@ -35,6 +37,8 @@ class SettingsBody extends StatelessWidget {
             _GenerateTracksSetting(),
             _ClearTracksSetting(),
             _ClearTrainingHistorySetting(),
+            _GenerateOneRepMaxHistory(),
+            _ClearOneRepMaxHistory(),
             _DisableDevelopmentModeSetting(),
             _AppInfoSetting(),
           ],
@@ -268,6 +272,55 @@ class _ClearTrainingHistorySetting extends ConsumerWidget {
 
   Future<void> _onClearPressed(BuildContext context, WidgetRef ref) async {
     await ref.read(trainingsProvider.notifier).deleteTrainingsHistory();
+  }
+}
+
+class _GenerateOneRepMaxHistory extends ConsumerWidget {
+  const _GenerateOneRepMaxHistory();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) => DevelopmentSetting(
+        child: SettingButton(
+          icon: Icons.fitness_center,
+          title: "Generate 1RM history",
+          // TODO: I18N
+          requiresConfirmation: true,
+          alertTitle: "Are you sure you want to generate 1RM history?",
+          // TODO: I18N
+          onConfirmed: () => _onGeneratePressed(context, ref),
+        ),
+      );
+
+  Future<void> _onGeneratePressed(BuildContext context, WidgetRef ref) async {
+    final exerciseModelService = await ref.read(
+      exerciseModelServiceProvider.future,
+    );
+    await exerciseModelService.generateData().run();
+  }
+}
+
+class _ClearOneRepMaxHistory extends ConsumerWidget {
+  const _ClearOneRepMaxHistory();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) => DevelopmentSetting(
+        child: SettingButton(
+          icon: Icons.fitness_center,
+          title: "Clear 1RM history",
+          // TODO: I18N
+          requiresConfirmation: true,
+          alertTitle: "Are you sure you want to clear 1RM history?",
+          // TODO: I18N
+          onConfirmed: () => _onClearPressed(context, ref),
+        ),
+      );
+
+  Future<void> _onClearPressed(BuildContext context, WidgetRef ref) async {
+    final service = await ref.read(
+      oneRepMaxServiceProvider.future,
+    );
+
+    await service.clear().run();
   }
 }
 

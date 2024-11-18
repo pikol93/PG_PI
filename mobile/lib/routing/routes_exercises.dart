@@ -2,10 +2,10 @@ import "dart:async";
 
 import "package:flutter/material.dart";
 import "package:go_router/go_router.dart";
-import "package:pi_mobile/widgets/new_exercises/details/exercise_details_screen.dart";
-import "package:pi_mobile/widgets/new_exercises/details/one_rep_max_history_screen.dart";
-import "package:pi_mobile/widgets/new_exercises/details/one_rep_max_modify_screen.dart";
-import "package:pi_mobile/widgets/new_exercises/exercises_screen.dart";
+import "package:pi_mobile/widgets/exercises/details/exercise_details_screen.dart";
+import "package:pi_mobile/widgets/exercises/details/one_rep_max_history_screen.dart";
+import "package:pi_mobile/widgets/exercises/details/one_rep_max_modify_screen.dart";
+import "package:pi_mobile/widgets/exercises/exercises_screen.dart";
 
 part "routes_exercises.g.dart";
 

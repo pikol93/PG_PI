@@ -10,10 +10,10 @@ import "package:pi_mobile/provider/one_rep_max_service_provider.dart";
 import "package:pi_mobile/routing/routes_exercises.dart";
 import "package:pi_mobile/utility/async_value.dart";
 
-class ExerciseInspectOneRepMaxScreen extends ConsumerWidget {
+class OneRepMaxHistoryScreen extends ConsumerWidget {
   final int exerciseId;
 
-  const ExerciseInspectOneRepMaxScreen({
+  const OneRepMaxHistoryScreen({
     super.key,
     required this.exerciseId,
   });

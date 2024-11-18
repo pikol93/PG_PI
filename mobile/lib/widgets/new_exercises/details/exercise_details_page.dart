@@ -1,9 +1,9 @@
 import "package:flutter/material.dart";
 import "package:pi_mobile/data/exercise_model.dart";
-import "package:pi_mobile/widgets/new_exercises/details/exercise_muscle_groups_section.dart";
-import "package:pi_mobile/widgets/new_exercises/details/exercise_one_rep_max_section.dart";
-import "package:pi_mobile/widgets/new_exercises/details/exercise_steps_section.dart";
-import "package:pi_mobile/widgets/new_exercises/details/exercise_title_section.dart";
+import "package:pi_mobile/widgets/new_exercises/details/sections/exercise_muscle_groups_section.dart";
+import "package:pi_mobile/widgets/new_exercises/details/sections/exercise_one_rep_max_section.dart";
+import "package:pi_mobile/widgets/new_exercises/details/sections/exercise_steps_section.dart";
+import "package:pi_mobile/widgets/new_exercises/details/sections/exercise_title_section.dart";
 
 class ExerciseDetailsPage extends StatelessWidget {
   final ExerciseModel model;

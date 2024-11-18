@@ -9,23 +9,23 @@ import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/provider/date_formatter_provider.dart";
 import "package:pi_mobile/provider/one_rep_max_service_provider.dart";
 
-class ExerciseModifyOneRepMaxScreen extends ConsumerStatefulWidget {
+class OneRepMaxModifyScreen extends ConsumerStatefulWidget {
   final int exerciseId;
   final DateTime? date;
 
-  const ExerciseModifyOneRepMaxScreen({
+  const OneRepMaxModifyScreen({
     super.key,
     required this.exerciseId,
     this.date,
   });
 
   @override
-  ConsumerState<ExerciseModifyOneRepMaxScreen> createState() =>
-      _ExerciseModifySpecificOneRepMaxScreenState();
+  ConsumerState<OneRepMaxModifyScreen> createState() =>
+      _OneRepMaxModifyScreenState();
 }
 
-class _ExerciseModifySpecificOneRepMaxScreenState
-    extends ConsumerState<ExerciseModifyOneRepMaxScreen> with Logger {
+class _OneRepMaxModifyScreenState extends ConsumerState<OneRepMaxModifyScreen>
+    with Logger {
   static const _defaultOneRepMax = 60.0;
   static const _buttonSizedBoxWidget = SizedBox(width: 16.0);
 

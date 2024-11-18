@@ -123,17 +123,17 @@
         "name": "Pompki na drążku",
         "steps": [
           "Złap za uchwyt na pompki na szerokość ramion i wdrap się lub podskocz, aby znaleźć się w pozycji początkowej.",
-          "Opuszczaj się kontrolnie, aż ramię znajdzie się poniżej łokcia lub tak głęboko, jak tylko możesz.",
+          "Opuszczaj się kontrolowanie, aż ramię znajdzie się poniżej łokcia lub tak głęboko, jak tylko możesz.",
           "Odwróć ruch i wróć do pozycji początkowej."
         ]
       },
       "benchPress": {
         "name": "Wyciskanie sztangi na ławce",
         "steps": [
-          "Połóż się na ławce, ściągnij łopatki do siebie i w dół, a następnie lekko wygnij plecy.",
+          "Połóż się na ławce, ściągnij łopatki do siebie i w dół, a następnie lekko wygnij plecy, nie odrywając pośladków od ławki.",
           "Złap sztangę nieco szerzej niż szerokość barków.",
-          "Weź wdech, wstrzymaj oddech i odłóż sztangę.",
-          "Opuszczaj sztangę kontrolując jej opuszczenie, aż dotknie klatki piersiowej gdzieś blisko mostka.",
+          "Weź wdech, wstrzymaj oddech i podnieś sztangę ze stojaków.",
+          "Opuszczaj sztangę kontrolując jej opuszczenie, aż dotknie klatki piersiowej w okolicy mostka.",
           "Podnieś sztangę do pozycji początkowej, wydychając powietrze.",
           "Weź kolejny oddech w pozycji górnej i powtórz ćwiczenie."
         ]
@@ -141,7 +141,7 @@
       "cableChestPress": {
         "name": "Rozpiętki z wykorzystaniem wyciągów",
         "steps": [
-          "Zamocuj parę uchwytów w górnej pozycji skrzyżowania kabli. Chwyć uchwyty, zrób krok do przodu i lekko pochyl się do przodu.",
+          "Zamocuj parę uchwytów w górnej pozycji stojaka. Chwyć uchwyty, zrób krok do przodu i lekko pochyl się do przodu.",
           "Pchnij uchwyty do przodu, aż spotkają się przed twoim ciałem.",
           "Z kontrolą pozwól uchwytom wrócić do pozycji początkowej."
         ]
@@ -151,15 +151,15 @@
         "steps": [
           "Połóż się na ławce i podnieś parę hantli do pozycji początkowej.",
           "Z niemal całkowicie wyprostowanymi ramionami opuść hantle na boki.",
-          "Gdy opuścisz hantle tak głęboko, jak to możliwe, odwróć ruch i opuść hantle do pozycji początkowej."
+          "Gdy opuścisz hantle tak głęboko, jak to możliwe, odwróć ruch i unieś hantle do pozycji początkowej."
         ]
       },
       "dumbbellChestPress": {
         "name": "Wyciskanie sztangielek na ławce płaskiej",
         "steps": [
           "Połóż się na ławce i podnieś parę hantli do pozycji początkowej.",
-          "Podnieś hantle do wyprostowanych ramion, wydychając.",
-          "Wdychaj na górze lub opuszczając hantle z kontrolą z powrotem do ramion."
+          "Podnieś hantle do wyprostowanych ramion, robiąc wydech.",
+          "Wykonaj wdech mając hantle w górze lub opuszczając hantle z kontrolą z powrotem do ramion."
         ]
       },
       "dumbbellPullover": {
@@ -167,15 +167,15 @@
         "steps": [
           "Połóż się na ławce i unieś hantle do prawie prostych ramion nad sobą.",
           "Opuść hantle za głowę, trzymając ramiona niemal całkowicie wyprostowane, z lekkim zgięciem w łokciach.",
-          "Odwróć ruch i wróć hantle do pozycji początkowej."
+          "Odwróć ruch i unieś hantle do pozycji początkowej."
         ]
       },
       "pecDeck": {
         "name": "Rozpiętki na siedząco",
         "steps": [
-          "Dopasuj oparcie pleców i uchwyty tak, aby móc oprzeć łokcie o podkładki, podczas gdy górne części ramion są w pozycji poziomej.",
-          "Przesuń podkładki do przodu, aż spotkają się przed twoim ciałem.",
-          "Kontrolując ruch, pozwól podkładkom wrócić do pozycji początkowej."
+          "Dopasuj oparcie pleców i uchwyty tak, aby móc oprzeć o nie łokcie, podczas gdy górne części ramion są w pozycji poziomej.",
+          "Przesuń uchwyty do przodu, aż spotkają się przed twoim ciałem.",
+          "Kontrolując ruch, pozwól uchwytom wrócić do pozycji początkowej."
         ]
       },
       "pushUp": {
@@ -184,7 +184,7 @@
           "Przyjmij pozycję wyjściową, z dłońmi rozstawionymi nieco szerzej niż szerokość barków.",
           "Spróbuj utworzyć prostą linię od głowy do stóp i lekko napnij brzuch.",
           "Opuść się tak nisko, jak możesz, wdychając.",
-          "Odwróć ruch, gdy dotkniesz podłogi, i wyprostuj się ponownie, wydychając."
+          "Odwróć ruch, gdy dotkniesz podłogi, i unieś ciało do pozycji startowej, wydychając powietrze."
         ]
       },
       "resistanceBandChestFly": {
@@ -198,7 +198,7 @@
         ]
       },
       "crunches": {
-        "name": "Brzuski",
+        "name": "Brzuszki",
         "steps": [
           "Połóż się na plecach, z rękami przed klatką piersiową i kolanami zgiętymi pod kątem około 90 stopni.",
           "Podnieś górną część ciała, napinając mięśnie brzucha i pochylając się do przodu.",
@@ -208,21 +208,21 @@
       "squat": {
         "name": "Przysiady ze sztangą",
         "steps": [
-          "Połóż sztangę na górnej części pleców. Wdychaj i lekko napnij rdzeń, a następnie odłóż sztangę.",
+          "Połóż sztangę na górnej części pleców. Wdychaj i lekko napnij rdzeń.",
           "Zrób dwa kroki do tyłu i dostosuj pozycję stóp.",
           "Wykonaj przysiad tak głęboki, jak to możliwe, przy zachowaniu dobrej techniki.",
-          "Z zachowaniem kontroli zatrzymaj się i odwróć ruch, ponownie wyciągając biodra i nogi.",
+          "Z zachowaniem kontroli zatrzymaj się i odwróć ruch, ponownie prostując biodra i nogi.",
           "Wydychaj w drodze do góry lub wymień powietrze w górnej pozycji."
         ]
       },
       "deadlift": {
         "name": "Martwy ciąg",
         "steps": [
-          "Stań blisko drążka tak, aby znajdował się mniej więcej nad środkiem stopy.",
+          "Stań blisko sztangi tak, aby znajdował się mniej więcej nad środkiem stopy.",
           "Weź wdech, pochyl się do przodu i chwyć drążek.",
-          "Wstrzymaj oddech, lekko napnij korpus i unieś drążek.",
+          "Wstrzymaj oddech, lekko napnij korpus i unieś sztangę.",
           "Przyciągnij drążek blisko ciała, z prostymi plecami, aż staniesz prosto.",
-          "Opuść drążek z powrotem na ziemię, zachowując kontrolę.",
+          "Opuść sztangę z powrotem na ziemię, zachowując kontrolę.",
           "Weź kolejny oddech i powtórz ćwiczenie."
         ]
       },
@@ -232,7 +232,7 @@
           "Najpierw umieść sztangę na stojaku na wysokości klatki piersiowej.",
           "Złap sztangę nieco szerzej niż szerokość barków i podejdź do niej blisko.",
           "Weź wdech, lekko napnij korpus i odłóż sztangę.",
-          "Pozwól sztangierze oprzeć się o przednie mięśnie naramienne, gdy odchodzisz od stojaka.",
+          "Pozwól sztandze oprzeć się o przednie mięśnie naramienne, gdy odchodzisz od stojaka.",
           "Podnieś sztangę do wyprostowanych ramion, wydychając powietrze.",
           "Wdech zrób na górze lub opuszczając sztangę, kontrolując ruchy ramion."
         ]
@@ -285,14 +285,14 @@
         "name": "Prostowanie nóg w siadzie",
         "steps": [
           "Dostosuj maszynę tak, aby była prawidłowo ustawiona. Twoje kolana powinny być w linii ze stawem maszyny.",
-          "Kontrolnie wyprostuj kolana, aż będą całkowicie proste.",
+          "Kontrolowanie wyprostuj kolana, aż będą całkowicie proste.",
           "Powoli opuść ciężar ponownie."
         ]
       },
       "machineGluteKickback": {
         "name": "Wykopy w tył na maszynie",
         "steps": [
-          "Dopasuj maszynę do swojego ciała. Kolana powinny być skierowane do przodu i spoczywać blisko dolnej części wyściółki. Umieść przedramiona na górnej wyściółce i chwyć uchwyty.",
+          "Dopasuj maszynę do swojego ciała. Kolana powinny być skierowane do przodu i spoczywać blisko dolnej części wyściółki. Umieść przedramiona na górnym obiciu i chwyć uchwyty.",
           "Następnie upewnij się, że ramię maszyny znajduje się pod kolanem. Napnij rdzeń, utrzymuj ciało nieruchomo i zacznij naciskać nogę do tyłu i do góry, aktywując pośladki.",
           "Wypchnij nogę tak wysoko, jak możesz, nie obracając jej w biodrach, a następnie wróć do pozycji początkowej.",
           "Najpierw wykonaj wszystkie powtórzenia na jedną stronę, a następnie zmień nogę."
@@ -318,14 +318,14 @@
       "cableCurl": {
         "name": "Uginanie ramion na wyciągu dolnym stojąc z drążkiem",
         "steps": [
-          "Zamocuj drążek w dolnej pozycji skrzyżowania kabli. Chwyć drążek chwytem podchwytem (supinacją), dłonie rozstawione na szerokość barków i zrób krok do tyłu.",
+          "Zamocuj drążek w dolnej pozycji skrzyżowania kabli. Chwyć drążek chwytem podchwytem, dłonie rozstawione na szerokość barków i zrób krok do tyłu.",
           "Podnieś drążek kontrolując ruch, zginając łokcie.",
           "Nie pozwól, aby górna część ramienia cofnęła się podczas uginania, trzymaj je nieruchomo lub przesuń je lekko do przodu.",
-          "Odwróć ruch i opuść drążek z powrotem do pozycji początkowej."
+          "Odwróć ruch i opuść sztangę z powrotem do pozycji początkowej."
         ]
       },
       "seatedLegCurl": {
-        "name": "Uginanie nóg na siedząco",
+        "name": "Uginanie nóg w pozycji siedzącej",
         "steps": [
           "Dostosuj maszynę tak, aby była prawidłowo ustawiona. Twoje kolana powinny być w linii ze stawem maszyny.",
           "Opuść ciężar, zginając kolana tak daleko, jak to możliwe.",

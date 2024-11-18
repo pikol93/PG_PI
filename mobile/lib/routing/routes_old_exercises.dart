@@ -1,17 +1,17 @@
 import "package:flutter/material.dart";
 import "package:go_router/go_router.dart";
-import "package:pi_mobile/widgets/exercises/exercises_screen.dart";
-import "package:pi_mobile/widgets/exercises/routines/edit/edit_exercise_schema_screen.dart";
-import "package:pi_mobile/widgets/exercises/routines/edit/edit_exercise_set_schema_screen.dart";
-import "package:pi_mobile/widgets/exercises/routines/edit/edit_routine_schema_screen.dart";
-import "package:pi_mobile/widgets/exercises/routines/edit/edit_workout_schema_screen.dart";
-import "package:pi_mobile/widgets/exercises/routines/history/history_record_screen.dart";
-import "package:pi_mobile/widgets/exercises/routines/history/history_screen.dart";
-import "package:pi_mobile/widgets/exercises/routines/routines_screen.dart";
-import "package:pi_mobile/widgets/exercises/routines/train/exercise_set_training_screen.dart";
-import "package:pi_mobile/widgets/exercises/routines/train/exercise_training_screen.dart";
-import "package:pi_mobile/widgets/exercises/routines/train/routine_training_screen.dart";
-import "package:pi_mobile/widgets/exercises/routines/train/workout_training_screen.dart";
+import "package:pi_mobile/widgets/old_exercises/exercises_screen.dart";
+import "package:pi_mobile/widgets/old_exercises/routines/edit/edit_exercise_schema_screen.dart";
+import "package:pi_mobile/widgets/old_exercises/routines/edit/edit_exercise_set_schema_screen.dart";
+import "package:pi_mobile/widgets/old_exercises/routines/edit/edit_routine_schema_screen.dart";
+import "package:pi_mobile/widgets/old_exercises/routines/edit/edit_workout_schema_screen.dart";
+import "package:pi_mobile/widgets/old_exercises/routines/history/history_record_screen.dart";
+import "package:pi_mobile/widgets/old_exercises/routines/history/history_screen.dart";
+import "package:pi_mobile/widgets/old_exercises/routines/routines_screen.dart";
+import "package:pi_mobile/widgets/old_exercises/routines/train/exercise_set_training_screen.dart";
+import "package:pi_mobile/widgets/old_exercises/routines/train/exercise_training_screen.dart";
+import "package:pi_mobile/widgets/old_exercises/routines/train/routine_training_screen.dart";
+import "package:pi_mobile/widgets/old_exercises/routines/train/workout_training_screen.dart";
 
 part "routes_old_exercises.g.dart";
 

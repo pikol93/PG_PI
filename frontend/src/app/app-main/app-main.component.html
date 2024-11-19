@@ -1,7 +1,37 @@
 <div class="main-container">
+  <!-- XDDD -->
   <img src="assets/logo.png" alt="logo" class="logo" />
   <p class="motivational-text">
     Witaj w naszej aplikacji! Odkryj nowe możliwości i osiągnij swoje cele z
     nami!
   </p>
+  <p class="motivational-text">
+    {{ payload.user }}, Raport: #{{ payload.raport_number }}
+  </p>
+<div class="card">
+  <p-table 
+      [value]="allRows" 
+      selectionMode="multiple" 
+      [(selection)]="selectedProducts" 
+      [rows]="5"
+      [paginator]="true"
+      dataKey="uuid" >
+          <ng-template pTemplate="header">
+              <tr>
+                  <th>Name</th>
+                  <th>Date</th>
+                  <th>Weight</th>
+                  <th>Reps</th>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-product let-rowIndex="rowIndex">
+              <tr [pSelectableRow]="product" [pSelectableRowIndex]="rowIndex">
+                  <td>{{ product.name }}</td>
+                  <td>{{ product.date }}</td>
+                  <td>{{ product.weight }}</td>
+                  <td>{{ product.reps }}</td>
+              </tr>
+          </ng-template>
+  </p-table>
+</div>
 </div>

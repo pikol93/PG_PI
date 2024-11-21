@@ -125,7 +125,7 @@
             "restTime": 90
           },
           {
-            "name": "Barbell Row",
+            "name": "Bench Press",
             "expectedNumberOfSets": 3,
             "performedSets": [
               { "uuid":"35", "expectedReps": 10, "expectedWeight": 80, "expectedIntensity": 0.75, "weight": 80, "reps": 10, "rpe": 7 },
@@ -150,11 +150,14 @@
     "oneRepMaxs": {
       "Bench Press": [
         { "weight": 120, "date": "2024-10-01" },
-        { "weight": 125, "date": "2024-10-15" }
+        { "weight": 125, "date": "2024-10-15" },
+        { "weight": 135, "date": "2024-10-29" },
+        { "weight": 145, "date": "2024-11-05" }
       ],
       "Squat": [
         { "weight": 180, "date": "2024-10-01" },
-        { "weight": 190, "date": "2024-10-15" }
+        { "weight": 190, "date": "2024-10-15" },
+        { "weight": 200, "date": "2024-11-08" }
       ],
       "Deadlift": [
         { "weight": 220, "date": "2024-10-01" },

@@ -59,7 +59,7 @@ const builtInRoutines = [
         ],
       ),
       BuiltInWorkout(
-        id: 300000001,
+        id: 3000000001,
         identifier: "week1Wednesday",
         exercises: [
           WorkoutExercise(
@@ -583,7 +583,7 @@ const builtInRoutines = [
         ],
       ),
       BuiltInWorkout(
-        id: 3000000017,
+        id: 3000000018,
         identifier: "week3Day2",
         exercises: [
           WorkoutExercise(
@@ -612,7 +612,7 @@ const builtInRoutines = [
         ],
       ),
       BuiltInWorkout(
-        id: 3000000017,
+        id: 3000000019,
         identifier: "week3Day3",
         exercises: [
           WorkoutExercise(
@@ -641,7 +641,7 @@ const builtInRoutines = [
         ],
       ),
       BuiltInWorkout(
-        id: 3000000017,
+        id: 3000000020,
         identifier: "week3Day4",
         exercises: [
           WorkoutExercise(
@@ -670,7 +670,7 @@ const builtInRoutines = [
         ],
       ),
       BuiltInWorkout(
-        id: 3000000017,
+        id: 3000000021,
         identifier: "week4Day1",
         exercises: [
           WorkoutExercise(
@@ -699,7 +699,7 @@ const builtInRoutines = [
         ],
       ),
       BuiltInWorkout(
-        id: 3000000017,
+        id: 3000000022,
         identifier: "week4Day2",
         exercises: [
           WorkoutExercise(
@@ -728,7 +728,7 @@ const builtInRoutines = [
         ],
       ),
       BuiltInWorkout(
-        id: 3000000017,
+        id: 3000000023,
         identifier: "week4Day3",
         exercises: [
           WorkoutExercise(
@@ -757,7 +757,7 @@ const builtInRoutines = [
         ],
       ),
       BuiltInWorkout(
-        id: 3000000017,
+        id: 3000000024,
         identifier: "week4Day4",
         exercises: [
           WorkoutExercise(

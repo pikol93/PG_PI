@@ -7,6 +7,7 @@ class Routine with _$Routine {
   const factory Routine({
     required int id,
     required String name,
+    required String author,
     required List<Workout> workouts,
   }) = _Routine;
 }

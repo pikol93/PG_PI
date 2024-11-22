@@ -18,6 +18,7 @@ List<Routine> builtInRoutines(Ref ref) {
           name: routineI18N
               .name(routine.identifier)
               .getOrElse(() => "MISSING TRANSLATION: ${routine.identifier}"),
+          author: "",
           workouts: routine.workouts
               .map(
                 (workout) => Workout(

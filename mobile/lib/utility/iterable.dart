@@ -24,4 +24,6 @@ extension IterableExtension<T> on Iterable<T> {
       return setLengthBefore != setLengthAfter;
     });
   }
+
+  Iterable<T> unique() => uniqueByKey((item) => item);
 }

@@ -8,7 +8,7 @@ extension AsyncValueExtension<T> on AsyncValue<T> {
   ) =>
       when(
         data: widgetBuilder,
-        error: (error, stack) => Text("$error"),
+        error: (error, stack) => Text("$error $stack"),
         loading: () => const Center(child: CircularProgressIndicator()),
       );
 
@@ -19,7 +19,7 @@ extension AsyncValueExtension<T> on AsyncValue<T> {
       when(
         data: widgetBuilder,
         error: (error, stack) => Scaffold(
-          body: Center(child: Text("$error")),
+          body: Center(child: Text("$error $stack")),
         ),
         loading: () => const Scaffold(
           body: Center(

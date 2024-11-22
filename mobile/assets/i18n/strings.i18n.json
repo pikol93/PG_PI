@@ -81,7 +81,16 @@
     "delete": "Delete routine",
     "areYouSureYouWantToDelete": "Are you sure about deleting",
     "youDidntFinishLastTrainingMessage": "You didn't finish your last training, end it in History view first",
-    "gotDeleted": "Deleted routine"
+    "gotDeleted": "Deleted routine",
+    "yourRoutines": "Your routines",
+    "otherRoutines": "Routines",
+    "routine": {
+      "title": "Routine",
+      "section": {
+        "oneRepMax": "Routine's 1RMs",
+        "workouts": "Workouts"
+      }
+    }
   },
   "exercises": {
     "title": "Exercises",

@@ -6,11 +6,13 @@ import "package:pi_mobile/routing/routes_routines.dart";
 class SingleRoutineEntryWidget extends StatelessWidget with Logger {
   final int routineId;
   final String routineName;
+  final String author;
 
   const SingleRoutineEntryWidget({
     super.key,
     required this.routineId,
     required this.routineName,
+    required this.author,
   });
 
   @override
@@ -21,7 +23,10 @@ class SingleRoutineEntryWidget extends StatelessWidget with Logger {
           child: Row(
             children: [
               _SingleRoutineEntryIcon(),
-              _SingleRoutineEntryText(routineName: routineName),
+              _SingleRoutineEntryText(
+                routineName: routineName,
+                author: author,
+              ),
             ],
           ),
         ),
@@ -44,8 +49,12 @@ class _SingleRoutineEntryIcon extends StatelessWidget {
 
 class _SingleRoutineEntryText extends StatelessWidget {
   final String routineName;
+  final String author;
 
-  const _SingleRoutineEntryText({required this.routineName});
+  const _SingleRoutineEntryText({
+    required this.routineName,
+    required this.author,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +78,7 @@ class _SingleRoutineEntryText extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "author name",
+                  author,
                   style: subtitleTextStyle,
                 ),
                 Text(

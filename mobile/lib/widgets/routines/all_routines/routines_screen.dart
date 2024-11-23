@@ -78,6 +78,7 @@ class _Section extends StatelessWidget {
                   (routine) => SingleRoutineEntryWidget(
                     routineName: routine.routine.name,
                     routineId: routine.routine.id,
+                    author: routine.routine.author,
                   ),
                 )
                 .toList(),

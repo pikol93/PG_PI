@@ -13,7 +13,10 @@ class RoutineTitleSection extends StatelessWidget {
         child: Row(
           children: [
             _SingleRoutineEntryIcon(),
-            _SingleRoutineEntryText(routineName: routine.name),
+            _SingleRoutineEntryText(
+              author: routine.author,
+              routineName: routine.name,
+            ),
           ],
         ),
       );
@@ -30,8 +33,12 @@ class _SingleRoutineEntryIcon extends StatelessWidget {
 
 class _SingleRoutineEntryText extends StatelessWidget {
   final String routineName;
+  final String author;
 
-  const _SingleRoutineEntryText({required this.routineName});
+  const _SingleRoutineEntryText({
+    required this.routineName,
+    required this.author,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +63,7 @@ class _SingleRoutineEntryText extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "author name",
+                  author,
                   style: subtitleTextStyle,
                   overflow: TextOverflow.ellipsis,
                 ),

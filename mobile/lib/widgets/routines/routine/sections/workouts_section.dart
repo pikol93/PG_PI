@@ -9,8 +9,8 @@ import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/provider/exercise_models_provider.dart";
 import "package:pi_mobile/utility/async_value.dart";
 import "package:pi_mobile/utility/map.dart";
-import "package:pi_mobile/widgets/routines/routine/common/section_content.dart";
-import "package:pi_mobile/widgets/routines/routine/common/section_header.dart";
+import "package:pi_mobile/widgets/routines/common/section_content.dart";
+import "package:pi_mobile/widgets/routines/common/section_header.dart";
 
 class RoutineWorkoutsSection extends StatelessWidget {
   final Routine routine;

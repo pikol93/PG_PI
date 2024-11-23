@@ -12,8 +12,8 @@ import "package:pi_mobile/utility/async_value.dart";
 import "package:pi_mobile/utility/iterable.dart";
 import "package:pi_mobile/utility/map.dart";
 import "package:pi_mobile/utility/task.dart";
-import "package:pi_mobile/widgets/routines/routine/common/section_content.dart";
-import "package:pi_mobile/widgets/routines/routine/common/section_header.dart";
+import "package:pi_mobile/widgets/routines/common/section_content.dart";
+import "package:pi_mobile/widgets/routines/common/section_header.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 part "exercise_one_rep_max_section.g.dart";

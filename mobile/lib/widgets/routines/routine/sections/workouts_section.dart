@@ -7,6 +7,7 @@ import "package:pi_mobile/data/routine/routine.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/provider/exercise_models_provider.dart";
+import "package:pi_mobile/routing/routes_routines.dart";
 import "package:pi_mobile/utility/async_value.dart";
 import "package:pi_mobile/utility/map.dart";
 import "package:pi_mobile/widgets/routines/common/section_content.dart";
@@ -44,6 +45,7 @@ class _SectionInternal extends ConsumerWidget {
                   .map(
                     (workout) => _WorkoutWidget(
                       exerciseMap: exerciseMap,
+                      routine: routine,
                       workout: workout,
                     ),
                   )
@@ -54,9 +56,14 @@ class _SectionInternal extends ConsumerWidget {
 
 class _WorkoutWidget extends StatelessWidget with Logger {
   final Map<int, ExerciseModel> exerciseMap;
+  final Routine routine;
   final Workout workout;
 
-  const _WorkoutWidget({required this.exerciseMap, required this.workout});
+  const _WorkoutWidget({
+    required this.exerciseMap,
+    required this.routine,
+    required this.workout,
+  });
 
   @override
   Widget build(BuildContext context) => SectionContent(
@@ -72,7 +79,7 @@ class _WorkoutWidget extends StatelessWidget with Logger {
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: _onViewPressed,
+                  onPressed: () => _onViewPressed(context),
                   child: const Text("View"),
                 ),
               ],
@@ -128,7 +135,8 @@ class _WorkoutWidget extends StatelessWidget with Logger {
     );
   }
 
-  void _onViewPressed() {
+  void _onViewPressed(BuildContext context) {
     logger.debug("View button pressed for workout ${workout.name}");
+    ViewWorkoutRoute(routineId: routine.id, workoutId: workout.id).go(context);
   }
 }

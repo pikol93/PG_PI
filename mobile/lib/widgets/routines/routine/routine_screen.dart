@@ -6,6 +6,7 @@ import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/provider/routine/routines_provider.dart";
 import "package:pi_mobile/utility/async_value.dart";
 import "package:pi_mobile/utility/map.dart";
+import "package:pi_mobile/widgets/common/scaffold/app_scaffold.dart";
 import "package:pi_mobile/widgets/routines/routine/sections/exercise_one_rep_max_section.dart";
 import "package:pi_mobile/widgets/routines/routine/sections/title_section.dart";
 import "package:pi_mobile/widgets/routines/routine/sections/workouts_section.dart";
@@ -19,7 +20,7 @@ class RoutineScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) =>
       ref.watch(routinesMapProvider).whenDataOrEmptyScaffold(
             context,
-            (routinesMap) => Scaffold(
+            (routinesMap) => AppScaffold(
               appBar: AppBar(
                 title: Text(context.t.routines.routine.title),
               ),

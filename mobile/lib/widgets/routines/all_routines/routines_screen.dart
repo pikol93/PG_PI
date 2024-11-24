@@ -6,13 +6,14 @@ import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/provider/routine/routines_with_usage_provider.dart";
 import "package:pi_mobile/utility/async_value.dart";
 import "package:pi_mobile/widgets/common/app_navigation_drawer.dart";
+import "package:pi_mobile/widgets/common/scaffold/app_scaffold.dart";
 import "package:pi_mobile/widgets/routines/all_routines/single_routine_entry_widget.dart";
 
 class RoutinesScreen extends ConsumerWidget {
   const RoutinesScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) => Scaffold(
+  Widget build(BuildContext context, WidgetRef ref) => AppScaffold(
         appBar: AppBar(
           title: Text(context.t.routines.title),
         ),

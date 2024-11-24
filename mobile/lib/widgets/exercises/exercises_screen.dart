@@ -5,13 +5,14 @@ import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/provider/exercises_screen_entries_provider.dart";
 import "package:pi_mobile/utility/async_value.dart";
 import "package:pi_mobile/widgets/common/app_navigation_drawer.dart";
+import "package:pi_mobile/widgets/common/scaffold/app_scaffold.dart";
 import "package:pi_mobile/widgets/exercises/exercise_list_entry.dart";
 
 class ExercisesScreen extends ConsumerWidget {
   const ExercisesScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) => Scaffold(
+  Widget build(BuildContext context, WidgetRef ref) => AppScaffold(
         drawer: const AppNavigationDrawer(),
         appBar: AppBar(
           backgroundColor: context.colors.scaffoldBackground,

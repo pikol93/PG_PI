@@ -9,6 +9,7 @@ import "package:pi_mobile/provider/one_rep_max_service_provider.dart";
 import "package:pi_mobile/provider/routine/routines_provider.dart";
 import "package:pi_mobile/utility/async_value.dart";
 import "package:pi_mobile/utility/map.dart";
+import "package:pi_mobile/widgets/common/scaffold/app_scaffold.dart";
 import "package:pi_mobile/widgets/routines/common/section_content.dart";
 import "package:pi_mobile/widgets/routines/common/section_header.dart";
 
@@ -23,7 +24,7 @@ class ViewWorkoutScreen extends ConsumerWidget {
   });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) => Scaffold(
+  Widget build(BuildContext context, WidgetRef ref) => AppScaffold(
         appBar: AppBar(
           title: const Text("Workout"), // TODO: I18N
         ),

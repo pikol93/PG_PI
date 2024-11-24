@@ -54,6 +54,7 @@ class _ActiveSessionBottomSheetState
         expand: false,
         controller: controller,
         builder: (context, scrollController) => SingleChildScrollView(
+          padding: const EdgeInsets.all(16.0),
           controller: scrollController,
           child: AnimatedCrossFade(
             duration: const Duration(milliseconds: 300),

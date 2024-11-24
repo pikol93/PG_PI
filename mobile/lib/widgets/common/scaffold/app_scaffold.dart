@@ -7,12 +7,14 @@ class AppScaffold extends ConsumerWidget {
   final AppBar appBar;
   final Widget body;
   final Widget? drawer;
+  final Widget? floatingActionButton;
 
   const AppScaffold({
     super.key,
     required this.appBar,
     required this.body,
     this.drawer,
+    this.floatingActionButton,
   });
 
   @override
@@ -28,5 +30,6 @@ class AppScaffold extends ConsumerWidget {
             )
             .toNullable(),
         drawer: drawer,
+        floatingActionButton: floatingActionButton,
       );
 }

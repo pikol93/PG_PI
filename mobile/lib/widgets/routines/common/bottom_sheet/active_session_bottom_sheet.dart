@@ -1,21 +1,23 @@
 import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pi_mobile/data/routine/active_session.dart";
 import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/widgets/routines/common/bottom_sheet/active_session_bottom_sheet_hidden.dart";
 import "package:pi_mobile/widgets/routines/common/bottom_sheet/active_session_bottom_sheet_shown.dart";
+import "package:pi_mobile/widgets/routines/common/bottom_sheet/bottom_sheet_visibility_provider.dart";
 
-class ActiveSessionBottomSheet extends StatefulWidget {
+class ActiveSessionBottomSheet extends ConsumerStatefulWidget {
   final ActiveSession activeSession;
 
   const ActiveSessionBottomSheet({super.key, required this.activeSession});
 
   @override
-  State<ActiveSessionBottomSheet> createState() =>
+  ConsumerState<ActiveSessionBottomSheet> createState() =>
       _ActiveSessionBottomSheetState();
 }
 
-class _ActiveSessionBottomSheetState extends State<ActiveSessionBottomSheet>
-    with Logger {
+class _ActiveSessionBottomSheetState
+    extends ConsumerState<ActiveSessionBottomSheet> with Logger {
   static const double minSnapSize = 0.1;
   static const double maxSnapSize = 1.0;
   static const double sizeThreshold = 0.2;
@@ -25,6 +27,8 @@ class _ActiveSessionBottomSheetState extends State<ActiveSessionBottomSheet>
     maxSnapSize,
   ];
 
+  late final double initialChildSize;
+
   final controller = DraggableScrollableController();
 
   CrossFadeState crossFadeState = _sizeToCrossFadeState(startingSize);
@@ -33,11 +37,16 @@ class _ActiveSessionBottomSheetState extends State<ActiveSessionBottomSheet>
   void initState() {
     super.initState();
     controller.addListener(_onControllerUpdated);
+    crossFadeState = _visibilityToCrossFadeState(
+      ref.read(bottomSheetVisibilityProvider),
+    );
+    initialChildSize = _crossFadeStateToSize(crossFadeState);
+    logger.debug("$crossFadeState, $initialChildSize");
   }
 
   @override
   Widget build(BuildContext context) => DraggableScrollableSheet(
-        initialChildSize: startingSize,
+        initialChildSize: initialChildSize,
         minChildSize: minSnapSize,
         maxChildSize: maxSnapSize,
         snapSizes: snapSizes,
@@ -70,6 +79,9 @@ class _ActiveSessionBottomSheetState extends State<ActiveSessionBottomSheet>
       setState(() {
         crossFadeState = newCrossFadeState;
       });
+
+      ref.read(bottomSheetVisibilityProvider.notifier).state =
+          _crossFadeStateToVisibility(newCrossFadeState);
     }
   }
 
@@ -77,4 +89,28 @@ class _ActiveSessionBottomSheetState extends State<ActiveSessionBottomSheet>
       size < sizeThreshold
           ? CrossFadeState.showSecond
           : CrossFadeState.showFirst;
+
+  static double _crossFadeStateToSize(
+    CrossFadeState value,
+  ) =>
+      switch (value) {
+        CrossFadeState.showFirst => maxSnapSize,
+        CrossFadeState.showSecond => minSnapSize,
+      };
+
+  static CrossFadeState _visibilityToCrossFadeState(
+    BottomSheetVisibility value,
+  ) =>
+      switch (value) {
+        BottomSheetVisibility.visible => CrossFadeState.showFirst,
+        BottomSheetVisibility.collapsed => CrossFadeState.showSecond,
+      };
+
+  static BottomSheetVisibility _crossFadeStateToVisibility(
+    CrossFadeState value,
+  ) =>
+      switch (value) {
+        CrossFadeState.showFirst => BottomSheetVisibility.visible,
+        CrossFadeState.showSecond => BottomSheetVisibility.collapsed,
+      };
 }

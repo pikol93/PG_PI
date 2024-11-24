@@ -1,8 +1,8 @@
 import "package:flutter/material.dart";
 import "package:pi_mobile/data/routine/active_session.dart";
 import "package:pi_mobile/logger.dart";
-import "package:pi_mobile/widgets/routines/common/active_session_bottom_sheet_hidden.dart";
-import "package:pi_mobile/widgets/routines/common/active_session_bottom_sheet_shown.dart";
+import "package:pi_mobile/widgets/routines/common/bottom_sheet/active_session_bottom_sheet_hidden.dart";
+import "package:pi_mobile/widgets/routines/common/bottom_sheet/active_session_bottom_sheet_shown.dart";
 
 class ActiveSessionBottomSheet extends StatefulWidget {
   final ActiveSession activeSession;

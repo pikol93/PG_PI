@@ -29,6 +29,7 @@ class AppScaffold extends ConsumerWidget {
               ),
             )
             .toNullable(),
+        extendBodyBehindAppBar: true,
         drawer: drawer,
         floatingActionButton: floatingActionButton,
       );

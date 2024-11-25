@@ -6,6 +6,7 @@ import "package:pi_mobile/data/routine/routine.dart";
 import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/provider/exercise_models_provider.dart";
 import "package:pi_mobile/provider/one_rep_max_service_provider.dart";
+import "package:pi_mobile/provider/routine/active_session_service_provider.dart";
 import "package:pi_mobile/provider/routine/routines_provider.dart";
 import "package:pi_mobile/utility/async_value.dart";
 import "package:pi_mobile/utility/map.dart";
@@ -54,6 +55,7 @@ class ViewWorkoutScreen extends ConsumerWidget {
                 children: [
                   _WorkoutHistorySection(workout: workout),
                   _ExercisesSection(
+                    routineId: routineId,
                     workout: workout,
                   ),
                 ],
@@ -107,9 +109,10 @@ class _WorkoutHistorySection extends StatelessWidget with Logger {
 }
 
 class _ExercisesSection extends StatelessWidget {
+  final int routineId;
   final Workout workout;
 
-  const _ExercisesSection({required this.workout});
+  const _ExercisesSection({required this.routineId, required this.workout});
 
   @override
   Widget build(BuildContext context) => Column(
@@ -118,7 +121,13 @@ class _ExercisesSection extends StatelessWidget {
           const SectionHeader(title: "Exercises"), // TODO: I18N
           Column(
             children: workout.exercises
-                .map((exercise) => _ExerciseDetails(exercise: exercise))
+                .map(
+                  (exercise) => _ExerciseDetails(
+                    routineId: routineId,
+                    workout: workout,
+                    exercise: exercise,
+                  ),
+                )
                 .toList(),
           ),
         ],
@@ -126,15 +135,25 @@ class _ExercisesSection extends StatelessWidget {
 }
 
 class _ExerciseDetails extends ConsumerWidget with Logger {
+  final int routineId;
+  final Workout workout;
   final WorkoutExercise exercise;
 
-  const _ExerciseDetails({required this.exercise});
+  const _ExerciseDetails({
+    required this.routineId,
+    required this.workout,
+    required this.exercise,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) => SectionContent(
         child: Column(
           children: [
-            _ExerciseDetailsHeader(exercise: exercise),
+            _ExerciseDetailsHeader(
+              routineId: routineId,
+              workout: workout,
+              exercise: exercise,
+            ),
             _ExerciseDetailsSets(exercise: exercise),
           ],
         ),
@@ -142,9 +161,15 @@ class _ExerciseDetails extends ConsumerWidget with Logger {
 }
 
 class _ExerciseDetailsHeader extends ConsumerWidget with Logger {
+  final int routineId;
+  final Workout workout;
   final WorkoutExercise exercise;
 
-  const _ExerciseDetailsHeader({required this.exercise});
+  const _ExerciseDetailsHeader({
+    required this.routineId,
+    required this.workout,
+    required this.exercise,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) => Row(
@@ -171,7 +196,7 @@ class _ExerciseDetailsHeader extends ConsumerWidget with Logger {
             ),
           ),
           ElevatedButton(
-            onPressed: () => _onStartPressed(context),
+            onPressed: () => _onStartPressed(context, ref),
             child: const Text("Start"), // TODO: I18N
           ),
         ],
@@ -187,9 +212,14 @@ class _ExerciseDetailsHeader extends ConsumerWidget with Logger {
       )
       .getOrElse(() => "Unknown exercise");
 
-  void _onStartPressed(BuildContext context) {
+  Future<void> _onStartPressed(BuildContext context, WidgetRef ref) async {
     logger.debug("Start pressed for exercise ${exercise.exerciseId}");
-    // TODO: Route
+    final result = await ref
+        .read(activeSessionServiceProvider)
+        .initiate(routineId, workout.id, const fpdart.Option.none())
+        .run();
+
+    logger.debug("Start result: $result");
   }
 }
 

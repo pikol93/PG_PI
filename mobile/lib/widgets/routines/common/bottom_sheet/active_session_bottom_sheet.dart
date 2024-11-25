@@ -3,8 +3,8 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pi_mobile/data/routine/active_session.dart";
 import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/widgets/routines/common/bottom_sheet/active_session_bottom_sheet_hidden.dart";
-import "package:pi_mobile/widgets/routines/common/bottom_sheet/active_session_bottom_sheet_shown.dart";
 import "package:pi_mobile/widgets/routines/common/bottom_sheet/bottom_sheet_visibility_provider.dart";
+import "package:pi_mobile/widgets/routines/common/bottom_sheet/shown/active_session_bottom_sheet_shown.dart";
 
 class ActiveSessionBottomSheet extends ConsumerStatefulWidget {
   final ActiveSession activeSession;

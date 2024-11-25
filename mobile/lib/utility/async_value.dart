@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:fpdart/fpdart.dart";
 
 extension AsyncValueExtension<T> on AsyncValue<T> {
   Widget whenDataOrDefault(
@@ -26,5 +27,11 @@ extension AsyncValueExtension<T> on AsyncValue<T> {
             child: CircularProgressIndicator(),
           ),
         ),
+      );
+
+  Option<T> toOption() => when(
+        data: Option.of,
+        error: (error, stackTrace) => Option.none(),
+        loading: Option.none,
       );
 }

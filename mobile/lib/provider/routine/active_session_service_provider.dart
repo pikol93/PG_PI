@@ -189,13 +189,6 @@ class ActiveSessionService with Logger {
             );
           }
 
-          final isExerciseCompleted = state.exercises[index].isCompleted();
-          if (isExerciseCompleted) {
-            throw StateError(
-              "Cannot start exercise that has already been completed.",
-            );
-          }
-
           final newState = state.copyWith(currentExerciseIndex: Some(index));
           await _overwrite(newState).run();
         },

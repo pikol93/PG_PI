@@ -278,6 +278,37 @@ class ActiveSessionService with Logger {
             logger.debug("Failed finishing rest. $setIndex $error $stackTrace"),
       );
 
+  TaskEither<void, void> addEmptySetToCurrentExercise() => TaskEither.tryCatch(
+        () async {
+          final state =
+              await _readState().map((value) => value.toNullable()!).run();
+
+          final index = state.currentExerciseIndex.toNullable()!;
+
+          final newExercises = state.exercises.rebuildAtIndex(
+            index,
+            (exercise) {
+              final sets = exercise.sets.toList(growable: true);
+              sets.add(
+                sets.last.copyWith(
+                  result: const ActiveSessionSetResultUnion.toBeDone(),
+                ),
+              );
+
+              return exercise.copyWith(
+                sets: sets,
+              );
+            },
+          );
+
+          final newState = state.copyWith(exercises: newExercises);
+
+          await _overwrite(newState).run();
+        },
+        (error, stackTrace) =>
+            logger.debug("Failed adding empty set $error $stackTrace"),
+      );
+
   Task<void> removeMeRemoveMeRemoveMe() => _clear();
 
   Task<void> _overwrite(ActiveSession activeSession) => Task(() async {

@@ -45,6 +45,7 @@ class SetPage extends ConsumerWidget {
                         exerciseIndex: exerciseIndex,
                         setIndex: set.$1,
                         setTotalCount: exercise.sets.length,
+                        expectedWeight: set.$2.expectedWeight,
                       ),
                     ),
                   Rest(:final restStart) => Option.of(

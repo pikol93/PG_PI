@@ -14,6 +14,7 @@ class SetInProgressPage extends ConsumerStatefulWidget {
   final int exerciseIndex;
   final int setIndex;
   final int setTotalCount;
+  final double expectedWeight;
 
   const SetInProgressPage({
     super.key,
@@ -23,6 +24,7 @@ class SetInProgressPage extends ConsumerStatefulWidget {
     required this.exerciseIndex,
     required this.setIndex,
     required this.setTotalCount,
+    required this.expectedWeight,
   });
 
   @override
@@ -39,7 +41,7 @@ class _SetInProgressPageState extends ConsumerState<SetInProgressPage>
     super.initState();
 
     weightValueNotifier = NumberValueNotifier(
-      initialValue: widget.set.expectedIntensity,
+      initialValue: widget.expectedWeight,
       delta: 2.5,
       minValueRaw: 0.0,
     );

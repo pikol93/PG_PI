@@ -1,12 +1,12 @@
 {
-    "user": "John Kowalski",
+    "user": "Jan Kowalski",
     "raport_number": "12345",
     "trainings": [
       {
         "date": "2024-11-01",
         "exercises": [
           {
-            "name": "Bench Press",
+            "name": "Wyciskanie na klatkę",
             "expectedNumberOfSets": 4,
             "performedSets": [
               { "uuid": "1", "expectedReps": 8, "expectedWeight": 100, "expectedIntensity": 0.8, "weight": 100, "reps": 8, "rpe": 0 },
@@ -17,7 +17,7 @@
             "restTime": 120
           },
           {
-            "name": "Squat",
+            "name": "Przysiad",
             "expectedNumberOfSets": 4,
             "performedSets": [
               { "uuid":"5", "expectedReps": 8, "expectedWeight": 150, "expectedIntensity": 0.8, "weight": 150, "reps": 8, "rpe": 8 },
@@ -28,7 +28,7 @@
             "restTime": 180
           },
           {
-            "name": "Deadlift",
+            "name": "Martwy ciąg",
             "expectedNumberOfSets": 3,
             "performedSets": [
               { "uuid":"9", "expectedReps": 6, "expectedWeight": 180, "expectedIntensity": 0.85, "weight": 180, "reps": 6, "rpe": 9 },
@@ -43,7 +43,7 @@
         "date": "2024-11-03",
         "exercises": [
           {
-            "name": "Overhead Press",
+            "name": "Wyciskanie sztangi nad głowę",
             "expectedNumberOfSets": 3,
             "performedSets": [
               { "uuid":"12", "expectedReps": 8, "expectedWeight": 60, "expectedIntensity": 0.7, "weight": 60, "reps": 8, "rpe": 7 },
@@ -53,7 +53,7 @@
             "restTime": 90
           },
           {
-            "name": "Bench Press",
+            "name": "Wyciskanie na klatkę",
             "expectedNumberOfSets": 4,
             "performedSets": [
               { "uuid":"15", "expectedReps": 8, "expectedWeight": 100, "expectedIntensity": 0.8, "weight": 100, "reps": 8, "rpe": 8 },
@@ -64,7 +64,7 @@
             "restTime": 120
           },
           {
-            "name": "Barbell Row",
+            "name": "Wiosłowanie hantlami",
             "expectedNumberOfSets": 3,
             "performedSets": [
               { "uuid":"19", "expectedReps": 10, "expectedWeight": 80, "expectedIntensity": 0.75, "weight": 80, "reps": 10, "rpe": 7 },
@@ -79,7 +79,7 @@
         "date": "2024-11-06",
         "exercises": [
           {
-            "name": "Squat",
+            "name": "Przysiad",
             "expectedNumberOfSets": 4,
             "performedSets": [
               { "uuid":"22", "expectedReps": 8, "expectedWeight": 150, "expectedIntensity": 0.8, "weight": 150, "reps": 8, "rpe": 8 },
@@ -90,7 +90,7 @@
             "restTime": 180
           },
           {
-            "name": "Deadlift",
+            "name": "Martwy ciąg",
             "expectedNumberOfSets": 3,
             "performedSets": [
               { "uuid":"26", "expectedReps": 6, "expectedWeight": 180, "expectedIntensity": 0.85, "weight": 180, "reps": 6, "rpe": 9 },
@@ -100,7 +100,7 @@
             "restTime": 240
           },
           {
-            "name": "Pull-Ups",
+            "name": "Podciąganie",
             "expectedNumberOfSets": 3,
             "performedSets": [
               { "uuid":"29", "expectedReps": 10, "expectedWeight": 0, "expectedIntensity": 0.7, "weight": 0, "reps": 10, "rpe": 8 },
@@ -115,7 +115,7 @@
         "date": "2024-11-08",
         "exercises": [
           {
-            "name": "Overhead Press",
+            "name": "Wyciskanie sztangi nad głowę",
             "expectedNumberOfSets": 3,
             "performedSets": [
               { "uuid":"32", "expectedReps": 8, "expectedWeight": 60, "expectedIntensity": 0.7, "weight": 60, "reps": 8, "rpe": 7 },
@@ -125,7 +125,7 @@
             "restTime": 90
           },
           {
-            "name": "Bench Press",
+            "name": "Wyciskanie na klatkę",
             "expectedNumberOfSets": 3,
             "performedSets": [
               { "uuid":"35", "expectedReps": 10, "expectedWeight": 80, "expectedIntensity": 0.75, "weight": 80, "reps": 10, "rpe": 7 },
@@ -135,7 +135,7 @@
             "restTime": 120
           },
           {
-            "name": "Pull-Ups",
+            "name": "Podciąganie",
             "expectedNumberOfSets": 3,
             "performedSets": [
               { "uuid":"38", "expectedReps": 10, "expectedWeight": 0, "expectedIntensity": 0.7, "weight": 0, "reps": 10, "rpe": 8 },
@@ -148,18 +148,18 @@
       }
     ],
     "oneRepMaxs": {
-      "Bench Press": [
+      "Wyciskanie na klatkę": [
         { "weight": 120, "date": "2024-10-01" },
         { "weight": 125, "date": "2024-10-15" },
         { "weight": 135, "date": "2024-10-29" },
         { "weight": 145, "date": "2024-11-05" }
       ],
-      "Squat": [
+      "Przysiad": [
         { "weight": 180, "date": "2024-10-01" },
         { "weight": 190, "date": "2024-10-15" },
         { "weight": 200, "date": "2024-11-08" }
       ],
-      "Deadlift": [
+      "Martwy ciąg": [
         { "weight": 220, "date": "2024-10-01" },
         { "weight": 230, "date": "2024-10-15" }
       ]

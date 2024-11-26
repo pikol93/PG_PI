@@ -6,7 +6,7 @@
     </p>
   </div>
   <div class="button-container">
-    <p-button label="SHOW GRAPH" (click)="toggleChart()" [disabled]="isGraphButtonDisabled"></p-button>
+    <p-button label="POKAŻ WYKRES" (click)="toggleChart()" [disabled]="isGraphButtonDisabled"></p-button>
   </div>
   <div class="content-container">
     <div class="card table-placement" [ngClass]="{'chart-visible': showChart}">
@@ -15,7 +15,7 @@
         <ng-template pTemplate="header">
           <tr>
             <th *ngIf="!isSelectCheckboxDisabled"><p-tableHeaderCheckbox [disabled]="isSelectCheckboxDisabled" /></th>
-            <th style="width:30%">Name
+            <th style="width:30%">Nazwa
               <p-columnFilter field="name" matchMode="in" [showMenu]="false">
                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                   <p-multiSelect [options]="uniqueExerciseNames" [ngModel]="value" placeholder="Show by name"
@@ -25,13 +25,13 @@
                 </ng-template>
               </p-columnFilter>
             </th>
-            <th style="width:20%" pSortableColumn="date">Date
+            <th style="width:20%" pSortableColumn="date">Data
               <p-sortIcon field="date"></p-sortIcon>
             </th>
-            <th style="width:20%" pSortableColumn="weight">Weight
+            <th style="width:20%" pSortableColumn="weight">Ciężar
               <p-sortIcon field="weight"></p-sortIcon>
             </th>
-            <th style="width:20%" pSortableColumn="reps">Reps
+            <th style="width:20%" pSortableColumn="reps">Powtórzenia
               <p-sortIcon field="reps"></p-sortIcon>
             </th>
             <th style="width:10%" pSortableColumn="rpe">RPE

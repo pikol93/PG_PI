@@ -209,7 +209,7 @@ export class AppMainComponent {
         },
         {
           type: 'scatter',
-          label: 'Expected 1RM',
+          label: 'Szacowany 1RM',
           data: expectedOneRepMaxData,
           backgroundColor: 'rgba(255, 159, 64, 0.2)',
           borderColor: 'rgba(255, 159, 64, 1)',
@@ -250,8 +250,8 @@ export class AppMainComponent {
           intersect: false,
           callbacks: {
             label: function (context: any) {
-              if (context.dataset.label === 'Expected 1RM') {
-                return `Expected 1RM: ${context.raw}`;
+              if (context.dataset.label === 'Szacowany 1RM') {
+                return `Szacowany 1RM: ${context.raw}`;
               }
               return `${context.dataset.label}: ${context.raw}`;
             }

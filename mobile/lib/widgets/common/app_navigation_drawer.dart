@@ -28,7 +28,7 @@ class AppNavigationDrawer extends StatelessWidget {
               decoration: const BoxDecoration(
                 color: Colors.redAccent,
                 image: DecorationImage(
-                  image: AssetImage("assets/stronk_background.png"),
+                  image: AssetImage("assets/navigation_drawer_backdrop.png"),
                   fit: BoxFit.cover,
                 ),
               ),

@@ -1,3 +1,4 @@
+import "package:awesome_flutter_extensions/awesome_flutter_extensions.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pi_mobile/data/routine/active_session.dart";
@@ -53,17 +54,22 @@ class _ActiveSessionBottomSheetState
         snap: true,
         expand: false,
         controller: controller,
-        builder: (context, scrollController) => SingleChildScrollView(
-          padding: const EdgeInsets.all(16.0),
-          controller: scrollController,
-          child: AnimatedCrossFade(
-            duration: const Duration(milliseconds: 300),
-            crossFadeState: crossFadeState,
-            firstChild: ActiveSessionBottomSheetShown(
-              activeSession: widget.activeSession,
-            ),
-            secondChild: ActiveSessionBottomSheetHidden(
-              activeSession: widget.activeSession,
+        builder: (context, scrollController) => Container(
+          decoration: BoxDecoration(
+            color: context.colors.scheme.primaryContainer,
+          ),
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(16.0),
+            controller: scrollController,
+            child: AnimatedCrossFade(
+              duration: const Duration(milliseconds: 300),
+              crossFadeState: crossFadeState,
+              firstChild: ActiveSessionBottomSheetShown(
+                activeSession: widget.activeSession,
+              ),
+              secondChild: ActiveSessionBottomSheetHidden(
+                activeSession: widget.activeSession,
+              ),
             ),
           ),
         ),

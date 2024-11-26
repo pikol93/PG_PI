@@ -196,7 +196,7 @@ const List<BuiltInExercise> builtInExercises = [
     secondaryMuscleGroups: [
       MuscleGroup.obliques,
     ],
-    isOneRepMaxMeasurable: false,
+    isOneRepMaxMeasurable: true,
   ),
   BuiltInExercise(
     id: 1000000015,

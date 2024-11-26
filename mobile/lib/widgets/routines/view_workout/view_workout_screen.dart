@@ -8,6 +8,7 @@ import "package:pi_mobile/provider/exercise_models_provider.dart";
 import "package:pi_mobile/provider/one_rep_max_service_provider.dart";
 import "package:pi_mobile/provider/routine/active_session_service_provider.dart";
 import "package:pi_mobile/provider/routine/routines_provider.dart";
+import "package:pi_mobile/provider/routine/session_service_provider.dart";
 import "package:pi_mobile/utility/async_value.dart";
 import "package:pi_mobile/utility/map.dart";
 import "package:pi_mobile/widgets/common/scaffold/app_scaffold.dart";
@@ -53,7 +54,11 @@ class ViewWorkoutScreen extends ConsumerWidget {
               padding: const EdgeInsets.all(8.0),
               child: ListView(
                 children: [
-                  _WorkoutHistorySection(workout: workout),
+                  _WorkoutHistorySection(
+                    routineId: routineId,
+                    workoutId: workoutId,
+                    workout: workout,
+                  ),
                   _ExercisesSection(
                     routineId: routineId,
                     workout: workout,
@@ -78,13 +83,19 @@ class _MissingWorkout extends StatelessWidget {
       );
 }
 
-class _WorkoutHistorySection extends StatelessWidget with Logger {
+class _WorkoutHistorySection extends ConsumerWidget with Logger {
+  final int routineId;
+  final int workoutId;
   final Workout workout;
 
-  const _WorkoutHistorySection({required this.workout});
+  const _WorkoutHistorySection({
+    required this.routineId,
+    required this.workoutId,
+    required this.workout,
+  });
 
   @override
-  Widget build(BuildContext context) => Column(
+  Widget build(BuildContext context, WidgetRef ref) => Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Padding(
@@ -99,12 +110,72 @@ class _WorkoutHistorySection extends StatelessWidget with Logger {
               ],
             ),
           ),
-          const Text("No session in history."),
+          _ExerciseHistoryText(routineId: routineId, workoutId: workoutId),
         ],
       );
 
   void onViewHistoryPressed(BuildContext context) {
     logger.debug("On view history pressed for workout ${workout.name}");
+  }
+}
+
+class _ExerciseHistoryText extends ConsumerStatefulWidget {
+  final int routineId;
+  final int workoutId;
+
+  const _ExerciseHistoryText({
+    required this.routineId,
+    required this.workoutId,
+  });
+
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _ExerciseHistoryTextState();
+}
+
+class _ExerciseHistoryTextState extends ConsumerState<_ExerciseHistoryText> {
+  late final Future<fpdart.Option<int>> _future;
+
+  @override
+  void initState() {
+    super.initState();
+    _future = _readSessionCount();
+  }
+
+  @override
+  Widget build(BuildContext context) => FutureBuilder(
+        future: _future,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState != ConnectionState.done) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+
+          return snapshot.data!
+              .map<Widget>(
+                (historyCount) =>
+                    Text("$historyCount items in history"), // TODO: I18N
+              )
+              .getOrElse(() => const Text("No session in history."));
+        },
+      );
+
+  Future<fpdart.Option<int>> _readSessionCount() async {
+    final sessionService = await ref.read(sessionServiceProvider.future);
+    final result = await sessionService
+        .readAllForRoutineAndWorkoutSortedByDateDescending(
+          widget.routineId,
+          widget.workoutId,
+        )
+        .map((history) => history.length)
+        .run();
+
+    if (result > 0) {
+      return fpdart.Option.of(result);
+    }
+
+    return const fpdart.Option.none();
   }
 }
 

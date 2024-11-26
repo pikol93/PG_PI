@@ -422,6 +422,9 @@
     "averageRPE": "Average RPE",
     "notes": "Notes"
   },
+  "calendar": {
+    "title": "Calendar"
+  },
   "settings": {
     "title": "Settings",
     "language": {

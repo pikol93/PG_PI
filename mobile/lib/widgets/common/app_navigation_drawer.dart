@@ -51,7 +51,7 @@ class AppNavigationDrawer extends StatelessWidget {
             NavigationDrawerEntry(
               goMethod: const CalendarRoute().go,
               icon: Icons.calendar_month,
-              text: "Calendar", // TODO: I18N
+              text: context.t.calendar.title,
             ),
             NavigationDrawerEntry(
               goMethod: const HeartRateRoute().go,

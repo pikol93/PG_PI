@@ -36,12 +36,15 @@ class _RatingOfPerceivedExertionSliderState
                 initialValue: RatingOfPerceivedExertion.noRpe,
                 onValueChanged: _onRpeChanged,
               ),
-              Text(
-                context.t.routines.rpe.values(
-                  context: widget.rpeNotifier.value.toI18N(),
-                ),
-                style: context.textStyles.bodyMedium.copyWith(
-                  fontWeight: FontWeight.w300,
+              ListenableBuilder(
+                listenable: widget.rpeNotifier,
+                builder: (context, oldWidget) => Text(
+                  context.t.routines.rpe.values(
+                    context: widget.rpeNotifier.value.toI18N(),
+                  ),
+                  style: context.textStyles.bodyMedium.copyWith(
+                    fontWeight: FontWeight.w300,
+                  ),
                 ),
               ),
             ],

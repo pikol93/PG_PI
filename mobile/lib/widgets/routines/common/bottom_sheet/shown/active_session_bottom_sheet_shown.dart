@@ -6,17 +6,22 @@ import "package:pi_mobile/widgets/routines/common/bottom_sheet/shown/sheet_body.
 
 class ActiveSessionBottomSheetShown extends ConsumerWidget {
   final ActiveSession activeSession;
+  final void Function() onHidePressed;
 
   const ActiveSessionBottomSheetShown({
     super.key,
     required this.activeSession,
+    required this.onHidePressed,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) => Column(
         children: [
           const SizedBox(height: 32.0),
-          ActiveSessionBottomSheetShownHeader(activeSession: activeSession),
+          ActiveSessionBottomSheetShownHeader(
+            activeSession: activeSession,
+            onHidePressed: onHidePressed,
+          ),
           SheetBody(activeSession: activeSession),
         ],
       );

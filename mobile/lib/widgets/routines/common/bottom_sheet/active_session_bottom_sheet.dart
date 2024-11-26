@@ -19,6 +19,7 @@ class ActiveSessionBottomSheet extends ConsumerStatefulWidget {
 
 class _ActiveSessionBottomSheetState
     extends ConsumerState<ActiveSessionBottomSheet> with Logger {
+  static const Duration animationDuration = Duration(milliseconds: 300);
   static const double minSnapSize = 0.1;
   static const double maxSnapSize = 1.0;
   static const double sizeThreshold = 0.2;
@@ -62,10 +63,11 @@ class _ActiveSessionBottomSheetState
             padding: const EdgeInsets.all(16.0),
             controller: scrollController,
             child: AnimatedCrossFade(
-              duration: const Duration(milliseconds: 300),
+              duration: animationDuration,
               crossFadeState: crossFadeState,
               firstChild: ActiveSessionBottomSheetShown(
                 activeSession: widget.activeSession,
+                onHidePressed: _onHidePressed,
               ),
               secondChild: ActiveSessionBottomSheetHidden(
                 activeSession: widget.activeSession,
@@ -90,6 +92,14 @@ class _ActiveSessionBottomSheetState
       ref.read(bottomSheetVisibilityProvider.notifier).state =
           _crossFadeStateToVisibility(newCrossFadeState);
     }
+  }
+
+  void _onHidePressed() {
+    controller.animateTo(
+      minSnapSize,
+      duration: animationDuration,
+      curve: Curves.easeInOutCubic,
+    );
   }
 
   static CrossFadeState _sizeToCrossFadeState(double size) =>

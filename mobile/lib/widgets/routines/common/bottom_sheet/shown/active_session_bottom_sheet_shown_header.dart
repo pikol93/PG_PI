@@ -12,8 +12,13 @@ import "package:pi_mobile/utility/option.dart";
 
 class ActiveSessionBottomSheetShownHeader extends ConsumerWidget with Logger {
   final ActiveSession activeSession;
+  final void Function() onHidePressed;
 
-  ActiveSessionBottomSheetShownHeader({super.key, required this.activeSession});
+  ActiveSessionBottomSheetShownHeader({
+    super.key,
+    required this.activeSession,
+    required this.onHidePressed,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -64,6 +69,7 @@ class ActiveSessionBottomSheetShownHeader extends ConsumerWidget with Logger {
 
   void _onHidePressed() {
     logger.debug("Hide pressed.");
+    onHidePressed();
   }
 
   Future<void> _onEndExercisePressed(WidgetRef ref) async {

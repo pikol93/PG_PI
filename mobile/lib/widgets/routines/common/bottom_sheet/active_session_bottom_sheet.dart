@@ -71,6 +71,7 @@ class _ActiveSessionBottomSheetState
               ),
               secondChild: ActiveSessionBottomSheetHidden(
                 activeSession: widget.activeSession,
+                onShowPressed: _onShowPressed,
               ),
             ),
           ),
@@ -92,6 +93,14 @@ class _ActiveSessionBottomSheetState
       ref.read(bottomSheetVisibilityProvider.notifier).state =
           _crossFadeStateToVisibility(newCrossFadeState);
     }
+  }
+
+  void _onShowPressed() {
+    controller.animateTo(
+      maxSnapSize,
+      duration: animationDuration,
+      curve: Curves.easeInOutCubic,
+    );
   }
 
   void _onHidePressed() {

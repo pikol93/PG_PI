@@ -1,19 +1,22 @@
+import "package:awesome_flutter_extensions/awesome_flutter_extensions.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:fpdart/fpdart.dart";
 import "package:pi_mobile/data/routine/active_session.dart";
-import "package:pi_mobile/provider/exercise_models_provider.dart";
+import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/provider/routine/routines_provider.dart";
 import "package:pi_mobile/utility/async_value.dart";
 import "package:pi_mobile/utility/map.dart";
 import "package:pi_mobile/utility/option.dart";
 
-class ActiveSessionBottomSheetHidden extends ConsumerWidget {
+class ActiveSessionBottomSheetHidden extends ConsumerWidget with Logger {
   final ActiveSession activeSession;
+  final void Function() onShowPressed;
 
   const ActiveSessionBottomSheetHidden({
     super.key,
     required this.activeSession,
+    required this.onShowPressed,
   });
 
   @override
@@ -32,20 +35,30 @@ class ActiveSessionBottomSheetHidden extends ConsumerWidget {
         .map((workout) => workout.name)
         .orElse("UNKNOWN");
 
-    final exerciseName = ref
-        .watch(exerciseModelsMapProvider)
-        .toOption()
-        .map((map) => map.get(1000000000))
-        .flatten()
-        .map((model) => model.name)
-        .orElse("");
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Text(workoutName),
-        Text(exerciseName),
+        Row(
+          children: [
+            IconButton(
+              onPressed: _onShowPressed,
+              icon: const Icon(Icons.expand_less),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Text(
+                workoutName,
+                style: context.textStyles.bodyLarge,
+              ),
+            ),
+          ],
+        ),
       ],
     );
+  }
+
+  void _onShowPressed() {
+    logger.debug("Show pressed.");
+    onShowPressed();
   }
 }

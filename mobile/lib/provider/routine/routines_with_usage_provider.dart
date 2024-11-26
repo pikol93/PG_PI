@@ -3,6 +3,8 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:fpdart/fpdart.dart";
 import "package:pi_mobile/data/routine/routine_with_usage.dart";
 import "package:pi_mobile/provider/routine/routines_provider.dart";
+import "package:pi_mobile/provider/routine/session_service_provider.dart";
+import "package:pi_mobile/utility/task.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 part "routines_with_usage_provider.g.dart";
@@ -10,15 +12,25 @@ part "routines_with_usage_provider.g.dart";
 @riverpod
 Future<List<RoutineWithUsage>> routinesWithUsage(Ref ref) async {
   final routines = await ref.watch(routinesProvider.future);
+  final sessionService = await ref.watch(sessionServiceProvider.future);
 
   return routines
       .map(
-        (item) => RoutineWithUsage(
-          routine: item,
-          usages: [],
-        ),
+        (routine) => sessionService
+            .readAllForRoutineSortedByDateDescending(routine.id)
+            .map(
+              (sessions) => RoutineWithUsage(
+                routine: routine,
+                usages: sessions
+                    .map(
+                      (session) => Usage(dateTime: session.startDate),
+                    )
+                    .toList(),
+              ),
+            ),
       )
-      .toList();
+      .joinAll()
+      .run();
 }
 
 @riverpod

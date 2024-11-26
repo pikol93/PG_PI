@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pi_mobile/data/rating_of_perceived_exertion.dart";
 import "package:pi_mobile/data/routine/active_session.dart";
+import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/provider/routine/active_session_service_provider.dart";
 import "package:pi_mobile/utility/option.dart";
@@ -76,12 +77,12 @@ class _SetInProgressPageState extends ConsumerState<SetInProgressPage>
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     NumberInput(
-                      title: "Weight", // TODO: I18N
+                      title: context.t.routines.workout.weight,
                       formatter: _formatWeight,
                       valueNotifier: weightValueNotifier,
                     ),
                     NumberInput(
-                      title: "Reps", // TODO: I18N
+                      title: context.t.routines.workout.reps,
                       formatter: _formatReps,
                       valueNotifier: repsValueNotifier,
                     ),
@@ -94,7 +95,7 @@ class _SetInProgressPageState extends ConsumerState<SetInProgressPage>
           ),
           ElevatedButton(
             onPressed: _onSetDonePressed,
-            child: const Text("Set done"), // TODO: I18N
+            child: Text(context.t.routines.exercise.setDone),
           ),
         ],
       );

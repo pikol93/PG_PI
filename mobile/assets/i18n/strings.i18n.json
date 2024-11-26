@@ -23,6 +23,18 @@
         "text": "Tap to return to the app"
       }
     },
+    "permissions": {
+      "request": "Request permissions",
+      "allow": "Allow",
+      "battery": "In order to record your tracks, you need to allow the application to read battery.",
+      "location": "In order to record your tracks, you need to allow the application to access your precise location.",
+      "notification": "In order to record your tracks, you need to allow the application to create a notification.",
+      "overlay": "In order to record your tracks, you need to allow the application to read overlays.",
+      "couldNotGetPermissions": "Could not get permissions"
+    },
+    "record": {
+      "title": "Record track"
+    },
     "couldNotFetch": "Could not fetch tracks."
   },
   "common": {
@@ -69,7 +81,6 @@
     "couldNotFetch": "Could not fetch routines.",
     "title": "Routines",
     "intensity": "Intensity",
-    "exercise": "Exercise",
     "editExerciseName": "Edit exercise name",
     "exerciseName": "Exercise name",
     "restTime": "Rest time",
@@ -84,11 +95,49 @@
     "gotDeleted": "Deleted routine",
     "yourRoutines": "Your routines",
     "otherRoutines": "Routines",
+    "exercise": {
+      "exercises": "Exercises",
+      "endExercise": "End exercise",
+      "completed": "Exercise completed",
+      "doAnotherSet": "Do another set",
+      "selectAnother": "Select another exercise",
+      "setDone": "Set done"
+    },
     "routine": {
       "title": "Routine",
       "section": {
         "oneRepMax": "Routine's 1RMs",
         "workouts": "Workouts"
+      },
+      "missing": "No routine"
+    },
+    "workout": {
+      "title": "Workout",
+      "start": "Start",
+      "set": "Set",
+      "intensity": "Intensity",
+      "weight": "Weight",
+      "reps": "Reps",
+      "endWorkout": "End workout",
+      "restTime": "Rest time",
+      "restDone": "Rest done",
+      "restIsDone": "Rest is done",
+      "viewHistory": "View history",
+      "noSessionInHistory": "No session in history."
+    },
+    "rpe": {
+      "title": "Rating of Perceived Exertion (RPE)",
+      "values(context=RatingOfPerceivedExertionI18N)": {
+        "noRpe": "No RPE",
+        "rpe6": "rpe6",
+        "rpe6AndAHalf": "rpe65",
+        "rpe7": "rpe6",
+        "rpe7AndAHalf": "rpe65",
+        "rpe8": "rpe6",
+        "rpe8AndAHalf": "rpe65",
+        "rpe9": "rpe6",
+        "rpe9AndAHalf": "rpe65",
+        "rpe10": "rpe10"
       }
     },
     "routines(map)": {

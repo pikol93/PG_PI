@@ -1,6 +1,7 @@
 import "package:awesome_flutter_extensions/awesome_flutter_extensions.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/provider/location_permissions_provider.dart";
 import "package:pi_mobile/routing/routes_tracks.dart";
@@ -21,26 +22,23 @@ class RequestLocationPermissionScreen extends ConsumerWidget with Logger {
               return Scaffold(
                 appBar: AppBar(
                   backgroundColor: context.colors.scaffoldBackground,
-                  title: const Text("Request permissions"), // TODO: I18N
+                  title: Text(context.t.tracks.permissions.request),
                 ),
                 body: Center(
                   child: Column(
                     children: [
-                      const Text(
-                        "In order to record your tracks, you need to allow the "
-                        "application to access your precise location.",
-                      ), // TODO: I18N
+                      Text(context.t.tracks.permissions.location),
                       TextButton(
                         onPressed: () => _onAllowPressed(ref),
-                        child: const Text("Allow"), // TODO: I18N
+                        child: Text(context.t.tracks.permissions.allow),
                       ),
                     ],
                   ),
                 ),
               );
             },
-            error: (a, b) => const Center(
-              child: Text("Could not get permissions."),
+            error: (a, b) => Center(
+              child: Text(context.t.tracks.permissions.couldNotGetPermissions),
             ),
             loading: () => const Center(
               child: CircularProgressIndicator(),

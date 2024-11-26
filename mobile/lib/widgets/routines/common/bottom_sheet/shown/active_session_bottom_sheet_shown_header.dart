@@ -3,6 +3,7 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:fpdart/fpdart.dart";
 import "package:pi_mobile/data/routine/active_session.dart";
+import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/provider/routine/active_session_service_provider.dart";
 import "package:pi_mobile/provider/routine/routines_provider.dart";
@@ -55,11 +56,11 @@ class ActiveSessionBottomSheetShownHeader extends ConsumerWidget with Logger {
           itemBuilder: (context) => [
             PopupMenuItem(
               onTap: () => _onEndExercisePressed(ref),
-              child: const Text("End exercise"), // TODO: I18N
+              child: Text(context.t.routines.exercise.endExercise),
             ),
             PopupMenuItem(
               onTap: () => _onEndWorkoutPressed(ref),
-              child: const Text("End workout"), // TODO: I18N
+              child: Text(context.t.routines.workout.endWorkout),
             ),
           ],
         ),

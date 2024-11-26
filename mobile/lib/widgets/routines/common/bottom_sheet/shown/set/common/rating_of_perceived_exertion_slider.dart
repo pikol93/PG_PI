@@ -1,6 +1,7 @@
 import "package:awesome_flutter_extensions/awesome_flutter_extensions.dart";
 import "package:flutter/material.dart";
 import "package:pi_mobile/data/rating_of_perceived_exertion.dart";
+import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/widgets/common/enum_slider.dart";
 
@@ -23,7 +24,7 @@ class _RatingOfPerceivedExertionSliderState
   Widget build(BuildContext context) => Column(
         children: [
           Text(
-            "Rating of Perceived Exertion (RPE)", // TODO: I18N
+            context.t.routines.rpe.title,
             style: context.textStyles.bodyLarge.copyWith(
               fontWeight: FontWeight.w600,
             ),
@@ -36,7 +37,9 @@ class _RatingOfPerceivedExertionSliderState
                 onValueChanged: _onRpeChanged,
               ),
               Text(
-                "RPE value (? RIR)",
+                context.t.routines.rpe.values(
+                  context: widget.rpeNotifier.value.toI18N(),
+                ),
                 style: context.textStyles.bodyMedium.copyWith(
                   fontWeight: FontWeight.w300,
                 ),

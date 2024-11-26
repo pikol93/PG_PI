@@ -20,7 +20,7 @@ class ExerciseMuscleGroupsSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
-            context.t.exercises.primaryMuscleGroups, // TODO: I18N
+            context.t.exercises.primaryMuscleGroups,
             style: context.textStyles.titleMedium,
           ),
           Column(

@@ -283,10 +283,8 @@ class _GenerateOneRepMaxHistory extends ConsumerWidget {
         child: SettingButton(
           icon: Icons.fitness_center,
           title: "Generate 1RM history",
-          // TODO: I18N
           requiresConfirmation: true,
           alertTitle: "Are you sure you want to generate 1RM history?",
-          // TODO: I18N
           onConfirmed: () => _onGeneratePressed(context, ref),
         ),
       );
@@ -307,10 +305,8 @@ class _ClearOneRepMaxHistory extends ConsumerWidget {
         child: SettingButton(
           icon: Icons.fitness_center,
           title: "Clear 1RM history",
-          // TODO: I18N
           requiresConfirmation: true,
           alertTitle: "Are you sure you want to clear 1RM history?",
-          // TODO: I18N
           onConfirmed: () => _onClearPressed(context, ref),
         ),
       );

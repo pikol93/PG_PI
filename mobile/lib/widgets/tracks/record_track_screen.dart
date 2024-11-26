@@ -5,6 +5,7 @@ import "package:flutter/material.dart";
 import "package:flutter_foreground_task/flutter_foreground_task.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pi_mobile/data/collections/track.dart";
+import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/main.dart";
 import "package:pi_mobile/provider/date_formatter_provider.dart";
@@ -56,7 +57,7 @@ class _RecordTrackScreenState extends ConsumerState<RecordTrackScreen>
     return Scaffold(
       appBar: AppBar(
         backgroundColor: context.colors.scaffoldBackground,
-        title: const Text("Record track"), // TODO: I18N
+        title: Text(context.t.tracks.record.title),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _onStopRecordingPressed(context, track),

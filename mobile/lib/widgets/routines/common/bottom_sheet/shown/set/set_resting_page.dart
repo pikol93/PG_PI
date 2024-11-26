@@ -3,6 +3,7 @@ import "package:awesome_flutter_extensions/awesome_flutter_extensions.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pi_mobile/data/routine/active_session.dart";
+import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/provider/routine/active_session_service_provider.dart";
 import "package:pi_mobile/utility/datetime.dart";
@@ -41,7 +42,7 @@ class SetRestingPage extends ConsumerWidget with Logger {
             setTotalCount: setTotalCount,
           ),
           Text(
-            "Rest time", // TODO: I18N
+            context.t.routines.workout.restTime,
             textAlign: TextAlign.center,
             style: context.textStyles.displaySmall.copyWith(
               fontWeight: FontWeight.w500,
@@ -56,7 +57,7 @@ class SetRestingPage extends ConsumerWidget with Logger {
           ),
           ElevatedButton(
             onPressed: () => _onRestDonePressed(ref),
-            child: const Text("Rest done"), // TODO: I18N
+            child: Text(context.t.routines.workout.restDone),
           ),
         ],
       );
@@ -112,7 +113,7 @@ class _TimerState extends State<_Timer> with Logger {
     final progressRemaining =
         (durationLeft.inMilliseconds / millisTotal).clamp(0.0, 1.0);
     final minutesSecondsString = progressRemaining.almostEquals(0.0)
-        ? "Rest is over" // TODO: I18N
+        ? context.t.routines.workout.restIsDone
         : durationLeft.toMinutesSeconds();
 
     return Stack(

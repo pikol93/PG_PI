@@ -34,8 +34,8 @@ class RoutineScreen extends ConsumerWidget {
 
 class _NoRoutine extends StatelessWidget {
   @override
-  Widget build(BuildContext context) => const Center(
-        child: Text("No routine"), // TODO: I18N
+  Widget build(BuildContext context) => Center(
+        child: Text(context.t.routines.routine.missing),
       );
 }
 

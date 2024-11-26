@@ -25,7 +25,7 @@ class OneRepMaxHistoryScreen extends ConsumerWidget {
             context,
             (service) => AppScaffold(
               appBar: AppBar(
-                title: Text(context.t.exercises.history1rm), // TODO: I18N
+                title: Text(context.t.exercises.history1rm),
               ),
               floatingActionButton: FloatingActionButton(
                 child: const Icon(Icons.add),

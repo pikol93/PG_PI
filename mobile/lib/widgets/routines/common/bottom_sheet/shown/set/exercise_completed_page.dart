@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/provider/routine/active_session_service_provider.dart";
 
@@ -9,14 +10,14 @@ class ExerciseCompletedPage extends ConsumerWidget with Logger {
   @override
   Widget build(BuildContext context, WidgetRef ref) => Column(
         children: [
-          const Text("Exercise completed."), // TODO: I18N
+          Text(context.t.routines.exercise.completed),
           ElevatedButton(
             onPressed: () => _doAnotherSetPressed(ref),
-            child: const Text("Do another set"), // TODO: I18N
+            child: Text(context.t.routines.exercise.doAnotherSet),
           ),
           ElevatedButton(
             onPressed: () => _onSelectExercisePressed(ref),
-            child: const Text("Go to exercise selection page"), // TODO: I18N
+            child: Text(context.t.routines.exercise.selectAnother),
           ),
         ],
       );

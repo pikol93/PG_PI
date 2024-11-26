@@ -3,6 +3,7 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:fpdart/fpdart.dart" as fpdart;
 import "package:pi_mobile/data/routine/routine.dart";
+import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/provider/exercise_models_provider.dart";
 import "package:pi_mobile/provider/one_rep_max_service_provider.dart";
@@ -28,7 +29,7 @@ class ViewWorkoutScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) => AppScaffold(
         appBar: AppBar(
-          title: const Text("Workout"), // TODO: I18N
+          title: Text(context.t.routines.workout.title),
         ),
         body: ref.watch(routinesMapProvider).whenDataOrEmptyScaffold(
           context,
@@ -105,7 +106,7 @@ class _WorkoutHistorySection extends ConsumerWidget with Logger {
                 Expanded(child: SectionHeader(title: workout.name)),
                 ElevatedButton(
                   onPressed: () => onViewHistoryPressed(context),
-                  child: const Text("View history"), // TODO: I18N
+                  child: Text(context.t.routines.workout.viewHistory),
                 ),
               ],
             ),
@@ -157,7 +158,9 @@ class _ExerciseHistoryTextState extends ConsumerState<_ExerciseHistoryText> {
                 (historyCount) =>
                     Text("$historyCount items in history"), // TODO: I18N
               )
-              .getOrElse(() => const Text("No session in history."));
+              .getOrElse(
+                () => Text(context.t.routines.workout.noSessionInHistory),
+              );
         },
       );
 
@@ -189,7 +192,7 @@ class _ExercisesSection extends StatelessWidget {
   Widget build(BuildContext context) => Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const SectionHeader(title: "Exercises"), // TODO: I18N
+          SectionHeader(title: context.t.routines.exercise.exercises),
           Column(
             children: workout.exercises.indexed
                 .map(
@@ -274,7 +277,7 @@ class _ExerciseDetailsHeader extends ConsumerWidget with Logger {
           ),
           ElevatedButton(
             onPressed: () => _onStartPressed(context, ref),
-            child: const Text("Start"), // TODO: I18N
+            child: Text(context.t.routines.workout.start),
           ),
         ],
       );
@@ -385,22 +388,22 @@ class _ExerciseDetailsSetsTableState extends State<_ExerciseDetailsSetsTable> {
     return TableRow(
       children: [
         Text(
-          "Set", // TODO: I18N
+          context.t.routines.workout.set,
           textAlign: TextAlign.center,
           style: textStyle,
         ),
         Text(
-          "Intensity", // TODO: I18N
+          context.t.routines.workout.intensity,
           textAlign: TextAlign.center,
           style: textStyle,
         ),
         Text(
-          "Weight", // TODO: I18N
+          context.t.routines.workout.weight,
           textAlign: TextAlign.center,
           style: textStyle,
         ),
         Text(
-          "Reps", // TODO: I18N
+          context.t.routines.workout.reps,
           textAlign: TextAlign.center,
           style: textStyle,
         ),
@@ -421,12 +424,12 @@ class _ExerciseDetailsSetsTableState extends State<_ExerciseDetailsSetsTable> {
     return TableRow(
       children: [
         Text(
-          "$index", // TODO: I18N
+          "$index",
           textAlign: TextAlign.center,
           style: textStyle,
         ),
         Text(
-          formatIntensity(set.intensity), // TODO: I18N
+          formatIntensity(set.intensity),
           textAlign: TextAlign.center,
           style: textStyle,
         ),
@@ -436,7 +439,7 @@ class _ExerciseDetailsSetsTableState extends State<_ExerciseDetailsSetsTable> {
           style: textStyle,
         ),
         Text(
-          formatReps(set.reps, set.isAmrap), // TODO: I18N
+          formatReps(set.reps, set.isAmrap),
           textAlign: TextAlign.center,
           style: textStyle,
         ),

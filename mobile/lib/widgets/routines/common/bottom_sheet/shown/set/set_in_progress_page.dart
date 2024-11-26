@@ -1,10 +1,13 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:pi_mobile/data/rating_of_perceived_exertion.dart";
 import "package:pi_mobile/data/routine/active_session.dart";
 import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/provider/routine/active_session_service_provider.dart";
+import "package:pi_mobile/utility/option.dart";
 import "package:pi_mobile/widgets/common/number_input.dart";
 import "package:pi_mobile/widgets/routines/common/bottom_sheet/shown/set/common/exercise_name_header.dart";
+import "package:pi_mobile/widgets/routines/common/bottom_sheet/shown/set/common/rating_of_perceived_exertion_slider.dart";
 import "package:pi_mobile/widgets/routines/common/bottom_sheet/shown/set/common/set_count_subheader.dart";
 
 class SetInProgressPage extends ConsumerStatefulWidget {
@@ -35,6 +38,7 @@ class _SetInProgressPageState extends ConsumerState<SetInProgressPage>
     with Logger {
   late final NumberValueNotifier weightValueNotifier;
   late final NumberValueNotifier repsValueNotifier;
+  late final ValueNotifier<RatingOfPerceivedExertion> rpeNotifier;
 
   @override
   void initState() {
@@ -51,6 +55,8 @@ class _SetInProgressPageState extends ConsumerState<SetInProgressPage>
       delta: 1,
       minValueRaw: 0.0,
     );
+
+    rpeNotifier = ValueNotifier(RatingOfPerceivedExertion.noRpe);
   }
 
   @override
@@ -64,19 +70,25 @@ class _SetInProgressPageState extends ConsumerState<SetInProgressPage>
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 64.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+            child: Column(
               children: [
-                NumberInput(
-                  title: "Weight", // TODO: I18N
-                  formatter: _formatWeight,
-                  valueNotifier: weightValueNotifier,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    NumberInput(
+                      title: "Weight", // TODO: I18N
+                      formatter: _formatWeight,
+                      valueNotifier: weightValueNotifier,
+                    ),
+                    NumberInput(
+                      title: "Reps", // TODO: I18N
+                      formatter: _formatReps,
+                      valueNotifier: repsValueNotifier,
+                    ),
+                  ],
                 ),
-                NumberInput(
-                  title: "Reps", // TODO: I18N
-                  formatter: _formatReps,
-                  valueNotifier: repsValueNotifier,
-                ),
+                const SizedBox(height: 16.0),
+                RatingOfPerceivedExertionSlider(rpeNotifier: rpeNotifier),
               ],
             ),
           ),
@@ -99,7 +111,7 @@ class _SetInProgressPageState extends ConsumerState<SetInProgressPage>
           ActiveSessionSetResult(
             weight: weightValueNotifier.value,
             reps: repsValueNotifier.value.round(),
-            rpe: 0,
+            rpe: rpeNotifier.value.toDouble().orElse(0.0),
           ),
         )
         .run();

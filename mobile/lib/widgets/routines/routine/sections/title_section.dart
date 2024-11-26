@@ -59,20 +59,10 @@ class _SingleRoutineEntryText extends StatelessWidget {
                 fontWeight: FontWeight.w700,
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  author,
-                  style: subtitleTextStyle,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                Text(
-                  "how long ago",
-                  style: subtitleTextStyle,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ],
+            Text(
+              author,
+              style: subtitleTextStyle,
+              overflow: TextOverflow.ellipsis,
             ),
           ],
         ),

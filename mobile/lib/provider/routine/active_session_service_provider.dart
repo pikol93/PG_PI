@@ -6,9 +6,12 @@ import "package:loggy/loggy.dart";
 import "package:pi_mobile/data/routine/active_session.dart";
 import "package:pi_mobile/data/routine/session.dart";
 import "package:pi_mobile/logger.dart";
+import "package:pi_mobile/provider/one_rep_max_service_provider.dart";
 import "package:pi_mobile/provider/routine/routines_provider.dart";
 import "package:pi_mobile/provider/routine/session_service_provider.dart";
 import "package:pi_mobile/utility/list.dart";
+import "package:pi_mobile/utility/option.dart";
+import "package:pi_mobile/utility/task.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:shared_preferences/shared_preferences.dart";
 
@@ -66,27 +69,47 @@ class ActiveSessionService with Logger {
 
           await finish().run();
 
+          final oneRepMaxService =
+              await ref.read(oneRepMaxServiceProvider.future);
+
+          final exercises = await workout.exercises
+              .map(
+                (exercise) => oneRepMaxService
+                    .findOneRepMaxHistoryForExercise(exercise.exerciseId)
+                    .map(
+                      (oneRepMaxHistoryOption) => oneRepMaxHistoryOption
+                          .map(
+                            (oneRepMaxHistory) =>
+                                oneRepMaxHistory.findCurrentOneRepMax(),
+                          )
+                          .flatten()
+                          .orElse(50.0),
+                    )
+                    .map(
+                      (oneRepMax) => ActiveSessionExercise(
+                        exerciseId: exercise.exerciseId,
+                        sets: exercise.sets
+                            .map(
+                              (set) => ActiveSessionSet(
+                                expectedIntensity: set.intensity,
+                                expectedReps: set.reps,
+                                expectedWeight: oneRepMax * set.intensity,
+                                expectedRestTimeSeconds: 100,
+                              ),
+                            )
+                            .toList(),
+                      ),
+                    ),
+              )
+              .joinAll()
+              .run();
+
           final session = ActiveSession(
             startingDate: DateTime.now(),
             routineId: routineId,
             workoutId: workoutId,
             currentExerciseIndex: currentExerciseIndex,
-            exercises: workout.exercises
-                .map(
-                  (exercise) => ActiveSessionExercise(
-                    exerciseId: exercise.exerciseId,
-                    sets: exercise.sets
-                        .map(
-                          (set) => ActiveSessionSet(
-                            expectedIntensity: set.intensity,
-                            expectedReps: set.reps,
-                            expectedRestTimeSeconds: 100,
-                          ),
-                        )
-                        .toList(),
-                  ),
-                )
-                .toList(),
+            exercises: exercises,
           );
 
           await _overwrite(session).run();

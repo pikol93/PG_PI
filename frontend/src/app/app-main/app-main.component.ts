@@ -1,11 +1,11 @@
 import payloadData from '../../assets/data/payload.json';
 import { Component } from '@angular/core';
 import { TableModule } from 'primeng/table';
-import { InputTextModule } from 'primeng/inputtext';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ChartModule } from 'primeng/chart';
+import { ButtonModule } from 'primeng/button';
 
 export interface OneRepMax {
   weight: number;
@@ -23,6 +23,8 @@ export interface TrainingExerciseSetDatatable {
   reps: number;
   rpe: number;
   uuid: string;
+  oneRepMax: number;
+  groupedByDate: string;
 }
 
 export interface TrainingExerciseSet {
@@ -57,14 +59,25 @@ export interface Payload {
 @Component({
   selector: 'app-main',
   standalone: true,
-  imports: [TableModule, ChartModule, InputTextModule, MultiSelectModule, CommonModule, FormsModule],  
+  imports: [TableModule, ChartModule, MultiSelectModule, CommonModule, FormsModule, ButtonModule],
   templateUrl: './app-main.component.html',
   styleUrl: './app-main.component.css',
 })
 export class AppMainComponent {
+
   payload: Payload = this.transformPayload(payloadData);
-  data: any;
+  graphData: any;
   chartOptions: any;
+  isSelectCheckboxDisabled = true;
+  showChart: boolean = false;
+  isGraphButtonDisabled: boolean = true;
+
+  uniqueExerciseNames: { label: string, value: string }[] = [];
+
+  constructor() {
+    this.uniqueExerciseNames = Array.from(new Set(this.allRows.map(row => row.name)))
+      .map(name => ({ label: name, value: name }));
+  }
 
   private transformPayload(data: any): Payload {
     data.trainings.forEach((training: any) => {
@@ -90,6 +103,7 @@ export class AppMainComponent {
           reps: set.reps,
           rpe: set.rpe,
           uuid: set.uuid,
+          oneRepMax: this.findOneRepMaxForDate(training.date.toISOString().split('T')[0], exercise.name)?.weight,
         };
       });
     });
@@ -107,7 +121,25 @@ export class AppMainComponent {
   }
 
   onFilterChange(event: any) {
-    console.log('Current filters:', event.filters);
+    const filterValue = event.filters.name?.value || [];
+    if (filterValue.length === 1) {
+      this.isGraphButtonDisabled = false;
+      this.isSelectCheckboxDisabled = false;
+    } else {
+      this.isSelectCheckboxDisabled = true;
+      this.isGraphButtonDisabled = true;
+      this.showChart = false;
+      this.selectedSets = [];
+    }
+  }
+
+  toggleChart() {
+    this.showChart = !this.showChart;
+  }
+
+  formatDate(date: Date): string {
+    const options: Intl.DateTimeFormatOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    return new Intl.DateTimeFormat('pl-PL', options).format(date);
   }
 
   private updateChartData() {
@@ -116,12 +148,12 @@ export class AppMainComponent {
 
     const dates = this.selectedSets.map(set => set.date.toISOString().split('T')[0]);
     dates.sort();
-  
+
     const lineData = dates.map(date => {
       const oneRepMax = this.findOneRepMaxForDate(date, this.selectedSets[0].name);
       return oneRepMax ? oneRepMax.weight : 0;
     });
-  
+
     const barData = this.selectedSets.map(set => set.weight);
 
     const colors = [
@@ -131,7 +163,7 @@ export class AppMainComponent {
       'rgba(75, 192, 192, 0.2)',
       'rgba(153, 102, 255, 0.2)',
     ];
-    
+
     const borderColors = [
       'rgba(255, 99, 132, 1)',
       'rgba(54, 162, 235, 1)',
@@ -139,7 +171,7 @@ export class AppMainComponent {
       'rgba(75, 192, 192, 1)',
       'rgba(153, 102, 255, 1)',
     ];
-    
+
     const dateColorMap = new Map<string, string>();
     const dateBorderColorMap = new Map<string, string>();
 
@@ -149,15 +181,19 @@ export class AppMainComponent {
       dateBorderColorMap.set(date, borderColors[colorIndex]);
     });
 
+    const expectedOneRepMaxData = this.selectedSets.map(set =>
+      this.calculateExpectedOneRepMax(set.weight, set.reps).toFixed(0)
+    );
+
     const barBackgroundColors = dates.map(date => dateColorMap.get(date));
     const barBorderColors = dates.map(date => dateBorderColorMap.get(date));
 
-    this.data = {
+    this.graphData = {
       labels: dates,
       datasets: [
         {
           type: 'line',
-          label: 'One Rep Max',
+          label: '1RM',
           data: lineData,
           backgroundColor: 'rgba(75, 192, 192, 0.2)',
           borderColor: 'rgba(75, 192, 192, 1)',
@@ -171,10 +207,23 @@ export class AppMainComponent {
           borderColor: barBorderColors,
           borderWidth: 1,
         },
-      ],
+        {
+          type: 'scatter',
+          label: 'Expected 1RM',
+          data: expectedOneRepMaxData,
+          backgroundColor: 'rgba(255, 159, 64, 0.2)',
+          borderColor: 'rgba(255, 159, 64, 1)',
+          borderWidth: 1,
+          pointStyle: 'star',
+        }
+      ]
     };
-  
+
     this.chartOptions = {
+      interaction: {
+        mode: 'index',
+        intersect: false,
+      },
       scales: {
         x: {
           grid: {
@@ -189,14 +238,25 @@ export class AppMainComponent {
       },
       plugins: {
         legend: {
-          display: false
-        }
-      },
-      elements: {
-        bar: {
-          barPercentage: 1.0,
-          categoryPercentage: 1.0
+          labels: {
+            filter: function (item: any, chart: any) {
+              return item.text !== 'Selected Sets';
+            },
+            usePointStyle: true,
+          }
         },
+        tooltip: {
+          mode: 'index',
+          intersect: false,
+          callbacks: {
+            label: function (context: any) {
+              if (context.dataset.label === 'Expected 1RM') {
+                return `Expected 1RM: ${context.raw}`;
+              }
+              return `${context.dataset.label}: ${context.raw}`;
+            }
+          }
+        }
       }
     };
   }
@@ -214,5 +274,25 @@ export class AppMainComponent {
       }
     }
     return null;
+  }
+
+  calculateExpectedOneRepMax(weight: number, repetitions: number): number {
+    const percentageMap = new Map<number, number>([
+      [1, 1.00],
+      [2, 0.97],
+      [3, 0.94],
+      [4, 0.92],
+      [5, 0.89],
+      [6, 0.86],
+      [7, 0.83],
+      [8, 0.81],
+      [9, 0.78],
+      [10, 0.75],
+      [11, 0.73],
+      [12, 0.71],
+    ]);
+
+    const percentage = percentageMap.get(repetitions) || 0.71;
+    return weight / percentage;
   }
 }

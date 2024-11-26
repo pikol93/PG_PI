@@ -49,6 +49,7 @@ class ActiveSessionSet with _$ActiveSessionSet {
     required double expectedIntensity,
     required int expectedReps,
     required int expectedRestTimeSeconds,
+    required double expectedWeight,
     @Default(ActiveSessionSetResultUnion.toBeDone())
     ActiveSessionSetResultUnion result,
   }) = _ActiveSessionSet;

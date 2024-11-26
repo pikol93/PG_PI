@@ -1,18 +1,24 @@
 import "package:awesome_flutter_extensions/awesome_flutter_extensions.dart";
 import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:fpdart/fpdart.dart";
 import "package:pi_mobile/logger.dart";
+import "package:pi_mobile/provider/date_formatter_provider.dart";
 import "package:pi_mobile/routing/routes_routines.dart";
+import "package:pi_mobile/utility/option.dart";
 
 class SingleRoutineEntryWidget extends StatelessWidget with Logger {
   final int routineId;
   final String routineName;
   final String author;
+  final Option<DateTime> lastUsageTime;
 
   const SingleRoutineEntryWidget({
     super.key,
     required this.routineId,
     required this.routineName,
     required this.author,
+    required this.lastUsageTime,
   });
 
   @override
@@ -26,6 +32,7 @@ class SingleRoutineEntryWidget extends StatelessWidget with Logger {
               _SingleRoutineEntryText(
                 routineName: routineName,
                 author: author,
+                lastUsageTime: lastUsageTime,
               ),
             ],
           ),
@@ -47,17 +54,19 @@ class _SingleRoutineEntryIcon extends StatelessWidget {
       );
 }
 
-class _SingleRoutineEntryText extends StatelessWidget {
+class _SingleRoutineEntryText extends ConsumerWidget with Logger {
   final String routineName;
   final String author;
+  final Option<DateTime> lastUsageTime;
 
   const _SingleRoutineEntryText({
     required this.routineName,
     required this.author,
+    required this.lastUsageTime,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final subtitleTextStyle = context.textStyles.bodyMedium.copyWith(
       fontWeight: FontWeight.w200,
     );
@@ -82,7 +91,13 @@ class _SingleRoutineEntryText extends StatelessWidget {
                   style: subtitleTextStyle,
                 ),
                 Text(
-                  "how long ago",
+                  lastUsageTime
+                      .map(
+                        (lastUsageTime) => ref
+                            .read(dateFormatterProvider)
+                            .fullDate(lastUsageTime),
+                      )
+                      .orElse(""),
                   style: subtitleTextStyle,
                 ),
               ],

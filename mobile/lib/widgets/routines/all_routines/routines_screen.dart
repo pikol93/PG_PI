@@ -80,6 +80,7 @@ class _Section extends StatelessWidget {
                     routineName: routine.routine.name,
                     routineId: routine.routine.id,
                     author: routine.routine.author,
+                    lastUsageTime: routine.getMostRecentDateTime(),
                   ),
                 )
                 .toList(),

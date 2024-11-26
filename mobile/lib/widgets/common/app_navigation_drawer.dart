@@ -18,15 +18,15 @@ class AppNavigationDrawer extends StatelessWidget {
           padding: EdgeInsets.zero,
           children: [
             UserAccountsDrawerHeader(
-              accountName: const Text("my stronk account name"),
-              accountEmail: const Text("stronk@email.mail"),
+              accountName: const Text("PG_PI"),
+              accountEmail: null,
               currentAccountPicture: CircleAvatar(
                 child: ClipOval(
-                  child: Image.asset("assets/stronk.png"),
+                  child: Image.asset("assets/icon_display.png"),
                 ),
               ),
               decoration: const BoxDecoration(
-                color: Colors.pinkAccent,
+                color: Colors.redAccent,
                 image: DecorationImage(
                   image: AssetImage("assets/stronk_background.png"),
                   fit: BoxFit.cover,

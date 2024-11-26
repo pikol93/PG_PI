@@ -22,6 +22,13 @@
         "title": "Nagrywanie pozycji",
         "text": "Dotknij, aby powrócić do aplikacji"
       }
+    },
+    "permissions": {
+      "request": "Zażądaj uprawnień",
+      "allow": "Zezwól"
+    },
+    "record": {
+      "title": "Nagraj pozycję"
     }
   },
   "common": {
@@ -31,7 +38,6 @@
     "date": "Data",
     "dismiss": "Odrzuć",
     "ok": "Ok"
-
   },
   "error": {
     "title": "Błąd",
@@ -78,7 +84,92 @@
     "delete": "Usuń rutynę",
     "areYouSureYouWantToDelete": "Czy na pewno chcesz usunąć",
     "youDidntFinishLastTrainingMessage": "Nie skończyłeś swojego poprzedniego treningu, najpierw zamknij go w zakładce Historia",
-    "gotDeleted": "Usunięto rutynę"
+    "gotDeleted": "Usunięto rutynę",
+
+    "yourRoutines": "Twoje rutyny",
+    "otherRoutines": "Rutyny",
+    "exercise": {
+      "exercises": "Ćwiczenia",
+      "endExercise": "Zakończ ćwiczenie",
+      "completed": "Ćwiczenie zakończone",
+      "doAnotherSet": "Wykonaj następny zestaw ćwiczeń",
+      "selectAnother": "Wybierz inne ćwiczenie",
+      "setDone": "Zakończ zestaw"
+    },
+    "routine": {
+      "title": "Rutyna",
+      "section": {
+        "oneRepMax": "1RM rutyny",
+        "workouts": "Treningi"
+      },
+      "missing": "Brak rutyny"
+    },
+    "workout": {
+      "title": "Trening",
+      "start": "Start",
+      "set": "Zestaw",
+      "intensity": "Intensywność",
+      "weight": "Ciężar",
+      "reps": "Powtórzenia",
+      "endWorkout": "Zakończ trening",
+      "restTime": "Przerwa",
+      "restDone": "Zakończ przerwę",
+      "restIsDone": "Koniec przerwy",
+      "viewHistory": "Zobacz historię",
+      "noSessionInHistory": "Brak sesji w historii"
+    },
+    "rpe": {
+      "title": "Ocena odczuwanego wysiłku (RPE)",
+      "values(context=RatingOfPerceivedExertionI18N)": {
+        "noRpe": "Brak danych",
+        "rpe6": "RPE 6",
+        "rpe6AndAHalf": "RPE 6.5",
+        "rpe7": "RPE 7",
+        "rpe7AndAHalf": "RPE 7.5",
+        "rpe8": "RPE 8",
+        "rpe8AndAHalf": "RPE 8.5",
+        "rpe9": "RPE 9",
+        "rpe9AndAHalf": "RPE 9.5",
+        "rpe10": "RPE 10"
+      }
+    },
+    "routines(map)": {
+      "routine531ForBeginners(map)": {
+        "name": "5/3/1 for Beginners",
+        "workouts(map)": {
+          "week1Monday": "Tydzień 1 poniedziałek",
+          "week1Wednesday": "Tydzień 1 środa",
+          "week1Friday": "Tydzień 1 piątek",
+          "week2Monday": "Tydzień 2 poniedziałek",
+          "week2Wednesday": "Tydzień 2 środa",
+          "week2Friday": "Tydzień 2 piątek",
+          "week3Monday": "Tydzień 3 poniedziałek",
+          "week3Wednesday": "Tydzień 3 środa",
+          "week3Friday": "Tydzień 3 piątek"
+        }
+      },
+      "routine531BoringButBig(map)": {
+        "name": "5/3/1 Boring But Big (BBB)",
+        "workouts(map)": {
+          "week1Day1": "Tydzień 1 dzień 1",
+          "week1Day2": "Tydzień 1 dzień 2",
+          "week1Day3": "Tydzień 1 dzień 3",
+          "week1Day4": "Tydzień 1 dzień 4",
+          "week2Day1": "Tydzień 2 dzień 1",
+          "week2Day2": "Tydzień 2 dzień 2",
+          "week2Day3": "Tydzień 2 dzień 3",
+          "week2Day4": "Tydzień 2 dzień 4",
+          "week3Day1": "Tydzień 3 dzień 1",
+          "week3Day2": "Tydzień 3 dzień 2",
+          "week3Day3": "Tydzień 3 dzień 3",
+          "week3Day4": "Tydzień 3 dzień 4",
+          "week4Day1": "Tydzień 4 dzień 1",
+          "week4Day2": "Tydzień 4 dzień 2",
+          "week4Day3": "Tydzień 4 dzień 3",
+          "week4Day4": "Tydzień 4 dzień 4"
+        }
+      }
+    }
   },
   "exercises": {
     "title": "Ćwiczenia",
@@ -365,6 +456,9 @@
     "back": "Wróć",
     "averageRPE": "Średnie RPE",
     "notes": "Notatki"
+  },
+  "calendar": {
+    "title": "Kalendarz"
   },
   "settings": {
     "title": "Ustawienia",

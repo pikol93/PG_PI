@@ -8,6 +8,7 @@ import "package:pi_mobile/provider/routine/active_session_service_provider.dart"
 import "package:pi_mobile/utility/async_value.dart";
 import "package:pi_mobile/utility/map.dart";
 import "package:pi_mobile/utility/option.dart";
+import "package:pi_mobile/widgets/routines/common/section_content.dart";
 
 class ExerciseSelectionEntry extends ConsumerWidget with Logger {
   final int index;
@@ -29,34 +30,47 @@ class ExerciseSelectionEntry extends ConsumerWidget with Logger {
         .map((model) => model.name)
         .orElse("Exercise");
 
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-        decoration: BoxDecoration(
-          color: context.colors.scheme.primaryContainer,
+    final titleRowWidgets = <Widget>[
+      Expanded(
+        child: Text(
+          exerciseName,
+          overflow: TextOverflow.ellipsis,
+          style: context.textStyles.bodyLarge.copyWith(
+            fontWeight: FontWeight.w600,
+          ),
         ),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
+      ),
+    ];
+
+    if (exercise.isCompleted()) {
+      titleRowWidgets.add(
+        const Icon(
+          Icons.check_circle_outline,
+          color: Colors.greenAccent,
+        ),
+      );
+    }
+
+    return SectionContent(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Row(
+            children: titleRowWidgets,
+          ),
+          const SizedBox(height: 16.0),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Expanded(
-                child: Text(
-                  exerciseName,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Text("${exercise.sets.length} sets"), // TODO: I18N
-              ),
               ElevatedButton(
                 onPressed: () => _onStartPressed(ref),
-                child: const Text("Start"),
+                child: exercise.isStarted()
+                    ? const Text("Continue")
+                    : const Text("Start"),
               ),
             ],
           ),
-        ),
+        ],
       ),
     );
   }

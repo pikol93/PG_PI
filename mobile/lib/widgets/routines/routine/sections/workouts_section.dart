@@ -80,7 +80,7 @@ class _WorkoutWidget extends StatelessWidget with Logger {
                 ),
                 ElevatedButton(
                   onPressed: () => _onViewPressed(context),
-                  child: const Text("View"),
+                  child: Text(context.t.routines.view),
                 ),
               ],
             ),

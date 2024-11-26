@@ -85,9 +85,9 @@
     "areYouSureYouWantToDelete": "Czy na pewno chcesz usunąć",
     "youDidntFinishLastTrainingMessage": "Nie skończyłeś swojego poprzedniego treningu, najpierw zamknij go w zakładce Historia",
     "gotDeleted": "Usunięto rutynę",
-
     "yourRoutines": "Twoje rutyny",
     "otherRoutines": "Rutyny",
+    "view": "Zobacz",
     "exercise": {
       "exercises": "Ćwiczenia",
       "endExercise": "Zakończ ćwiczenie",
@@ -99,7 +99,7 @@
     "routine": {
       "title": "Rutyna",
       "section": {
-        "oneRepMax": "1RM rutyny",
+        "oneRepMax": "1RM rutyn",
         "workouts": "Treningi"
       },
       "missing": "Brak rutyny"

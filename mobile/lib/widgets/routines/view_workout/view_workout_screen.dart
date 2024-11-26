@@ -120,12 +120,13 @@ class _ExercisesSection extends StatelessWidget {
         children: [
           const SectionHeader(title: "Exercises"), // TODO: I18N
           Column(
-            children: workout.exercises
+            children: workout.exercises.indexed
                 .map(
                   (exercise) => _ExerciseDetails(
+                    exerciseIndex: exercise.$1,
                     routineId: routineId,
                     workout: workout,
-                    exercise: exercise,
+                    exercise: exercise.$2,
                   ),
                 )
                 .toList(),
@@ -135,11 +136,13 @@ class _ExercisesSection extends StatelessWidget {
 }
 
 class _ExerciseDetails extends ConsumerWidget with Logger {
+  final int exerciseIndex;
   final int routineId;
   final Workout workout;
   final WorkoutExercise exercise;
 
   const _ExerciseDetails({
+    required this.exerciseIndex,
     required this.routineId,
     required this.workout,
     required this.exercise,
@@ -150,6 +153,7 @@ class _ExerciseDetails extends ConsumerWidget with Logger {
         child: Column(
           children: [
             _ExerciseDetailsHeader(
+              exerciseIndex: exerciseIndex,
               routineId: routineId,
               workout: workout,
               exercise: exercise,
@@ -161,11 +165,13 @@ class _ExerciseDetails extends ConsumerWidget with Logger {
 }
 
 class _ExerciseDetailsHeader extends ConsumerWidget with Logger {
+  final int exerciseIndex;
   final int routineId;
   final Workout workout;
   final WorkoutExercise exercise;
 
   const _ExerciseDetailsHeader({
+    required this.exerciseIndex,
     required this.routineId,
     required this.workout,
     required this.exercise,
@@ -216,7 +222,7 @@ class _ExerciseDetailsHeader extends ConsumerWidget with Logger {
     logger.debug("Start pressed for exercise ${exercise.exerciseId}");
     final result = await ref
         .read(activeSessionServiceProvider)
-        .initiate(routineId, workout.id, const fpdart.Option.none())
+        .initiate(routineId, workout.id, fpdart.Option.of(exerciseIndex))
         .run();
 
     logger.debug("Start result: $result");

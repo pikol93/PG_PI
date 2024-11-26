@@ -12,4 +12,15 @@ extension DateTimeExtension on DateTime {
   DateTime toMidnightSameDay() => DateTime(year, month, day);
 
   DateTime toMidnightNextDay() => DateTime(year, month, day + 1);
+
+  DateTime clamp(DateTime min, DateTime max) {
+    if (min.isAfter(this)) {
+      return min;
+    }
+    if (max.isBefore(this)) {
+      return max;
+    }
+
+    return this;
+  }
 }

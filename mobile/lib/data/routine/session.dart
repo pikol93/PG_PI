@@ -25,4 +25,5 @@ class SessionSet {
   late double weight;
   late int reps;
   late double rpe;
+  late int restTimeSeconds;
 }

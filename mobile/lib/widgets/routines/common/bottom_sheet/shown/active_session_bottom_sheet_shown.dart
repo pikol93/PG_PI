@@ -1,7 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pi_mobile/data/routine/active_session.dart";
-import "package:pi_mobile/provider/routine/active_session_service_provider.dart";
 import "package:pi_mobile/widgets/routines/common/bottom_sheet/shown/active_session_bottom_sheet_shown_header.dart";
 import "package:pi_mobile/widgets/routines/common/bottom_sheet/shown/sheet_body.dart";
 
@@ -19,13 +18,6 @@ class ActiveSessionBottomSheetShown extends ConsumerWidget {
           const SizedBox(height: 32.0),
           ActiveSessionBottomSheetShownHeader(activeSession: activeSession),
           SheetBody(activeSession: activeSession),
-          ElevatedButton(
-            onPressed: () => ref
-                .read(activeSessionServiceProvider)
-                .removeMeRemoveMeRemoveMe()
-                .run(),
-            child: const Text("Clear"),
-          ),
         ],
       );
 }

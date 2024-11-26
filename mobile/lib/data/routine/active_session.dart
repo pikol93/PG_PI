@@ -39,6 +39,15 @@ class ActiveSessionExercise with _$ActiveSessionExercise {
           ToBeDone() => false,
         },
       );
+
+  bool isStarted() => sets.any(
+        (set) => switch (set.result) {
+          Completed() => true,
+          Rest() => true,
+          Skipped() => true,
+          ToBeDone() => false,
+        },
+      );
 }
 
 @freezed

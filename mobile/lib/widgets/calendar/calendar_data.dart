@@ -4,7 +4,7 @@ import "package:fpdart/fpdart.dart";
 import "package:pi_mobile/data/collections/heart_rate.dart";
 import "package:pi_mobile/data/collections/track.dart";
 import "package:pi_mobile/provider/heart_rate_list_provider.dart";
-import "package:pi_mobile/provider/tracks_provider.dart";
+import "package:pi_mobile/provider/tracks/tracks_provider.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:table_calendar/table_calendar.dart";
 

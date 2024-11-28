@@ -14,7 +14,7 @@ import "package:pi_mobile/provider/heart_rate_list_provider.dart";
 import "package:pi_mobile/provider/package_info_provider.dart";
 import "package:pi_mobile/provider/stored_locale_provider.dart";
 import "package:pi_mobile/provider/theme_provider.dart";
-import "package:pi_mobile/provider/tracks_provider.dart";
+import "package:pi_mobile/provider/tracks/tracks_provider.dart";
 import "package:pi_mobile/service/stored_locale_service.dart";
 import "package:pi_mobile/widgets/settings/development_setting.dart";
 import "package:pi_mobile/widgets/settings/setting_button.dart";

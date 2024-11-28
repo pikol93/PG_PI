@@ -1,5 +1,5 @@
 import "package:pi_mobile/data/processed_track.dart";
-import "package:pi_mobile/provider/recorded_track_provider.dart";
+import "package:pi_mobile/provider/tracks/recorded_track_provider.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 part "processed_recorded_track_provider.g.dart";

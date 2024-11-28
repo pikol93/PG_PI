@@ -4,7 +4,7 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:fpdart/fpdart.dart";
 import "package:pi_mobile/provider/date_formatter_provider.dart";
 import "package:pi_mobile/provider/heart_rate_list_provider.dart";
-import "package:pi_mobile/provider/tracks_provider.dart";
+import "package:pi_mobile/provider/tracks/tracks_provider.dart";
 import "package:pi_mobile/widgets/calendar/calendar_data.dart";
 import "package:pi_mobile/widgets/calendar/calendar_event_details.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";

@@ -5,11 +5,10 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:fpdart/fpdart.dart";
 import "package:freezed_annotation/freezed_annotation.dart";
 import "package:pi_mobile/logger.dart";
-import "package:pi_mobile/provider/dio_instance_provider.dart";
+import "package:pi_mobile/provider/connection/dio_instance_provider.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 part "sharing_service_provider.g.dart";
-
 part "sharing_service_provider.freezed.dart";
 
 @riverpod

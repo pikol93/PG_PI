@@ -5,7 +5,7 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pi_mobile/data/app_theme.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/logger.dart";
-import "package:pi_mobile/provider/connection_settings_provider.dart";
+import "package:pi_mobile/provider/connection/connection_settings_provider.dart";
 import "package:pi_mobile/provider/date_formatter_provider.dart";
 import "package:pi_mobile/provider/development_mode_provider.dart";
 import "package:pi_mobile/provider/exercise_model_service_provider.dart";

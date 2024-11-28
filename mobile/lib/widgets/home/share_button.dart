@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pi_mobile/logger.dart";
-import "package:pi_mobile/provider/sharing_service_provider.dart";
+import "package:pi_mobile/provider/connection/sharing_service_provider.dart";
 
 class ShareButton extends ConsumerWidget with Logger {
   const ShareButton({super.key});

@@ -2,7 +2,7 @@ import "package:awesome_flutter_extensions/awesome_flutter_extensions.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pi_mobile/logger.dart";
-import "package:pi_mobile/provider/date_formatter_provider.dart";
+import "package:pi_mobile/provider/preferences/date_formatter_provider.dart";
 import "package:pi_mobile/utility/datetime.dart";
 import "package:pi_mobile/widgets/calendar/calendar_data.dart";
 import "package:pi_mobile/widgets/calendar/calendar_icon.dart";

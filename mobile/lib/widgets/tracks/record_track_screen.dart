@@ -8,7 +8,7 @@ import "package:pi_mobile/data/collections/track.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/main.dart";
-import "package:pi_mobile/provider/date_formatter_provider.dart";
+import "package:pi_mobile/provider/preferences/date_formatter_provider.dart";
 import "package:pi_mobile/provider/tracks/processed_recorded_track_provider.dart";
 import "package:pi_mobile/provider/tracks/recorded_track_provider.dart";
 import "package:pi_mobile/provider/tracks/tracks_provider.dart";

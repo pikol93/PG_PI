@@ -1,7 +1,7 @@
 import "package:pi_mobile/data/built_in_exercises.dart";
 import "package:pi_mobile/data/exercise_model.dart";
 import "package:pi_mobile/logger.dart";
-import "package:pi_mobile/provider/date_formatter_provider.dart";
+import "package:pi_mobile/provider/preferences/date_formatter_provider.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 part "built_in_exercise_models_provider.g.dart";

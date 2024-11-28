@@ -6,8 +6,8 @@ import "package:fpdart/fpdart.dart";
 import "package:go_router/go_router.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/logger.dart";
-import "package:pi_mobile/provider/date_formatter_provider.dart";
 import "package:pi_mobile/provider/exercise/one_rep_max_service_provider.dart";
+import "package:pi_mobile/provider/preferences/date_formatter_provider.dart";
 import "package:pi_mobile/widgets/common/scaffold/app_scaffold.dart";
 
 class OneRepMaxModifyScreen extends ConsumerStatefulWidget {

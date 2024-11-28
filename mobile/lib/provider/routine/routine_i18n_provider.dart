@@ -1,6 +1,6 @@
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:fpdart/fpdart.dart";
-import "package:pi_mobile/provider/date_formatter_provider.dart";
+import "package:pi_mobile/provider/preferences/date_formatter_provider.dart";
 import "package:pi_mobile/utility/map.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 

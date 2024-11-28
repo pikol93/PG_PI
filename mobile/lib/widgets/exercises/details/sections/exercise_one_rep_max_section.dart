@@ -6,8 +6,8 @@ import "package:fpdart/fpdart.dart" as fpdart;
 import "package:pi_mobile/data/collections/one_rep_max_history.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/logger.dart";
-import "package:pi_mobile/provider/date_formatter_provider.dart";
 import "package:pi_mobile/provider/exercise/one_rep_max_service_provider.dart";
+import "package:pi_mobile/provider/preferences/date_formatter_provider.dart";
 import "package:pi_mobile/routing/routes_exercises.dart";
 import "package:pi_mobile/utility/async_value.dart";
 

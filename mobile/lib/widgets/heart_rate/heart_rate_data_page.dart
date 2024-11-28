@@ -2,8 +2,8 @@ import "package:awesome_flutter_extensions/awesome_flutter_extensions.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pi_mobile/data/collections/heart_rate.dart";
-import "package:pi_mobile/provider/date_formatter_provider.dart";
 import "package:pi_mobile/provider/heart_rate_list_provider.dart";
+import "package:pi_mobile/provider/preferences/date_formatter_provider.dart";
 import "package:pi_mobile/routing/routes_heart_rate.dart";
 
 class HeartRateDataPage extends ConsumerWidget {

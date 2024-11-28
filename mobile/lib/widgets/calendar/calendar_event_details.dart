@@ -2,7 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pi_mobile/data/collections/heart_rate.dart";
 import "package:pi_mobile/data/collections/track.dart";
-import "package:pi_mobile/provider/date_formatter_provider.dart";
+import "package:pi_mobile/provider/preferences/date_formatter_provider.dart";
 import "package:pi_mobile/utility/duration.dart";
 
 class HeartRateCalendarEventDetails extends ConsumerWidget {

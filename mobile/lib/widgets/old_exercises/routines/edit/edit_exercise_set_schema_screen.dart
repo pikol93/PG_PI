@@ -3,7 +3,6 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pi_mobile/data/strength_exercise_set_schema.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/provider/schemas_provider.dart";
-import "package:pi_mobile/routing/routes_old_exercises.dart";
 
 class EditExerciseSetSchemaScreen extends ConsumerStatefulWidget {
   final String routineUuid;
@@ -121,11 +120,11 @@ class _EditExerciseSetSchemaScreen
         );
 
     if (context.mounted) {
-      EditExerciseSchemaRoute(
-        routineUuid: widget.routineUuid,
-        workoutUuid: widget.workoutUuid,
-        exerciseUuid: widget.exerciseUuid,
-      ).go(context);
+      // EditExerciseSchemaRoute(
+      //   routineUuid: widget.routineUuid,
+      //   workoutUuid: widget.workoutUuid,
+      //   exerciseUuid: widget.exerciseUuid,
+      // ).go(context);
     }
   }
 }

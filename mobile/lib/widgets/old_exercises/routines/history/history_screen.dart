@@ -3,7 +3,6 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:intl/intl.dart";
 import "package:pi_mobile/provider/date_formatter_provider.dart";
 import "package:pi_mobile/provider/trainings_provider.dart";
-import "package:pi_mobile/routing/routes_old_exercises.dart";
 
 import "../../../../i18n/strings.g.dart";
 
@@ -60,7 +59,7 @@ class HistoryScreen extends ConsumerWidget {
       );
 
   void _onFinishedTap(BuildContext context, String trainingUuid) {
-    HistoryRecordRoute(trainingUuid: trainingUuid).go(context);
+    // HistoryRecordRoute(trainingUuid: trainingUuid).go(context);
   }
 
   void _onPendingTap(
@@ -68,9 +67,9 @@ class HistoryScreen extends ConsumerWidget {
     String routineUuid,
     String trainingUuid,
   ) {
-    OpenWorkoutTrainingRoute(
-      trainingUuid: trainingUuid,
-      routineUuid: routineUuid,
-    ).go(context);
+    // OpenWorkoutTrainingRoute(
+    //   trainingUuid: trainingUuid,
+    //   routineUuid: routineUuid,
+    // ).go(context);
   }
 }

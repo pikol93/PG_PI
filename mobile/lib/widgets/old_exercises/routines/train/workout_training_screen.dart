@@ -3,7 +3,6 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pi_mobile/data/training.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/provider/trainings_provider.dart";
-import "package:pi_mobile/routing/routes_old_exercises.dart";
 
 class WorkoutTrainingScreen extends ConsumerStatefulWidget {
   final String routineUuid;
@@ -123,7 +122,7 @@ class _WorkoutTrainingScreen extends ConsumerState<WorkoutTrainingScreen> {
   ) async {
     await ref.read(trainingsProvider.notifier).endTraining(trainingUuid);
     if (context.mounted) {
-      HistoryRecordRoute(trainingUuid: trainingUuid).go(context);
+      // HistoryRecordRoute(trainingUuid: trainingUuid).go(context);
     }
   }
 
@@ -132,10 +131,10 @@ class _WorkoutTrainingScreen extends ConsumerState<WorkoutTrainingScreen> {
     String trainingUuid,
     String exerciseUuid,
   ) {
-    OpenExerciseTrainingRoute(
-      trainingUuid: trainingUuid,
-      exerciseUuid: exerciseUuid,
-      routineUuid: widget.routineUuid,
-    ).go(context);
+    // OpenExerciseTrainingRoute(
+    //   trainingUuid: trainingUuid,
+    //   exerciseUuid: exerciseUuid,
+    //   routineUuid: widget.routineUuid,
+    // ).go(context);
   }
 }

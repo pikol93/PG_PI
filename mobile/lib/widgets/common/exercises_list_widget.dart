@@ -3,7 +3,6 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pi_mobile/data/strength_exercise_schema.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/provider/schemas_provider.dart";
-import "package:pi_mobile/routing/routes_old_exercises.dart";
 
 class ExercisesListWidget extends ConsumerStatefulWidget {
   final String routineUuid;
@@ -62,11 +61,11 @@ class _ExercisesListWidget extends ConsumerState<ExercisesListWidget> {
     String workoutUuid,
     String exerciseUuid,
   ) {
-    EditExerciseSchemaRoute(
-      routineUuid: routineUuid,
-      workoutUuid: workoutUuid,
-      exerciseUuid: exerciseUuid,
-    ).go(context);
+    // EditExerciseSchemaRoute(
+    //   routineUuid: routineUuid,
+    //   workoutUuid: workoutUuid,
+    //   exerciseUuid: exerciseUuid,
+    // ).go(context);
   }
 
   Future<void> _onDeleteButtonPressed(

@@ -5,7 +5,6 @@ import "package:pi_mobile/data/training_exercise_set.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/provider/one_rep_max_provider.dart";
 import "package:pi_mobile/provider/trainings_provider.dart";
-import "package:pi_mobile/routing/routes_old_exercises.dart";
 
 class ExerciseSetTrainingScreen extends ConsumerStatefulWidget {
   final String routineUuid;
@@ -167,11 +166,11 @@ class _ExerciseSetTrainingScreen
       }
     }
     if (context.mounted) {
-      OpenExerciseTrainingRoute(
-        routineUuid: widget.routineUuid,
-        trainingUuid: widget.trainingUuid,
-        exerciseUuid: widget.exerciseUuid,
-      ).go(context);
+      // OpenExerciseTrainingRoute(
+      //   routineUuid: widget.routineUuid,
+      //   trainingUuid: widget.trainingUuid,
+      //   exerciseUuid: widget.exerciseUuid,
+      // ).go(context);
     }
   }
 

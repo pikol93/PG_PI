@@ -1,6 +1,5 @@
 import "package:flutter/material.dart";
 import "package:pi_mobile/data/workout_schema.dart";
-import "package:pi_mobile/routing/routes_old_exercises.dart";
 
 class WorkoutsListWidget extends StatelessWidget {
   final String routineUuid;
@@ -28,7 +27,7 @@ class WorkoutsListWidget extends StatelessWidget {
       );
 
   void _onTap(BuildContext context, String routineUuid, String workoutUuid) {
-    EditWorkoutSchemaRoute(routineUuid: routineUuid, workoutUuid: workoutUuid)
-        .go(context);
+    // EditWorkoutSchemaRoute(routineUuid: routineUuid, workoutUuid: workoutUuid)
+    //     .go(context);
   }
 }

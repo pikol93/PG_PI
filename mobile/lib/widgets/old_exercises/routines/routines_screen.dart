@@ -5,7 +5,6 @@ import "package:pi_mobile/data/workload.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/provider/schemas_provider.dart";
-import "package:pi_mobile/routing/routes_old_exercises.dart";
 import "package:pi_mobile/widgets/common/routines_list_widget.dart";
 import "package:uuid/uuid.dart";
 
@@ -53,7 +52,7 @@ class _RoutinesScreenState extends ConsumerState<RoutinesScreen> {
         );
 
     if (context.mounted) {
-      EditRoutineSchemaRoute(routineUuid: routineUuid).go(context);
+      // EditRoutineSchemaRoute(routineUuid: routineUuid).go(context);
     }
   }
 }

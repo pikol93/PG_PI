@@ -6,7 +6,6 @@ import "package:pi_mobile/data/routine_schema.dart";
 import "package:pi_mobile/data/workout_schema.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/provider/schemas_provider.dart";
-import "package:pi_mobile/routing/routes_old_exercises.dart";
 import "package:pi_mobile/widgets/common/workouts_list_widget.dart";
 import "package:uuid/uuid.dart";
 
@@ -129,10 +128,10 @@ class _EditRoutineSchemaScreenState
           WorkoutSchema(uuid: workoutUuid, name: "", exercisesSchemas: []),
         );
     if (context.mounted) {
-      EditWorkoutSchemaRoute(
-        routineUuid: widget.routineUuid,
-        workoutUuid: workoutUuid,
-      ).go(context);
+      // EditWorkoutSchemaRoute(
+      //   routineUuid: widget.routineUuid,
+      //   workoutUuid: workoutUuid,
+      // ).go(context);
     }
   }
 }

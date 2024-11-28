@@ -5,7 +5,6 @@ import "package:pi_mobile/data/routine_schema.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/provider/schemas_provider.dart";
 import "package:pi_mobile/provider/trainings_provider.dart";
-import "package:pi_mobile/routing/routes_old_exercises.dart";
 
 class RoutineTrainingScreen extends ConsumerStatefulWidget {
   final String routineUuid;
@@ -93,10 +92,10 @@ class _RoutineTrainingScreenState extends ConsumerState<RoutineTrainingScreen> {
           .addEmptyTraining(routineUuid, workoutUuid);
 
       if (context.mounted) {
-        OpenWorkoutTrainingRoute(
-          trainingUuid: newTrainingUuid,
-          routineUuid: routineUuid,
-        ).go(context);
+        // OpenWorkoutTrainingRoute(
+        //   trainingUuid: newTrainingUuid,
+        //   routineUuid: routineUuid,
+        // ).go(context);
       }
     }
   }

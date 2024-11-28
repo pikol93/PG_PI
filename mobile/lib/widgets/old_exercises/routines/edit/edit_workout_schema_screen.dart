@@ -4,7 +4,6 @@ import "package:pi_mobile/data/strength_exercise_schema.dart";
 import "package:pi_mobile/data/workout_schema.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/provider/schemas_provider.dart";
-import "package:pi_mobile/routing/routes_old_exercises.dart";
 import "package:pi_mobile/widgets/common/exercises_list_widget.dart";
 import "package:uuid/uuid.dart";
 
@@ -136,11 +135,11 @@ class _EditWorkoutSchemaScreen extends ConsumerState<EditWorkoutSchemaScreen> {
         );
 
     if (context.mounted) {
-      EditExerciseSchemaRoute(
-        routineUuid: widget.routineUuid,
-        workoutUuid: widget.workoutUuid,
-        exerciseUuid: exerciseUuid,
-      ).go(context);
+      // EditExerciseSchemaRoute(
+      //   routineUuid: widget.routineUuid,
+      //   workoutUuid: widget.workoutUuid,
+      //   exerciseUuid: exerciseUuid,
+      // ).go(context);
     }
   }
 }

@@ -5,7 +5,6 @@ import "package:pi_mobile/data/workout.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/provider/workouts_provider.dart";
-import "package:pi_mobile/routing/routes_old_exercises.dart";
 import "package:pi_mobile/widgets/common/app_navigation_drawer.dart";
 import "package:pi_mobile/widgets/old_exercises/session/workout_session_screen.dart";
 import "package:uuid/uuid.dart";
@@ -70,11 +69,11 @@ class _ExercisesScreenState extends ConsumerState<ExercisesScreen> {
 
   void _onRoutinesButtonPressed(BuildContext context) {
     // logger.debug("Routine screen button pressed");
-    const RoutinesRoute().go(context);
+    // const RoutinesRoute().go(context);
   }
 
   void _onShowHistoryButtonPressed(BuildContext context) {
     // logger.debug("History screen button pressed");
-    const HistoryRoute().go(context);
+    // const HistoryRoute().go(context);
   }
 }

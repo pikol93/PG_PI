@@ -2,7 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:fpdart/fpdart.dart";
 import "package:pi_mobile/data/routine/active_session.dart";
-import "package:pi_mobile/provider/exercise_models_provider.dart";
+import "package:pi_mobile/provider/exercise/exercise_models_provider.dart";
 import "package:pi_mobile/utility/async_value.dart";
 import "package:pi_mobile/utility/list.dart";
 import "package:pi_mobile/utility/map.dart";

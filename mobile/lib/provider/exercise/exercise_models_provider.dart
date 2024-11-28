@@ -1,7 +1,7 @@
 import "package:collection/collection.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pi_mobile/data/exercise_model.dart";
-import "package:pi_mobile/provider/built_in_exercise_models_provider.dart";
+import "package:pi_mobile/provider/exercise/built_in_exercise_models_provider.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 part "exercise_models_provider.g.dart";

@@ -6,7 +6,7 @@ import "package:loggy/loggy.dart";
 import "package:pi_mobile/data/routine/active_session.dart";
 import "package:pi_mobile/data/routine/session.dart";
 import "package:pi_mobile/logger.dart";
-import "package:pi_mobile/provider/one_rep_max_service_provider.dart";
+import "package:pi_mobile/provider/exercise/one_rep_max_service_provider.dart";
 import "package:pi_mobile/provider/routine/routines_provider.dart";
 import "package:pi_mobile/provider/routine/session_service_provider.dart";
 import "package:pi_mobile/utility/list.dart";

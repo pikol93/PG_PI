@@ -1,8 +1,8 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:pi_mobile/data/collections/heart_rate.dart";
+import "package:pi_mobile/data/heart_rate/heart_rate.dart";
+import "package:pi_mobile/data/heart_rate/heart_rate_list_provider.dart";
 import "package:pi_mobile/logger.dart";
-import "package:pi_mobile/provider/heart_rate_list_provider.dart";
 import "package:pi_mobile/widgets/heart_rate/modify_heart_rate_page.dart";
 
 class ModifyHeartRateScreen extends ConsumerStatefulWidget {

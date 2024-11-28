@@ -1,6 +1,6 @@
 import "package:flutter_test/flutter_test.dart";
 import "package:fpdart/fpdart.dart";
-import "package:pi_mobile/data/built_in_exercises.dart";
+import "package:pi_mobile/data/exercise/built_in_exercises.dart";
 
 void main() {
   test("Built in exercises should not contain duplicate IDs", () {

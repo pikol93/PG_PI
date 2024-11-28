@@ -2,21 +2,19 @@ import "dart:async";
 
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:pi_mobile/data/app_theme.dart";
+import "package:pi_mobile/data/connection/connection_settings_provider.dart";
+import "package:pi_mobile/data/exercise/exercise_model_service_provider.dart";
+import "package:pi_mobile/data/exercise/one_rep_max_service_provider.dart";
+import "package:pi_mobile/data/heart_rate/heart_rate_list_provider.dart";
+import "package:pi_mobile/data/preferences/app_theme.dart";
+import "package:pi_mobile/data/preferences/date_formatter_provider.dart";
+import "package:pi_mobile/data/preferences/development_mode_provider.dart";
+import "package:pi_mobile/data/preferences/package_info_provider.dart";
+import "package:pi_mobile/data/preferences/stored_locale_provider.dart";
+import "package:pi_mobile/data/preferences/theme_provider.dart";
+import "package:pi_mobile/data/tracks/tracks_provider.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/logger.dart";
-import "package:pi_mobile/provider/connection_settings_provider.dart";
-import "package:pi_mobile/provider/date_formatter_provider.dart";
-import "package:pi_mobile/provider/development_mode_provider.dart";
-import "package:pi_mobile/provider/exercise_model_service_provider.dart";
-import "package:pi_mobile/provider/heart_rate_list_provider.dart";
-import "package:pi_mobile/provider/one_rep_max_service_provider.dart";
-import "package:pi_mobile/provider/package_info_provider.dart";
-import "package:pi_mobile/provider/stored_locale_provider.dart";
-import "package:pi_mobile/provider/theme_provider.dart";
-import "package:pi_mobile/provider/tracks_provider.dart";
-import "package:pi_mobile/provider/trainings_provider.dart";
-import "package:pi_mobile/service/stored_locale_service.dart";
 import "package:pi_mobile/widgets/settings/development_setting.dart";
 import "package:pi_mobile/widgets/settings/setting_button.dart";
 import "package:pi_mobile/widgets/settings/setting_option.dart";
@@ -36,7 +34,6 @@ class SettingsBody extends StatelessWidget {
             _ClearHeartRateDataSetting(),
             _GenerateTracksSetting(),
             _ClearTracksSetting(),
-            _ClearTrainingHistorySetting(),
             _GenerateOneRepMaxHistory(),
             _ClearOneRepMaxHistory(),
             _DisableDevelopmentModeSetting(),
@@ -253,25 +250,6 @@ class _ClearTracksSetting extends ConsumerWidget {
   Future<void> _onClearPressed(BuildContext context, WidgetRef ref) async {
     final manager = await ref.read(tracksManagerProvider.future);
     return manager.clear();
-  }
-}
-
-class _ClearTrainingHistorySetting extends ConsumerWidget {
-  const _ClearTrainingHistorySetting();
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) => DevelopmentSetting(
-        child: SettingButton(
-          icon: Icons.book,
-          title: context.t.settings.trainingHistory.clear.title,
-          requiresConfirmation: true,
-          alertTitle: context.t.settings.trainingHistory.clear.alertTitle,
-          onConfirmed: () => _onClearPressed(context, ref),
-        ),
-      );
-
-  Future<void> _onClearPressed(BuildContext context, WidgetRef ref) async {
-    await ref.read(trainingsProvider.notifier).deleteTrainingsHistory();
   }
 }
 

@@ -2,7 +2,7 @@ import "dart:async";
 import "package:fl_location/fl_location.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:pi_mobile/provider/location_service_status_provider.dart";
+import "package:pi_mobile/data/location_service_status_provider.dart";
 
 class RecordTrackBottomSheet extends ConsumerStatefulWidget {
   const RecordTrackBottomSheet({super.key});

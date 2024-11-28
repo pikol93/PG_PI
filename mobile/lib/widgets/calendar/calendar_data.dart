@@ -1,10 +1,10 @@
 import "package:collection/collection.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:fpdart/fpdart.dart";
-import "package:pi_mobile/data/collections/heart_rate.dart";
-import "package:pi_mobile/data/collections/track.dart";
-import "package:pi_mobile/provider/heart_rate_list_provider.dart";
-import "package:pi_mobile/provider/tracks_provider.dart";
+import "package:pi_mobile/data/heart_rate/heart_rate.dart";
+import "package:pi_mobile/data/heart_rate/heart_rate_list_provider.dart";
+import "package:pi_mobile/data/tracks/track.dart";
+import "package:pi_mobile/data/tracks/tracks_provider.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:table_calendar/table_calendar.dart";
 

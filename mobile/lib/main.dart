@@ -62,13 +62,13 @@ class _AppState extends ConsumerState<App> {
           routerConfig: ref.watch(routerProvider),
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(
-              seedColor: Colors.lightBlue,
+              seedColor: Colors.red,
             ),
             useMaterial3: true,
           ),
           darkTheme: ThemeData(
             colorScheme: ColorScheme.fromSeed(
-              seedColor: Colors.lightBlue,
+              seedColor: Colors.red,
               brightness: Brightness.dark,
             ),
             useMaterial3: true,

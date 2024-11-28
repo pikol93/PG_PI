@@ -1,3 +1,5 @@
+import "package:fpdart/fpdart.dart";
+
 extension IterableNumberExtension on Iterable<num> {
   double get averageOrDefault {
     var result = 0.0;
@@ -24,4 +26,16 @@ extension IterableExtension<T> on Iterable<T> {
       return setLengthBefore != setLengthAfter;
     });
   }
+
+  Iterable<T> unique() => uniqueByKey((item) => item);
+}
+
+extension MapEntryIterableExtension<K, V> on Iterable<MapEntry<K, V>> {
+  Map<K, V> toMap() => Map.fromEntries(this);
+}
+
+extension OptionIterableExtension<T> on Iterable<Option<T>> {
+  Iterable<T> flattenOptions() => map((item) => item.toNullable())
+      .where((item) => item != null)
+      .map((item) => item!);
 }

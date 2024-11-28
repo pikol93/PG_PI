@@ -1,9 +1,8 @@
 import "dart:async";
-
 import "package:flutter/material.dart";
 import "package:go_router/go_router.dart";
+import "package:pi_mobile/routing/routes_routines.dart";
 import "package:pi_mobile/widgets/calendar/calendar_screen.dart";
-import "package:pi_mobile/widgets/home/home_screen.dart";
 import "package:pi_mobile/widgets/settings/settings_screen.dart";
 
 part "routes.g.dart";
@@ -14,15 +13,7 @@ class SplashRoute extends GoRouteData {
 
   @override
   FutureOr<String?> redirect(BuildContext context, GoRouterState state) =>
-      const HomeRoute().location;
-}
-
-@TypedGoRoute<HomeRoute>(path: "/home")
-class HomeRoute extends GoRouteData {
-  const HomeRoute();
-
-  @override
-  Widget build(BuildContext context, GoRouterState state) => const HomeScreen();
+      const RoutinesRoute().location;
 }
 
 @TypedGoRoute<SettingsRoute>(path: "/settings")

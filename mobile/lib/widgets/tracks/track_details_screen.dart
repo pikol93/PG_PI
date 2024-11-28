@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pi_mobile/data/collections/track.dart";
 import "package:pi_mobile/data/processed_track.dart";
+import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/provider/tracks_provider.dart";
 import "package:pi_mobile/widgets/tracks/tracks_details_page.dart";
@@ -32,7 +33,7 @@ class _TrackDetailsScreenState extends ConsumerState<TrackDetailsScreen>
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: const Text("Tracks"), // TODO: I18N
+          title: Text(context.t.tracks.title),
         ),
         body: FutureBuilder(
           future: _readTrackFuture,

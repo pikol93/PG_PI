@@ -3,7 +3,7 @@ import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/routing/routes.dart";
 import "package:pi_mobile/routing/routes_exercises.dart";
 import "package:pi_mobile/routing/routes_heart_rate.dart";
-import "package:pi_mobile/routing/routes_old_exercises.dart" as old;
+import "package:pi_mobile/routing/routes_routines.dart";
 import "package:pi_mobile/routing/routes_tracks.dart";
 import "package:pi_mobile/widgets/common/navigation_drawer_entry.dart";
 
@@ -18,25 +18,25 @@ class AppNavigationDrawer extends StatelessWidget {
           padding: EdgeInsets.zero,
           children: [
             UserAccountsDrawerHeader(
-              accountName: const Text("my stronk account name"),
-              accountEmail: const Text("stronk@email.mail"),
+              accountName: const Text("PG_PI"),
+              accountEmail: null,
               currentAccountPicture: CircleAvatar(
                 child: ClipOval(
-                  child: Image.asset("assets/stronk.png"),
+                  child: Image.asset("assets/icon_display.png"),
                 ),
               ),
               decoration: const BoxDecoration(
-                color: Colors.pinkAccent,
+                color: Colors.redAccent,
                 image: DecorationImage(
-                  image: AssetImage("assets/stronk_background.png"),
+                  image: AssetImage("assets/navigation_drawer_backdrop.png"),
                   fit: BoxFit.cover,
                 ),
               ),
             ),
             NavigationDrawerEntry(
-              goMethod: const HomeRoute().go,
-              icon: Icons.home,
-              text: context.t.home.title,
+              goMethod: const RoutinesRoute().go,
+              icon: Icons.accessibility,
+              text: context.t.routines.title,
             ),
             NavigationDrawerEntry(
               goMethod: const ExercisesRoute().go,
@@ -49,14 +49,9 @@ class AppNavigationDrawer extends StatelessWidget {
               text: context.t.tracks.title,
             ),
             NavigationDrawerEntry(
-              goMethod: const old.ExercisesRoute().go,
-              icon: Icons.fitness_center,
-              text: "${context.t.exercises.title} [DEPRECATED]",
-            ),
-            NavigationDrawerEntry(
               goMethod: const CalendarRoute().go,
               icon: Icons.calendar_month,
-              text: "Calendar", // TODO: I18N
+              text: context.t.calendar.title,
             ),
             NavigationDrawerEntry(
               goMethod: const HeartRateRoute().go,

@@ -8,6 +8,7 @@ import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/provider/date_formatter_provider.dart";
 import "package:pi_mobile/provider/one_rep_max_service_provider.dart";
+import "package:pi_mobile/widgets/common/scaffold/app_scaffold.dart";
 
 class OneRepMaxModifyScreen extends ConsumerStatefulWidget {
   final int exerciseId;
@@ -70,7 +71,7 @@ class _OneRepMaxModifyScreenState extends ConsumerState<OneRepMaxModifyScreen>
       );
     }
 
-    return Scaffold(
+    return AppScaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Text(context.t.exercises.modify1rm),

@@ -33,7 +33,7 @@ class _ExerciseTrainingScreen extends ConsumerState<ExerciseTrainingScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(context.t.routines.exercise),
+        title: const Text(""),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

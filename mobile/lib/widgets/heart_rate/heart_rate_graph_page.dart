@@ -3,6 +3,7 @@ import "dart:math";
 import "package:fl_chart/fl_chart.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/provider/heart_rate_list_provider.dart";
 import "package:pi_mobile/widgets/common/x_axis_scrollable_chart.dart";
@@ -17,7 +18,9 @@ class HeartRateGraphPage extends ConsumerWidget with Logger {
     return ref.watch(heartRateChartDataProvider).when(
           data: (data) {
             if (data.isEmpty) {
-              return const Center(child: Text("No data.")); // TODO: I18N
+              return Center(
+                child: Text(context.t.general.noData),
+              );
             }
 
             final minX = data.first.x;

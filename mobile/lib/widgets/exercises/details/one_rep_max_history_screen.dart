@@ -9,6 +9,7 @@ import "package:pi_mobile/provider/date_formatter_provider.dart";
 import "package:pi_mobile/provider/one_rep_max_service_provider.dart";
 import "package:pi_mobile/routing/routes_exercises.dart";
 import "package:pi_mobile/utility/async_value.dart";
+import "package:pi_mobile/widgets/common/scaffold/app_scaffold.dart";
 
 class OneRepMaxHistoryScreen extends ConsumerWidget {
   final int exerciseId;
@@ -22,9 +23,9 @@ class OneRepMaxHistoryScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) =>
       ref.watch(oneRepMaxServiceProvider).whenDataOrEmptyScaffold(
             context,
-            (service) => Scaffold(
+            (service) => AppScaffold(
               appBar: AppBar(
-                title: Text(context.t.exercises.history1rm), // TODO: I18N
+                title: Text(context.t.exercises.history1rm),
               ),
               floatingActionButton: FloatingActionButton(
                 child: const Icon(Icons.add),

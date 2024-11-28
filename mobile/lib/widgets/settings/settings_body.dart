@@ -15,7 +15,6 @@ import "package:pi_mobile/provider/package_info_provider.dart";
 import "package:pi_mobile/provider/stored_locale_provider.dart";
 import "package:pi_mobile/provider/theme_provider.dart";
 import "package:pi_mobile/provider/tracks_provider.dart";
-import "package:pi_mobile/provider/trainings_provider.dart";
 import "package:pi_mobile/service/stored_locale_service.dart";
 import "package:pi_mobile/widgets/settings/development_setting.dart";
 import "package:pi_mobile/widgets/settings/setting_button.dart";
@@ -36,7 +35,6 @@ class SettingsBody extends StatelessWidget {
             _ClearHeartRateDataSetting(),
             _GenerateTracksSetting(),
             _ClearTracksSetting(),
-            _ClearTrainingHistorySetting(),
             _GenerateOneRepMaxHistory(),
             _ClearOneRepMaxHistory(),
             _DisableDevelopmentModeSetting(),
@@ -253,25 +251,6 @@ class _ClearTracksSetting extends ConsumerWidget {
   Future<void> _onClearPressed(BuildContext context, WidgetRef ref) async {
     final manager = await ref.read(tracksManagerProvider.future);
     return manager.clear();
-  }
-}
-
-class _ClearTrainingHistorySetting extends ConsumerWidget {
-  const _ClearTrainingHistorySetting();
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) => DevelopmentSetting(
-        child: SettingButton(
-          icon: Icons.book,
-          title: context.t.settings.trainingHistory.clear.title,
-          requiresConfirmation: true,
-          alertTitle: context.t.settings.trainingHistory.clear.alertTitle,
-          onConfirmed: () => _onClearPressed(context, ref),
-        ),
-      );
-
-  Future<void> _onClearPressed(BuildContext context, WidgetRef ref) async {
-    await ref.read(trainingsProvider.notifier).deleteTrainingsHistory();
   }
 }
 

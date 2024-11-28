@@ -7,9 +7,9 @@ import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/provider/routine/active_session_service_provider.dart";
 import "package:pi_mobile/utility/option.dart";
 import "package:pi_mobile/widgets/common/number_input.dart";
-import "package:pi_mobile/widgets/routines/common/bottom_sheet/shown/set/common/exercise_name_header.dart";
-import "package:pi_mobile/widgets/routines/common/bottom_sheet/shown/set/common/rating_of_perceived_exertion_slider.dart";
-import "package:pi_mobile/widgets/routines/common/bottom_sheet/shown/set/common/set_count_subheader.dart";
+import "package:pi_mobile/widgets/routines/bottom_sheet/shown/set/common/exercise_name_header.dart";
+import "package:pi_mobile/widgets/routines/bottom_sheet/shown/set/common/rating_of_perceived_exertion_slider.dart";
+import "package:pi_mobile/widgets/routines/bottom_sheet/shown/set/common/set_count_subheader.dart";
 
 class SetInProgressPage extends ConsumerStatefulWidget {
   final String exerciseName;

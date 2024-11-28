@@ -7,9 +7,9 @@ import "package:pi_mobile/utility/async_value.dart";
 import "package:pi_mobile/utility/list.dart";
 import "package:pi_mobile/utility/map.dart";
 import "package:pi_mobile/utility/option.dart";
-import "package:pi_mobile/widgets/routines/common/bottom_sheet/shown/set/exercise_completed_page.dart";
-import "package:pi_mobile/widgets/routines/common/bottom_sheet/shown/set/set_in_progress_page.dart";
-import "package:pi_mobile/widgets/routines/common/bottom_sheet/shown/set/set_resting_page.dart";
+import "package:pi_mobile/widgets/routines/bottom_sheet/shown/set/exercise_completed_page.dart";
+import "package:pi_mobile/widgets/routines/bottom_sheet/shown/set/set_in_progress_page.dart";
+import "package:pi_mobile/widgets/routines/bottom_sheet/shown/set/set_resting_page.dart";
 
 class SetPage extends ConsumerWidget {
   final ActiveSession activeSession;

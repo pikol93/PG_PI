@@ -4,7 +4,7 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pi_mobile/data/routine/active_session.dart";
 import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/provider/routine/active_session_service_provider.dart";
-import "package:pi_mobile/widgets/routines/common/bottom_sheet/shown/selection/exercise_selection_entry.dart";
+import "package:pi_mobile/widgets/routines/bottom_sheet/shown/selection/exercise_selection_entry.dart";
 
 class ExerciseSelectionPage extends ConsumerWidget with Logger {
   final ActiveSession activeSession;

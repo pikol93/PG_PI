@@ -9,8 +9,8 @@ import "package:pi_mobile/provider/routine/active_session_service_provider.dart"
 import "package:pi_mobile/utility/datetime.dart";
 import "package:pi_mobile/utility/double.dart";
 import "package:pi_mobile/utility/duration.dart";
-import "package:pi_mobile/widgets/routines/common/bottom_sheet/shown/set/common/exercise_name_header.dart";
-import "package:pi_mobile/widgets/routines/common/bottom_sheet/shown/set/common/set_count_subheader.dart";
+import "package:pi_mobile/widgets/routines/bottom_sheet/shown/set/common/exercise_name_header.dart";
+import "package:pi_mobile/widgets/routines/bottom_sheet/shown/set/common/set_count_subheader.dart";
 
 class SetRestingPage extends ConsumerWidget with Logger {
   final String exerciseName;

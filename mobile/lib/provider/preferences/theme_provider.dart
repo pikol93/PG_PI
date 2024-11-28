@@ -1,5 +1,5 @@
 import "package:loggy/loggy.dart";
-import "package:pi_mobile/data/app_theme.dart";
+import "package:pi_mobile/provider/preferences/app_theme.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:shared_preferences/shared_preferences.dart";
 

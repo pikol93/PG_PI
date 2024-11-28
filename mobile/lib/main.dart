@@ -7,10 +7,10 @@ import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/provider/preferences/development_mode_provider.dart";
 import "package:pi_mobile/provider/preferences/package_info_provider.dart";
+import "package:pi_mobile/provider/preferences/stored_locale_provider.dart";
 import "package:pi_mobile/provider/preferences/theme_provider.dart";
+import "package:pi_mobile/provider/tracks/tracks_service.dart";
 import "package:pi_mobile/routing/router.dart";
-import "package:pi_mobile/service/stored_locale_service.dart";
-import "package:pi_mobile/service/tracks_service.dart";
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

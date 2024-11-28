@@ -1,6 +1,6 @@
 import "package:fpdart/fpdart.dart";
 import "package:freezed_annotation/freezed_annotation.dart";
-import "package:pi_mobile/data/routine/routine.dart";
+import "package:pi_mobile/provider/routine/routine.dart";
 
 part "routine_with_usage.freezed.dart";
 

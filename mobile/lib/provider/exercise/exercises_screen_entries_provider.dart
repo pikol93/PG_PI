@@ -1,7 +1,7 @@
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:fpdart/fpdart.dart";
-import "package:pi_mobile/data/collections/one_rep_max_history.dart";
 import "package:pi_mobile/provider/exercise/exercise_models_provider.dart";
+import "package:pi_mobile/provider/exercise/one_rep_max_history.dart";
 import "package:pi_mobile/provider/exercise/one_rep_max_service_provider.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 

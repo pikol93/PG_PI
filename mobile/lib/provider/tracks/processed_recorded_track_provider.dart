@@ -1,4 +1,4 @@
-import "package:pi_mobile/data/processed_track.dart";
+import "package:pi_mobile/provider/tracks/processed_track.dart";
 import "package:pi_mobile/provider/tracks/recorded_track_provider.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 

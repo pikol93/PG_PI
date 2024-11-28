@@ -1,9 +1,9 @@
 import "package:collection/collection.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:fpdart/fpdart.dart";
-import "package:pi_mobile/data/routine/routine_with_usage.dart";
+import "package:pi_mobile/provider/routine/routine_with_usage.dart";
 import "package:pi_mobile/provider/routine/routines_provider.dart";
-import "package:pi_mobile/provider/routine/session_service_provider.dart";
+import "package:pi_mobile/provider/session/session_service_provider.dart";
 import "package:pi_mobile/utility/task.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 

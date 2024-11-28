@@ -4,12 +4,49 @@ import "dart:convert";
 import "package:fl_location/fl_location.dart";
 import "package:flutter_foreground_task/flutter_foreground_task.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:freezed_annotation/freezed_annotation.dart";
+import "package:latlong2/latlong.dart";
 import "package:loggy/loggy.dart";
-import "package:pi_mobile/data/collections/track.dart";
-import "package:pi_mobile/data/location.dart" as internal;
 import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/provider/tracks/recorded_track_provider.dart";
+import "package:pi_mobile/provider/tracks/track.dart";
 import "package:pi_mobile/routing/routes_tracks.dart";
+
+part "tracks_service.freezed.dart";
+part "tracks_service.g.dart";
+
+@freezed
+class LocationEntry with _$LocationEntry {
+  static const Distance distance = Distance();
+
+  const factory LocationEntry({
+    required DateTime dateTime,
+    required double longitude,
+    required double latitude,
+  }) = _LocationEntry;
+
+  factory LocationEntry.fromJson(
+    Map<String, Object?> json,
+  ) =>
+      _$LocationEntryFromJson(json);
+
+  static double getVelocityBetweenLocations(LocationEntry a, LocationEntry b) {
+    final distance = getMetersBetweenLocations(a, b);
+    final duration = getSecondsBetweenLocations(a, b);
+    return distance / duration;
+  }
+
+  static double getMetersBetweenLocations(LocationEntry a, LocationEntry b) {
+    final positionA = LatLng(a.latitude, a.longitude);
+    final positionB = LatLng(b.latitude, b.longitude);
+
+    return distance.as(LengthUnit.Meter, positionA, positionB);
+  }
+
+  static double getSecondsBetweenLocations(LocationEntry a, LocationEntry b) =>
+      (b.dateTime.millisecondsSinceEpoch - a.dateTime.millisecondsSinceEpoch) /
+      1000.0;
+}
 
 class LocationTaskHandler extends TaskHandler with Logger {
   StreamSubscription<LocationServicesStatus>? _servicesStatusSubscription;
@@ -78,7 +115,7 @@ class LocationTaskHandler extends TaskHandler with Logger {
       " ${location.latitude}",
     );
 
-    final internalLocation = internal.Location(
+    final internalLocation = LocationEntry(
       dateTime: DateTime.fromMillisecondsSinceEpoch(
         location.millisecondsSinceEpoch.toInt(),
       ),
@@ -113,7 +150,7 @@ class ReceiveTaskDataProcessor with Logger {
       return;
     }
     final locationMap = jsonDecode(data);
-    final location = internal.Location.fromJson(locationMap);
+    final location = LocationEntry.fromJson(locationMap);
     // TODO: Skip Location into LocationRecord conversion
     final locationRecord = LocationRecord()
       ..latitude = location.latitude

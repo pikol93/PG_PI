@@ -1,8 +1,8 @@
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:fpdart/fpdart.dart";
 import "package:isar/isar.dart";
-import "package:pi_mobile/data/routine/session.dart";
 import "package:pi_mobile/provider/isar_provider.dart";
+import "package:pi_mobile/provider/session/session.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 part "session_service_provider.g.dart";

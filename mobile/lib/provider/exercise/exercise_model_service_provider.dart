@@ -2,7 +2,7 @@ import "dart:math";
 
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:fpdart/fpdart.dart";
-import "package:pi_mobile/data/exercise_model.dart";
+import "package:pi_mobile/provider/exercise/exercise_model.dart";
 import "package:pi_mobile/provider/exercise/exercise_models_provider.dart";
 import "package:pi_mobile/provider/exercise/one_rep_max_service_provider.dart";
 import "package:pi_mobile/utility/random.dart";

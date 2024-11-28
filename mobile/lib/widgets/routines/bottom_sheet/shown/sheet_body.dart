@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 import "package:fpdart/fpdart.dart";
-import "package:pi_mobile/data/routine/active_session.dart";
+import "package:pi_mobile/provider/session/active_session.dart";
 import "package:pi_mobile/widgets/routines/bottom_sheet/shown/selection/exercise_selection_page.dart";
 import "package:pi_mobile/widgets/routines/bottom_sheet/shown/set/set_page.dart";
 

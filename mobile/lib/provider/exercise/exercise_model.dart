@@ -1,5 +1,5 @@
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:pi_mobile/data/muscle_group.dart";
+import "package:pi_mobile/provider/exercise/muscle_group.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 part "exercise_model.g.dart";

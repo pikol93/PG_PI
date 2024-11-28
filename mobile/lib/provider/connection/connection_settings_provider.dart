@@ -1,5 +1,5 @@
-import "package:pi_mobile/data/connection_settings_state.dart";
 import "package:pi_mobile/logger.dart";
+import "package:pi_mobile/provider/connection/connection_settings_state.dart";
 import "package:pi_mobile/utility/shared_preferences.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:shared_preferences/shared_preferences.dart";

@@ -1,8 +1,8 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:pi_mobile/data/exercise_model.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/logger.dart";
+import "package:pi_mobile/provider/exercise/exercise_model.dart";
 import "package:pi_mobile/provider/exercise/exercise_models_provider.dart";
 import "package:pi_mobile/utility/async_value.dart";
 import "package:pi_mobile/widgets/common/scaffold/app_scaffold.dart";

@@ -1,7 +1,7 @@
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:fpdart/fpdart.dart";
-import "package:pi_mobile/data/routine/built_in_routines.dart" as temp;
-import "package:pi_mobile/data/routine/routine.dart";
+import "package:pi_mobile/provider/routine/built_in_routines.dart" as base;
+import "package:pi_mobile/provider/routine/routine.dart";
 import "package:pi_mobile/provider/routine/routine_i18n_provider.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
@@ -11,7 +11,7 @@ part "built_in_routines_provider.g.dart";
 List<Routine> builtInRoutines(Ref ref) {
   final routineI18N = ref.watch(routineI18NProvider);
 
-  return temp.builtInRoutines
+  return base.builtInRoutines
       .map(
         (routine) => Routine(
           id: routine.id,

@@ -1,6 +1,6 @@
-import "package:pi_mobile/data/collections/track.dart";
-import "package:pi_mobile/data/mutable_track.dart";
 import "package:pi_mobile/logger.dart";
+import "package:pi_mobile/provider/tracks/mutable_track.dart";
+import "package:pi_mobile/provider/tracks/track.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 part "recorded_track_provider.g.dart";

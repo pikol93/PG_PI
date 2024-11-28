@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import "package:pi_mobile/data/processed_track.dart";
+import "package:pi_mobile/provider/tracks/processed_track.dart";
 
 class TracksDetailsPage extends StatelessWidget {
   final ProcessedTrack track;

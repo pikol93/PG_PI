@@ -1,4 +1,4 @@
-import "package:pi_mobile/data/collections/track.dart";
+import "package:pi_mobile/provider/tracks/track.dart";
 
 class MutableTrack {
   final DateTime startTime;

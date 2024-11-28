@@ -1,5 +1,5 @@
 import "package:freezed_annotation/freezed_annotation.dart";
-import "package:pi_mobile/data/muscle_group.dart";
+import "package:pi_mobile/provider/exercise/muscle_group.dart";
 
 part "built_in_exercises.freezed.dart";
 

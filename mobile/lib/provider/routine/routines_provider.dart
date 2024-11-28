@@ -1,6 +1,6 @@
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:pi_mobile/data/routine/routine.dart";
 import "package:pi_mobile/provider/routine/built_in_routines_provider.dart";
+import "package:pi_mobile/provider/routine/routine.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 part "routines_provider.g.dart";

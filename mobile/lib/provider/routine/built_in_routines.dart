@@ -1,5 +1,5 @@
 import "package:freezed_annotation/freezed_annotation.dart";
-import "package:pi_mobile/data/routine/routine.dart";
+import "package:pi_mobile/provider/routine/routine.dart";
 
 part "built_in_routines.freezed.dart";
 

@@ -3,7 +3,7 @@ import "dart:math";
 import "package:fl_chart/fl_chart.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:isar/isar.dart";
-import "package:pi_mobile/data/collections/heart_rate.dart";
+import "package:pi_mobile/provider/heart_rate/heart_rate.dart";
 import "package:pi_mobile/provider/isar_provider.dart";
 import "package:pi_mobile/utility/datetime.dart";
 import "package:pi_mobile/utility/random.dart";

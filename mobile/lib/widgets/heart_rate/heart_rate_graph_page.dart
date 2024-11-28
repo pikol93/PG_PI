@@ -3,9 +3,9 @@ import "dart:math";
 import "package:fl_chart/fl_chart.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:pi_mobile/data/heart_rate/heart_rate_list_provider.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/logger.dart";
-import "package:pi_mobile/provider/heart_rate/heart_rate_list_provider.dart";
 import "package:pi_mobile/widgets/common/x_axis_scrollable_chart.dart";
 
 class HeartRateGraphPage extends ConsumerWidget with Logger {

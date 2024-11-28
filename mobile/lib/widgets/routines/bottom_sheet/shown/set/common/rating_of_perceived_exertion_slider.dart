@@ -1,8 +1,8 @@
 import "package:awesome_flutter_extensions/awesome_flutter_extensions.dart";
 import "package:flutter/material.dart";
+import "package:pi_mobile/data/routine/rating_of_perceived_exertion.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/logger.dart";
-import "package:pi_mobile/provider/routine/rating_of_perceived_exertion.dart";
 import "package:pi_mobile/widgets/common/enum_slider.dart";
 
 class RatingOfPerceivedExertionSlider extends StatefulWidget {

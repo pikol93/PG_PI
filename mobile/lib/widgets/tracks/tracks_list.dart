@@ -2,11 +2,11 @@ import "package:awesome_flutter_extensions/awesome_flutter_extensions.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:intl/intl.dart";
+import "package:pi_mobile/data/preferences/date_formatter_provider.dart";
+import "package:pi_mobile/data/tracks/track.dart";
+import "package:pi_mobile/data/tracks/tracks_provider.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/logger.dart";
-import "package:pi_mobile/provider/preferences/date_formatter_provider.dart";
-import "package:pi_mobile/provider/tracks/track.dart";
-import "package:pi_mobile/provider/tracks/tracks_provider.dart";
 import "package:pi_mobile/routing/routes_tracks.dart";
 import "package:pi_mobile/utility/duration.dart";
 

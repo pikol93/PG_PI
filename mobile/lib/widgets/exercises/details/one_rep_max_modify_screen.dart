@@ -4,10 +4,10 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:fpdart/fpdart.dart";
 import "package:go_router/go_router.dart";
+import "package:pi_mobile/data/exercise/one_rep_max_service_provider.dart";
+import "package:pi_mobile/data/preferences/date_formatter_provider.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/logger.dart";
-import "package:pi_mobile/provider/exercise/one_rep_max_service_provider.dart";
-import "package:pi_mobile/provider/preferences/date_formatter_provider.dart";
 import "package:pi_mobile/widgets/common/scaffold/app_scaffold.dart";
 
 class OneRepMaxModifyScreen extends ConsumerStatefulWidget {

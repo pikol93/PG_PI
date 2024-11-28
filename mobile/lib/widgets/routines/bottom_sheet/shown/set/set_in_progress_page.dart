@@ -1,10 +1,10 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:pi_mobile/data/routine/rating_of_perceived_exertion.dart";
+import "package:pi_mobile/data/session/active_session.dart";
+import "package:pi_mobile/data/session/active_session_service_provider.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/logger.dart";
-import "package:pi_mobile/provider/routine/rating_of_perceived_exertion.dart";
-import "package:pi_mobile/provider/session/active_session.dart";
-import "package:pi_mobile/provider/session/active_session_service_provider.dart";
 import "package:pi_mobile/utility/option.dart";
 import "package:pi_mobile/widgets/common/number_input.dart";
 import "package:pi_mobile/widgets/routines/bottom_sheet/shown/set/common/exercise_name_header.dart";

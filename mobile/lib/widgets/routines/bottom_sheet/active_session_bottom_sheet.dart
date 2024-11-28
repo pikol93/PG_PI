@@ -1,8 +1,8 @@
 import "package:awesome_flutter_extensions/awesome_flutter_extensions.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:pi_mobile/data/session/active_session.dart";
 import "package:pi_mobile/logger.dart";
-import "package:pi_mobile/provider/session/active_session.dart";
 import "package:pi_mobile/widgets/routines/bottom_sheet/active_session_bottom_sheet_hidden.dart";
 import "package:pi_mobile/widgets/routines/bottom_sheet/bottom_sheet_visibility_provider.dart";
 import "package:pi_mobile/widgets/routines/bottom_sheet/shown/active_session_bottom_sheet_shown.dart";

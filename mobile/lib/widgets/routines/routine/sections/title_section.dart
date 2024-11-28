@@ -1,6 +1,6 @@
 import "package:awesome_flutter_extensions/awesome_flutter_extensions.dart";
 import "package:flutter/material.dart";
-import "package:pi_mobile/provider/routine/routine.dart";
+import "package:pi_mobile/data/routine/routine.dart";
 
 class RoutineTitleSection extends StatelessWidget {
   final Routine routine;

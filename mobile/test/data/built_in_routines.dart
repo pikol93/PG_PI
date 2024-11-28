@@ -1,6 +1,6 @@
 import "package:flutter_test/flutter_test.dart";
 import "package:fpdart/fpdart.dart";
-import "package:pi_mobile/provider/routine/built_in_routines.dart";
+import "package:pi_mobile/data/routine/built_in_routines.dart";
 import "package:pi_mobile/utility/iterable.dart";
 
 void main() {

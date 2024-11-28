@@ -1,7 +1,7 @@
 import "package:awesome_flutter_extensions/awesome_flutter_extensions.dart";
 import "package:flutter/material.dart";
+import "package:pi_mobile/data/exercise/muscle_group.dart";
 import "package:pi_mobile/i18n/strings.g.dart" as i18n;
-import "package:pi_mobile/provider/exercise/muscle_group.dart";
 
 class ExerciseMuscleGroupsSection extends StatelessWidget {
   final List<MuscleGroup> primaryMuscleGroups;

@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:pi_mobile/provider/session/active_session.dart";
+import "package:pi_mobile/data/session/active_session.dart";
 
 class ActiveSessionExercises extends ConsumerWidget {
   final ActiveSession activeSession;

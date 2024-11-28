@@ -1,9 +1,9 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:fpdart/fpdart.dart";
+import "package:pi_mobile/data/routine/routine.dart";
+import "package:pi_mobile/data/routine/routines_provider.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
-import "package:pi_mobile/provider/routine/routine.dart";
-import "package:pi_mobile/provider/routine/routines_provider.dart";
 import "package:pi_mobile/utility/async_value.dart";
 import "package:pi_mobile/utility/map.dart";
 import "package:pi_mobile/widgets/common/scaffold/app_scaffold.dart";

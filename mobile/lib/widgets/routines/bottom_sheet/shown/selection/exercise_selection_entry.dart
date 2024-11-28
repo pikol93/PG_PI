@@ -1,10 +1,10 @@
 import "package:awesome_flutter_extensions/awesome_flutter_extensions.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:pi_mobile/data/exercise/exercise_models_provider.dart";
+import "package:pi_mobile/data/session/active_session.dart";
+import "package:pi_mobile/data/session/active_session_service_provider.dart";
 import "package:pi_mobile/logger.dart";
-import "package:pi_mobile/provider/exercise/exercise_models_provider.dart";
-import "package:pi_mobile/provider/session/active_session.dart";
-import "package:pi_mobile/provider/session/active_session_service_provider.dart";
 import "package:pi_mobile/utility/async_value.dart";
 import "package:pi_mobile/utility/map.dart";
 import "package:pi_mobile/utility/option.dart";

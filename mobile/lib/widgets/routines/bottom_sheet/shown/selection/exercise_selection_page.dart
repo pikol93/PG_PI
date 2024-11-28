@@ -1,9 +1,9 @@
 import "package:awesome_flutter_extensions/awesome_flutter_extensions.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:pi_mobile/data/session/active_session.dart";
+import "package:pi_mobile/data/session/active_session_service_provider.dart";
 import "package:pi_mobile/logger.dart";
-import "package:pi_mobile/provider/session/active_session.dart";
-import "package:pi_mobile/provider/session/active_session_service_provider.dart";
 import "package:pi_mobile/widgets/routines/bottom_sheet/shown/selection/exercise_selection_entry.dart";
 
 class ExerciseSelectionPage extends ConsumerWidget with Logger {

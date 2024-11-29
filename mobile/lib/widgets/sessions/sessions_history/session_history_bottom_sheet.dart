@@ -173,12 +173,10 @@ class _ShareSuccessDialog extends StatelessWidget with Logger {
 
   void _onOpenPressed(BuildContext context) {
     logger.debug("Open pressed for $targetUrl");
-    Navigator.pop(context);
   }
 
   void _onCopyPressed(BuildContext context) {
     logger.debug("Copy pressed for $targetUrl");
-    Navigator.pop(context);
   }
 
   void _onClosePressed(BuildContext context) {

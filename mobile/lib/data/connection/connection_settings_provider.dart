@@ -1,4 +1,5 @@
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:loggy/loggy.dart";
 import "package:pi_mobile/data/connection/connection_settings.dart";
 import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/utility/shared_preferences.dart";
@@ -12,7 +13,9 @@ const serverAddressKeyName = "server_address";
 @riverpod
 Future<String> serverAddress(Ref ref) async {
   final connectionSettings = await ref.watch(connectionSettingsProvider.future);
-  return connectionSettings.getAddress();
+  final serverAddress = connectionSettings.getAddress();
+  logDebug("Read server address: $serverAddress");
+  return serverAddress;
 }
 
 @riverpod

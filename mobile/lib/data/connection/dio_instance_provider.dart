@@ -11,14 +11,12 @@ class DioInstance extends _$DioInstance with Logger {
   @override
   Future<Dio> build() async {
     final cookieManager = await ref.watch(cookieManagerInstanceProvider.future);
-    final connectionSettings =
-        await ref.watch(connectionSettingsProvider.future);
+    final serverAddress = await ref.watch(serverAddressProvider.future);
 
-    final serverAddress = connectionSettings.serverAddress;
     logger.debug("Building dio: $serverAddress");
     final dio = Dio(
       BaseOptions(
-        baseUrl: "http://$serverAddress",
+        baseUrl: serverAddress,
         connectTimeout: const Duration(seconds: 10),
       ),
     );

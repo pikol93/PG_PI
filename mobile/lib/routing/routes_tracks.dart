@@ -9,13 +9,13 @@ import "package:pi_mobile/data/permissions/notification_permissions_provider.dar
 import "package:pi_mobile/data/permissions/overlays_permissions_provider.dart";
 import "package:pi_mobile/utility/location_permission.dart";
 import "package:pi_mobile/utility/notification_permission.dart";
+import "package:pi_mobile/widgets/tracks/all_tracks/tracks_screen.dart";
 import "package:pi_mobile/widgets/tracks/permissions/request_battery_permission_screen.dart";
 import "package:pi_mobile/widgets/tracks/permissions/request_location_permission_screen.dart";
 import "package:pi_mobile/widgets/tracks/permissions/request_notification_permission_screen.dart";
 import "package:pi_mobile/widgets/tracks/permissions/request_overlays_permission_screen.dart";
 import "package:pi_mobile/widgets/tracks/record/record_track_screen.dart";
 import "package:pi_mobile/widgets/tracks/track_details/track_details_screen.dart";
-import "package:pi_mobile/widgets/tracks/all_tracks/tracks_screen.dart";
 
 part "routes_tracks.g.dart";
 

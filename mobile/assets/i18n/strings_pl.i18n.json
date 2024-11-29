@@ -29,7 +29,12 @@
     },
     "record": {
       "title": "Nagraj pozycję"
-    }
+    },
+    "couldNotFetch": "Nie znaleziono żadnych tras",
+    "distance": "Dystans (m)",
+    "duration": "Czas trwania",
+    "velocity": "Średnia prędkość (km/h)",
+    "movingVelocity": "Średnia prędkość w ruchu (km/h)"
   },
   "common": {
     "delete": "Usuń",

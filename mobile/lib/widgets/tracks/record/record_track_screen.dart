@@ -7,13 +7,13 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:pi_mobile/data/preferences/date_formatter_provider.dart";
 import "package:pi_mobile/data/tracks/processed_recorded_track_provider.dart";
 import "package:pi_mobile/data/tracks/recorded_track_provider.dart";
-import "package:pi_mobile/data/tracks/track.dart";
 import "package:pi_mobile/data/tracks/tracks_provider.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/main.dart";
 import "package:pi_mobile/routing/routes_tracks.dart";
 import "package:pi_mobile/widgets/tracks/record/record_track_bottom_sheet.dart";
+import "package:pi_mobile/widgets/tracks/record/recorded_track_details.dart";
 
 class RecordTrackScreen extends ConsumerStatefulWidget {
   const RecordTrackScreen({super.key});
@@ -45,61 +45,27 @@ class _RecordTrackScreenState extends ConsumerState<RecordTrackScreen>
   }
 
   @override
-  Widget build(BuildContext context) {
-    final processedTrack = ref.watch(processedRecordedTrackProvider);
-    if (processedTrack == null) {
-      logger.debug("No data.");
-      return const Text("no data.");
-    }
-    final track = processedTrack.track;
-    final velocities = processedTrack.velocities;
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(
+          backgroundColor: context.colors.scaffoldBackground,
+          title: Text(context.t.tracks.record.title),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => _onStopRecordingPressed(context),
+          child: const Icon(Icons.stop),
+        ),
+        bottomSheet: const RecordTrackBottomSheet(),
+        body: const Center(
+          child: RecordedTrackDetails(),
+        ),
+      );
 
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: context.colors.scaffoldBackground,
-        title: Text(context.t.tracks.record.title),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => _onStopRecordingPressed(context, track),
-        child: const Icon(Icons.stop),
-      ),
-      bottomSheet: const RecordTrackBottomSheet(),
-      body: Column(
-        children: [
-          Text("${track.id}"),
-          Text("Average velocity: ${processedTrack.averageVelocity}"),
-          Expanded(
-            child: ListView.builder(
-              itemCount: track.locations.length,
-              itemBuilder: (context, index) {
-                final location = track.locations[index];
-                return Text(
-                  "${location.latitude}"
-                  " ${location.longitude}"
-                  " ${location.dateTime}",
-                );
-              },
-            ),
-          ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: velocities.length,
-              itemBuilder: (context, index) {
-                final velocity = velocities[index];
-                return Text("$velocity");
-              },
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Future<void> _onStopRecordingPressed(
-    BuildContext context,
-    Track track,
-  ) async {
+  Future<void> _onStopRecordingPressed(BuildContext context) async {
     logger.debug("Stopped recording pressed");
+
+    final processedTrack = ref.read(processedRecordedTrackProvider);
+    final track = processedTrack!.track;
+
     unawaited(_stopService());
 
     ref.read(recordedTrackProvider.notifier).clear();

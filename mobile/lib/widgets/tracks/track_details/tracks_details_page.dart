@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:pi_mobile/data/tracks/processed_track.dart";
+import "package:pi_mobile/widgets/tracks/common/processed_track_details.dart";
 
 class TracksDetailsPage extends StatelessWidget {
   final ProcessedTrack track;
@@ -11,6 +12,6 @@ class TracksDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Center(
-        child: Text("${track.averageVelocity}"),
+        child: ProcessedTrackDetails(track: track),
       );
 }

@@ -164,15 +164,18 @@ class _ShareSuccessDialog extends StatelessWidget with Logger {
         ],
       );
 
-  void _onOpenPressed(BuildContext context) {
-    launchUrl(targetUrl);
+  Future<void> _onOpenPressed(BuildContext context) async {
     logger.debug("Open pressed for $targetUrl");
+
+    final launchResult = await launchUrl(targetUrl);
+    logger.debug("Launch result: $launchResult");
   }
 
   Future<void> _onCopyPressed(BuildContext context) async {
     logger.debug("Copy pressed for $targetUrl");
 
     await Clipboard.setData(ClipboardData(text: targetUrl.toString()));
+    logger.debug("Copied data to clipboard");
   }
 
   void _onClosePressed(BuildContext context) {

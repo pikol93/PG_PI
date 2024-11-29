@@ -198,15 +198,15 @@
         "close": "Close"
       },
       "confirmDialog": {
-        "areYouSure": "Are you sure you want to share $amount sessions?"
+        "content": "Are you sure you want to share $amount sessions?"
       },
       "sharingSucceededDialog": {
-        "content": "Shared successfully.",
+        "title": "Shared successfully",
         "copyToClipboard": "Copy to clipboard",
         "openLink": "Open link"
       },
       "sharingFailedDialog": {
-        "content": "Failed sharing."
+        "content": "Failed sharing"
       }
     }
   },

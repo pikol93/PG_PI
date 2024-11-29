@@ -109,8 +109,8 @@ class _ShareConfirmDialog extends StatelessWidget with Logger {
 
   @override
   Widget build(BuildContext context) => AlertDialog(
-        title: Text(
-          context.t.sessions.share.confirmDialog.areYouSure(
+        content: Text(
+          context.t.sessions.share.confirmDialog.content(
             amount: sessionIds.length,
           ),
         ),
@@ -145,7 +145,10 @@ class _ShareSuccessDialog extends StatelessWidget with Logger {
   @override
   Widget build(BuildContext context) => AlertDialog(
         title: Text(
-          context.t.sessions.share.sharingSucceededDialog.content,
+          context.t.sessions.share.sharingSucceededDialog.title,
+        ),
+        content: Text(
+          targetUrl,
         ),
         actions: [
           TextButton(

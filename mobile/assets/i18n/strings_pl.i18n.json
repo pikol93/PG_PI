@@ -182,7 +182,7 @@
       "unknownExercise": "Nieznane ćwiczenie"
     },
     "bottomSheet": {
-      "sessionsSelected": "Zaznaczono $amount sesji",
+      "sessionsSelected": "Zaznaczono $amount sesje",
       "share": "Udostępnij"
     },
     "share": {
@@ -190,15 +190,15 @@
         "close": "Zamknij"
       },
       "confirmDialog": {
-        "areYouSure": "Czy jesteś pewny, że chcesz udostępnić $amount sesji?"
+        "content": "Czy jesteś pewny, że chcesz udostępnić $amount sesje?"
       },
       "sharingSucceededDialog": {
-        "content": "Udostępniono pomyślnie.",
+        "title": "Udostępniono pomyślnie",
         "copyToClipboard": "Skopiuj do schowka",
         "openLink": "Otwórz link"
       },
       "sharingFailedDialog": {
-        "content": "Udostępnianie nie powiodło się."
+        "content": "Udostępnianie nie powiodło się"
       }
     }
   },

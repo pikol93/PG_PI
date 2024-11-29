@@ -8,12 +8,15 @@ import "package:pi_mobile/data/connection/dio_instance_provider.dart";
 import "package:pi_mobile/data/connection/requests.dart";
 import "package:pi_mobile/data/connection/shared_data.dart";
 import "package:pi_mobile/data/exercise/exercise_models_provider.dart";
+import "package:pi_mobile/data/exercise/one_rep_max_service_provider.dart";
 import "package:pi_mobile/data/routine/routines_provider.dart";
 import "package:pi_mobile/data/session/session_service_provider.dart";
 import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/utility/either.dart";
 import "package:pi_mobile/utility/iterable.dart";
 import "package:pi_mobile/utility/map.dart";
+import "package:pi_mobile/utility/option.dart";
+import "package:pi_mobile/utility/task.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 part "sharing_service_provider.g.dart";
@@ -78,7 +81,44 @@ class SharingService with Logger {
           final routinesMap = await ref.read(routinesMapProvider.future);
           final exerciseMap = await ref.read(exerciseModelsMapProvider.future);
           final sessionService = await ref.read(sessionServiceProvider.future);
+          final oneRepMaxService =
+              await ref.read(oneRepMaxServiceProvider.future);
           final sessions = await sessionService.readList(sessionIds).run();
+
+          final exercises = await sessions
+              .flatMap((session) => session.exercises)
+              .map((exercise) => exercise.exerciseId)
+              .unique()
+              .map(exerciseMap.get)
+              .flattenOptions()
+              .map(
+                (exercise) => oneRepMaxService
+                    .findOneRepMaxHistoryForExercise(exercise.id)
+                    .map(
+                      (oneRepMaxHistoryOption) => oneRepMaxHistoryOption
+                          .map(
+                        (oneRepMaxHistory) => oneRepMaxHistory.oneRepMaxHistory
+                            .map(
+                              (historyItem) => SharedOneRepMax(
+                                timestamp:
+                                    historyItem.dateTime.millisecondsSinceEpoch,
+                                value: historyItem.value,
+                              ),
+                            )
+                            .toList(),
+                      )
+                          .orElse(const []),
+                    )
+                    .map(
+                      (sharedOneRepMaxList) => SharedExercise(
+                        id: exercise.id,
+                        name: exercise.name,
+                        oneRepMaxList: sharedOneRepMaxList,
+                      ),
+                    ),
+              )
+              .joinAll()
+              .run();
 
           return SharedData(
             shareTimestamp: DateTime.now().millisecondsSinceEpoch,
@@ -109,19 +149,7 @@ class SharingService with Logger {
                   ),
                 )
                 .toList(),
-            exercises: sessions
-                .flatMap((session) => session.exercises)
-                .map((exercise) => exercise.exerciseId)
-                .unique()
-                .map(exerciseMap.get)
-                .flattenOptions()
-                .map(
-                  (exercise) => SharedExercise(
-                    id: exercise.id,
-                    name: exercise.name,
-                  ),
-                )
-                .toList(),
+            exercises: exercises,
             routines: sessions
                 .map((session) => session.routineId)
                 .unique()

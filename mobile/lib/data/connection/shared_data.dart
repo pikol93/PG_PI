@@ -60,10 +60,22 @@ class SharedExercise with _$SharedExercise {
   const factory SharedExercise({
     required int id,
     required String name,
+    required List<SharedOneRepMax> oneRepMaxList,
   }) = _SharedExercise;
 
   factory SharedExercise.fromJson(Map<String, Object?> json) =>
       _$SharedExerciseFromJson(json);
+}
+
+@freezed
+class SharedOneRepMax with _$SharedOneRepMax {
+  const factory SharedOneRepMax({
+    required int timestamp,
+    required double value,
+  }) = _SharedOneRepMax;
+
+  factory SharedOneRepMax.fromJson(Map<String, Object?> json) =>
+      _$SharedOneRepMaxFromJson(json);
 }
 
 @freezed

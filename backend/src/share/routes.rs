@@ -58,7 +58,7 @@ pub async fn route_share(
     HttpResponse::Ok().json(response)
 }
 
-#[get("/data/{uuid}")]
+#[get("/session/{uuid}")]
 pub async fn route_fetch_shared(
     shared_data_service: Data<SharedDataService>,
     uuid: Path<uuid::Uuid>,

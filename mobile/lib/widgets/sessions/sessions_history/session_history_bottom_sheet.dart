@@ -5,6 +5,7 @@ import "package:pi_mobile/data/connection/sharing_service_provider.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/widgets/sessions/common/share_notifier.dart";
+import "package:url_launcher/url_launcher.dart";
 
 class SessionsHistoryBottomSheet extends StatelessWidget {
   final ShareNotifier shareNotifier;
@@ -163,6 +164,7 @@ class _ShareSuccessDialog extends StatelessWidget with Logger {
       );
 
   void _onOpenPressed(BuildContext context) {
+    launchUrl(targetUrl);
     logger.debug("Open pressed for $targetUrl");
   }
 

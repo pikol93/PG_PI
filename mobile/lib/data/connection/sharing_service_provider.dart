@@ -45,6 +45,9 @@ class SharingService with Logger {
           return response.id;
         },
         (e, stackTrace) {
+          if (e is DioException) {
+            logger.debug("DioException: ${e.response}");
+          }
           logger.debug("Failed sharing. $e $stackTrace");
           return "$e";
         },

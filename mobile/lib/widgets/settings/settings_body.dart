@@ -17,6 +17,7 @@ import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/widgets/settings/development_setting.dart";
 import "package:pi_mobile/widgets/settings/setting_button.dart";
+import "package:pi_mobile/widgets/settings/setting_checkbox.dart";
 import "package:pi_mobile/widgets/settings/setting_option.dart";
 import "package:pi_mobile/widgets/settings/setting_text.dart";
 
@@ -30,6 +31,7 @@ class SettingsBody extends StatelessWidget {
             _ChangeLanguageSetting(),
             _ChangeThemeSetting(),
             _ChangeServerAddressSetting(),
+            _ChangeServerIsSecureSetting(),
             _GenerateHeartRateDataSetting(),
             _ClearHeartRateDataSetting(),
             _GenerateTracksSetting(),
@@ -169,7 +171,31 @@ class _ChangeServerAddressSetting extends ConsumerWidget {
           );
 
   void _onConfirmed(WidgetRef ref, String newValue) {
-    ref.read(connectionSettingsProvider.notifier).updateServerAddress(newValue);
+    ref.read(connectionSettingsServiceProvider).updateServerAddress(newValue);
+  }
+}
+
+class _ChangeServerIsSecureSetting extends ConsumerWidget {
+  const _ChangeServerIsSecureSetting();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) =>
+      ref.watch(connectionSecureProvider).when(
+            data: (data) => DevelopmentSetting(
+              child: SettingCheckbox(
+                icon: Icons.security,
+                title: "Use HTTP secure",
+                currentValue: data,
+                onConfirmed: (value) => _onConfirmed(ref, value),
+              ),
+            ),
+            error: (obj, stack) =>
+                Text(context.t.error.unexpectedErrorOccurred),
+            loading: () => const CircularProgressIndicator(),
+          );
+
+  void _onConfirmed(WidgetRef ref, bool newValue) {
+    ref.read(connectionSettingsServiceProvider).updateSecure(newValue);
   }
 }
 

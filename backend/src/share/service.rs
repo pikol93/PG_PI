@@ -62,10 +62,9 @@ impl SharedDataService {
             .get_shared_data_collection()
             .find_one(filter_doc)
             .await?
-            .filter(|document| {
-                debug!("AAAA: {:?}", document);
+            .filter(|document| 
                 Utc::now() < document.expiration_date
-            });
+            );
 
         Ok(result)
     }

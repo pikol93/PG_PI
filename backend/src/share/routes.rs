@@ -17,12 +17,12 @@ const MAX_VALIDITY_DURATION: Duration = Duration::days(31);
 #[post("/share")]
 pub async fn route_share(
     shared_data_service: Data<SharedDataService>,
-    shared_data: Json<ShareRequest>,
+    share_request: Json<ShareRequest>,
 ) -> impl Responder {
     let ShareRequest {
         validity_millis,
-        data_to_share,
-    } = shared_data.into_inner();
+        shared_data,
+    } = share_request.into_inner();
 
     let validity_duration = Duration::milliseconds(validity_millis as i64);
     if validity_duration < MIN_VALIDITY_DURATION {
@@ -42,9 +42,7 @@ pub async fn route_share(
         return HttpResponse::InternalServerError().body("Invalid date.");
     };
 
-    let save_result = shared_data_service
-        .save(expiration_date, data_to_share)
-        .await;
+    let save_result = shared_data_service.save(expiration_date, shared_data).await;
     let object_id = match save_result {
         Ok(object_id) => object_id,
         Err(error) => {
@@ -60,7 +58,7 @@ pub async fn route_share(
     HttpResponse::Ok().json(response)
 }
 
-#[get("/data/{uuid}")]
+#[get("/session/{uuid}")]
 pub async fn route_fetch_shared(
     shared_data_service: Data<SharedDataService>,
     uuid: Path<uuid::Uuid>,

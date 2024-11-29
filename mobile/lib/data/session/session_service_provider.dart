@@ -3,9 +3,16 @@ import "package:fpdart/fpdart.dart";
 import "package:isar/isar.dart";
 import "package:pi_mobile/data/isar_provider.dart";
 import "package:pi_mobile/data/session/session.dart";
+import "package:pi_mobile/utility/task.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 part "session_service_provider.g.dart";
+
+@riverpod
+Future<List<Session>> sessions(Ref ref) async {
+  final service = await ref.watch(sessionServiceProvider.future);
+  return service.readAllSortedByDateDescending().run();
+}
 
 @riverpod
 Future<SessionService> sessionService(Ref ref) async {
@@ -50,5 +57,17 @@ class SessionService {
         () => isar.writeTxn(
           () => isar.sessions.put(session),
         ),
+      );
+
+  Task<List<Session>> readList(List<int> sessionIds) => sessionIds
+      .map(
+        (id) => Task(
+          () => isar.sessions.where().idEqualTo(id).findFirst(),
+        ),
+      )
+      .joinAll()
+      .map(
+        (list) =>
+            list.where((item) => item != null).map((item) => item!).toList(),
       );
 }

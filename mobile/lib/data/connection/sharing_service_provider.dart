@@ -3,12 +3,22 @@ import "dart:io";
 import "package:dio/dio.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:fpdart/fpdart.dart";
-import "package:freezed_annotation/freezed_annotation.dart";
+import "package:pi_mobile/data/connection/connection_settings_provider.dart";
 import "package:pi_mobile/data/connection/dio_instance_provider.dart";
+import "package:pi_mobile/data/connection/requests.dart";
+import "package:pi_mobile/data/connection/shared_data.dart";
+import "package:pi_mobile/data/exercise/exercise_models_provider.dart";
+import "package:pi_mobile/data/exercise/one_rep_max_service_provider.dart";
+import "package:pi_mobile/data/routine/routines_provider.dart";
+import "package:pi_mobile/data/session/session_service_provider.dart";
 import "package:pi_mobile/logger.dart";
+import "package:pi_mobile/utility/either.dart";
+import "package:pi_mobile/utility/iterable.dart";
+import "package:pi_mobile/utility/map.dart";
+import "package:pi_mobile/utility/option.dart";
+import "package:pi_mobile/utility/task.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
-part "sharing_service_provider.freezed.dart";
 part "sharing_service_provider.g.dart";
 
 @riverpod
@@ -29,11 +39,17 @@ class SharingService with Logger {
     required this.dio,
   });
 
-  TaskEither<String, ()> share(ShareRequest request) => TaskEither.tryCatch(
+  TaskEither<String, Uri> share(List<int> sessionIds) => TaskEither.tryCatch(
         () async {
+          final sharedDataFuture = await prepareData(sessionIds).run();
+          final sharedData = sharedDataFuture.unwrap();
+
           final result = await dio.post<Map<String, dynamic>>(
             "/share",
-            data: request.toJson(),
+            data: ShareRequest(
+              validityMillis: 2592000000,
+              sharedData: sharedData,
+            ).toJson(),
           );
 
           if (result.statusCode != HttpStatus.ok) {
@@ -43,40 +59,137 @@ class SharingService with Logger {
           final response = ShareResponse.fromJson(result.data!);
           logger.debug("Response: $response");
 
+          final connectionSettings =
+              await ref.read(connectionSettingsProvider.future);
+
+          return connectionSettings
+              .createSessionEndpointUrl(response.id)
+              .fold((exception) => throw exception, (uri) => uri);
+        },
+        (e, stackTrace) {
+          if (e is DioException) {
+            logger.debug("DioException: ${e.response}");
+          }
+          logger.debug("Failed sharing. $e $stackTrace");
+          return "$e";
+        },
+      );
+
+  TaskEither<(), SharedData> prepareData(List<int> sessionIds) =>
+      TaskEither.tryCatch(
+        () async {
+          final routinesMap = await ref.read(routinesMapProvider.future);
+          final exerciseMap = await ref.read(exerciseModelsMapProvider.future);
+          final sessionService = await ref.read(sessionServiceProvider.future);
+          final oneRepMaxService =
+              await ref.read(oneRepMaxServiceProvider.future);
+          final sessions = await sessionService.readList(sessionIds).run();
+
+          final exercises = await sessions
+              .flatMap((session) => session.exercises)
+              .map((exercise) => exercise.exerciseId)
+              .unique()
+              .map(exerciseMap.get)
+              .flattenOptions()
+              .map(
+                (exercise) => oneRepMaxService
+                    .findOneRepMaxHistoryForExercise(exercise.id)
+                    .map(
+                      (oneRepMaxHistoryOption) => oneRepMaxHistoryOption
+                          .map(
+                        (oneRepMaxHistory) => oneRepMaxHistory.oneRepMaxHistory
+                            .map(
+                              (historyItem) => SharedOneRepMax(
+                                timestamp:
+                                    historyItem.dateTime.millisecondsSinceEpoch,
+                                value: historyItem.value,
+                              ),
+                            )
+                            .toList(),
+                      )
+                          .orElse(const []),
+                    )
+                    .map(
+                      (sharedOneRepMaxList) => SharedExercise(
+                        id: exercise.id,
+                        name: exercise.name,
+                        oneRepMaxList: sharedOneRepMaxList,
+                      ),
+                    ),
+              )
+              .joinAll()
+              .run();
+
+          return SharedData(
+            shareTimestamp: DateTime.now().millisecondsSinceEpoch,
+            sessions: sessions
+                .map(
+                  (session) => SharedSession(
+                    id: session.id,
+                    routineId: session.routineId,
+                    workoutId: session.workoutId,
+                    startTimestamp: session.startDate.millisecondsSinceEpoch,
+                    exercises: session.exercises
+                        .map(
+                          (exercise) => SharedSessionExercise(
+                            exerciseId: exercise.exerciseId,
+                            sets: exercise.sets
+                                .map(
+                                  (set) => SharedSet(
+                                    reps: set.reps,
+                                    weight: set.weight,
+                                    rpe: set.rpe,
+                                    restSecs: set.restTimeSeconds,
+                                  ),
+                                )
+                                .toList(),
+                          ),
+                        )
+                        .toList(),
+                  ),
+                )
+                .toList(),
+            exercises: exercises,
+            routines: sessions
+                .map((session) => session.routineId)
+                .unique()
+                .map(routinesMap.get)
+                .flattenOptions()
+                .map(
+                  (routine) => SharedRoutine(
+                    id: routine.id,
+                    name: routine.name,
+                    workouts: routine.workouts
+                        .map(
+                          (workout) => SharedWorkout(
+                            id: workout.id,
+                            name: workout.name,
+                            exercises: workout.exercises
+                                .map(
+                                  (exercise) => SharedWorkoutExercise(
+                                    exerciseId: exercise.exerciseId,
+                                    sets: exercise.sets
+                                        .map(
+                                          (set) => SharedExerciseSet(
+                                            intensity: set.intensity,
+                                            reps: set.reps,
+                                          ),
+                                        )
+                                        .toList(),
+                                  ),
+                                )
+                                .toList(),
+                          ),
+                        )
+                        .toList(),
+                  ),
+                )
+                .toList(),
+          );
+        },
+        (error, stackTrace) {
+          logger.warning("Could not create shared data. $error");
           return ();
         },
-        (e, stackTrace) => "$e",
       );
-}
-
-@freezed
-class ShareRequest with _$ShareRequest {
-  const factory ShareRequest({
-    required int validityMillis,
-    required DataToShare dataToShare,
-  }) = _ShareRequest;
-
-  factory ShareRequest.fromJson(Map<String, Object?> json) =>
-      _$ShareRequestFromJson(json);
-}
-
-@freezed
-class ShareResponse with _$ShareResponse {
-  const factory ShareResponse({
-    required String id,
-  }) = _ShareResponse;
-
-  factory ShareResponse.fromJson(Map<String, Object?> json) =>
-      _$ShareResponseFromJson(json);
-}
-
-@freezed
-class DataToShare with _$DataToShare {
-  const factory DataToShare({
-    required String something,
-    required String something2,
-  }) = _DataToShare;
-
-  factory DataToShare.fromJson(Map<String, Object?> json) =>
-      _$DataToShareFromJson(json);
 }

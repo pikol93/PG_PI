@@ -1,4 +1,6 @@
-import "package:pi_mobile/data/connection/connection_settings_state.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:loggy/loggy.dart";
+import "package:pi_mobile/data/connection/connection_settings.dart";
 import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/utility/shared_preferences.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
@@ -6,30 +8,64 @@ import "package:shared_preferences/shared_preferences.dart";
 
 part "connection_settings_provider.g.dart";
 
-@Riverpod(keepAlive: true)
-class ConnectionSettings extends _$ConnectionSettings with Logger {
-  static const keyName = "connection_settings";
+const serverAddressKeyName = "server_address";
 
-  @override
-  Future<ConnectionSettingsState> build() async {
-    final preferences = SharedPreferencesAsync();
-    return await preferences.getFromJson(
-          keyName,
-          ConnectionSettingsState.fromJson,
-        ) ??
-        const ConnectionSettingsState(serverAddress: "server.xyz");
-  }
+@riverpod
+Future<String> serverAddress(Ref ref) async {
+  final connectionSettings = await ref.watch(connectionSettingsProvider.future);
+  final serverAddress = connectionSettings.getAddress();
+  logDebug("Read server address: $serverAddress");
+  return serverAddress;
+}
 
-  Future<void> updateServerAddress(String serverAddress) async {
-    // TODO: This operation probably does not require us
-    //  to write and read from shared preferences.
-    logger.debug("Setting server address as $serverAddress...");
-    final preferences = SharedPreferencesAsync();
-    await preferences.setToJson(
-      keyName,
-      ConnectionSettingsState(serverAddress: serverAddress),
+@riverpod
+Future<bool> connectionSecure(Ref ref) async {
+  final connectionSettings = await ref.watch(connectionSettingsProvider.future);
+  return connectionSettings.isSecure;
+}
+
+@riverpod
+Future<ConnectionSettings> connectionSettings(Ref ref) async {
+  final storedConnectionSettings = await SharedPreferencesAsync().getFromJson(
+    serverAddressKeyName,
+    ConnectionSettings.fromJson,
+  );
+
+  return storedConnectionSettings ??
+      const ConnectionSettings(
+        serverAddress: "server.xyz",
+        isSecure: true,
+      );
+}
+
+@riverpod
+ConnectionSettingsService connectionSettingsService(Ref ref) =>
+    ConnectionSettingsService(ref: ref);
+
+class ConnectionSettingsService with Logger {
+  final Ref ref;
+
+  ConnectionSettingsService({required this.ref});
+
+  Future<void> updateServerAddress(String newValue) async {
+    logger.debug("Updating server address: $newValue");
+    final current = await ref.read(connectionSettingsProvider.future);
+    await SharedPreferencesAsync().setToJson(
+      serverAddressKeyName,
+      current.copyWith(serverAddress: newValue),
     );
 
-    ref.invalidateSelf();
+    ref.invalidate(connectionSettingsProvider);
+  }
+
+  Future<void> updateSecure(bool newValue) async {
+    logger.debug("Updating secure: $newValue");
+    final current = await ref.read(connectionSettingsProvider.future);
+    await SharedPreferencesAsync().setToJson(
+      serverAddressKeyName,
+      current.copyWith(isSecure: newValue),
+    );
+
+    ref.invalidate(connectionSettingsProvider);
   }
 }

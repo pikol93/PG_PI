@@ -5,6 +5,7 @@ import "package:pi_mobile/routing/routes.dart" as base;
 import "package:pi_mobile/routing/routes_exercises.dart" as exercises;
 import "package:pi_mobile/routing/routes_heart_rate.dart" as heart_rate;
 import "package:pi_mobile/routing/routes_routines.dart" as routines;
+import "package:pi_mobile/routing/routes_sessions.dart" as sessions;
 import "package:pi_mobile/routing/routes_tracks.dart" as tracks;
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
@@ -24,6 +25,7 @@ GoRouter router(Ref ref) {
       ...heart_rate.$appRoutes,
       ...tracks.$appRoutes,
       ...routines.$appRoutes,
+      ...sessions.$appRoutes,
     ],
   );
 

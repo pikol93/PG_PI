@@ -13,7 +13,7 @@ import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/logger.dart";
 import "package:pi_mobile/main.dart";
 import "package:pi_mobile/routing/routes_tracks.dart";
-import "package:pi_mobile/widgets/tracks/record_track_bottom_sheet.dart";
+import "package:pi_mobile/widgets/tracks/record/record_track_bottom_sheet.dart";
 
 class RecordTrackScreen extends ConsumerStatefulWidget {
   const RecordTrackScreen({super.key});

@@ -13,7 +13,7 @@ import "package:pi_mobile/widgets/tracks/permissions/request_battery_permission_
 import "package:pi_mobile/widgets/tracks/permissions/request_location_permission_screen.dart";
 import "package:pi_mobile/widgets/tracks/permissions/request_notification_permission_screen.dart";
 import "package:pi_mobile/widgets/tracks/permissions/request_overlays_permission_screen.dart";
-import "package:pi_mobile/widgets/tracks/record_track_screen.dart";
+import "package:pi_mobile/widgets/tracks/record/record_track_screen.dart";
 import "package:pi_mobile/widgets/tracks/track_details_screen.dart";
 import "package:pi_mobile/widgets/tracks/tracks_screen.dart";
 

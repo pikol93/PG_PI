@@ -179,6 +179,37 @@
       }
     }
   },
+  "sessions": {
+    "history": {
+      "title": "Session history",
+      "routineName": "Routine name",
+      "unknownRoutine": "Unknown routine",
+      "workoutName": "Workout name",
+      "unknownWorkout": "Unknown workout",
+      "exercises": "Exercises",
+      "unknownExercise": "Unknown exercise"
+    },
+    "bottomSheet": {
+      "sessionsSelected": "$amount sessions selected",
+      "share": "Share"
+    },
+    "share": {
+      "common": {
+        "close": "Close"
+      },
+      "confirmDialog": {
+        "areYouSure": "Are you sure you want to share $amount sessions?"
+      },
+      "sharingSucceededDialog": {
+        "content": "Shared successfully.",
+        "copyToClipboard": "Copy to clipboard",
+        "openLink": "Open link"
+      },
+      "sharingFailedDialog": {
+        "content": "Failed sharing."
+      }
+    }
+  },
   "exercises": {
     "title": "Exercises",
     "start": "Start new workout",

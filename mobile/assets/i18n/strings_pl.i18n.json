@@ -171,6 +171,37 @@
       }
     }
   },
+  "sessions": {
+    "history": {
+      "title": "Historia sesji",
+      "routineName": "Nazwa rutyny",
+      "unknownRoutine": "Nieznana rutyna",
+      "workoutName": "Nazwa treningu",
+      "unknownWorkout": "Nieznany trening",
+      "exercises": "Ćwiczenia",
+      "unknownExercise": "Nieznane ćwiczenie"
+    },
+    "bottomSheet": {
+      "sessionsSelected": "Zaznaczono $amount sesji",
+      "share": "Udostępnij"
+    },
+    "share": {
+      "common": {
+        "close": "Zamknij"
+      },
+      "confirmDialog": {
+        "areYouSure": "Czy jesteś pewny, że chcesz udostępnić $amount sesji?"
+      },
+      "sharingSucceededDialog": {
+        "content": "Udostępniono pomyślnie.",
+        "copyToClipboard": "Skopiuj do schowka",
+        "openLink": "Otwórz link"
+      },
+      "sharingFailedDialog": {
+        "content": "Udostępnianie nie powiodło się."
+      }
+    }
+  },
   "exercises": {
     "title": "Ćwiczenia",
     "start": "Rozpocznij nowy trening",

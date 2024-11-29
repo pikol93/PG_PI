@@ -8,6 +8,12 @@ import "package:riverpod_annotation/riverpod_annotation.dart";
 part "session_service_provider.g.dart";
 
 @riverpod
+Future<List<Session>> sessions(Ref ref) async {
+  final service = await ref.watch(sessionServiceProvider.future);
+  return service.readAllSortedByDateDescending().run();
+}
+
+@riverpod
 Future<SessionService> sessionService(Ref ref) async {
   final isar = await ref.watch(isarInstanceProvider.future);
   return SessionService(ref: ref, isar: isar);

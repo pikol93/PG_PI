@@ -29,7 +29,7 @@ class SharingService with Logger {
     required this.dio,
   });
 
-  TaskEither<String, ()> share(ShareRequest request) => TaskEither.tryCatch(
+  TaskEither<String, String> share(ShareRequest request) => TaskEither.tryCatch(
         () async {
           final result = await dio.post<Map<String, dynamic>>(
             "/share",
@@ -43,9 +43,12 @@ class SharingService with Logger {
           final response = ShareResponse.fromJson(result.data!);
           logger.debug("Response: $response");
 
-          return ();
+          return response.id;
         },
-        (e, stackTrace) => "$e",
+        (e, stackTrace) {
+          logger.debug("Failed sharing. $e $stackTrace");
+          return "$e";
+        },
       );
 }
 

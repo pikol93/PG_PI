@@ -52,6 +52,14 @@ pub struct SharedSet {
 pub struct SharedExercise {
     pub id: u64,
     pub name: String,
+    pub one_rep_max_list: Vec<SharedOneRepMax>,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+#[serde(rename_all = "camelCase")]
+pub struct SharedOneRepMax {
+    pub timestamp: u64,
+    pub value: f64,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]

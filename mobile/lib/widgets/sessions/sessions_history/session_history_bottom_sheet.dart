@@ -1,6 +1,8 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:ndialog/ndialog.dart";
+import "package:pi_mobile/data/connection/requests.dart";
+import "package:pi_mobile/data/connection/shared_data.dart";
 import "package:pi_mobile/data/connection/sharing_service_provider.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/logger.dart";
@@ -75,7 +77,7 @@ class _BottomSheet extends ConsumerWidget with Logger {
         .share(
           const ShareRequest(
             validityMillis: 2592000000,
-            dataToShare: DataToShare(something: "a", something2: "b"),
+            sharedData: SharedData(something: "a", something2: "b"),
           ),
         )
         .run();

@@ -4,8 +4,8 @@ use serde::{Deserialize, Serialize};
 pub struct ShareRequest {
     #[serde(alias = "validityMillis")]
     pub validity_millis: u64,
-    #[serde(alias = "dataToShare")]
-    pub data_to_share: DataToShare,
+    #[serde(alias = "sharedData")]
+    pub shared_data: DataToShare,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]

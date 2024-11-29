@@ -13,10 +13,10 @@ use actix_web::{get, App, HttpResponse, HttpServer, Responder};
 use dotenvy::dotenv;
 use eyre::Result;
 use mongodb::Client;
+use share::routes::route_fetch_shared;
 use share::service::SharedDataService;
 use tracing::{debug, info};
 use tracing_subscriber::filter::EnvFilter;
-use share::routes::route_fetch_shared;
 
 #[actix_web::main]
 async fn main() -> Result<()> {

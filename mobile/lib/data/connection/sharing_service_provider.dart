@@ -81,14 +81,14 @@ class SharingService with Logger {
           final sessions = await sessionService.readList(sessionIds).run();
 
           return SharedData(
-            shareDate: DateTime.now(),
+            shareTimestamp: DateTime.now().millisecondsSinceEpoch,
             sessions: sessions
                 .map(
                   (session) => SharedSession(
                     id: session.id,
                     routineId: session.routineId,
                     workoutId: session.workoutId,
-                    startDate: session.startDate,
+                    startTimestamp: session.startDate.millisecondsSinceEpoch,
                     exercises: session.exercises
                         .map(
                           (exercise) => SharedSessionExercise(

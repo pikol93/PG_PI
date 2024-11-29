@@ -7,7 +7,7 @@ part "shared_data.freezed.dart";
 @freezed
 class SharedData with _$SharedData {
   const factory SharedData({
-    required DateTime shareDate,
+    required int shareTimestamp,
     required List<SharedSession> sessions,
     required List<SharedExercise> exercises,
     required List<SharedRoutine> routines,
@@ -23,7 +23,7 @@ class SharedSession with _$SharedSession {
     required int id,
     required int routineId,
     required int workoutId,
-    required DateTime startDate,
+    required int startTimestamp,
     required List<SharedSessionExercise> exercises,
   }) = _SharedSession;
 

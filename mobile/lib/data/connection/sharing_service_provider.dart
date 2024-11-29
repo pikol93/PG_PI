@@ -3,6 +3,7 @@ import "dart:io";
 import "package:dio/dio.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:fpdart/fpdart.dart";
+import "package:pi_mobile/data/connection/connection_settings_provider.dart";
 import "package:pi_mobile/data/connection/dio_instance_provider.dart";
 import "package:pi_mobile/data/connection/requests.dart";
 import "package:pi_mobile/logger.dart";
@@ -28,7 +29,7 @@ class SharingService with Logger {
     required this.dio,
   });
 
-  TaskEither<String, String> share(ShareRequest request) => TaskEither.tryCatch(
+  TaskEither<String, Uri> share(ShareRequest request) => TaskEither.tryCatch(
         () async {
           final result = await dio.post<Map<String, dynamic>>(
             "/share",
@@ -42,7 +43,12 @@ class SharingService with Logger {
           final response = ShareResponse.fromJson(result.data!);
           logger.debug("Response: $response");
 
-          return response.id;
+          final connectionSettings =
+              await ref.read(connectionSettingsProvider.future);
+
+          return connectionSettings
+              .createSessionEndpointUrl(response.id)
+              .fold((exception) => throw exception, (uri) => uri);
         },
         (e, stackTrace) {
           if (e is DioException) {

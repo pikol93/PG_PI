@@ -18,8 +18,9 @@ class DioInstance extends _$DioInstance with Logger {
     logger.debug("Building dio: $serverAddress");
     final dio = Dio(
       BaseOptions(
-          baseUrl: "http://$serverAddress",
-          connectTimeout: const Duration(seconds: 10)),
+        baseUrl: "http://$serverAddress",
+        connectTimeout: const Duration(seconds: 10),
+      ),
     );
 
     dio.interceptors.add(cookieManager);

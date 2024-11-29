@@ -140,7 +140,7 @@ class _ShareConfirmDialog extends StatelessWidget with Logger {
 }
 
 class _ShareSuccessDialog extends StatelessWidget with Logger {
-  final String targetUrl;
+  final Uri targetUrl;
 
   const _ShareSuccessDialog({required this.targetUrl});
 
@@ -150,7 +150,7 @@ class _ShareSuccessDialog extends StatelessWidget with Logger {
           context.t.sessions.share.sharingSucceededDialog.title,
         ),
         content: Text(
-          targetUrl,
+          targetUrl.toString(),
         ),
         actions: [
           TextButton(

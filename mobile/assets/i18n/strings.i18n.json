@@ -35,7 +35,11 @@
     "record": {
       "title": "Record track"
     },
-    "couldNotFetch": "Could not fetch tracks."
+    "couldNotFetch": "Could not fetch tracks.",
+    "distance": "Distance (m)",
+    "duration": "Duration",
+    "velocity": "Velocity (km/h)",
+    "movingVelocity": "Moving velocity (km/h)"
   },
   "common": {
     "delete": "Delete",

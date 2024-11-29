@@ -15,7 +15,7 @@ import "package:pi_mobile/widgets/tracks/permissions/request_notification_permis
 import "package:pi_mobile/widgets/tracks/permissions/request_overlays_permission_screen.dart";
 import "package:pi_mobile/widgets/tracks/record/record_track_screen.dart";
 import "package:pi_mobile/widgets/tracks/track_details_screen.dart";
-import "package:pi_mobile/widgets/tracks/tracks_screen.dart";
+import "package:pi_mobile/widgets/tracks/all_tracks/tracks_screen.dart";
 
 part "routes_tracks.g.dart";
 

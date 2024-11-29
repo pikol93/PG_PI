@@ -4,6 +4,7 @@ import "package:awesome_flutter_extensions/awesome_flutter_extensions.dart";
 import "package:flutter/material.dart";
 import "package:flutter_foreground_task/flutter_foreground_task.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:go_router/go_router.dart";
 import "package:pi_mobile/data/preferences/date_formatter_provider.dart";
 import "package:pi_mobile/data/tracks/processed_recorded_track_provider.dart";
 import "package:pi_mobile/data/tracks/recorded_track_provider.dart";
@@ -70,10 +71,14 @@ class _RecordTrackScreenState extends ConsumerState<RecordTrackScreen>
 
     ref.read(recordedTrackProvider.notifier).clear();
     final manager = await ref.read(tracksManagerProvider.future);
-    final id = await manager.save(track);
-
+    final id = await manager.save(track).run();
     if (context.mounted) {
-      TrackDetailsRoute(trackId: id).go(context);
+      final location = id.fold(
+        (_) => const TracksRoute().location,
+        (id) => TrackDetailsRoute(trackId: id).location,
+      );
+
+      context.go(location);
     }
   }
 

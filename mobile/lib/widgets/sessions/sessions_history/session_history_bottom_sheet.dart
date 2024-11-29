@@ -1,8 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:ndialog/ndialog.dart";
-import "package:pi_mobile/data/connection/requests.dart";
-import "package:pi_mobile/data/connection/shared_data.dart";
 import "package:pi_mobile/data/connection/sharing_service_provider.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/logger.dart";
@@ -73,14 +71,7 @@ class _BottomSheet extends ConsumerWidget with Logger {
     progressDialog.show();
 
     final sharingService = await ref.read(sharingServiceProvider.future);
-    final shareResult = await sharingService
-        .share(
-          const ShareRequest(
-            validityMillis: 2592000000,
-            sharedData: SharedData(something: "a", something2: "b"),
-          ),
-        )
-        .run();
+    final shareResult = await sharingService.share(selectedSessions).run();
 
     progressDialog.dismiss();
 

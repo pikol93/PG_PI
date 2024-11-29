@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:flutter/services.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:ndialog/ndialog.dart";
 import "package:pi_mobile/data/connection/sharing_service_provider.dart";
@@ -168,8 +169,10 @@ class _ShareSuccessDialog extends StatelessWidget with Logger {
     logger.debug("Open pressed for $targetUrl");
   }
 
-  void _onCopyPressed(BuildContext context) {
+  Future<void> _onCopyPressed(BuildContext context) async {
     logger.debug("Copy pressed for $targetUrl");
+
+    await Clipboard.setData(ClipboardData(text: targetUrl.toString()));
   }
 
   void _onClosePressed(BuildContext context) {

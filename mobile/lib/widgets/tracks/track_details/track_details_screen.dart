@@ -5,7 +5,7 @@ import "package:pi_mobile/data/tracks/track.dart";
 import "package:pi_mobile/data/tracks/tracks_provider.dart";
 import "package:pi_mobile/i18n/strings.g.dart";
 import "package:pi_mobile/logger.dart";
-import "package:pi_mobile/widgets/tracks/tracks_details_page.dart";
+import "package:pi_mobile/widgets/tracks/track_details/tracks_details_page.dart";
 
 class TrackDetailsScreen extends ConsumerStatefulWidget {
   final int trackId;

@@ -4,6 +4,7 @@ import "package:pi_mobile/routing/routes.dart";
 import "package:pi_mobile/routing/routes_exercises.dart";
 import "package:pi_mobile/routing/routes_heart_rate.dart";
 import "package:pi_mobile/routing/routes_routines.dart";
+import "package:pi_mobile/routing/routes_sessions.dart";
 import "package:pi_mobile/routing/routes_tracks.dart";
 import "package:pi_mobile/widgets/common/navigation_drawer_entry.dart";
 
@@ -42,6 +43,11 @@ class AppNavigationDrawer extends StatelessWidget {
               goMethod: const ExercisesRoute().go,
               icon: Icons.fitness_center,
               text: context.t.exercises.title,
+            ),
+            NavigationDrawerEntry(
+              goMethod: const SessionsHistoryRoute().go,
+              icon: Icons.history,
+              text: context.t.sessions.history.title,
             ),
             NavigationDrawerEntry(
               goMethod: const TracksRoute().go,

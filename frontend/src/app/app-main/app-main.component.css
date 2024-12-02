@@ -2,20 +2,59 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  height: 100vh;
-  text-align: center;
-  background-color: #252627;
-  color: #bb0a21;
+  background-color: #fff9fb;
+  color: #000000;
+  padding: 20px;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
 }
 
 .logo {
-  max-width: 200px;
+  max-width: 100px;
   margin-bottom: 20px;
 }
 
-.motivational-text {
+.header-text {
   font-size: 1.5rem;
   font-weight: bold;
   margin: 0;
+  text-align: center;
+  flex-grow: 1;
+}
+
+.content-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 20px;
+}
+
+.table-placement {
+  width: 90%;
+}
+
+.chart-container {
+  width: 40%;
+  display: none;
+}
+
+.chart-container.visible {
+  display: block;
+}
+
+.table-placement.chart-visible {
+  width: 60%;
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  padding: 10px;
+  position: relative;
 }

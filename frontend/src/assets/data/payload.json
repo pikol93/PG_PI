@@ -1,0 +1,168 @@
+{
+    "user": "Jan Kowalski",
+    "raport_number": "12345",
+    "trainings": [
+      {
+        "date": "2024-11-01",
+        "exercises": [
+          {
+            "name": "Wyciskanie na klatkę",
+            "expectedNumberOfSets": 4,
+            "performedSets": [
+              { "uuid": "1", "expectedReps": 8, "expectedWeight": 100, "expectedIntensity": 0.8, "weight": 100, "reps": 8, "rpe": 0 },
+              { "uuid": "2", "expectedReps": 8, "expectedWeight": 100, "expectedIntensity": 0.8, "weight": 100, "reps": 7, "rpe": 9 },
+              { "uuid": "3", "expectedReps": 8, "expectedWeight": 100, "expectedIntensity": 0.8, "weight": 95, "reps": 8, "rpe": 0 },
+              { "uuid": "4", "expectedReps": 8, "expectedWeight": 100, "expectedIntensity": 0.8, "weight": 95, "reps": 7, "rpe": 0 }
+            ],
+            "restTime": 120
+          },
+          {
+            "name": "Przysiad",
+            "expectedNumberOfSets": 4,
+            "performedSets": [
+              { "uuid":"5", "expectedReps": 8, "expectedWeight": 150, "expectedIntensity": 0.8, "weight": 150, "reps": 8, "rpe": 8 },
+              { "uuid":"6","expectedReps": 8, "expectedWeight": 150, "expectedIntensity": 0.8, "weight": 150, "reps": 7, "rpe": 9 },
+              { "uuid":"7", "expectedReps": 8, "expectedWeight": 150, "expectedIntensity": 0.8, "weight": 145, "reps": 8, "rpe": 8 },
+              { "uuid":"8", "expectedReps": 8, "expectedWeight": 150, "expectedIntensity": 0.8, "weight": 145, "reps": 7, "rpe": 9 }
+            ],
+            "restTime": 180
+          },
+          {
+            "name": "Martwy ciąg",
+            "expectedNumberOfSets": 3,
+            "performedSets": [
+              { "uuid":"9", "expectedReps": 6, "expectedWeight": 180, "expectedIntensity": 0.85, "weight": 180, "reps": 6, "rpe": 9 },
+              { "uuid":"10", "expectedReps": 6, "expectedWeight": 180, "expectedIntensity": 0.85, "weight": 180, "reps": 6, "rpe": 9 },
+              { "uuid":"11", "expectedReps": 6, "expectedWeight": 180, "expectedIntensity": 0.85, "weight": 175, "reps": 6, "rpe": 8 }
+            ],
+            "restTime": 240
+          }
+        ]
+      },
+      {
+        "date": "2024-11-03",
+        "exercises": [
+          {
+            "name": "Wyciskanie sztangi nad głowę",
+            "expectedNumberOfSets": 3,
+            "performedSets": [
+              { "uuid":"12", "expectedReps": 8, "expectedWeight": 60, "expectedIntensity": 0.7, "weight": 60, "reps": 8, "rpe": 7 },
+              { "uuid":"13", "expectedReps": 8, "expectedWeight": 60, "expectedIntensity": 0.7, "weight": 62.5, "reps": 7, "rpe": 8 },
+              { "uuid":"14", "expectedReps": 8, "expectedWeight": 60, "expectedIntensity": 0.7, "weight": 60, "reps": 8, "rpe": 7 }
+            ],
+            "restTime": 90
+          },
+          {
+            "name": "Wyciskanie na klatkę",
+            "expectedNumberOfSets": 4,
+            "performedSets": [
+              { "uuid":"15", "expectedReps": 8, "expectedWeight": 100, "expectedIntensity": 0.8, "weight": 100, "reps": 8, "rpe": 8 },
+              { "uuid":"16", "expectedReps": 8, "expectedWeight": 100, "expectedIntensity": 0.8, "weight": 100, "reps": 7, "rpe": 9 },
+              { "uuid":"17", "expectedReps": 8, "expectedWeight": 100, "expectedIntensity": 0.8, "weight": 95, "reps": 8, "rpe": 8 },
+              { "uuid":"18", "expectedReps": 8, "expectedWeight": 100, "expectedIntensity": 0.8, "weight": 95, "reps": 7, "rpe": 9 }
+            ],
+            "restTime": 120
+          },
+          {
+            "name": "Wiosłowanie hantlami",
+            "expectedNumberOfSets": 3,
+            "performedSets": [
+              { "uuid":"19", "expectedReps": 10, "expectedWeight": 80, "expectedIntensity": 0.75, "weight": 80, "reps": 10, "rpe": 7 },
+              { "uuid":"20", "expectedReps": 10, "expectedWeight": 80, "expectedIntensity": 0.75, "weight": 82.5, "reps": 9, "rpe": 8 },
+              { "uuid":"21", "expectedReps": 10, "expectedWeight": 80, "expectedIntensity": 0.75, "weight": 80, "reps": 10, "rpe": 7 }
+            ],
+            "restTime": 120
+          }
+        ]
+      },
+      {
+        "date": "2024-11-06",
+        "exercises": [
+          {
+            "name": "Przysiad",
+            "expectedNumberOfSets": 4,
+            "performedSets": [
+              { "uuid":"22", "expectedReps": 8, "expectedWeight": 150, "expectedIntensity": 0.8, "weight": 150, "reps": 8, "rpe": 8 },
+              { "uuid":"23", "expectedReps": 8, "expectedWeight": 150, "expectedIntensity": 0.8, "weight": 150, "reps": 7, "rpe": 9 },
+              { "uuid":"24", "expectedReps": 8, "expectedWeight": 150, "expectedIntensity": 0.8, "weight": 145, "reps": 8, "rpe": 8 },
+              { "uuid":"25", "expectedReps": 8, "expectedWeight": 150, "expectedIntensity": 0.8, "weight": 145, "reps": 7, "rpe": 9 }
+            ],
+            "restTime": 180
+          },
+          {
+            "name": "Martwy ciąg",
+            "expectedNumberOfSets": 3,
+            "performedSets": [
+              { "uuid":"26", "expectedReps": 6, "expectedWeight": 180, "expectedIntensity": 0.85, "weight": 180, "reps": 6, "rpe": 9 },
+              { "uuid":"27", "expectedReps": 6, "expectedWeight": 180, "expectedIntensity": 0.85, "weight": 180, "reps": 6, "rpe": 9 },
+              { "uuid":"28", "expectedReps": 6, "expectedWeight": 180, "expectedIntensity": 0.85, "weight": 175, "reps": 6, "rpe": 8 }
+            ],
+            "restTime": 240
+          },
+          {
+            "name": "Podciąganie",
+            "expectedNumberOfSets": 3,
+            "performedSets": [
+              { "uuid":"29", "expectedReps": 10, "expectedWeight": 0, "expectedIntensity": 0.7, "weight": 0, "reps": 10, "rpe": 8 },
+              { "uuid":"30", "expectedReps": 10, "expectedWeight": 0, "expectedIntensity": 0.7, "weight": 0, "reps": 8, "rpe": 9 },
+              { "uuid":"31", "expectedReps": 10, "expectedWeight": 0, "expectedIntensity": 0.7, "weight": 0, "reps": 7, "rpe": 9 }
+            ],
+            "restTime": 90
+          }
+        ]
+      },
+      {
+        "date": "2024-11-08",
+        "exercises": [
+          {
+            "name": "Wyciskanie sztangi nad głowę",
+            "expectedNumberOfSets": 3,
+            "performedSets": [
+              { "uuid":"32", "expectedReps": 8, "expectedWeight": 60, "expectedIntensity": 0.7, "weight": 60, "reps": 8, "rpe": 7 },
+              { "uuid":"33", "expectedReps": 8, "expectedWeight": 60, "expectedIntensity": 0.7, "weight": 62.5, "reps": 7, "rpe": 8 },
+              { "uuid":"34", "expectedReps": 8, "expectedWeight": 60, "expectedIntensity": 0.7, "weight": 60, "reps": 8, "rpe": 7 }
+            ],
+            "restTime": 90
+          },
+          {
+            "name": "Wyciskanie na klatkę",
+            "expectedNumberOfSets": 3,
+            "performedSets": [
+              { "uuid":"35", "expectedReps": 10, "expectedWeight": 80, "expectedIntensity": 0.75, "weight": 80, "reps": 10, "rpe": 7 },
+              { "uuid":"36", "expectedReps": 10, "expectedWeight": 80, "expectedIntensity": 0.75, "weight": 82.5, "reps": 9, "rpe": 8 },
+              { "uuid":"37", "expectedReps": 10, "expectedWeight": 80, "expectedIntensity": 0.75, "weight": 80, "reps": 10, "rpe": 7 }
+            ],
+            "restTime": 120
+          },
+          {
+            "name": "Podciąganie",
+            "expectedNumberOfSets": 3,
+            "performedSets": [
+              { "uuid":"38", "expectedReps": 10, "expectedWeight": 0, "expectedIntensity": 0.7, "weight": 0, "reps": 10, "rpe": 8 },
+              { "uuid":"39", "expectedReps": 10, "expectedWeight": 0, "expectedIntensity": 0.7, "weight": 0, "reps": 8, "rpe": 9 },
+              { "uuid":"40", "expectedReps": 10, "expectedWeight": 0, "expectedIntensity": 0.7, "weight": 0, "reps": 7, "rpe": 9 }
+            ],
+            "restTime": 90
+          }
+        ]
+      }
+    ],
+    "oneRepMaxs": {
+      "Wyciskanie na klatkę": [
+        { "weight": 120, "date": "2024-10-01" },
+        { "weight": 125, "date": "2024-10-15" },
+        { "weight": 135, "date": "2024-10-29" },
+        { "weight": 145, "date": "2024-11-05" }
+      ],
+      "Przysiad": [
+        { "weight": 180, "date": "2024-10-01" },
+        { "weight": 190, "date": "2024-10-15" },
+        { "weight": 200, "date": "2024-11-08" }
+      ],
+      "Martwy ciąg": [
+        { "weight": 220, "date": "2024-10-01" },
+        { "weight": 230, "date": "2024-10-15" }
+      ]
+    }
+  }
+  

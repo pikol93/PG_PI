@@ -10,7 +10,7 @@
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 
     <application
-        android:label="pi_mobile"
+        android:label="PGPI"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity

@@ -278,6 +278,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
+  dependency_validator:
+    dependency: "direct main"
+    description:
+      name: dependency_validator
+      sha256: "81b5dc4cc34a1c05d2fa24aa8d658cb8f048ca23e63d5aaec420200190f1c4b0"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.1.1"
   dio:
     dependency: "direct main"
     description:

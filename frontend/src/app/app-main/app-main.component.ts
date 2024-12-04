@@ -129,12 +129,10 @@ export class AppMainComponent implements OnInit {
       })
     }));
 
-    console.log(trainings)
-
     const oneRepMaxs: OneRepMaxCollection = data.exercises.reduce((acc, exercise) => {
       acc[exercise.name] = exercise.oneRepMaxList.map((oneRepMax: any) => ({
-        weight: oneRepMax.weight,
-        date: new Date(oneRepMax.date),
+        weight: oneRepMax.value,
+        date: new Date(oneRepMax.timestamp),
       }));
       return acc;
     }, {} as OneRepMaxCollection);

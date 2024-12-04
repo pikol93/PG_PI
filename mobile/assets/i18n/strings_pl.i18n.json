@@ -64,8 +64,8 @@
     "chooseYourWorkout": "Wybierz trening"
   },
   "schema": {
-    "modifyRoutineTitle": "Edytuj schemat rutyny",
-    "routineNameInput": "Nazwa rutyny",
+    "modifyRoutineTitle": "Edytuj schemat planu treningowego",
+    "routineNameInput": "Nazwa planu treningowego",
     "workoutNameInput": "Nazwa treningu",
     "description": "Opis",
     "workout": "Trening"
@@ -76,7 +76,7 @@
     "DoYouWantToChangeMessage": "Czy chcesz zmienić swój 1RM na"
   },
   "routines": {
-    "title": "Rutyny",
+    "title": "Plany treningowe",
     "intensity": "Intensywność",
     "editExerciseName": "Edytuj nazwę ćwiczenia",
     "exerciseName": "Nazwa ćwiczenia",
@@ -86,12 +86,12 @@
     "reps": "Ilość powtórzeń",
     "expectedReps": "Przewidywana ilość powtórzeń",
     "noDataAvailable": "Brak dostępnych danych",
-    "delete": "Usuń rutynę",
+    "delete": "Usuń plan treningowy",
     "areYouSureYouWantToDelete": "Czy na pewno chcesz usunąć",
     "youDidntFinishLastTrainingMessage": "Nie skończyłeś swojego poprzedniego treningu, najpierw zamknij go w zakładce Historia",
-    "gotDeleted": "Usunięto rutynę",
-    "yourRoutines": "Twoje rutyny",
-    "otherRoutines": "Rutyny",
+    "gotDeleted": "Usunięto plan treningowy",
+    "yourRoutines": "Twoje plany treningowe",
+    "otherRoutines": "Plany treningowe",
     "view": "Zobacz",
     "exercise": {
       "exercises": "Ćwiczenia",
@@ -102,12 +102,12 @@
       "setDone": "Zakończ zestaw"
     },
     "routine": {
-      "title": "Rutyna",
+      "title": "Plan treningowy",
       "section": {
-        "oneRepMax": "1RM rutyn",
+        "oneRepMax": "1RM planu treningowego",
         "workouts": "Treningi"
       },
-      "missing": "Brak rutyny"
+      "missing": "Brak planu treningowego"
     },
     "workout": {
       "title": "Trening",
@@ -179,8 +179,8 @@
   "sessions": {
     "history": {
       "title": "Historia sesji",
-      "routineName": "Nazwa rutyny",
-      "unknownRoutine": "Nieznana rutyna",
+      "routineName": "Nazwa planu treningowego",
+      "unknownRoutine": "Nieznany plan treningowy",
       "workoutName": "Nazwa treningu",
       "unknownWorkout": "Nieznany trening",
       "exercises": "Ćwiczenia",

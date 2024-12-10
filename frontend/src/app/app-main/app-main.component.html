@@ -12,7 +12,7 @@
         <ng-template pTemplate="header">
           <tr>
             <th *ngIf="!isSelectCheckboxDisabled"><p-tableHeaderCheckbox [disabled]="isSelectCheckboxDisabled" /></th>
-            <th style="width:30%">Nazwa
+            <th style="width:30%">Nazwa ćwiczenia
               <p-columnFilter field="name" matchMode="in" [showMenu]="false">
                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                   <p-multiSelect [options]="uniqueExerciseNames" [ngModel]="value" placeholder="Show by name"

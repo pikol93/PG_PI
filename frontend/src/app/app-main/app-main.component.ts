@@ -41,7 +41,6 @@ export interface TrainingExercise {
   name: string;
   expectedNumberOfSets: number;
   performedSets: TrainingExerciseSet[];
-  restTime: number;
 }
 
 export interface Training {
@@ -124,7 +123,6 @@ export class AppMainComponent implements OnInit {
             nextId++;
             return performedSet;
           }),
-          restTime: 0, // Assuming restTime is not available in SessionData
         };
       })
     }));
@@ -275,7 +273,7 @@ export class AppMainComponent implements OnInit {
         },
         {
           type: 'bar',
-          label: 'Selected Sets',
+          label: 'Wybrane serie',
           data: barData,
           backgroundColor: barBackgroundColors,
           borderColor: barBorderColors,
@@ -314,7 +312,7 @@ export class AppMainComponent implements OnInit {
         legend: {
           labels: {
             filter: function (item: any, chart: any) {
-              return item.text !== 'Selected Sets';
+              return item.text !== 'Wybrane serie';
             },
             usePointStyle: true,
           }
@@ -356,20 +354,20 @@ export class AppMainComponent implements OnInit {
   calculateExpectedOneRepMax(weight: number, repetitions: number): number {
     const percentageMap = new Map<number, number>([
       [1, 1.00],
-      [2, 0.97],
-      [3, 0.94],
-      [4, 0.92],
-      [5, 0.89],
-      [6, 0.86],
-      [7, 0.83],
-      [8, 0.81],
-      [9, 0.78],
-      [10, 0.75],
-      [11, 0.73],
-      [12, 0.71],
+      [2, 0.92],
+      [3, 0.90],
+      [4, 0.87],
+      [5, 0.85],
+      [6, 0.82],
+      [7, 0.80],
+      [8, 0.75],
+      [9, 0.73],
+      [10, 0.70],
+      [11, 0.68],
+      [12, 0.65],
     ]);
 
-    const percentage = percentageMap.get(repetitions) || 0.71;
+    const percentage = percentageMap.get(repetitions) || 0.65;
     return weight / percentage;
   }
 }

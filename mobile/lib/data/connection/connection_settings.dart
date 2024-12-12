@@ -21,7 +21,7 @@ class ConnectionSettings with _$ConnectionSettings {
 
   Either<FormatException, Uri> createSessionEndpointUrl(String id) =>
       Either.tryCatch(
-        () => Uri.parse("${getAddress()}/session/$id"),
+        () => Uri.parse("${getAddress()}/ui/$id"),
         (a, b) => a as FormatException,
       );
 }

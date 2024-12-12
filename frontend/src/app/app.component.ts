@@ -1,14 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { UserService } from './user.service';
+import { Component } from '@angular/core';
 import { AppMainComponent } from './app-main/app-main.component';
 import { AppFooterComponent } from './app-footer/app-footer.component';
-
-export interface User {
-  first_name: string;
-  last_name: string;
-  username: string;
-  email: string;
-}
+import { RouterOutlet, RouterLink, RouterLinkActive, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -16,25 +9,11 @@ export interface User {
   imports: [
     AppMainComponent,
     AppFooterComponent,
+    RouterOutlet, RouterLink, RouterLinkActive
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'frontend';
-
-  user: User = {
-    first_name: '',
-    last_name: '',
-    username: '',
-    email: '',
-  };
-
-  constructor(private userService: UserService) {}
-
-  ngOnInit(): void {
-    this.userService.getUser('username_value').subscribe((user) => {
-      this.user = user;
-    });
-  }
 }

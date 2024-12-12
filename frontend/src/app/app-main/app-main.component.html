@@ -1,9 +1,6 @@
 <div class="main-container">
   <div class="header-container">
     <img src="assets/logo.png" alt="logo" class="logo" />
-    <p class="header-text">
-      {{ payload.user }}, Raport: #{{ payload.raport_number }}
-    </p>
   </div>
   <div class="button-container">
     <p-button label="POKAŻ WYKRES" (click)="toggleChart()" [disabled]="isGraphButtonDisabled"></p-button>
@@ -11,11 +8,11 @@
   <div class="content-container">
     <div class="card table-placement" [ngClass]="{'chart-visible': showChart}">
       <p-table class="table-placement" [value]="allRows" [rows]="8" [paginator]="true" [(selection)]="selectedSets"
-        [globalFilterFields]="['name.value']" (onFilter)="onFilterChange($event)" dataKey="uuid">
+        [globalFilterFields]="['name']" (onFilter)="onFilterChange($event)" dataKey="id">
         <ng-template pTemplate="header">
           <tr>
             <th *ngIf="!isSelectCheckboxDisabled"><p-tableHeaderCheckbox [disabled]="isSelectCheckboxDisabled" /></th>
-            <th style="width:30%">Nazwa
+            <th style="width:30%">Nazwa ćwiczenia
               <p-columnFilter field="name" matchMode="in" [showMenu]="false">
                 <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                   <p-multiSelect [options]="uniqueExerciseNames" [ngModel]="value" placeholder="Show by name"

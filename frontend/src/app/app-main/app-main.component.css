@@ -19,14 +19,6 @@
   margin-bottom: 20px;
 }
 
-.header-text {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin: 0;
-  text-align: center;
-  flex-grow: 1;
-}
-
 .content-container {
   display: flex;
   justify-content: space-between;

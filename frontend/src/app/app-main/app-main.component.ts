@@ -1,11 +1,12 @@
-import payloadData from '../../assets/data/payload.json';
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ChartModule } from 'primeng/chart';
 import { ButtonModule } from 'primeng/button';
+import { Exercise, ExerciseInWorkout, Routine, SessionData, Sessions, SessionService } from '../session.service';
+import { ActivatedRoute, RouterOutlet } from '@angular/router';
 
 export interface OneRepMax {
   weight: number;
@@ -24,7 +25,6 @@ export interface TrainingExerciseSetDatatable {
   rpe: number;
   uuid: string;
   oneRepMax: number;
-  groupedByDate: string;
 }
 
 export interface TrainingExerciseSet {
@@ -41,7 +41,6 @@ export interface TrainingExercise {
   name: string;
   expectedNumberOfSets: number;
   performedSets: TrainingExerciseSet[];
-  restTime: number;
 }
 
 export interface Training {
@@ -50,8 +49,6 @@ export interface Training {
 }
 
 export interface Payload {
-  user: string;
-  raport_number: string;
   trainings: Training[];
   oneRepMaxs: OneRepMaxCollection;
 }
@@ -59,13 +56,36 @@ export interface Payload {
 @Component({
   selector: 'app-main',
   standalone: true,
-  imports: [TableModule, ChartModule, MultiSelectModule, CommonModule, FormsModule, ButtonModule],
+  imports: [TableModule, ChartModule, MultiSelectModule, CommonModule, FormsModule, ButtonModule, RouterOutlet],
   templateUrl: './app-main.component.html',
   styleUrl: './app-main.component.css',
 })
-export class AppMainComponent {
 
-  payload: Payload = this.transformPayload(payloadData);
+export class AppMainComponent implements OnInit {
+  @Input() sessionUuid: string | undefined;
+
+  constructor(private sessionService: SessionService, private route: ActivatedRoute) {
+    this.route.params.subscribe((params) => {
+      this.sessionUuid = params['sessionUuid'];
+      console.log(this.sessionUuid);
+    });
+  }
+
+  ngOnInit(): void {
+    if (this.sessionUuid) {
+      this.sessionService.getSession(this.sessionUuid).subscribe(
+        (session: Sessions) => {
+          this.payload = this.transformPayload(session.data);
+          this.allRows = this.getAllRows();
+          this.initializeUniqueExerciseNames();
+        },
+        (error) => {
+          console.error('Error fetching session:', error);
+        }
+      );
+    }
+  }
+  payload: Payload | undefined;
   graphData: any;
   chartOptions: any;
   isSelectCheckboxDisabled = true;
@@ -74,40 +94,92 @@ export class AppMainComponent {
 
   uniqueExerciseNames: { label: string, value: string }[] = [];
 
-  constructor() {
-    this.uniqueExerciseNames = Array.from(new Set(this.allRows.map(row => row.name)))
-      .map(name => ({ label: name, value: name }));
+  private initializeUniqueExerciseNames() {
+    if (this.payload) {
+      this.uniqueExerciseNames = Array.from(new Set(this.allRows.map(row => row.name)))
+        .map(name => ({ label: name, value: name }));
+    }
   }
 
-  private transformPayload(data: any): Payload {
-    data.trainings.forEach((training: any) => {
-      training.date = new Date(training.date);
-    });
-    data.oneRepMaxs = Object.keys(data.oneRepMaxs).reduce((acc, key) => {
-      acc[key] = data.oneRepMaxs[key].map((oneRepMax: any) => ({
-        ...oneRepMax,
-        date: new Date(oneRepMax.date),
+  private transformPayload(data: SessionData): Payload {
+    var nextId = 0;
+    const trainings: Training[] = data.sessions.map(session => ({
+      date: new Date(session.startTimestamp),
+      exercises: session.exercises.map(exercise => {
+        const routineExercise = this.findRoutineExercise(data.routines, session.routineId, exercise.exerciseId);
+        return {
+          name: this.findExerciseNameById(data.exercises, exercise.exerciseId),
+          expectedNumberOfSets: exercise.sets.length,
+          performedSets: exercise.sets.map((set, index) => {
+            const performedSet = {
+              expectedReps: routineExercise ? routineExercise.sets[index]?.reps : set.reps,
+              expectedWeight: set.weight,
+              expectedIntensity: routineExercise ? routineExercise.sets[index]?.intensity : set.rpe,
+              weight: set.weight,
+              reps: set.reps,
+              rpe: set.rpe,
+              uuid: nextId.toString(),
+            };
+            nextId++;
+            return performedSet;
+          }),
+        };
+      })
+    }));
+
+    const oneRepMaxs: OneRepMaxCollection = data.exercises.reduce((acc, exercise) => {
+      acc[exercise.name] = exercise.oneRepMaxList.map((oneRepMax: any) => ({
+        weight: oneRepMax.value,
+        date: new Date(oneRepMax.timestamp),
       }));
       return acc;
     }, {} as OneRepMaxCollection);
-    return data;
+
+    return {
+      trainings,
+      oneRepMaxs,
+    };
   }
 
-  allRows = this.payload.trainings.map((training: Training) => {
-    return training.exercises.map((exercise: TrainingExercise) => {
-      return exercise.performedSets.map((set: TrainingExerciseSet) => {
-        return {
-          date: training.date,
-          name: exercise.name,
-          weight: set.weight,
-          reps: set.reps,
-          rpe: set.rpe,
-          uuid: set.uuid,
-          oneRepMax: this.findOneRepMaxForDate(training.date.toISOString().split('T')[0], exercise.name)?.weight,
-        };
+  private findRoutineExercise(routines: Routine[], routineId: number, exerciseId: number): ExerciseInWorkout | null {
+    const routine = routines.find(r => r.id === routineId);
+    if (!routine) return null;
+
+    for (const workout of routine.workouts) {
+      const exercise = workout.exercises.find(e => e.exerciseId === exerciseId);
+      if (exercise) return exercise;
+    }
+
+    return null;
+  }
+
+  private findExerciseNameById(exercises: Exercise[], id: number): string {
+    const exercise = exercises.find(ex => ex.id === id);
+    return exercise ? exercise.name : 'Unknown';
+  }
+
+  allRows: TrainingExerciseSetDatatable[] = [];
+
+  getAllRows(): TrainingExerciseSetDatatable[] {
+    if (!this.payload) {
+      return [];
+    }
+    return this.payload.trainings.map((training: Training) => {
+      return training.exercises.map((exercise: TrainingExercise) => {
+        return exercise.performedSets.map((set: TrainingExerciseSet) => {
+          return {
+            date: training.date,
+            name: exercise.name,
+            weight: set.weight,
+            reps: set.reps,
+            rpe: set.rpe,
+            uuid: set.uuid,
+            oneRepMax: this.findOneRepMaxForDate(training.date.toISOString().split('T')[0], exercise.name)?.weight,
+          };
+        });
       });
-    });
-  }).flat(2) as TrainingExerciseSetDatatable[];
+    }).flat(2) as TrainingExerciseSetDatatable[];
+  }
 
   private _selectedSets: TrainingExerciseSetDatatable[] = [];
 
@@ -201,7 +273,7 @@ export class AppMainComponent {
         },
         {
           type: 'bar',
-          label: 'Selected Sets',
+          label: 'Wybrane serie',
           data: barData,
           backgroundColor: barBackgroundColors,
           borderColor: barBorderColors,
@@ -240,7 +312,7 @@ export class AppMainComponent {
         legend: {
           labels: {
             filter: function (item: any, chart: any) {
-              return item.text !== 'Selected Sets';
+              return item.text !== 'Wybrane serie';
             },
             usePointStyle: true,
           }
@@ -263,6 +335,9 @@ export class AppMainComponent {
 
   private findOneRepMaxForDate(date: string, exerciseName: string): OneRepMax | null {
     const dateObj = new Date(date);
+    if (!this.payload || !this.payload.oneRepMaxs) {
+      return null;
+    }
     const oneRepMaxsForExercise = this.payload.oneRepMaxs[exerciseName];
     if (!oneRepMaxsForExercise) {
       return null;
@@ -279,20 +354,20 @@ export class AppMainComponent {
   calculateExpectedOneRepMax(weight: number, repetitions: number): number {
     const percentageMap = new Map<number, number>([
       [1, 1.00],
-      [2, 0.97],
-      [3, 0.94],
-      [4, 0.92],
-      [5, 0.89],
-      [6, 0.86],
-      [7, 0.83],
-      [8, 0.81],
-      [9, 0.78],
-      [10, 0.75],
-      [11, 0.73],
-      [12, 0.71],
+      [2, 0.92],
+      [3, 0.90],
+      [4, 0.87],
+      [5, 0.85],
+      [6, 0.82],
+      [7, 0.80],
+      [8, 0.75],
+      [9, 0.73],
+      [10, 0.70],
+      [11, 0.68],
+      [12, 0.65],
     ]);
 
-    const percentage = percentageMap.get(repetitions) || 0.71;
+    const percentage = percentageMap.get(repetitions) || 0.65;
     return weight / percentage;
   }
 }
